@@ -1,0 +1,14 @@
+FALTANTES
+
+*DESCRIPCIÓN DEL ENTORNO. 
+Diagrama de contexto y posibles diagramas de interfaz de usuario que reflejen la solucion.
+*ESTUDIO DE ALTERNATIVAS.
+Falta completar algunos datos y realizar diagrama de arquitectura del sistema.
+
+
+ARREGLOS
+
+*PREGUNTAR AL TUTOR POR TEMAS LEGALES
+*REVISAR RIESGOS
+Faltan completar algunos datos
+*VER TODOS LOS COMENTARIOS EN FLUOR Y COMPLETARLOS
