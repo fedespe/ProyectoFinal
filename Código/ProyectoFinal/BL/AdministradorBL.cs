@@ -30,12 +30,12 @@ namespace BL
         {
             //Falta validación
         }
-        public void actualizarContrasena(Administrador admin)
+        public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva)
         {
-            validarContrasena(admin);
-            administradorDAL.actualizarContrasena(admin);
+            validarContrasena(contrasenaNueva);
+            administradorDAL.actualizarContrasena(id,contrasenaAnterior,contrasenaNueva);
         }
-        private void validarContrasena(Administrador admin)
+        private void validarContrasena(string contrasenaNueva)
         {
             //Falta validación
         }

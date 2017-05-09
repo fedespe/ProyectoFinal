@@ -28,11 +28,11 @@ namespace BL
         private void validarActualizacion(Cliente cli) {
             //Falta validación
         }
-        public void actualizarContrasena(Cliente cli) {
-            validarContrasena(cli);
-            clienteDAL.actualizarContrasena(cli);
+        public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva) {
+            validarContrasena(contrasenaNueva);
+            clienteDAL.actualizarContrasena(id,contrasenaAnterior,contrasenaNueva);
         }
-        private void validarContrasena(Cliente cli) {
+        private void validarContrasena(string contrasenaNueva) {
             //Falta validación
         }
         public List<Cliente> getClientes() {

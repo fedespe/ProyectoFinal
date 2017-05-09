@@ -17,7 +17,7 @@ namespace DAL
         {
 
         }
-        public void actualizarContrasena(Administrador admin)
+        public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva)
         {
 
         }

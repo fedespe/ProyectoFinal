@@ -16,7 +16,7 @@ namespace DAL
         {
 
         }
-        public void actualizarContrasena(Cliente cli)
+        public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva)
         {
 
         }

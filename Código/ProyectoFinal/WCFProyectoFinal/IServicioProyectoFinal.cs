@@ -18,12 +18,12 @@ namespace WCFProyectoFinal
         [OperationContract]
         List<DtoCliente> getClientes();
         [OperationContract]
-        void altaCliente(int id, string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
+        void altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
             ,string telefono, bool habilitado, string documento);
         [OperationContract]
         void actualizarCliente(string nombre, string apellido, string telefono, string documento);
         [OperationContract]
-        void actualizarContrasenaCliente(int id, string contrasenaAnterior, string nuevaContrasena);
+        void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
         [OperationContract]
         void habilitarCliente(int id);
         [OperationContract]
@@ -38,12 +38,12 @@ namespace WCFProyectoFinal
         //ADMINISTRADOR
         //**********************************************************
         [OperationContract]
-        void altaAdministrador(int id, string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
+        void altaAdministrador(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
             , string telefono, bool habilitado);
         [OperationContract]
         void actualizarAdministrador(string nombre, string apellido, string telefono);
         [OperationContract]
-        void actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string nuevaContrasena);
+        void actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva);
         [OperationContract]
         List<DtoAdministrador> getAdministradores();
         [OperationContract]
@@ -51,7 +51,7 @@ namespace WCFProyectoFinal
         [OperationContract]
         void deshabilitarAdministrador(int id);
         [OperationContract]
-        DtoAdministrador ingresarAdministrador(string nombre, string pass);
+        DtoAdministrador ingresarAdministrador(string nombreUsuario, string pass);
         //**********************************************************
         //FIN ADMINISTRADOR
         //**********************************************************
