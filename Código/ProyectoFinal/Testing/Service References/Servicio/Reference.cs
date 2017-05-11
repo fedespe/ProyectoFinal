@@ -8,209 +8,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConsolaPruebasWCF.ServicioProyectFinal {
-    using System.Runtime.Serialization;
-    using System;
+namespace Testing.Servicio {
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DtoCliente", Namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal")]
-    [System.SerializableAttribute()]
-    public partial class DtoCliente : ConsolaPruebasWCF.ServicioProyectFinal.DtoUsuario {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DocumentoField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Documento {
-            get {
-                return this.DocumentoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DocumentoField, value) != true)) {
-                    this.DocumentoField = value;
-                    this.RaisePropertyChanged("Documento");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DtoUsuario", Namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal")]
-    [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente))]
-    public partial class DtoUsuario : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ApellidoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ContrasenaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CorreElectronicoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool HabilitadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreUsuarioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TelefonoField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Apellido {
-            get {
-                return this.ApellidoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ApellidoField, value) != true)) {
-                    this.ApellidoField = value;
-                    this.RaisePropertyChanged("Apellido");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Contrasena {
-            get {
-                return this.ContrasenaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ContrasenaField, value) != true)) {
-                    this.ContrasenaField = value;
-                    this.RaisePropertyChanged("Contrasena");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CorreElectronico {
-            get {
-                return this.CorreElectronicoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CorreElectronicoField, value) != true)) {
-                    this.CorreElectronicoField = value;
-                    this.RaisePropertyChanged("CorreElectronico");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Habilitado {
-            get {
-                return this.HabilitadoField;
-            }
-            set {
-                if ((this.HabilitadoField.Equals(value) != true)) {
-                    this.HabilitadoField = value;
-                    this.RaisePropertyChanged("Habilitado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nombre {
-            get {
-                return this.NombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
-                    this.NombreField = value;
-                    this.RaisePropertyChanged("Nombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreUsuario {
-            get {
-                return this.NombreUsuarioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreUsuarioField, value) != true)) {
-                    this.NombreUsuarioField = value;
-                    this.RaisePropertyChanged("NombreUsuario");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Telefono {
-            get {
-                return this.TelefonoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TelefonoField, value) != true)) {
-                    this.TelefonoField = value;
-                    this.RaisePropertyChanged("Telefono");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DtoAdministrador", Namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal")]
-    [System.SerializableAttribute()]
-    public partial class DtoAdministrador : ConsolaPruebasWCF.ServicioProyectFinal.DtoUsuario {
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioProyectFinal.IServicioProyectoFinal")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Servicio.IServicioProyectoFinal")]
     public interface IServicioProyectoFinal {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/getClientes", ReplyAction="http://tempuri.org/IServicioProyectoFinal/getClientesResponse")]
-        ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] getClientes();
+        WCFProyectoFinal.DtoCliente[] getClientes();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/getClientes", ReplyAction="http://tempuri.org/IServicioProyectoFinal/getClientesResponse")]
-        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> getClientesAsync();
+        System.Threading.Tasks.Task<WCFProyectoFinal.DtoCliente[]> getClientesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaClienteResponse")]
         void altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento);
@@ -243,10 +52,10 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         System.Threading.Tasks.Task deshabilitarClienteAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/ingresarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/ingresarClienteResponse")]
-        ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente ingresarCliente(string nombreUsuario, string pass);
+        WCFProyectoFinal.DtoCliente ingresarCliente(string nombreUsuario, string pass);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/ingresarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/ingresarClienteResponse")]
-        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente> ingresarClienteAsync(string nombreUsuario, string pass);
+        System.Threading.Tasks.Task<WCFProyectoFinal.DtoCliente> ingresarClienteAsync(string nombreUsuario, string pass);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaAdministradorResponse")]
         void altaAdministrador(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado);
@@ -269,10 +78,10 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         System.Threading.Tasks.Task actualizarContrasenaAdministradorAsync(int id, string contrasenaAnterior, string contrasenaNueva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/getAdministradores", ReplyAction="http://tempuri.org/IServicioProyectoFinal/getAdministradoresResponse")]
-        ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[] getAdministradores();
+        WCFProyectoFinal.DtoAdministrador[] getAdministradores();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/getAdministradores", ReplyAction="http://tempuri.org/IServicioProyectoFinal/getAdministradoresResponse")]
-        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[]> getAdministradoresAsync();
+        System.Threading.Tasks.Task<WCFProyectoFinal.DtoAdministrador[]> getAdministradoresAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitradorResponse")]
         void habilitarAdminitrador(int id);
@@ -287,19 +96,19 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         System.Threading.Tasks.Task deshabilitarAdministradorAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/ingresarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/ingresarAdministradorResponse")]
-        ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador ingresarAdministrador(string nombreUsuario, string pass);
+        WCFProyectoFinal.DtoAdministrador ingresarAdministrador(string nombreUsuario, string pass);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/ingresarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/ingresarAdministradorResponse")]
-        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador> ingresarAdministradorAsync(string nombreUsuario, string pass);
+        System.Threading.Tasks.Task<WCFProyectoFinal.DtoAdministrador> ingresarAdministradorAsync(string nombreUsuario, string pass);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServicioProyectoFinalChannel : ConsolaPruebasWCF.ServicioProyectFinal.IServicioProyectoFinal, System.ServiceModel.IClientChannel {
+    public interface IServicioProyectoFinalChannel : Testing.Servicio.IServicioProyectoFinal, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServicioProyectoFinalClient : System.ServiceModel.ClientBase<ConsolaPruebasWCF.ServicioProyectFinal.IServicioProyectoFinal>, ConsolaPruebasWCF.ServicioProyectFinal.IServicioProyectoFinal {
+    public partial class ServicioProyectoFinalClient : System.ServiceModel.ClientBase<Testing.Servicio.IServicioProyectoFinal>, Testing.Servicio.IServicioProyectoFinal {
         
         public ServicioProyectoFinalClient() {
         }
@@ -320,11 +129,11 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
                 base(binding, remoteAddress) {
         }
         
-        public ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] getClientes() {
+        public WCFProyectoFinal.DtoCliente[] getClientes() {
             return base.Channel.getClientes();
         }
         
-        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> getClientesAsync() {
+        public System.Threading.Tasks.Task<WCFProyectoFinal.DtoCliente[]> getClientesAsync() {
             return base.Channel.getClientesAsync();
         }
         
@@ -368,11 +177,11 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
             return base.Channel.deshabilitarClienteAsync(id);
         }
         
-        public ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente ingresarCliente(string nombreUsuario, string pass) {
+        public WCFProyectoFinal.DtoCliente ingresarCliente(string nombreUsuario, string pass) {
             return base.Channel.ingresarCliente(nombreUsuario, pass);
         }
         
-        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente> ingresarClienteAsync(string nombreUsuario, string pass) {
+        public System.Threading.Tasks.Task<WCFProyectoFinal.DtoCliente> ingresarClienteAsync(string nombreUsuario, string pass) {
             return base.Channel.ingresarClienteAsync(nombreUsuario, pass);
         }
         
@@ -400,11 +209,11 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
             return base.Channel.actualizarContrasenaAdministradorAsync(id, contrasenaAnterior, contrasenaNueva);
         }
         
-        public ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[] getAdministradores() {
+        public WCFProyectoFinal.DtoAdministrador[] getAdministradores() {
             return base.Channel.getAdministradores();
         }
         
-        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[]> getAdministradoresAsync() {
+        public System.Threading.Tasks.Task<WCFProyectoFinal.DtoAdministrador[]> getAdministradoresAsync() {
             return base.Channel.getAdministradoresAsync();
         }
         
@@ -424,11 +233,11 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
             return base.Channel.deshabilitarAdministradorAsync(id);
         }
         
-        public ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador ingresarAdministrador(string nombreUsuario, string pass) {
+        public WCFProyectoFinal.DtoAdministrador ingresarAdministrador(string nombreUsuario, string pass) {
             return base.Channel.ingresarAdministrador(nombreUsuario, pass);
         }
         
-        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador> ingresarAdministradorAsync(string nombreUsuario, string pass) {
+        public System.Threading.Tasks.Task<WCFProyectoFinal.DtoAdministrador> ingresarAdministradorAsync(string nombreUsuario, string pass) {
             return base.Channel.ingresarAdministradorAsync(nombreUsuario, pass);
         }
     }

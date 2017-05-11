@@ -55,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Service References\ServicioProyectFinal\ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ServicioProyectFinal\ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

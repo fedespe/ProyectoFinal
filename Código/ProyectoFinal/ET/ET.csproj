@@ -43,6 +43,7 @@
     <Compile Include="Administrador.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProyectoException.cs" />
     <Compile Include="SuperAdministrador.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Utilidades.cs" />

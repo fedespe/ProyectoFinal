@@ -19,21 +19,50 @@ namespace BL
         }
         private void validarCliente(Cliente cli)
         {
-            //Falta validación
+            validarActualizacion(cli);
+            validarContrasena(cli.Contrasena);
+            if (cli.NombreUsuario.Length < 3 || cli.NombreUsuario.Length > 15)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
+            //Verificar metodo de comprobar email.
+            if (!(ET.Utilidades.ComprobarFormatoEmail(cli.CorreElectronico)))
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }            
         }
         public void actualizarCliente(Cliente cli) {
             validarActualizacion(cli);
             clienteDAL.actualizarCliente(cli);
         }
         private void validarActualizacion(Cliente cli) {
-            //Falta validación
+            if (cli.Nombre.Length < 3 || cli.Nombre.Length > 20)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
+            if (cli.Apellido.Length < 3 || cli.Apellido.Length > 20)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
+            if (cli.Telefono.Length < 6 || cli.Telefono.Length > 30)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
+            if (cli.Documento.Length < 6 || cli.Documento.Length > 20)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
         }
         public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva) {
             validarContrasena(contrasenaNueva);
             clienteDAL.actualizarContrasena(id,contrasenaAnterior,contrasenaNueva);
         }
         private void validarContrasena(string contrasenaNueva) {
-            //Falta validación
+            //Ver si se le va agregar mas restricciones (expresion regular)
+            if (contrasenaNueva.Length < 8)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
         }
         public List<Cliente> getClientes() {
            return clienteDAL.getClientes();

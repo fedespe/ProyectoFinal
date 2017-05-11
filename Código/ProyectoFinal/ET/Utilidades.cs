@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ET
@@ -21,6 +22,27 @@ namespace ET
             string passwordMD5 = sb.ToString();
 
             return passwordMD5;
+        }
+
+        public static bool ComprobarFormatoEmail(string correo)
+        {
+            String sFormato;
+            sFormato = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(correo, sFormato))
+            {
+                if (Regex.Replace(correo, sFormato, String.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -19,7 +19,17 @@ namespace BL
         }
         private void validarAdministrador(Administrador admin)
         {
-            //Falta validación
+            validarActualizacion(admin);
+            validarContrasena(admin.Contrasena);
+            if (admin.NombreUsuario.Length < 3 || admin.NombreUsuario.Length > 15)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
+            //Verificar metodo de comprobar email.
+            if (!(ET.Utilidades.ComprobarFormatoEmail(admin.CorreElectronico)))
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
         }
         public void actualizarAdministrador(Administrador admin)
         {
@@ -28,7 +38,18 @@ namespace BL
         }
         private void validarActualizacion(Administrador admin)
         {
-            //Falta validación
+            if (admin.Nombre.Length < 3 || admin.Nombre.Length > 20)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
+            if (admin.Apellido.Length < 3 || admin.Apellido.Length > 20)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
+            if (admin.Telefono.Length < 6 || admin.Telefono.Length > 30)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
         }
         public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva)
         {
@@ -37,7 +58,11 @@ namespace BL
         }
         private void validarContrasena(string contrasenaNueva)
         {
-            //Falta validación
+            //Ver si se le va agregar mas restricciones (expresion regular)
+            if (contrasenaNueva.Length < 8)
+            {
+                throw new ProyectoException("Error: mensaje...");
+            }
         }
         public List<Administrador> getAdministradores()
         {
