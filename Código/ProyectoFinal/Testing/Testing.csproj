@@ -58,10 +58,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTestSprint1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ET\ET.csproj">
+      <Project>{24ec23c5-4455-4b52-bd37-c65195bb896d}</Project>
+      <Name>ET</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WCFProyectoFinal\WCFProyectoFinal.csproj">
       <Project>{0d82c232-d052-4650-b77e-6bc5d23643af}</Project>
       <Name>WCFProyectoFinal</Name>

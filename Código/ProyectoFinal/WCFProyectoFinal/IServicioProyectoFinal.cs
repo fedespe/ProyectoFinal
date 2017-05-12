@@ -18,7 +18,7 @@ namespace WCFProyectoFinal
         [OperationContract]
         List<DtoCliente> getClientes();
         [OperationContract]
-        void altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
+        string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
             ,string telefono, bool habilitado, string documento);
         [OperationContract]
         void actualizarCliente(string nombre, string apellido, string telefono, string documento);

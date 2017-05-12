@@ -23,12 +23,12 @@ namespace BL
             validarContrasena(cli.Contrasena);
             if (cli.NombreUsuario.Length < 3 || cli.NombreUsuario.Length > 15)
             {
-                throw new ProyectoException("Error: mensaje...");
+                throw new ProyectoException("Error: NombreUsuario");
             }
             //Verificar metodo de comprobar email.
             if (!(ET.Utilidades.ComprobarFormatoEmail(cli.CorreElectronico)))
             {
-                throw new ProyectoException("Error: mensaje...");
+                throw new ProyectoException("Error: CorreElectronico");
             }            
         }
         public void actualizarCliente(Cliente cli) {
@@ -38,19 +38,19 @@ namespace BL
         private void validarActualizacion(Cliente cli) {
             if (cli.Nombre.Length < 3 || cli.Nombre.Length > 20)
             {
-                throw new ProyectoException("Error: mensaje...");
+                throw new ProyectoException("Error: Nombre");
             }
             if (cli.Apellido.Length < 3 || cli.Apellido.Length > 20)
             {
-                throw new ProyectoException("Error: mensaje...");
+                throw new ProyectoException("Error: Apellido");
             }
             if (cli.Telefono.Length < 6 || cli.Telefono.Length > 30)
             {
-                throw new ProyectoException("Error: mensaje...");
+                throw new ProyectoException("Error: Telefono");
             }
             if (cli.Documento.Length < 6 || cli.Documento.Length > 20)
             {
-                throw new ProyectoException("Error: mensaje...");
+                throw new ProyectoException("Error: Documento");
             }
         }
         public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva) {
@@ -61,7 +61,7 @@ namespace BL
             //Ver si se le va agregar mas restricciones (expresion regular)
             if (contrasenaNueva.Length < 8)
             {
-                throw new ProyectoException("Error: mensaje...");
+                throw new ProyectoException("Error: Contrasena");
             }
         }
         public List<Cliente> getClientes() {

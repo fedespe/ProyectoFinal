@@ -16,11 +16,12 @@ namespace WCFProyectoFinal
     {
         private ClienteBL clienteBL = new ClienteBL();
         private AdministradorBL adminBL = new AdministradorBL();
+        private string mensajeOk = "OK";
 
         //**********************************************************
         //CLIENTE
         //**********************************************************
-        public void altaCliente(string nombre, string apellido, string contrasena, 
+        public string altaCliente(string nombre, string apellido, string contrasena, 
             string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento)
         {
             Cliente cli = new Cliente {
@@ -33,7 +34,14 @@ namespace WCFProyectoFinal
                 NombreUsuario=nombreUsuario,
                 Telefono=telefono
             };
-            clienteBL.altaCliente(cli);
+            try {
+                clienteBL.altaCliente(cli);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex) {
+                return ex.Message;
+            }
+            
         }
         public void actualizarCliente(string nombre, string apellido, string telefono, string documento)
         {

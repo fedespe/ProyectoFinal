@@ -22,10 +22,10 @@ namespace Testing.Servicio {
         System.Threading.Tasks.Task<WCFProyectoFinal.DtoCliente[]> getClientesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaClienteResponse")]
-        void altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento);
+        string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaClienteResponse")]
-        System.Threading.Tasks.Task altaClienteAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento);
+        System.Threading.Tasks.Task<string> altaClienteAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarClienteResponse")]
         void actualizarCliente(string nombre, string apellido, string telefono, string documento);
@@ -137,11 +137,11 @@ namespace Testing.Servicio {
             return base.Channel.getClientesAsync();
         }
         
-        public void altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento) {
-            base.Channel.altaCliente(nombre, apellido, contrasena, nombreUsuario, correoElectronico, telefono, habilitado, documento);
+        public string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento) {
+            return base.Channel.altaCliente(nombre, apellido, contrasena, nombreUsuario, correoElectronico, telefono, habilitado, documento);
         }
         
-        public System.Threading.Tasks.Task altaClienteAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento) {
+        public System.Threading.Tasks.Task<string> altaClienteAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento) {
             return base.Channel.altaClienteAsync(nombre, apellido, contrasena, nombreUsuario, correoElectronico, telefono, habilitado, documento);
         }
         
