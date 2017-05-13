@@ -28,10 +28,10 @@ namespace Testing.Servicio {
         System.Threading.Tasks.Task<string> altaClienteAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarClienteResponse")]
-        void actualizarCliente(string nombre, string apellido, string telefono, string documento);
+        string actualizarCliente(string nombre, string apellido, string telefono, string documento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarClienteResponse")]
-        System.Threading.Tasks.Task actualizarClienteAsync(string nombre, string apellido, string telefono, string documento);
+        System.Threading.Tasks.Task<string> actualizarClienteAsync(string nombre, string apellido, string telefono, string documento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaClienteResponse")]
         void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
@@ -145,11 +145,11 @@ namespace Testing.Servicio {
             return base.Channel.altaClienteAsync(nombre, apellido, contrasena, nombreUsuario, correoElectronico, telefono, habilitado, documento);
         }
         
-        public void actualizarCliente(string nombre, string apellido, string telefono, string documento) {
-            base.Channel.actualizarCliente(nombre, apellido, telefono, documento);
+        public string actualizarCliente(string nombre, string apellido, string telefono, string documento) {
+            return base.Channel.actualizarCliente(nombre, apellido, telefono, documento);
         }
         
-        public System.Threading.Tasks.Task actualizarClienteAsync(string nombre, string apellido, string telefono, string documento) {
+        public System.Threading.Tasks.Task<string> actualizarClienteAsync(string nombre, string apellido, string telefono, string documento) {
             return base.Channel.actualizarClienteAsync(nombre, apellido, telefono, documento);
         }
         

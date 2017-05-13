@@ -43,7 +43,7 @@ namespace WCFProyectoFinal
             }
             
         }
-        public void actualizarCliente(string nombre, string apellido, string telefono, string documento)
+        public string actualizarCliente(string nombre, string apellido, string telefono, string documento)
         {
             Cliente cli = new Cliente
             {
@@ -52,6 +52,15 @@ namespace WCFProyectoFinal
                 Nombre = nombre,
                 Telefono = telefono
             };
+            try
+            {
+                clienteBL.actualizarCliente(cli);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
         }
         public void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva)
         {

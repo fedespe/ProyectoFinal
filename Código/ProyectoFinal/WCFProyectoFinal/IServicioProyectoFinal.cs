@@ -21,7 +21,7 @@ namespace WCFProyectoFinal
         string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
             ,string telefono, bool habilitado, string documento);
         [OperationContract]
-        void actualizarCliente(string nombre, string apellido, string telefono, string documento);
+        string actualizarCliente(string nombre, string apellido, string telefono, string documento);
         [OperationContract]
         void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
         [OperationContract]

@@ -46,7 +46,9 @@
   </xs:element>
   <xs:element name="actualizarClienteResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="actualizarClienteResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="actualizarContrasenaCliente">

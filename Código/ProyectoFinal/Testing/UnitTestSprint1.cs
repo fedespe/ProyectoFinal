@@ -109,6 +109,59 @@ namespace Testing
         //**********************************************************
         //FIN PRUEBAS ALTA CLIENTE
         //**********************************************************
-
+        //**********************************************************
+        //PRUEBAS ACTUALIZAR CLIENTE
+        //**********************************************************
+        [TestMethod]
+        public void actualizarClienteClienteConNombreIncorrecto()
+        {
+            using (Servicio.ServicioProyectoFinalClient cliente = new Servicio.ServicioProyectoFinalClient())
+            {
+                string resultadoObtenido = cliente.actualizarCliente("Fe", "Speroni","099845498", "42614099");
+                Assert.AreEqual("Error: Nombre", resultadoObtenido);
+            }
+        }
+        [TestMethod]
+        public void actualizarClienteClienteConApellidoIncorrecto()
+        {
+            using (Servicio.ServicioProyectoFinalClient cliente = new Servicio.ServicioProyectoFinalClient())
+            {
+                string resultadoObtenido = cliente.actualizarCliente("Federico", "Sp", "099845498", "42614099");
+                Assert.AreEqual("Error: Apellido", resultadoObtenido);
+            }
+        }
+        [TestMethod]
+        public void actualizarClienteClienteConTelefonoIncorrecto()
+        {
+            using (Servicio.ServicioProyectoFinalClient cliente = new Servicio.ServicioProyectoFinalClient())
+            {
+                string resultadoObtenido = cliente.actualizarCliente("Federico", "Speroni", "09984", "42614099");
+                Assert.AreEqual("Error: Telefono", resultadoObtenido);
+            }
+        }
+        [TestMethod]
+        public void actualizarClienteClienteConDocumentoIncorrecto()
+        {
+            using (Servicio.ServicioProyectoFinalClient cliente = new Servicio.ServicioProyectoFinalClient())
+            {
+                string resultadoObtenido = cliente.actualizarCliente("Federico", "Speroni", "099845498", "42614");
+                Assert.AreEqual("Error: Documento", resultadoObtenido);
+            }
+        }
+        [TestMethod]
+        public void actualizarClienteClienteCorrecto()
+        {
+            using (Servicio.ServicioProyectoFinalClient cliente = new Servicio.ServicioProyectoFinalClient())
+            {
+                string resultadoObtenido = cliente.actualizarCliente("Federico", "Speroni", "099845498", "42614099"); ;
+                Assert.AreEqual("OK", resultadoObtenido);
+            }
+        }
+        //**********************************************************
+        //FIN PRUEBAS ACTUALIZAR CLIENTE
+        //**********************************************************
+        //**********************************************************
+        //PRUEBAS ACTUALIZAR CLIENTE
+        //**********************************************************
     }
 }
