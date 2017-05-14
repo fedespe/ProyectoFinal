@@ -1,0 +1,42 @@
+<div class="container">
+    <form class="form-rendererRegister" role="form" (submit)="rendererRegister(firstName.value, lastName.value, email.value, city.value, website.value, country.value, password.value, company.value, business.value)">
+        <h2 class="form-rendererRegister-heading">{{ "renderer-registerTitle" | translate }}</h2>
+
+        <label for="inputFirstName" class="sr-only">{{ "renderer-registerLabelFirstName" | translate }}</label>
+        <input type="text" id="inputFirstName" class="form-control" [placeholder]="'renderer-registerPlaceHolderFirstName' | translate" required autofocus  #firstName>
+        <label for="inputLastName" class="sr-only">{{ "renderer-registerLabelLastName" | translate }}</label>
+        <input type="text" id="inputLastName" class="form-control" [placeholder]="'renderer-registerPlaceHolderLastName' | translate" required autofocus  #lastName>
+        <label for="inputEmail" class="sr-only">{{ "renderer-registerLabelEmail" | translate }}</label>
+        <input type="email" id="inputEmail" class="form-control" [placeholder]="'renderer-registerPlaceHolderEmail' | translate" required autofocus  #email>
+        <label for="inputCity" class="sr-only">{{ "renderer-registerLabelCity" | translate }}</label>
+        <input type="text" id="inputCity" class="form-control" [placeholder]="'renderer-registerPlaceHolderCity' | translate" required autofocus  #city>
+        <label for="inputWebsite" class="sr-only">{{ "renderer-registerLabelWebsite" | translate }}</label>
+        <input type="text" id="inputWebsite" class="form-control" [placeholder]="'renderer-registerPlaceHolderWebsite' | translate" required autofocus  #website>
+        <label for="inputCompany" class="sr-only">{{ "renderer-registerLabelCompany" | translate }}</label>
+        <input type="text" id="inputCompany" class="form-control" [placeholder]="'renderer-registerPlaceHolderCompany' | translate" required autofocus  #company>
+
+        <label for="selectBusiness" class="sr-only">{{ "renderer-registerLabelBusiness" | translate }}</label>
+        <select id="selectBusiness" class="form-control"  required #business>
+            <option value="0">{{ "renderer-registerSelectBusinessOption0" | translate }}</option>
+            <option value="1">{{ "renderer-registerSelectBusinessOption1" | translate }}</option>
+            <option value="2">{{ "renderer-registerSelectBusinessOption2" | translate }}</option>
+        </select>
+
+        <label for="selectCountry" class="sr-only">{{ "renderer-registerLabelCountry" | translate }}</label>
+        <select id="selectCountry" class="form-control"  required #country>
+            <option *ngFor="let pais of paises;" [value]="pais.PaisId">{{pais.PaisNombre}}</option>
+        </select>
+
+        <label for="inputPassword" class="sr-only">{{ "renderer-registerLabelPassword" | translate }}</label>
+        <input type="password" id="inputPassword" class="form-control" [placeholder]="'renderer-registerPlaceHolderPassword' | translate" required #password>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ "renderer-registerBtnRegister" | translate }}</button>
+
+        {{ message }}
+        <div *ngIf="errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of errores;">
+                {{error.Description}}
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">MARPH</h3>
+                    <nav class="nav nav-masthead">
+                        <a class="nav-link opcionMenuPrincipal active" href="">{{ "welcomeLinkHome" | translate }}</a>
+                        <a class="nav-link opcionMenuPrincipal" [routerLink]="['login']">{{ "welcomeLinkLogin" | translate }}</a>
+                        <a class="nav-link opcionMenuPrincipal" href="">{{ "welcomeLinkContact" | translate }}</a>
+
+                        <li class="nav-item opcionMenuPrincipal dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ "welcomeLinkCreateUser" | translate }}
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="nav-link" [routerLink]="['client-register']">{{ "welcomeLinkCreateUserClient" | translate }}</a>
+                                <a class="nav-link" [routerLink]="['renderer-register']">{{ "welcomeLinkCreateUserRenderer" | translate }}</a>
+                            </div>
+                        </li>
+
+                        <a class="nav-link opcionMenuPrincipal" (click)="changeLang('en')">ENG</a>
+                        <a class="nav-link opcionMenuPrincipal" (click)="changeLang('es')">ESP</a>
+
+                    </nav>
+                </div>
+            </div>
+            <div class="inner cover">
+                <h1 class="cover-heading">{{ "welcomeTitle" | translate }}</h1>
+                <p class="lead">{{ "welcomeText" | translate }}</p>
+                <p class="lead">
+                    <a [routerLink]="['login']" class="btn btn-lg btn-secondary">{{ "welcomeBtnLogin" | translate }}</a>
+                </p>
+            </div>
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>MARPH <a href="https://MARPH.com"></a> by <a href="http://bigcheese.com.uy" target="_blank">Big Cheese</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

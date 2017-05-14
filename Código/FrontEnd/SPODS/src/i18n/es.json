@@ -1,0 +1,21 @@
+{
+  "welcomeLinkHome" : "Inicio",
+  "welcomeLinkLogin" : "Ingresar",
+  "welcomeLinkContact" : "Contacto",
+  "welcomeLinkCreateUser" : "Crear Usuario",
+  "welcomeLinkCreateUserClient" : "Cliente",
+  "welcomeLinkCreateUserRenderer" : "Renderista",
+  "welcomeTitle" : "Servicios de Renderización 3D",
+  "welcomeText" : "Nuestra misión es crear una plataforma en línea capaz de abastecer al mercado global con CGIs de alta calidad. Encuentre al mejor artista 3D haciendo un click; el pago sólo se realiza cuando se aprueba el trabajo. Con cientos de artistas 3D de más de 65 países, Easy Render ofrece un servicio incomparable en el campo de la representación arquitectónica y visualizaciones 3D.",
+  "welcomeBtnLogin" : "Comienza",
+
+  "loginTitle": "Iniciar Sesión",
+  "loginLabelEmail": "Dirección de email",
+  "loginPlaceHolderEmail": "Dirección de email",
+  "loginLabelPassword": "Contraseña",
+  "loginPlaceHolderPassword": "Contraseña",
+  "loginChkRemember": "Recordarme",
+  "loginBtnSignIn": "Iniciar sesión",
+  "loginLinkClientRegister" : "Registarse como cliente",
+  "loginLinkRendererRegister" : "Registarse como renderista"
+}

@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="title">
+        <h4>{{ "my-profile-clientTitle" | translate }}</h4>
+    </div>
+
+
+    <form *ngIf="usuario">
+            <div class="form-group">
+
+                <label>{{ "my-profile-clientLabelNombre" | translate }}</label>
+                <div>
+                    <input type="text" class="form-control " disabled={{editar}} [(ngModel)]="usuario.UsuarioNombre" name="UsuarioNombre" />
+                </div>
+
+                <label>{{ "my-profile-clientLabelApellido" | translate }}</label>
+                <div>
+                    <input type="text" class="form-control" disabled={{editar}} [(ngModel)]="usuario.UsuarioApellido" name="UsuarioApellido" />
+                </div>
+
+                <label>{{ "my-profile-clientLabelEmail" | translate }}</label>
+                <div>
+                    <input type="email" class="form-control" disabled="true"  [(ngModel)]="usuario.UsuarioEmail" name="UsuarioEmail" />
+                </div>
+
+                <label>{{ "my-profile-clientLabelWeb" | translate }}</label>
+                <div>
+                    <input type="url" class="form-control" disabled={{editar}}  [(ngModel)]="usuario.UsuarioSitioWeb" name="UsuarioSitioWeb" />
+                </div>
+
+                <label>{{ "my-profile-clientLabelPais" | translate }}</label>
+                <!--<div>-->
+                    <!--<input type="text" class="form-control" disabled={{editar}}  [(ngModel)]="usuario.PaisNombre" name="UsuarioPais" />-->
+                <!--</div>-->
+
+                <select id="selectCountry"  class="form-control"  ng-options="pais.PaisNombre for pais in usuario.UsuarioPais">//no anda
+                    <option *ngFor="let pais of paises;" [value]="pais.PaisNombre " disabled={{editar}}>{{pais.PaisNombre}}</option>
+                </select>
+
+                <label >{{ "my-profile-clientLabelCiudad" | translate }}</label>
+                <div>
+                    <input type="text" class="form-control" disabled={{editar}}  [(ngModel)]="usuario.UsuarioCiudad" name="UsuarioCiudad" />
+                </div>
+
+
+                <label>{{ "my-profile-clientLabelEmpresa" | translate }}</label>
+                <div>
+                    <input type="text" class="form-control" disabled={{editar}} [(ngModel)]="cliente.ClienteEmpresa" name="UsuarioClienteEmpresa" />
+                </div>
+
+                <label>{{ "my-profile-clientLabelRubro" | translate }}</label>
+                <div>
+                    <input type="text" class="form-control" disabled={{editar}} [(ngModel)]="cliente.ClienteRubro" name="UsuarioClienteRubro" />
+                </div>
+                <select id="selectBusiness" class="form-control" ng-options=" value in cliente.ClienteRubro">//no anda
+                <option value="0">{{ "client-registerSelectBusinessOption0" | translate }}</option>
+                <option value="1">{{ "client-registerSelectBusinessOption1" | translate }}</option>
+                <option value="2">{{ "client-registerSelectBusinessOption2" | translate }}</option>
+                <option value="3">{{ "client-registerSelectBusinessOption3" | translate }}</option>
+                <option value="4">{{ "client-registerSelectBusinessOption4" | translate }}</option>
+                <option value="5">{{ "client-registerSelectBusinessOption5" | translate }}</option>
+                <option value="6">{{ "client-registerSelectBusinessOption6" | translate }}</option>
+                </select>
+            </div>
+
+        <div class="row">
+
+            <button type="button" class="buttonAdd btn btn-default col-xs-12 col-md-4 offset-md-4" aria-label="Left Align" (click)="editClient()" >{{ "my-profile-clientButtonEdit" | translate }}</button>
+            <button type="button" class="buttonAdd btn btn-default col-xs-12 col-md-4 offset-md-4" aria-label="Left Align" (click)="saveClient()" >{{ "my-profile-clientButtonSave" | translate }}</button>
+            <button type="button" class="buttonAdd btn btn-default col-xs-12 col-md-4 offset-md-4" aria-label="Left Align" (click)="cancelEdit()" >{{ "my-profile-clientButtonCancel" | translate }}</button>
+
+        </div>
+
+        {{ message }}
+        <div *ngIf="errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of errores;">
+                {{error.Description}}
+            </div>
+        </div>
+    </form>
+</div>
+
+

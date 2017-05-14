@@ -1,0 +1,238 @@
+USE master
+GO
+IF EXISTS(SELECT * FROM SYS.DATABASES WHERE Name='SPODS')
+DROP DATABASE SPODS;
+GO
+
+CREATE DATABASE SPODS;
+GO
+
+USE SPODS;
+GO
+
+CREATE TABLE DEPARTAMENTO
+(
+	Id	INT  NOT NULL IDENTITY(1,1),
+	Nombre NVARCHAR(50) NOT NULL
+
+	CONSTRAINT PK_DEPARTAMENTO PRIMARY KEY(Id),
+	CONSTRAINT UK_Nombre_DEPARTAMENTO UNIQUE(Nombre)
+);
+GO
+
+CREATE TABLE BARRIO
+(
+	Id	INT  NOT NULL IDENTITY(1,1),
+	Nombre NVARCHAR(50) NOT NULL,
+	DepartamentoId INT NOT NULL,
+
+	CONSTRAINT PK_BARRIO PRIMARY KEY(Id),
+	CONSTRAINT UK_Nombre_DepartamentoId_BARRIO UNIQUE(Nombre, DepartamentoId),
+	CONSTRAINT FK_DepartamentoId_BARRIO FOREIGN KEY (DepartamentoId) REFERENCES DEPARTAMENTO (Id)
+);
+GO
+
+CREATE TABLE USUARIO
+(
+	Id	INT  NOT NULL IDENTITY(1,1),
+	Documento NVARCHAR(20) NOT NULL,
+	Nombre NVARCHAR(30) NOT NULL,
+	Apellido NVARCHAR(30) NOT NULL,
+	NombreUsuario NVARCHAR(50) NOT NULL,
+	Contrasenia NVARCHAR(MAX) NOT NULL,
+	UltimaModificacionContrasenia DATETIME NOT NULL,
+	Habilitado BIT NOT NULL,
+	Email NVARCHAR(50) NOT NULL,
+	Telefono NVARCHAR(20) NOT NULL,
+	Direccion NVARCHAR (100) NOT NULL,
+	FechaAlta DATETIME NOT NULL,
+	Tipo NVARCHAR(20) NOT NULL,
+	BarrioId INT NOT NULL,
+
+	CONSTRAINT PK_USUARIO PRIMARY KEY(Id),
+	CONSTRAINT UK_NombreUsuario_USUARIO UNIQUE(NombreUsuario),
+	CONSTRAINT UK_Email_USUARIO UNIQUE(Email),
+	CONSTRAINT FK_BarrioId_USUARIO FOREIGN KEY (BarrioId) REFERENCES BARRIO (Id),
+	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_USUARIO CHECK (FechaAlta <= GetDate()),  --Ver: Ojo con la hora!!!
+	CONSTRAINT CK_COL_Tipo_InValores_TAB_USUARIO CHECK (Tipo in('CLIENTE', 'ADMINISTRADOR', 'SUPERADMINISTRADOR'))
+);
+GO
+
+CREATE TABLE CLIENTE
+(
+	UsuarioId INT  NOT NULL,
+
+	CONSTRAINT PK_CLIENTE PRIMARY KEY(UsuarioId),
+	CONSTRAINT FK_UsuarioId_CLIENTE FOREIGN KEY (UsuarioId) REFERENCES USUARIO (Id)
+);
+GO
+
+CREATE TABLE ADMINISTRADOR
+(
+	UsuarioId INT  NOT NULL,
+
+	CONSTRAINT PK_ADMINISTRADOR PRIMARY KEY(UsuarioId),
+	CONSTRAINT FK_UsuarioId_ADMINISTRADOR FOREIGN KEY (UsuarioId) REFERENCES USUARIO (Id)
+);
+GO
+
+CREATE TABLE SUPERADMINISTRADOR
+(
+	UsuarioId INT  NOT NULL,
+
+	CONSTRAINT PK_SUPERADMINISTRADOR PRIMARY KEY(UsuarioId),
+	CONSTRAINT FK_UsuarioId_SUPERADMINISTRADOR FOREIGN KEY (UsuarioId) REFERENCES USUARIO (Id)
+);
+GO
+
+CREATE TABLE SERVICIO
+(
+	Id	INT  NOT NULL IDENTITY(1,1),
+	Nombre NVARCHAR(30) NOT NULL,
+	Imagen NVARCHAR(300) NOT NULL,
+	Habilitado BIT NOT NULL,
+	FechaCreacion DATETIME NOT NULL,
+	Tipo NVARCHAR(20) NOT NULL,
+
+	CONSTRAINT PK_SERVICIO PRIMARY KEY(Id),
+	CONSTRAINT UK_Nombre_SERVICIO UNIQUE(Nombre),
+	CONSTRAINT UK_Imagen_SERVICIO UNIQUE(Imagen),
+	CONSTRAINT CK_COL_FechaCreacion_MenorIgual_Hoy_TAB_SERVICIO CHECK (FechaCreacion <= GetDate()),  --Ver: Ojo con la hora!!!
+	CONSTRAINT CK_COL_Tipo_InValores_TAB_SERVICIO CHECK (Tipo in('COMUN', 'COMPLEJO'))
+);
+GO
+
+CREATE TABLE COMUN
+(
+	ServicioId INT  NOT NULL,
+
+	CONSTRAINT PK_COMUN PRIMARY KEY(ServicioId),
+	CONSTRAINT FK_ServicioId_COMUN FOREIGN KEY (ServicioId) REFERENCES SERVICIO (Id)
+);
+GO
+
+CREATE TABLE COMPLEJO
+(
+	ServicioId INT  NOT NULL,
+	Tipo NVARCHAR(20) NOT NULL,
+
+	CONSTRAINT PK_COMPLEJO PRIMARY KEY(ServicioId),
+	CONSTRAINT FK_ServicioId_COMPLEJO FOREIGN KEY (ServicioId) REFERENCES SERVICIO (Id),
+	CONSTRAINT CK_COL_Tipo_InValores_TAB_COMPLEJO CHECK (Tipo in('MECANICA'))
+);
+GO
+
+CREATE TABLE MECANICA
+(
+	ServicioId INT NOT NULL,
+
+	CONSTRAINT PK_MECANICA PRIMARY KEY(ServicioId),
+	CONSTRAINT FK_ServicioId_MECANICA FOREIGN KEY (ServicioId) REFERENCES COMPLEJO (ServicioId)
+);
+GO
+
+CREATE TABLE PUBLICACION
+(
+	Id	INT  NOT NULL IDENTITY(1,1),
+	Titulo NVARCHAR(50) NOT NULL,
+	Descripcion NVARCHAR(150) NOT NULL,
+	Activa BIT NOT NULL,
+	FechaAlta DATETIME NOT NULL,
+	FechaVencimiento DATETIME,
+	Tipo NVARCHAR(20) NOT NULL,
+	Horario NVARCHAR(20) NOT NULL, --Ver si lo dejamos acá y como este tipo de dato
+	ServicioId INT NOT NULL,
+	ClienteId INT NOT NULL,
+
+	CONSTRAINT PK_PUBLICACION PRIMARY KEY(Id),
+	CONSTRAINT FK_ServicioId_PUBLICACION FOREIGN KEY (ServicioId) REFERENCES SERVICIO (Id),
+	CONSTRAINT FK_ClienteId_PUBLICACION FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
+	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_PUBLICACION CHECK (FechaAlta <= GetDate()), --Ver: Ojo con la hora!!!
+	CONSTRAINT CK_COL_FechaVencimiento_Mayor_FechaAlta_TAB_PUBLICACION CHECK (FechaVencimiento > FechaAlta),
+	CONSTRAINT CK_COL_Tipo_InValores_TAB_PUBLICACION CHECK (Tipo in('OFERTA', 'SOLICITUD'))
+);
+GO
+
+CREATE TABLE PUBLICACION_IMAGEN
+(
+	PublicacionId INT NOT NULL,
+	Imagen NVARCHAR(300) NOT NULL,
+
+	CONSTRAINT PK_PUBLICACION_IMAGEN PRIMARY KEY(PublicacionId, Imagen),
+	CONSTRAINT FK_PublicacionId_PUBLICACION_IMAGEN FOREIGN KEY (PublicacionId) REFERENCES PUBLICACION (Id)
+);
+GO
+
+CREATE TABLE OFERTA
+(
+	PublicacionId INT  NOT NULL,
+
+	CONSTRAINT PK_OFERTA PRIMARY KEY(PublicacionId),
+	CONSTRAINT FK_PublicacionId_OFERTA FOREIGN KEY (PublicacionId) REFERENCES PUBLICACION (Id)
+);
+GO
+
+CREATE TABLE SOLICITUD
+(
+	PublicacionId INT  NOT NULL,
+
+	CONSTRAINT PK_SOLICITUD PRIMARY KEY(PublicacionId),
+	CONSTRAINT FK_PublicacionId_SOLICITUD FOREIGN KEY (PublicacionId) REFERENCES PUBLICACION (Id)
+);
+GO
+
+CREATE TABLE DENUNCIA
+(
+	Id	INT  NOT NULL IDENTITY(1,1),
+	FechaRealizacion DATETIME NOT NULL,
+	FechaResolucion DATETIME,--Hacer mediante Trigger la restricción de que si FechaResolucion o Resolucion no son NULL, el otro tampoco puede serlo. También hacer que no puede tener resolucion o fecharesolucion si AdministradorId es NULL
+	Resolucion NVARCHAR(200),
+	AdministradorId INT,
+	ClienteId INT NOT NULL,
+	ClienteDenunciadoId INT, --Hacer mediante Trigger la restricción de que si uno es NULL, el otro no puede serlo y que si uno tiene dato, el otro debe der NULL.
+	PublicacionDenuinciadaId INT,
+
+	CONSTRAINT PK_DENUNCIA PRIMARY KEY(Id),
+	CONSTRAINT FK_AdministradorId_DENUNCIA FOREIGN KEY (AdministradorId) REFERENCES ADMINISTRADOR (UsuarioId),
+	CONSTRAINT FK_ClienteId_DENUNCIA FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
+	CONSTRAINT FK_ClienteDenunciadoId_DENUNCIA FOREIGN KEY (ClienteDenunciadoId) REFERENCES CLIENTE (UsuarioId),
+	CONSTRAINT FK_PublicacionDenuinciadaId_DENUNCIA FOREIGN KEY (PublicacionDenuinciadaId) REFERENCES PUBLICACION (Id),
+	CONSTRAINT CK_COL_FechaRealizacion_MenorIgual_Hoy_TAB_DENUNCIA CHECK (FechaRealizacion <= GetDate()), --Ver: Ojo con la hora!!!
+	CONSTRAINT CK_COL_FechaResolucion_Mayor_FechaRealizacion_TAB_DENUNCIA CHECK (FechaResolucion > FechaRealizacion) --Ver: Ojo con el tema de los NULL!!!
+);
+GO
+
+CREATE TABLE PROVEE
+(
+	ClienteId INT NOT NULL,
+	ServicioId INT NOT NULL,
+	Habilitado BIT NOT NULL,
+
+	CONSTRAINT PK_PROVEE PRIMARY KEY(ClienteId, ServicioId),
+	CONSTRAINT FK_ClienteId_PROVEE FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
+	CONSTRAINT FK_ServicioId_PROVEE FOREIGN KEY (ServicioId) REFERENCES SERVICIO (Id)
+);
+GO
+
+CREATE TABLE PRESUPUESTA
+(
+	ClienteId INT NOT NULL,
+	SolicitudId INT NOT NULL,
+	Comentario NVARCHAR(150) NOT NULL,
+	Horario NVARCHAR(20) NOT NULL, --Ver si lo dejamos acá y como este tipo de dato
+	Precio MONEY NOT NULL,
+	Aceptado BIT NOT NULL,
+	Descartado BIT NOT NULL,
+	Destacado BIT NOT NULL,
+
+	CONSTRAINT PK_PRESUPUESTA PRIMARY KEY(ClienteId, SolicitudId), --Ver, porque de repente lo dejamos presupuestar más de una vez y en ese caso lo deberíamos cambiar...
+	CONSTRAINT FK_ClienteId_PRESUPUESTA FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
+	CONSTRAINT FK_SolicitudId_PRESUPUESTA FOREIGN KEY (SolicitudId) REFERENCES SOLICITUD (PublicacionId)
+);
+GO
+
+/*
+Contrata: ClienteId, OfertaId, Fecha, FechaLimiteCalificacion
+Realiza: ClienteId, PublicacionId, AdministradorId, FechaEvaluada, Aprobada, Comentario
+Califica: ClienteId, ClientePublicaId, PublicacionId, Puntaje, Comentario, FechaRealizado
+*/

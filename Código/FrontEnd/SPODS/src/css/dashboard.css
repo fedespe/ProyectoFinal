@@ -1,0 +1,85 @@
+.container {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+.sidebar {
+  position: fixed;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  border-right: 1px solid #eee;
+  background-color: #414344;
+}
+
+.sidebar {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar .nav {
+  margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+  width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+  margin-left: 0;
+}
+
+.sidebar .nav-link {
+  border-radius: 0;
+}
+
+.placeholders {
+  padding-bottom: 3rem;
+}
+
+.placeholder img {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.linkMenu{
+  color: #f1a822;
+}
+
+.linkMenu.active{
+  background-color: #f1a822;
+}
+
+.active .linkMenuBar{
+  color: #f1a822;
+}
+
+.btnSearch{
+   color: #f1a822;
+   border-color: #f1a822;
+}
+
+.btnSearch:Hover{
+  color: #000;
+  border-color: #000;
+  background-color: #f1a822;
+}
+
+/*#navbarsExampleDefault{*/
+  /*background-color: #000000;*/
+  /*color: #000000;*/
+/*}*/
+
+.ContenedorDashboard{
+  margin-top: 20px;
+}
