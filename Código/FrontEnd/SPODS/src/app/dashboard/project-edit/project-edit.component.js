@@ -58,7 +58,7 @@ var ProjectEditComponent = (function () {
         else {
             var er;
             er = new error_1.Error();
-            er.Description = "Debe indicar un proyecto.";
+            er.Descripcion = "Debe indicar un proyecto.";
             this.errores.push(er);
         }
     };

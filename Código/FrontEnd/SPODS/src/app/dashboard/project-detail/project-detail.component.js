@@ -64,7 +64,7 @@ var ProjectDetailComponent = (function () {
         else {
             var er;
             er = new error_1.Error();
-            er.Description = "Debe indicar un proyecto.";
+            er.Descripcion = "Debe indicar un proyecto.";
             this.errores.push(er);
         }
     };
@@ -171,7 +171,7 @@ var ProjectDetailComponent = (function () {
         if (response.ErrorCode == 200) {
             var aviso;
             aviso = new error_1.Error();
-            aviso.Description = "Se ha generado una nueva versión del render.";
+            aviso.Descripcion = "Se ha generado una nueva versión del render.";
             this.avisosPopUp.push(aviso);
         }
         else {
@@ -286,7 +286,7 @@ var ProjectDetailComponent = (function () {
         if (response.ErrorCode == 200) {
             var aviso;
             aviso = new error_1.Error();
-            aviso.Description = "Comentarios guardados con éxito.";
+            aviso.Descripcion = "Comentarios guardados con éxito.";
             this.avisosPopUp.push(aviso);
         }
         else {
@@ -297,7 +297,7 @@ var ProjectDetailComponent = (function () {
         console.log("[project-edit.component.ts] - postRenderVersionsEditError: " + JSON.stringify(error));
         var er;
         er = new error_1.Error();
-        er.Description = "An error has ocurred.";
+        er.Descripcion = "An error has ocurred.";
         this.erroresPopUp.push(er);
     };
     return ProjectDetailComponent;

@@ -74,7 +74,7 @@ export class ProjectDetailComponent implements OnInit{
             var er: Error;
 
             er = new Error();
-            er.Description = "Debe indicar un proyecto.";
+            er.Descripcion = "Debe indicar un proyecto.";
             this.errores.push(er);
         }
     }
@@ -209,7 +209,7 @@ export class ProjectDetailComponent implements OnInit{
         if(response.ErrorCode ==  200){
             var aviso:Error;
             aviso = new Error();
-            aviso.Description = "Se ha generado una nueva versión del render.";
+            aviso.Descripcion = "Se ha generado una nueva versión del render.";
             this.avisosPopUp.push(aviso);
         }
         else{
@@ -344,7 +344,7 @@ export class ProjectDetailComponent implements OnInit{
         if(response.ErrorCode ==  200){
             var aviso:Error;
             aviso = new Error();
-            aviso.Description = "Comentarios guardados con éxito.";
+            aviso.Descripcion = "Comentarios guardados con éxito.";
             this.avisosPopUp.push(aviso);
         }
         else{
@@ -356,7 +356,7 @@ export class ProjectDetailComponent implements OnInit{
         console.log("[project-edit.component.ts] - postRenderVersionsEditError: " + JSON.stringify(error));
         var er:Error;
         er = new Error();
-        er.Description = "An error has ocurred.";
+        er.Descripcion = "An error has ocurred.";
         this.erroresPopUp.push(er);
     }
 }

@@ -61,7 +61,7 @@ export class ProjectEditComponent implements OnInit{
             var er: Error;
 
             er = new Error();
-            er.Description = "Debe indicar un proyecto.";
+            er.Descripcion = "Debe indicar un proyecto.";
             this.errores.push(er);
         }
     }

@@ -57,12 +57,12 @@ var LoginComponent = (function () {
         var er;
         if (username == "") {
             er = new error_1.Error();
-            er.Description = "Debe ingresar un nombre.";
+            er.Descripcion = "Debe ingresar un nombre.";
             this.errores.push(er);
         }
         if (password == "") {
             er = new error_1.Error();
-            er.Description = "Debe ingresar una contraseña.";
+            er.Descripcion = "Debe ingresar una contraseña.";
             this.errores.push(er);
         }
     };

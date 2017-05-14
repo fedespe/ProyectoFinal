@@ -58,7 +58,7 @@ export class UserForgotPasswordComponent {
 
     cargarMensaje(){
         var mensaje: Error=new Error();
-        mensaje.Description="forgot-passwordMessage";
+        mensaje.Descripcion="forgot-passwordMessage";
         this.mensajes.push(mensaje);
 
     }
@@ -71,7 +71,7 @@ export class UserForgotPasswordComponent {
         this.errores = response.Errors;
         if(response.ErrorCode ==  200){
             var mensaje: Error=new Error();
-            mensaje.Description="Check your mail!. We have sent you an email with the steps to follow.//traduccion";
+            mensaje.Descripcion="Check your mail!. We have sent you an email with the steps to follow.//traduccion";
 
             this.mensajes.push(mensaje);
             console.log("[user-forgot-password.component.ts] - 2");
