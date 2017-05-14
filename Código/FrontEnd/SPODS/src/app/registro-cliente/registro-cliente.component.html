@@ -1,0 +1,28 @@
+<div class="container">
+    <form class="form-clientRegister" role="form">
+        <h2 class="form-clientRegister-heading">Registro de usuario</h2>
+
+        <div *ngIf="cliente">
+            <label for="inputNombre" class="sr-only">Nombre</label>
+            <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
+
+            <label for="inputApellido" class="sr-only">Apellido</label>
+            <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
+
+            <button class="btn btn-lg btn-primary btn-block" (click)="registrarCliente()">Registrarse</button>
+        </div>
+
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+
+    </form>
+</div>

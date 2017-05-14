@@ -121,7 +121,7 @@ export class LoginComponent implements OnInit{
     }
 
     goClientRegister(){
-        this.router.navigateByUrl('/client-register');
+        this.router.navigateByUrl('/registro-cliente');
     }
     goRendererRegister(){
         this.router.navigateByUrl('/renderer-register');

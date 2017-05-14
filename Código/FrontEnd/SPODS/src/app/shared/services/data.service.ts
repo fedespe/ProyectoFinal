@@ -52,14 +52,7 @@ export class DataService {
             .catch(this.handleError);
     }
 
-    public postClientRegister(usuario:Usuario, cliente:Cliente){
-        console.log("[data.service.ts] - postClientRegister");
-        var renderista:Renderista = new Renderista("","");
-        let body = '{"SDTUsuario": '+ JSON.stringify(usuario) +',"SDTRenderista": '+ JSON.stringify(renderista) +',"SDTCliente": '+ JSON.stringify(cliente) +'}';
-        return this.http.post(this.baseUrl + '/rest/CreateUsuario', body, { headers: this.contentHeadersJson })
-            .map((res: Response) => res.json())
-            .catch(this.handleError);
-    }
+    
 
     public postUserEdit(usuario:Usuario, cliente:Cliente, renderista:Renderista){
         console.log("[data.service.ts] - postUserEdit");
@@ -72,7 +65,7 @@ export class DataService {
 
     public postRendererRegister(usuario:Usuario, renderista:Renderista){
         console.log("[data.service.ts] - postRendererRegister");
-        var cliente:Cliente = new Cliente("","");
+        var cliente:Cliente = new Cliente();
         let body = '{"SDTUsuario": '+ JSON.stringify(usuario) +',"SDTRenderista": '+ JSON.stringify(renderista) +',"SDTCliente": '+ JSON.stringify(cliente) +'}';
         return this.http.post(this.baseUrl + '/rest/CreateUsuario', body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
@@ -213,6 +206,18 @@ export class DataService {
         }
     }
 
+    //2017-05-14
+    public postRegistroCliente(cliente:Cliente){
+        console.log("[data.service.ts] - postRegistroCliente");
+
+        let body = '{"dtoCliente": '+ JSON.stringify(cliente) +'}';
+
+        //Ver el baseURL
+        //Ver los Headers
+        return this.http.post(this.baseUrl + '/altaCliente', body, { headers: this.contentHeadersJson })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
 
     private handleError(error: any) {
         return Observable.throw(error.json().error || " server error");

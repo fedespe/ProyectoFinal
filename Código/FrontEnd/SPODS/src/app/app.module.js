@@ -18,7 +18,7 @@ var dashboard_component_1 = require("./dashboard/dashboard.component");
 var projects_component_1 = require("./dashboard/projects/projects.component");
 var project_component_1 = require("./dashboard/project/project.component");
 var render_component_1 = require("./dashboard/project/render/render.component");
-var client_register_component_1 = require("./client-register/client-register.component");
+var registro_cliente_component_1 = require("./registro-cliente/registro-cliente.component");
 var renderer_register_component_1 = require("./renderer-register/renderer-register.component");
 var project_register_component_1 = require("./dashboard/project-register/project-register.component");
 var my_projects_component_1 = require("./dashboard/my-projects/my-projects.component");
@@ -31,7 +31,7 @@ var user_forgot_password_component_1 = require("./user-forgot-password/user-forg
 var appRoutes = [
     { path: '', component: welcome_component_1.WelcomeComponent },
     { path: 'login', component: login_component_1.LoginComponent },
-    { path: 'client-register', component: client_register_component_1.ClientRegisterComponent },
+    { path: 'registro-cliente', component: registro_cliente_component_1.RegistroClienteComponent },
     { path: 'renderer-register', component: renderer_register_component_1.RendererRegisterComponent },
     { path: 'user-forgot-password', component: user_forgot_password_component_1.UserForgotPasswordComponent },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent,
@@ -61,7 +61,7 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent, login_component_1.LoginComponent, dashboard_component_1.DashboardComponent, welcome_component_1.WelcomeComponent, projects_component_1.ProjectsComponent, project_component_1.ProjectComponent,
-            render_component_1.RenderComponent, client_register_component_1.ClientRegisterComponent, renderer_register_component_1.RendererRegisterComponent, project_register_component_1.ProjectRegisterComponent, my_projects_component_1.MyProjectsComponent,
+            render_component_1.RenderComponent, registro_cliente_component_1.RegistroClienteComponent, renderer_register_component_1.RendererRegisterComponent, project_register_component_1.ProjectRegisterComponent, my_projects_component_1.MyProjectsComponent,
             project_detail_component_1.ProjectDetailComponent, overview_component_1.OverviewComponent, project_edit_component_1.ProjectEditComponent, my_profile_client_component_1.MyProfileClientComponent, user_forgot_password_component_1.UserForgotPasswordComponent
         ],
         bootstrap: [app_component_1.AppComponent]

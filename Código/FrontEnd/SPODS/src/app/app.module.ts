@@ -10,7 +10,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ProjectsComponent } from "./dashboard/projects/projects.component";
 import { ProjectComponent } from "./dashboard/project/project.component";
 import { RenderComponent } from "./dashboard/project/render/render.component";
-import { ClientRegisterComponent } from "./client-register/client-register.component";
+import { RegistroClienteComponent } from "./registro-cliente/registro-cliente.component";
 import { RendererRegisterComponent } from "./renderer-register/renderer-register.component";
 import { ProjectRegisterComponent } from "./dashboard/project-register/project-register.component";
 import { MyProjectsComponent } from "./dashboard/my-projects/my-projects.component";
@@ -25,7 +25,7 @@ import { UserForgotPasswordComponent }  from "./user-forgot-password/user-forgot
 const appRoutes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'client-register', component: ClientRegisterComponent },
+  { path: 'registro-cliente', component: RegistroClienteComponent },
   { path: 'renderer-register', component: RendererRegisterComponent },
   { path: 'user-forgot-password', component: UserForgotPasswordComponent },
   { path: 'dashboard', component: DashboardComponent,
@@ -50,7 +50,7 @@ const appRoutes: Routes = [
   ],
   declarations: [
     AppComponent, LoginComponent, DashboardComponent, WelcomeComponent, ProjectsComponent, ProjectComponent,
-    RenderComponent, ClientRegisterComponent, RendererRegisterComponent, ProjectRegisterComponent, MyProjectsComponent,
+    RenderComponent, RegistroClienteComponent, RendererRegisterComponent, ProjectRegisterComponent, MyProjectsComponent,
     ProjectDetailComponent, OverviewComponent, ProjectEditComponent, MyProfileClientComponent, UserForgotPasswordComponent
   ],
   bootstrap:    [ AppComponent ]

@@ -104,7 +104,7 @@ var LoginComponent = (function () {
         this.message = "An error has ocurred.";
     };
     LoginComponent.prototype.goClientRegister = function () {
-        this.router.navigateByUrl('/client-register');
+        this.router.navigateByUrl('/registro-cliente');
     };
     LoginComponent.prototype.goRendererRegister = function () {
         this.router.navigateByUrl('/renderer-register');

@@ -17,7 +17,6 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
 var cliente_1 = require("../cliente");
-var renderista_1 = require("../renderista");
 var DataService = (function () {
     function DataService(http, router) {
         this.http = http;
@@ -48,14 +47,6 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    DataService.prototype.postClientRegister = function (usuario, cliente) {
-        console.log("[data.service.ts] - postClientRegister");
-        var renderista = new renderista_1.Renderista("", "");
-        var body = '{"SDTUsuario": ' + JSON.stringify(usuario) + ',"SDTRenderista": ' + JSON.stringify(renderista) + ',"SDTCliente": ' + JSON.stringify(cliente) + '}';
-        return this.http.post(this.baseUrl + '/rest/CreateUsuario', body, { headers: this.contentHeadersJson })
-            .map(function (res) { return res.json(); })
-            .catch(this.handleError);
-    };
     DataService.prototype.postUserEdit = function (usuario, cliente, renderista) {
         console.log("[data.service.ts] - postUserEdit");
         console.log('{"SDTUsuario": ' + JSON.stringify(usuario) + ',"SDTCliente": ' + JSON.stringify(cliente) + ',"SDTRenderista": ' + JSON.stringify(renderista) + ', "TransactionMode": "Update"}');
@@ -66,7 +57,7 @@ var DataService = (function () {
     };
     DataService.prototype.postRendererRegister = function (usuario, renderista) {
         console.log("[data.service.ts] - postRendererRegister");
-        var cliente = new cliente_1.Cliente("", "");
+        var cliente = new cliente_1.Cliente();
         var body = '{"SDTUsuario": ' + JSON.stringify(usuario) + ',"SDTRenderista": ' + JSON.stringify(renderista) + ',"SDTCliente": ' + JSON.stringify(cliente) + '}';
         return this.http.post(this.baseUrl + '/rest/CreateUsuario', body, { headers: this.contentHeadersJson })
             .map(function (res) { return res.json(); })
@@ -187,6 +178,16 @@ var DataService = (function () {
         else {
             console.log("[data.service.ts] - parseProjectsError | Otro error");
         }
+    };
+    //2017-05-14
+    DataService.prototype.postRegistroCliente = function (cliente) {
+        console.log("[data.service.ts] - postRegistroCliente");
+        var body = '{"dtoCliente": ' + JSON.stringify(cliente) + '}';
+        //Ver el baseURL
+        //Ver los Headers
+        return this.http.post(this.baseUrl + '/altaCliente', body, { headers: this.contentHeadersJson })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
     };
     DataService.prototype.handleError = function (error) {
         return Observable_1.Observable.throw(error.json().error || " server error");
