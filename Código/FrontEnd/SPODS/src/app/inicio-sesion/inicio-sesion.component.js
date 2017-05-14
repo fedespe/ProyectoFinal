@@ -10,19 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var data_service_1 = require("../../shared/services/data.service");
-var ProjectComponent = (function () {
-    function ProjectComponent(dataService) {
+var router_1 = require("@angular/router");
+var data_service_1 = require("../shared/services/data.service");
+var InicioSesionComponent = (function () {
+    function InicioSesionComponent(dataService, router) {
         this.dataService = dataService;
+        this.router = router;
+        this.errores = [];
     }
-    return ProjectComponent;
+    InicioSesionComponent.prototype.navegarRegistroCliente = function () {
+        this.router.navigateByUrl('/registro-cliente');
+    };
+    return InicioSesionComponent;
 }());
-ProjectComponent = __decorate([
+InicioSesionComponent = __decorate([
     core_1.Component({
-        selector: 'project',
-        templateUrl: 'app/dashboard/project/project.component.html',
+        selector: 'inicio-sesion',
+        templateUrl: 'app/inicio-sesion/inicio-sesion.component.html',
+        styleUrls: ['css/inicio-sesion.css']
     }),
-    __metadata("design:paramtypes", [data_service_1.DataService])
-], ProjectComponent);
-exports.ProjectComponent = ProjectComponent;
-//# sourceMappingURL=project.component.js.map
+    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])
+], InicioSesionComponent);
+exports.InicioSesionComponent = InicioSesionComponent;
+//# sourceMappingURL=inicio-sesion.component.js.map

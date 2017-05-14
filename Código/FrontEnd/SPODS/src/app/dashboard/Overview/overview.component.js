@@ -15,29 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var data_service_1 = require("../../shared/services/data.service");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var ng2_translate_1 = require("ng2-translate");
 var OverviewComponent = (function () {
-    function OverviewComponent(dataService, route, translate) {
+    function OverviewComponent(dataService, route) {
         this.dataService = dataService;
         this.route = route;
-        this.translate = translate;
-        this.cargarLenguaje();
     }
-    OverviewComponent.prototype.cargarLenguaje = function () {
-        this.translate.addLangs(['en', 'es']);
-        if (localStorage.getItem('default_language') != null) {
-            this.translate.setDefaultLang(localStorage.getItem('default_language'));
-        }
-        else {
-            this.translate.setDefaultLang('en');
-        }
-        if (localStorage.getItem('selected_language') != null) {
-            this.translate.use(localStorage.getItem('selected_language'));
-        }
-        else {
-            this.translate.use(this.translate.getDefaultLang());
-        }
-    };
     return OverviewComponent;
 }());
 OverviewComponent = __decorate([
@@ -45,7 +27,7 @@ OverviewComponent = __decorate([
         //selector: 'verview',
         templateUrl: 'app/dashboard/overview/overview.component.html',
     }),
-    __metadata("design:paramtypes", [data_service_1.DataService, router_1.ActivatedRoute, ng2_translate_1.TranslateService])
+    __metadata("design:paramtypes", [data_service_1.DataService, router_1.ActivatedRoute])
 ], OverviewComponent);
 exports.OverviewComponent = OverviewComponent;
 //# sourceMappingURL=overview.component.js.map

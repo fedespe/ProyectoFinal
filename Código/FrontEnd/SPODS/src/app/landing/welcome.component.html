@@ -5,32 +5,18 @@
                 <div class="inner">
                     <h3 class="masthead-brand">MARPH</h3>
                     <nav class="nav nav-masthead">
-                        <a class="nav-link opcionMenuPrincipal active" href="">{{ "welcomeLinkHome" | translate }}</a>
-                        <a class="nav-link opcionMenuPrincipal" [routerLink]="['login']">{{ "welcomeLinkLogin" | translate }}</a>
-                        <a class="nav-link opcionMenuPrincipal" href="">{{ "welcomeLinkContact" | translate }}</a>
-
-                        <li class="nav-item opcionMenuPrincipal dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ "welcomeLinkCreateUser" | translate }}
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="nav-link" [routerLink]="['client-register']">{{ "welcomeLinkCreateUserClient" | translate }}</a>
-                                <a class="nav-link" [routerLink]="['renderer-register']">{{ "welcomeLinkCreateUserRenderer" | translate }}</a>
-                            </div>
-                        </li>
-
-                        <a class="nav-link opcionMenuPrincipal" (click)="changeLang('en')">ENG</a>
-                        <a class="nav-link opcionMenuPrincipal" (click)="changeLang('es')">ESP</a>
-
+                        <a class="nav-link opcionMenuPrincipal active" href="">Inicio</a>
+                        <a class="nav-link opcionMenuPrincipal" [routerLink]="['inicio-sesion']">Iniciar Sesión</a>
+                        <a class="nav-link opcionMenuPrincipal" href="">Contáctenos</a>
+                        <a class="nav-link opcionMenuPrincipal" [routerLink]="['registro-cliente']">Registrarse</a>
                     </nav>
                 </div>
             </div>
             <div class="inner cover">
-                <h1 class="cover-heading">{{ "welcomeTitle" | translate }}</h1>
-                <p class="lead">{{ "welcomeText" | translate }}</p>
+                <h1 class="cover-heading">Lorem Ipsum</h1>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices dictum hendrerit. In aliquam et augue at commodo. Curabitur porttitor laoreet magna, id volutpat eros. Sed quis dui eget odio porttitor sodales. Nam non quam mollis, condimentum nibh vel, auctor nunc. Nullam sodales, magna id fermentum scelerisque, purus nibh tempus diam, et sollicitudin felis felis sit amet justo. Quisque a ligula sapien. Maecenas vitae sodales leo, id pellentesque lacus. Ut ullamcorper est vel lorem convallis, faucibus aliquet erat varius. Vivamus ut cursus turpis. Mauris aliquam purus et mauris convallis feugiat. Fusce convallis lacus eget mauris tincidunt, vitae eleifend est elementum.</p>
                 <p class="lead">
-                    <a [routerLink]="['login']" class="btn btn-lg btn-secondary">{{ "welcomeBtnLogin" | translate }}</a>
+                    <a [routerLink]="['inicio-sesion']" class="btn btn-lg btn-secondary">Iniciar Sesión</a>
                 </p>
             </div>
             <div class="mastfoot">

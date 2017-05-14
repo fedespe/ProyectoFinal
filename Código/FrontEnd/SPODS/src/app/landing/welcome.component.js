@@ -12,36 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var data_service_1 = require("../shared/services/data.service");
 var router_1 = require("@angular/router");
-var ng2_translate_1 = require("ng2-translate");
 var WelcomeComponent = (function () {
-    function WelcomeComponent(dataService, router, translate) {
+    function WelcomeComponent(dataService, router) {
         this.dataService = dataService;
         this.router = router;
-        this.translate = translate;
-        localStorage.setItem('default_language', 'en');
-        this.cargarLenguaje();
     }
-    WelcomeComponent.prototype.cargarLenguaje = function () {
-        this.translate.addLangs(['en', 'es']);
-        if (localStorage.getItem('default_language') != null) {
-            this.translate.setDefaultLang(localStorage.getItem('default_language'));
-        }
-        else {
-            this.translate.setDefaultLang('en');
-        }
-        if (localStorage.getItem('selected_language') != null) {
-            this.translate.use(localStorage.getItem('selected_language'));
-        }
-        else {
-            this.translate.use(this.translate.getDefaultLang());
-        }
-    };
-    WelcomeComponent.prototype.changeLang = function (lang) {
-        localStorage.setItem('selected_language', lang);
-        this.translate.use(localStorage.getItem('selected_language'));
-    };
     WelcomeComponent.prototype.login = function () {
-        this.router.navigate(['login']);
+        this.router.navigate(['inicio-sesion']);
     };
     return WelcomeComponent;
 }());
@@ -51,7 +28,7 @@ WelcomeComponent = __decorate([
         templateUrl: 'app/landing/welcome.component.html',
         styleUrls: ['css/welcome.css']
     }),
-    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router, ng2_translate_1.TranslateService])
+    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])
 ], WelcomeComponent);
 exports.WelcomeComponent = WelcomeComponent;
 //# sourceMappingURL=welcome.component.js.map
