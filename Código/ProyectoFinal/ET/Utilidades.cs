@@ -7,9 +7,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ET
-{
+{    
     public static class Utilidades
     {
+        public static string conn = "Data Source = .; Initial Catalog=SPODS;Integrated Security=True;";
         public static string calcularMD5Hash(string input)
         {
             MD5 md5 = MD5.Create();

@@ -50,6 +50,10 @@ namespace BL
             {
                 throw new ProyectoException("Error: mensaje...");
             }
+            if (admin.Documento.Length < 6 || admin.Documento.Length > 20)
+            {
+                throw new ProyectoException("Error: Documento");
+            }
         }
         public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva)
         {

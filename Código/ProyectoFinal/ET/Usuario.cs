@@ -12,9 +12,14 @@ namespace ET
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string NombreUsuario { get; set; }
-        public string CorreElectronico { get; set; }
         public string Contrasena { get; set; }
-        public string Telefono { get; set; }
+        public DateTime UltimaModificacionContrasena { get; set; }
         public bool Habilitado { get; set; }
+        public string CorreElectronico { get; set; }
+        public string Documento { get; set; }
+        public string Telefono { get; set; }
+        public string Direccion { get; set; }
+        public DateTime FechaAlta { get; set; }
+        //Falta: Tipo, Barrio
     }
 }

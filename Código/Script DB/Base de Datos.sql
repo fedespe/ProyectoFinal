@@ -34,8 +34,7 @@ GO
 
 CREATE TABLE USUARIO
 (
-	Id	INT  NOT NULL IDENTITY(1,1),
-	Documento NVARCHAR(20) NOT NULL,
+	Id	INT  NOT NULL IDENTITY(1,1),	
 	Nombre NVARCHAR(30) NOT NULL,
 	Apellido NVARCHAR(30) NOT NULL,
 	NombreUsuario NVARCHAR(50) NOT NULL,
@@ -43,6 +42,7 @@ CREATE TABLE USUARIO
 	UltimaModificacionContrasenia DATETIME NOT NULL,
 	Habilitado BIT NOT NULL,
 	Email NVARCHAR(50) NOT NULL,
+	Documento NVARCHAR(20) NOT NULL,
 	Telefono NVARCHAR(20) NOT NULL,
 	Direccion NVARCHAR (100) NOT NULL,
 	FechaAlta DATETIME NOT NULL,
@@ -53,14 +53,14 @@ CREATE TABLE USUARIO
 	CONSTRAINT UK_NombreUsuario_USUARIO UNIQUE(NombreUsuario),
 	CONSTRAINT UK_Email_USUARIO UNIQUE(Email),
 	CONSTRAINT FK_BarrioId_USUARIO FOREIGN KEY (BarrioId) REFERENCES BARRIO (Id),
-	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_USUARIO CHECK (FechaAlta <= GetDate()),  --Ver: Ojo con la hora!!!
+	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_USUARIO CHECK (FechaAlta <= GetDate()),  --Ver: Ojo con la hora!!! SOLUCIONADO LA HORA
 	CONSTRAINT CK_COL_Tipo_InValores_TAB_USUARIO CHECK (Tipo in('CLIENTE', 'ADMINISTRADOR', 'SUPERADMINISTRADOR'))
 );
 GO
 
 CREATE TABLE CLIENTE
 (
-	UsuarioId INT  NOT NULL,
+	UsuarioId INT  NOT NULL,	
 
 	CONSTRAINT PK_CLIENTE PRIMARY KEY(UsuarioId),
 	CONSTRAINT FK_UsuarioId_CLIENTE FOREIGN KEY (UsuarioId) REFERENCES USUARIO (Id)
@@ -236,3 +236,14 @@ Contrata: ClienteId, OfertaId, Fecha, FechaLimiteCalificacion
 Realiza: ClienteId, PublicacionId, AdministradorId, FechaEvaluada, Aprobada, Comentario
 Califica: ClienteId, ClientePublicaId, PublicacionId, Puntaje, Comentario, FechaRealizado
 */
+SELECT * FROM USUARIO;
+SELECT * FROM CLIENTE;
+
+DELETE FROM CLIENTE;
+DELETE FROM USUARIO;
+
+
+INSERT INTO DEPARTAMENTO VALUES
+('MONTEVIDEO');
+INSERT INTO BARRIO VALUES
+('CENTRO',1);

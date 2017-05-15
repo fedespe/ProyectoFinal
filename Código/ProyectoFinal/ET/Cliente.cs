@@ -8,6 +8,6 @@ namespace ET
 {
     public class Cliente : Usuario
     {
-        public string Documento { get; set; }
+        
     }
 }
