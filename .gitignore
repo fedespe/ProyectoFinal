@@ -222,8 +222,10 @@ pip-log.txt
 #############
 ## TypeScript
 #############
-node_modules/
+Código/FrontEnd/SPODS/node_modules/
 Código/FrontEnd/SPODS/src/app/**/.js
 Código/FrontEnd/SPODS/src/app/**/.map
-MARPH/src/app/**/.js
-MARPH/src/app/**/.map
+
+Código/MARPH/node_modules/
+Código/MARPH/src/app/**/.js
+Código/MARPH/src/app/**/.map

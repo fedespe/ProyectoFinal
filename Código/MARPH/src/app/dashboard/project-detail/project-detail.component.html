@@ -1,0 +1,302 @@
+<h1>{{ "project-detailTitle" | translate }}</h1>
+<!--<img src="http://www.definicionabc.com/wp-content/uploads/Im%C3%A1gen-Vectorial.jpg" id="render" (click)="edit('render')" />-->
+<div *ngIf="project">
+    <!--<img src="http://www.definicionabc.com/wp-content/uploads/Im%C3%A1gen-Vectorial.jpg" id="Hola{{project.ProyectoId}}" (click)="edit('Hola16')" />-->
+    <!--<img src="http://www.definicionabc.com/wp-content/uploads/Im%C3%A1gen-Vectorial.jpg" id="Hola{{project.ProyectoId}}" (click)="edit('Hola' +project.ProyectoId)" />-->
+    <!--&lt;!&ndash; Nav tabs &ndash;&gt;-->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#tabGeneral" role="tab">{{ "project-detailTabGeneralTitle" | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tabRenders" role="tab">{{ "project-detailTabRendersTitle" | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tabVersionRenders" role="tab">{{ "project-detailTabVersionRendersTitle" | translate }}</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabGeneral" role="tabpanel">
+            <form>
+                <fieldset disabled>
+                    <div class="form-group">
+                        <label>{{ "project-detailTabGeneralLabelTitle" | translate }}</label>
+                        <div>
+                            <input type="text" class="form-control" [value]="project.ProyectoTitulo"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{ "project-detailTabGeneralLabelDescription" | translate }}</label>
+                        <div>
+                            <input type="text" class="form-control" [value]="project.ProyectoDescripcion"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" *ngIf="tipoUsuario == 'CLIENTE' || tipoUsuario == 'MARPH'">
+                        <label>{{ "project-detailTabGeneralLabelCreationDate" | translate }}</label>
+                        <div>
+                            <input type="text" class="form-control" [value]="project.ProyectoFechaAlta"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" *ngIf="tipoUsuario == 'CLIENTE' || tipoUsuario == 'MARPH'">
+                        <label>{{ "project-detailTabGeneralLabelExpectedDate" | translate }}</label>
+                        <div>
+                            <input type="text" class="form-control" [value]="project.ProyectoFechaDeseada"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" *ngIf="tipoUsuario == 'CLIENTE' || tipoUsuario == 'MARPH'">
+                        <label>{{ "project-detailTabGeneralLabelBudget" | translate }}</label>
+                        <div>
+                            <input type="text" class="form-control" [value]="project.ProyectoPresupuesto"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{ "project-detailTabGeneralLabelEstimatedDate" | translate }}</label>
+                        <div>
+                            <input type="text" class="form-control" [value]="project.ProyectoFechaEstimada"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{ "project-detailTabGeneralLabelNumberOfRenders" | translate }}</label>
+                        <div>
+                            <input type="number" class="form-control" [value]="project.ProyectoCantidadRenders"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{ "project-detailTabGeneralLabelStatus" | translate }}</label>
+                        <div>
+                            <input type="text" class="form-control" [value]="project.ProyectoEstadoVarChar"/>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="tab-pane" id="tabRenders" role="tabpanel">
+            <div *ngIf="renders.length > 0">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ "project-detailTabRendersTableTitleColumnDescription" | translate }}</th>
+                            <th>{{ "project-detailTabRendersTableTitleColumnType" | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let render of renders;">
+                            <!--(click)="goViewProject(project.ProyectoId)"-->
+                            <!--<td><a [href]="render.RenderDescripcion" target="_blank">{{render.RenderDescripcion}}</a></td>-->
+                            <td>{{render.RenderDescripcion}}</td>
+                            <td>{{render.TipoRenderDescripcion}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tabVersionRenders" role="tabpanel">
+            <div *ngIf="renders.length > 0">
+
+                <div *ngFor="let render of renders; let i=index;">
+                    <div class="card renders">
+
+                        <h3 class="card-header">
+                            {{ "project-detailTabVersionRendersTitleRender" | translate }}{{i+1}}
+                        </h3>
+
+                        <div class="card-block">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>{{ "project-detailTabVersionRendersTableTitleColumnDescription" | translate }}</th>
+                                    <th>{{ "project-detailTabVersionRendersTableTitleColumnType" | translate }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <!--(click)="goViewProject(project.ProyectoId)"-->
+                                    <!--<td><a [href]="render.RenderDescripcion" target="_blank">{{render.RenderDescripcion}}</a></td>-->
+                                    <td>{{render.RenderDescripcion}}</td>
+                                    <td>{{render.TipoRenderDescripcion}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div *ngIf="render.SDTRenderVersion.length > 0">
+                                <!--<h5>{{ "project-detailTabVersionRendersTitleVersions" | translate }}</h5>-->
+
+                                <div *ngFor="let renderVersion of render.SDTRenderVersion; let j=index;">
+                                    <button data-toggle="modal" data-target="#modalRenderImg" class="btn btn-primary col-md-4 offset-md-4" type="button" (click)="openEdit(render ,renderVersion)">{{ "project-detailTabVersionRendersButtonViewLastVersion" | translate }}</button>
+                                    <!--<div id="VersionesRender{{render.RenderId}}" role="tablist" aria-multiselectable="true">-->
+                                    <!--<div class="card">-->
+                                    <!--<div class="card-header" role="tab" id="headingRender{{render.RenderId}}Version{{renderVersion.RenderVersionId}}">-->
+                                    <!--<h5 class="mb-0">-->
+                                    <!--<a data-toggle="collapse"  href="#Render{{render.RenderId}}Version{{renderVersion.RenderVersionId}}" aria-expanded="false">-->
+                                    <!--&lt;!&ndash;{{ "project-detailTabVersionRendersTitleVersion" | translate }}{{j+1}}&ndash;&gt;-->
+                                    <!--Last version-->
+                                    <!--</a>-->
+                                    <!--</h5>-->
+                                    <!--</div>-->
+
+                                    <!--<div id="Render{{render.RenderId}}Version{{renderVersion.RenderVersionId}}"  class="collapse" role="tabpanel" aria-labelledby="headingOne">-->
+                                    <!--<div class="card-block">-->
+                                    <!--<form>-->
+                                    <!--<div class="form-group">-->
+                                    <!--<label for="labelFechaRender{{render.RenderId}}Version{{renderVersion.RenderVersionId}}">{{ "project-detailTabVersionRendersLabelDate" | translate }}</label>-->
+                                    <!--<div>-->
+                                    <!--<label class="form-control" id="labelFechaRender{{render.RenderId}}Version{{renderVersion.RenderVersionId}}">{{ renderVersion.RenderVersionFecha }}</label>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="form-group">-->
+                                    <!--<label for="labelCommentRender{{render.RenderId}}Version{{renderVersion.RenderVersionId}}">{{ "project-detailTabVersionRendersLabelComment" | translate }}</label>-->
+                                    <!--<div>-->
+                                    <!--<label class="form-control" id="labelCommentRender{{render.RenderId}}Version{{renderVersion.RenderVersionId}}">{{ renderVersion.RenderVersionComentario }}</label>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</form>-->
+                                    <!--<div class="text-center">-->
+                                    <!--&lt;!&ndash;<img src="{{renderVersion.RenderVersionURL}}" class="rounded" id="imgRender{{render.RenderId}}Version{{renderVersion.RenderVersionId}}" (click)="openEdit('imgRender'+render.RenderId+'Version'+renderVersion.RenderVersionId)">&ndash;&gt;-->
+                                    <!--<img data-toggle="modal" data-target="#myModal" src="http://localhost:8080/MarphJavaEnvironment/{{renderVersion.RenderVersionArchivo}}" class="rounded" id="imgRender{{render.RenderId}}Version{{renderVersion.RenderVersionId}}" (click)="openEdit('imgRender'+render.RenderId+'Version'+renderVersion.RenderVersionId)">-->
+                                    <!--&lt;!&ndash;<img src="http://localhost:8080/MarphJavaEnvironment/{{renderVersion.RenderVersionArchivo}}" class="rounded" id="imgRender{{render.RenderId}}Version{{renderVersion.RenderVersionId}}" (click)="openEdit('imgRender'+render.RenderId+'Version'+renderVersion.RenderVersionId)">&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+
+                            <!--<div id="cardFileRender{{render.RenderId}}" class="card cardFile">-->
+                            <!--<div class="card-header">-->
+                            <!--<span>{{ "project-registerFilesSpanFileNumber" | translate }}</span>-->
+                            <!--</div>-->
+
+                            <!--<div class="card-block">-->
+                            <!--<div class="form-group">-->
+                            <!--<label>{{ "project-registerFilesLabelURL" | translate }}</label>-->
+                            <!--<input type="text" class="form-control" id="fileUrlRender{{render.RenderId}}">-->
+                            <!--</div>-->
+
+                            <!--<div class="form-group">-->
+                            <!--<label>{{ "project-registerFilesLabelDescription" | translate }}</label>-->
+                            <!--<textarea class="form-control" id="fileDescripionRender{{render.RenderId}}"></textarea>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+
+                            <div class="rendersButtons">
+                                <div *ngIf="tipoUsuario == 'MARPH'" class="row">
+                                    <button class="btn btn-success col-md-4" type="button" (click)="marphApprove(render)">{{ "project-detailTabVersionRendersButtonMarphApprove" | translate }}</button>
+                                    <button class="btn btn-warning col-md-4 offset-md-4" type="button" (click)="marphToCorrect(render)">{{ "project-detailTabVersionRendersButtonMarphToCorrect" | translate }}</button>
+                                    <button class="btn btn-success col-md-4" type="button" (click)="marphValidateComments(render)">{{ "project-detailTabVersionRendersButtonMarphValidateComments" | translate }}</button>
+                                    <button class="btn btn-danger col-md-4 offset-md-4" type="button" (click)="marphUnapproveComments(render)">{{ "project-detailTabVersionRendersButtonMarphUnapproveComments" | translate }}</button>
+                                </div>
+                                <div *ngIf="tipoUsuario == 'RENDERISTA'" class="row">
+                                    <!--<button class="btn btn-primary col-md-4 offset-md-4" type="button" (click)="rendererUploadFile()">{{ "project-detailTabVersionRendersButtonRendererUploadFile" | translate }}</button>-->
+                                    <button data-toggle="modal" data-target="#modalUploadFile" class="btn btn-primary col-md-4 offset-md-4" type="button" (click)="rendererUploadFile(render)">{{ "project-detailTabVersionRendersButtonRendererUploadFile" | translate }}</button>
+                                </div>
+                                <div *ngIf="tipoUsuario == 'CLIENTE'" class="row">
+                                    <button class="btn btn-success col-md-4" type="button" (click)="clientApprove(render)">{{ "project-detailTabVersionRendersButtonClientApprove" | translate }}</button>
+                                    <button class="btn btn-warning col-md-4 offset-md-4" type="button" (click)="clientToCorrect(render)">{{ "project-detailTabVersionRendersButtonClientToCorrect" | translate }}</button>
+                                </div>
+                                <!--<button class="btn btn-primary col-md-4 offset-md-4" type="button" (click)="projectRegister(myForm,'Save')" [disabled]="!myForm.valid">{{ "project-registerButtonSave" | translate }}</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Render Img-->
+    <div class="modal fade" id="modalRenderImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ "project-detailModalRenderImgTitle" | translate }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="srcImagenComentando != null" class="text-center">
+                        <img [src]="srcImagenComentando" class="rounded" id="imgPopUp" (click)="edit('imgPopUp');">
+                    </div>
+                    <div *ngIf="erroresPopUp.length > 0" class="alert alert-danger erroresPopUp">
+                        <div *ngFor="let error of erroresPopUp;">
+                            {{error.Description}}
+                        </div>
+                    </div>
+                    <div *ngIf="avisosPopUp.length > 0" class="alert alert-success avisosPopUp">
+                        <div *ngFor="let error of avisosPopUp;">
+                            {{error.Description}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "project-detailModalRenderImgButtonClose" | translate }}</button>
+                    <button type="button" class="btn btn-primary" (click)="saveComments()">{{ "project-detailModalRenderImgButtonSaveComments" | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Upload File-->
+    <div class="modal fade" id="modalUploadFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" >{{ "project-detailModalUploadFileTitle" | translate }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div *ngIf="renderVersionCreando">
+                        <div class="form-group">
+                            <label>{{ "project-detailModalUploadFileLabelDate" | translate }}</label>
+                            <input type="date" class="form-control" [(ngModel)]="renderVersionCreando.RenderVersionFecha">
+                        </div>
+                        <div class="form-group">
+                            <label>{{ "project-detailModalUploadFileLabelURL" | translate }}</label>
+                            <input type="url" class="form-control" [(ngModel)]="renderVersionCreando.RenderVersionURL">
+                        </div>
+                    </div>
+
+                    <div *ngIf="erroresPopUp.length > 0" class="alert alert-danger erroresPopUp">
+                        <div *ngFor="let error of erroresPopUp;">
+                            {{error.Description}}
+                        </div>
+                    </div>
+                    <div *ngIf="avisosPopUp.length > 0" class="alert alert-success avisosPopUp">
+                        <div *ngFor="let error of avisosPopUp;">
+                            {{error.Description}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "project-detailModalUploadFileButtonClose" | translate }}</button>
+                    <button type="button" class="btn btn-primary" (click)="saveFile()">{{ "project-detailModalUploadFileButtonUploadFile" | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{{ message }}
+<div *ngIf="errores.length > 0" class="alert alert-danger errores">
+    <div *ngFor="let error of errores;">
+        {{error.Description}}
+    </div>
+</div>
