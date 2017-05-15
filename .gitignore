@@ -225,3 +225,5 @@ pip-log.txt
 node_modules/
 Código/FrontEnd/SPODS/src/app/**/.js
 Código/FrontEnd/SPODS/src/app/**/.map
+MARPH/src/app/**/.js
+MARPH/src/app/**/.map
