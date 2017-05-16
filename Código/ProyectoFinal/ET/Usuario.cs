@@ -20,6 +20,6 @@ namespace ET
         public string Telefono { get; set; }
         public string Direccion { get; set; }
         public DateTime FechaAlta { get; set; }
-        //Falta: Tipo, Barrio
+        public Barrio Barrio { get; set; }
     }
 }

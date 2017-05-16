@@ -32,10 +32,10 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@email", cli.CorreElectronico);
                         cmd.Parameters.AddWithValue("@documento", cli.Documento);
                         cmd.Parameters.AddWithValue("@tel", cli.Telefono);
-                        cmd.Parameters.AddWithValue("@dir", "18 de julio 1591"); //FALTA INGRESO DE DIRECCION
+                        cmd.Parameters.AddWithValue("@dir", cli.Direccion); 
                         cmd.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
                         cmd.Parameters.AddWithValue("@tipo", "CLIENTE");
-                        cmd.Parameters.AddWithValue("@barrio", 1); //FALTA SELECCIONAR EL BARRIO
+                        cmd.Parameters.AddWithValue("@barrio", cli.Barrio.Id); 
 
                         con.Open();
                         trn = con.BeginTransaction();
@@ -52,6 +52,7 @@ namespace DAL
 
                         trn.Commit();
                         trn.Dispose();
+
                     }
                 }
             }
@@ -62,7 +63,49 @@ namespace DAL
         }
         public void actualizarCliente(Cliente cli)
         {
+            string cadenaUpdateUsuario = @"UPDATE Usuario SET Nombre=@nom, Apellido=@ape, Documento=@documento, Telefono=@tel, Direccion=@dir, BarrioId=@barrio
+                                            WHERE Id=@id;";
+            //string cadenaUpdateCliente = "UPDATE Cliente SET datos... WHERE UduarioId=@id;"; //PARA CUANDO HAYA MAS DATOS
 
+            SqlTransaction trn = null;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    using (SqlCommand cmd = new SqlCommand(cadenaUpdateUsuario, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", cli.Id);
+                        cmd.Parameters.AddWithValue("@nom", cli.Nombre);
+                        cmd.Parameters.AddWithValue("@ape", cli.Apellido);
+                        cmd.Parameters.AddWithValue("@documento", cli.Documento);
+                        cmd.Parameters.AddWithValue("@tel", cli.Telefono);
+                        cmd.Parameters.AddWithValue("@dir", cli.Direccion);
+                        cmd.Parameters.AddWithValue("@barrio", cli.Barrio.Id);
+
+                        con.Open();
+                        trn = con.BeginTransaction();
+                        cmd.Transaction = trn;
+
+                        cmd.ExecuteNonQuery();
+                       
+                        //cmd.Parameters.Clear(); //PARA CUANDO HAYA MAS DATOS
+
+                        //cmd.CommandText = cadenaUpdateCliente;
+
+                        //cmd.Parameters.AddWithValue("@id", cli.Id);
+                        //mas datos...
+
+                        //cmd.ExecuteNonQuery();
+
+                        trn.Commit();
+                        trn.Dispose();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
         }
         public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva)
         {

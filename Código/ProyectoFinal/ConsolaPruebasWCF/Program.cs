@@ -12,7 +12,51 @@ namespace ConsolaPruebasWCF
         {
             using (ServicioProyectFinal.ServicioProyectoFinalClient cliente = new ServicioProyectFinal.ServicioProyectoFinalClient()) {
                 //var clientes = cliente.getClientes();
-                cliente.altaCliente("Federico", "Speroni", "Fede1234", "FedeSpe", "fsperonip@hotmail.com", "099845498", true, "42614099");
+
+                //**********************************************************
+                //ALTA CLIENTE
+                //**********************************************************
+                ServicioProyectFinal.DtoCliente dtoCliente = new ServicioProyectFinal.DtoCliente {
+                    Nombre= "Federico",
+                    Apellido= "Speroni",
+                    Contrasena= "Fede1234",
+                    NombreUsuario= "FedeSpe",
+                    CorreElectronico= "fsperonip@hotmail.com",
+                    Telefono= "099845498",
+                    Habilitado= true,
+                    Documento= "42614099",
+                    Direccion= "18 de Julio 1591",
+                    IdBarrio= 1
+                };
+
+                Console.WriteLine("Alta Cliente");
+                Console.WriteLine(cliente.altaCliente(dtoCliente));
+                Console.WriteLine("*****");
+
+                //**********************************************************
+                //FIN ALTA CLIENTE
+                //**********************************************************
+                //**********************************************************
+                //ACTUALIZAR CLIENTE
+                //**********************************************************
+
+                dtoCliente.Id = 1;//OJO PARA PRUEBAS FIJARSE CUAL VA A SER EL PROXIMO ID
+                dtoCliente.Nombre = "Carlos";
+                dtoCliente.Apellido = "Piaggio";
+                dtoCliente.Documento = "88888888";
+                dtoCliente.Direccion = "Av. Italia 4562";
+                dtoCliente.IdBarrio = 2;
+                dtoCliente.Telefono = "099888888";
+
+                Console.WriteLine("Actualizar Cliente");
+                Console.WriteLine(cliente.actualizarCliente(dtoCliente));
+                Console.WriteLine("*****");
+
+                //**********************************************************
+                //FIN ACTUALIZAR CLIENTE
+                //**********************************************************
+
+                Console.ReadKey();
             }
         }
     }

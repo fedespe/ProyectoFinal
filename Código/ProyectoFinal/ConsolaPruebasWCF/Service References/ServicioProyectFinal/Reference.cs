@@ -18,22 +18,6 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
     [System.Runtime.Serialization.DataContractAttribute(Name="DtoCliente", Namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal")]
     [System.SerializableAttribute()]
     public partial class DtoCliente : ConsolaPruebasWCF.ServicioProyectFinal.DtoUsuario {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DocumentoField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Documento {
-            get {
-                return this.DocumentoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DocumentoField, value) != true)) {
-                    this.DocumentoField = value;
-                    this.RaisePropertyChanged("Documento");
-                }
-            }
-        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -51,16 +35,31 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         private string ApellidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ConsolaPruebasWCF.ServicioProyectFinal.DtoBarrio BarrioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ContrasenaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CorreElectronicoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DireccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DocumentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaAltaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool HabilitadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdBarrioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
@@ -70,6 +69,9 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TelefonoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime UltimaModificacionContrasenaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -90,6 +92,19 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
                 if ((object.ReferenceEquals(this.ApellidoField, value) != true)) {
                     this.ApellidoField = value;
                     this.RaisePropertyChanged("Apellido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ConsolaPruebasWCF.ServicioProyectFinal.DtoBarrio Barrio {
+            get {
+                return this.BarrioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BarrioField, value) != true)) {
+                    this.BarrioField = value;
+                    this.RaisePropertyChanged("Barrio");
                 }
             }
         }
@@ -121,6 +136,45 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Direccion {
+            get {
+                return this.DireccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DireccionField, value) != true)) {
+                    this.DireccionField = value;
+                    this.RaisePropertyChanged("Direccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Documento {
+            get {
+                return this.DocumentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DocumentoField, value) != true)) {
+                    this.DocumentoField = value;
+                    this.RaisePropertyChanged("Documento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaAlta {
+            get {
+                return this.FechaAltaField;
+            }
+            set {
+                if ((this.FechaAltaField.Equals(value) != true)) {
+                    this.FechaAltaField = value;
+                    this.RaisePropertyChanged("FechaAlta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool Habilitado {
             get {
                 return this.HabilitadoField;
@@ -142,6 +196,19 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdBarrio {
+            get {
+                return this.IdBarrioField;
+            }
+            set {
+                if ((this.IdBarrioField.Equals(value) != true)) {
+                    this.IdBarrioField = value;
+                    this.RaisePropertyChanged("IdBarrio");
                 }
             }
         }
@@ -185,6 +252,96 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime UltimaModificacionContrasena {
+            get {
+                return this.UltimaModificacionContrasenaField;
+            }
+            set {
+                if ((this.UltimaModificacionContrasenaField.Equals(value) != true)) {
+                    this.UltimaModificacionContrasenaField = value;
+                    this.RaisePropertyChanged("UltimaModificacionContrasena");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DtoBarrio", Namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal")]
+    [System.SerializableAttribute()]
+    public partial class DtoBarrio : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ConsolaPruebasWCF.ServicioProyectFinal.DtoDepartamento DepartamentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ConsolaPruebasWCF.ServicioProyectFinal.DtoDepartamento Departamento {
+            get {
+                return this.DepartamentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DepartamentoField, value) != true)) {
+                    this.DepartamentoField = value;
+                    this.RaisePropertyChanged("Departamento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -202,6 +359,67 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
     public partial class DtoAdministrador : ConsolaPruebasWCF.ServicioProyectFinal.DtoUsuario {
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DtoDepartamento", Namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal")]
+    [System.SerializableAttribute()]
+    public partial class DtoDepartamento : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioProyectFinal.IServicioProyectoFinal")]
     public interface IServicioProyectoFinal {
@@ -213,16 +431,16 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> getClientesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaClienteResponse")]
-        void altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento);
+        string altaCliente(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente dtoCliente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaClienteResponse")]
-        System.Threading.Tasks.Task altaClienteAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento);
+        System.Threading.Tasks.Task<string> altaClienteAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente dtoCliente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarClienteResponse")]
-        void actualizarCliente(string nombre, string apellido, string telefono, string documento);
+        string actualizarCliente(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente DtoCliente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarClienteResponse")]
-        System.Threading.Tasks.Task actualizarClienteAsync(string nombre, string apellido, string telefono, string documento);
+        System.Threading.Tasks.Task<string> actualizarClienteAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente DtoCliente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaClienteResponse")]
         void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
@@ -328,20 +546,20 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
             return base.Channel.getClientesAsync();
         }
         
-        public void altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento) {
-            base.Channel.altaCliente(nombre, apellido, contrasena, nombreUsuario, correoElectronico, telefono, habilitado, documento);
+        public string altaCliente(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente dtoCliente) {
+            return base.Channel.altaCliente(dtoCliente);
         }
         
-        public System.Threading.Tasks.Task altaClienteAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento) {
-            return base.Channel.altaClienteAsync(nombre, apellido, contrasena, nombreUsuario, correoElectronico, telefono, habilitado, documento);
+        public System.Threading.Tasks.Task<string> altaClienteAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente dtoCliente) {
+            return base.Channel.altaClienteAsync(dtoCliente);
         }
         
-        public void actualizarCliente(string nombre, string apellido, string telefono, string documento) {
-            base.Channel.actualizarCliente(nombre, apellido, telefono, documento);
+        public string actualizarCliente(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente DtoCliente) {
+            return base.Channel.actualizarCliente(DtoCliente);
         }
         
-        public System.Threading.Tasks.Task actualizarClienteAsync(string nombre, string apellido, string telefono, string documento) {
-            return base.Channel.actualizarClienteAsync(nombre, apellido, telefono, documento);
+        public System.Threading.Tasks.Task<string> actualizarClienteAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente DtoCliente) {
+            return base.Channel.actualizarClienteAsync(DtoCliente);
         }
         
         public void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva) {

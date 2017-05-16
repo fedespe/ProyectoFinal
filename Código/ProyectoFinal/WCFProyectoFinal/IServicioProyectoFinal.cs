@@ -17,11 +17,15 @@ namespace WCFProyectoFinal
         //**********************************************************
         [OperationContract]
         List<DtoCliente> getClientes();
+        //[OperationContract]
+        //string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
+        //    ,string telefono, bool habilitado, string documento);
         [OperationContract]
-        string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
-            ,string telefono, bool habilitado, string documento);
+        string altaCliente(DtoCliente dtoCliente);
+        //[OperationContract]
+        //string actualizarCliente(string nombre, string apellido, string telefono, string documento);
         [OperationContract]
-        string actualizarCliente(string nombre, string apellido, string telefono, string documento);
+        string actualizarCliente(DtoCliente DtoCliente);
         [OperationContract]
         void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
         [OperationContract]
@@ -68,22 +72,53 @@ namespace WCFProyectoFinal
         [DataMember]
         public string NombreUsuario { get; set; }
         [DataMember]
+        public string Contrasena { get; set; }
+        [DataMember]
+        public DateTime UltimaModificacionContrasena { get; set; }
+        [DataMember]
+        public bool Habilitado { get; set; }
+        [DataMember]
         public string CorreElectronico { get; set; }
         [DataMember]
-        public string Contrasena { get; set; }
+        public string Documento { get; set; }
         [DataMember]
         public string Telefono { get; set; }
         [DataMember]
-        public bool Habilitado { get; set; }
+        public string Direccion { get; set; }
+        [DataMember]
+        public DateTime FechaAlta { get; set; }
+        [DataMember]
+        public DtoBarrio Barrio { get; set; }
+        [DataMember]
+        public int IdBarrio { get; set; }//Para no complicar que haya un dto dentro de otro, se podria probar si lo toma directo
     }
+
     [DataContract]
     public class DtoCliente:DtoUsuario {
-        [DataMember]
-        public string Documento { get; set; }
     }
+
     [DataContract]
-    public class DtoAdministrador : DtoUsuario
+    public class DtoAdministrador : DtoUsuario{
+    }
+
+    [DataContract]
+    public class DtoBarrio 
     {
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Nombre { get; set; }
+        [DataMember]
+        public DtoDepartamento Departamento { get; set; }
+    }
+
+    [DataContract]
+    public class DtoDepartamento
+    {
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Nombre { get; set; }
     }
 
 }

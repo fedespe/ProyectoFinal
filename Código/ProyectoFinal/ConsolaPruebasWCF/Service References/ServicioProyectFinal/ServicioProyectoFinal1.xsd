@@ -9,9 +9,7 @@
   <xs:complexType name="DtoCliente">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:DtoUsuario">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Documento" nillable="true" type="xs:string" />
-        </xs:sequence>
+        <xs:sequence />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -19,16 +17,37 @@
   <xs:complexType name="DtoUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="Apellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Barrio" nillable="true" type="tns:DtoBarrio" />
       <xs:element minOccurs="0" name="Contrasena" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CorreElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Documento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaAlta" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Habilitado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdBarrio" type="xs:int" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UltimaModificacionContrasena" type="xs:dateTime" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DtoUsuario" nillable="true" type="tns:DtoUsuario" />
+  <xs:complexType name="DtoBarrio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Departamento" nillable="true" type="tns:DtoDepartamento" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DtoBarrio" nillable="true" type="tns:DtoBarrio" />
+  <xs:complexType name="DtoDepartamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DtoDepartamento" nillable="true" type="tns:DtoDepartamento" />
   <xs:complexType name="ArrayOfDtoAdministrador">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DtoAdministrador" nillable="true" type="tns:DtoAdministrador" />

@@ -20,37 +20,45 @@ namespace WCFProyectoFinal
 
         //**********************************************************
         //CLIENTE
-        //**********************************************************
-        public string altaCliente(string nombre, string apellido, string contrasena, 
-            string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento)
-        {
-            Cliente cli = new Cliente {
-                Apellido=apellido,
-                Contrasena=contrasena,
-                CorreElectronico=correoElectronico,
-                Documento=documento,
-                Habilitado=habilitado,
-                Nombre=nombre,
-                NombreUsuario=nombreUsuario,
-                Telefono=telefono
-            };
-            try {
-                clienteBL.altaCliente(cli);
-                return mensajeOk;
-            }
-            catch (ET.ProyectoException ex) {
-                return ex.Message;
-            }
-            
-        }
-        public string actualizarCliente(string nombre, string apellido, string telefono, string documento)
+        //**********************************************************       
+        public string altaCliente(DtoCliente dtoCliente)
         {
             Cliente cli = new Cliente
             {
-                Apellido = apellido,
-                Documento = documento,
-                Nombre = nombre,
-                Telefono = telefono
+                Apellido = dtoCliente.Apellido,
+                Contrasena = dtoCliente.Contrasena,
+                CorreElectronico = dtoCliente.CorreElectronico,
+                Documento = dtoCliente.Documento,
+                Habilitado = dtoCliente.Habilitado,
+                Nombre = dtoCliente.Nombre,
+                NombreUsuario = dtoCliente.NombreUsuario,
+                Telefono = dtoCliente.Telefono,
+                Direccion = dtoCliente.Direccion,
+                Barrio = new Barrio { Id=dtoCliente.IdBarrio}
+            };
+            try
+            {
+                clienteBL.altaCliente(cli);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
+
+        }
+        
+        public string actualizarCliente(DtoCliente dtoCliente)
+        {
+            Cliente cli = new Cliente
+            {
+                Id = dtoCliente.Id,
+                Apellido = dtoCliente.Apellido,
+                Documento = dtoCliente.Documento,
+                Nombre = dtoCliente.Nombre,
+                Telefono = dtoCliente.Telefono,
+                Direccion = dtoCliente.Direccion,
+                Barrio = new Barrio { Id = dtoCliente.IdBarrio }
             };
             try
             {
@@ -202,6 +210,46 @@ namespace WCFProyectoFinal
 
 
 
+        //public string altaCliente(string nombre, string apellido, string contrasena, 
+        //    string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento)
+        //{
+        //    Cliente cli = new Cliente {
+        //        Apellido=apellido,
+        //        Contrasena=contrasena,
+        //        CorreElectronico=correoElectronico,
+        //        Documento=documento,
+        //        Habilitado=habilitado,
+        //        Nombre=nombre,
+        //        NombreUsuario=nombreUsuario,
+        //        Telefono=telefono
+        //    };
+        //    try {
+        //        clienteBL.altaCliente(cli);
+        //        return mensajeOk;
+        //    }
+        //    catch (ET.ProyectoException ex) {
+        //        return ex.Message;
+        //    }
 
+        //}
+        //public string actualizarCliente(string nombre, string apellido, string telefono, string documento)
+        //{
+        //    Cliente cli = new Cliente
+        //    {
+        //        Apellido = apellido,
+        //        Documento = documento,
+        //        Nombre = nombre,
+        //        Telefono = telefono
+        //    };
+        //    try
+        //    {
+        //        clienteBL.actualizarCliente(cli);
+        //        return mensajeOk;
+        //    }
+        //    catch (ET.ProyectoException ex)
+        //    {
+        //        return ex.Message;
+        //    }
+        //}
     }
 }
