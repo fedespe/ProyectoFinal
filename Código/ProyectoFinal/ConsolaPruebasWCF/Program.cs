@@ -33,6 +33,24 @@ namespace ConsolaPruebasWCF
                 Console.WriteLine(cliente.altaCliente(dtoCliente));
                 Console.WriteLine("*****");
 
+                dtoCliente = new ServicioProyectFinal.DtoCliente
+                {
+                    Nombre = "Bruno",
+                    Apellido = "Diaz",
+                    Contrasena = "Bruno1234",
+                    NombreUsuario = "BrunoDi",
+                    CorreElectronico = "brunodiaz@hotmail.com",
+                    Telefono = "099845477",
+                    Habilitado = false,
+                    Documento = "42614777",
+                    Direccion = "Defensa 1591",
+                    IdBarrio = 1
+                };
+
+                Console.WriteLine("Alta Cliente");
+                Console.WriteLine(cliente.altaCliente(dtoCliente));
+                Console.WriteLine("*****");
+
                 //**********************************************************
                 //FIN ALTA CLIENTE
                 //**********************************************************
@@ -54,6 +72,45 @@ namespace ConsolaPruebasWCF
 
                 //**********************************************************
                 //FIN ACTUALIZAR CLIENTE
+                //**********************************************************
+                //**********************************************************
+                //ACTUALIZAR CONTRASENA CLIENTE
+                //**********************************************************
+                Console.WriteLine("Actualizar contrasena Cliente");
+                Console.WriteLine(cliente.actualizarContrasenaCliente(1, "Fede1234","12345678"));
+                Console.WriteLine("*****");
+                //**********************************************************
+                //FIN ACTUALIZAR CONTRASENA CLIENTE
+                //**********************************************************
+                //**********************************************************
+                //OBTENER CLIENTES
+                //**********************************************************
+                Console.WriteLine("Obtener Clientes");
+                ServicioProyectFinal.DtoCliente[] dtoClientes = cliente.obtenerTodos();
+                foreach (ServicioProyectFinal.DtoCliente c in dtoClientes) {
+                    Console.WriteLine(c.Id + ", " + c.Nombre + ", " + c.Apellido+ ", " + c.NombreUsuario + ", " + c.IdBarrio + ", " + c.Habilitado + ", " + c.Telefono + ", " + c.UltimaModificacionContrasena + ", " + c.FechaAlta);
+                }
+                Console.WriteLine("*****");
+                //**********************************************************
+                //FIN OBTENER CLIENTES
+                //**********************************************************
+                //**********************************************************
+                //HABILITAR CLIENTES
+                //**********************************************************
+                Console.WriteLine("Habilitar Cliente");
+                Console.WriteLine(cliente.habilitarCliente(1));
+                Console.WriteLine("*****");
+                //**********************************************************
+                //FIN HABILITAR CLIENTES
+                //**********************************************************
+                //**********************************************************
+                //DESHABILITAR CLIENTES
+                //**********************************************************
+                Console.WriteLine("Deshabilitar Cliente");
+                Console.WriteLine(cliente.deshabilitarCliente(2));
+                Console.WriteLine("*****");
+                //**********************************************************
+                //FIN DESHABILITAR CLIENTES
                 //**********************************************************
 
                 Console.ReadKey();

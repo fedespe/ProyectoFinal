@@ -238,6 +238,7 @@ Califica: ClienteId, ClientePublicaId, PublicacionId, Puntaje, Comentario, Fecha
 */
 SELECT * FROM USUARIO;
 SELECT * FROM CLIENTE;
+SELECT * FROM BARRIO;
 
 DELETE FROM CLIENTE;
 DELETE FROM USUARIO;

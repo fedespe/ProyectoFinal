@@ -16,7 +16,7 @@ namespace WCFProyectoFinal
         //CLIENTE
         //**********************************************************
         [OperationContract]
-        List<DtoCliente> getClientes();
+        List<DtoCliente> obtenerTodos();
         //[OperationContract]
         //string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
         //    ,string telefono, bool habilitado, string documento);
@@ -27,11 +27,11 @@ namespace WCFProyectoFinal
         [OperationContract]
         string actualizarCliente(DtoCliente DtoCliente);
         [OperationContract]
-        void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
+        string actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
         [OperationContract]
-        void habilitarCliente(int id);
+        string habilitarCliente(int id);
         [OperationContract]
-        void deshabilitarCliente(int id);
+        string deshabilitarCliente(int id);
         [OperationContract]
         DtoCliente ingresarCliente(string nombreUsuario, string pass);
         //**********************************************************

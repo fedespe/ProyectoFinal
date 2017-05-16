@@ -23,10 +23,19 @@ namespace BL
         }       
         public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva) {
             validarContrasena(contrasenaNueva);
-            clienteDAL.actualizarContrasena(id,contrasenaAnterior,contrasenaNueva);
+            if (contrasenaAnterior.Equals(contrasenaNueva))
+            {
+                throw new ProyectoException("Error: Contrasena anterior igual a nueva");
+            }
+            Cliente cli = clienteDAL.obtener(id);
+            if (!Utilidades.calcularMD5Hash(contrasenaAnterior).Equals(cli.Contrasena))
+            {
+                throw new ProyectoException("Error: Contrasena anterior");
+            }
+            clienteDAL.actualizarContrasena(id,contrasenaNueva);
         }       
-        public List<Cliente> getClientes() {
-           return clienteDAL.getClientes();
+        public List<Cliente> obtenerTodos() {
+           return clienteDAL.obtenerTodos();
         }
         public void habilitarCliente(int id) {
             clienteDAL.habilitarCliente(id);
@@ -82,7 +91,7 @@ namespace BL
             if (contrasenaNueva.Length < 8)
             {
                 throw new ProyectoException("Error: Contrasena");
-            }
+            }           
         }
 
 

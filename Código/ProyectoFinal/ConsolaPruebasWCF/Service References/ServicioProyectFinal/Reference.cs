@@ -424,11 +424,11 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioProyectFinal.IServicioProyectoFinal")]
     public interface IServicioProyectoFinal {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/getClientes", ReplyAction="http://tempuri.org/IServicioProyectoFinal/getClientesResponse")]
-        ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] getClientes();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodos", ReplyAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodosResponse")]
+        ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] obtenerTodos();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/getClientes", ReplyAction="http://tempuri.org/IServicioProyectoFinal/getClientesResponse")]
-        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> getClientesAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodos", ReplyAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodosResponse")]
+        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> obtenerTodosAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaClienteResponse")]
         string altaCliente(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente dtoCliente);
@@ -443,22 +443,22 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         System.Threading.Tasks.Task<string> actualizarClienteAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente DtoCliente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaClienteResponse")]
-        void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
+        string actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaClienteResponse")]
-        System.Threading.Tasks.Task actualizarContrasenaClienteAsync(int id, string contrasenaAnterior, string contrasenaNueva);
+        System.Threading.Tasks.Task<string> actualizarContrasenaClienteAsync(int id, string contrasenaAnterior, string contrasenaNueva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/habilitarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/habilitarClienteResponse")]
-        void habilitarCliente(int id);
+        string habilitarCliente(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/habilitarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/habilitarClienteResponse")]
-        System.Threading.Tasks.Task habilitarClienteAsync(int id);
+        System.Threading.Tasks.Task<string> habilitarClienteAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/deshabilitarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/deshabilitarClienteResponse")]
-        void deshabilitarCliente(int id);
+        string deshabilitarCliente(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/deshabilitarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/deshabilitarClienteResponse")]
-        System.Threading.Tasks.Task deshabilitarClienteAsync(int id);
+        System.Threading.Tasks.Task<string> deshabilitarClienteAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/ingresarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/ingresarClienteResponse")]
         ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente ingresarCliente(string nombreUsuario, string pass);
@@ -538,12 +538,12 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
                 base(binding, remoteAddress) {
         }
         
-        public ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] getClientes() {
-            return base.Channel.getClientes();
+        public ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] obtenerTodos() {
+            return base.Channel.obtenerTodos();
         }
         
-        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> getClientesAsync() {
-            return base.Channel.getClientesAsync();
+        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> obtenerTodosAsync() {
+            return base.Channel.obtenerTodosAsync();
         }
         
         public string altaCliente(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente dtoCliente) {
@@ -562,27 +562,27 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
             return base.Channel.actualizarClienteAsync(DtoCliente);
         }
         
-        public void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva) {
-            base.Channel.actualizarContrasenaCliente(id, contrasenaAnterior, contrasenaNueva);
+        public string actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva) {
+            return base.Channel.actualizarContrasenaCliente(id, contrasenaAnterior, contrasenaNueva);
         }
         
-        public System.Threading.Tasks.Task actualizarContrasenaClienteAsync(int id, string contrasenaAnterior, string contrasenaNueva) {
+        public System.Threading.Tasks.Task<string> actualizarContrasenaClienteAsync(int id, string contrasenaAnterior, string contrasenaNueva) {
             return base.Channel.actualizarContrasenaClienteAsync(id, contrasenaAnterior, contrasenaNueva);
         }
         
-        public void habilitarCliente(int id) {
-            base.Channel.habilitarCliente(id);
+        public string habilitarCliente(int id) {
+            return base.Channel.habilitarCliente(id);
         }
         
-        public System.Threading.Tasks.Task habilitarClienteAsync(int id) {
+        public System.Threading.Tasks.Task<string> habilitarClienteAsync(int id) {
             return base.Channel.habilitarClienteAsync(id);
         }
         
-        public void deshabilitarCliente(int id) {
-            base.Channel.deshabilitarCliente(id);
+        public string deshabilitarCliente(int id) {
+            return base.Channel.deshabilitarCliente(id);
         }
         
-        public System.Threading.Tasks.Task deshabilitarClienteAsync(int id) {
+        public System.Threading.Tasks.Task<string> deshabilitarClienteAsync(int id) {
             return base.Channel.deshabilitarClienteAsync(id);
         }
         

@@ -70,17 +70,47 @@ namespace WCFProyectoFinal
                 return ex.Message;
             }
         }
-        public void actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva)
+        public string actualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva)
         {
-            clienteBL.actualizarContrasena(id, contrasenaAnterior, contrasenaNueva);
+            try
+            {
+                clienteBL.actualizarContrasena(id, contrasenaAnterior, contrasenaNueva);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
+            
         }
-        public void habilitarCliente(int id)
+        public List<DtoCliente> obtenerTodos()
         {
-            clienteBL.habilitarCliente(id);
+            List<DtoCliente> dtoClientes = cargaDtoClientes();
+            return dtoClientes;
         }
-        public void deshabilitarCliente(int id)
+        public string habilitarCliente(int id)
+        {           
+            try
+            {
+                clienteBL.habilitarCliente(id);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
+        }
+        public string deshabilitarCliente(int id)
         {
-            clienteBL.deshabilitarCliente(id);
+            try
+            {
+                clienteBL.deshabilitarCliente(id);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }            
         }
         public DtoCliente ingresarCliente(string nombreUsuario, string pass)
         {
@@ -101,11 +131,7 @@ namespace WCFProyectoFinal
             }
             return dtoCli;
         }
-        public List<DtoCliente> getClientes()
-        {
-            List<DtoCliente> dtoClientes = cargaDtoClientes();
-            return dtoClientes;
-        }
+        
         //**********************************************************
         //FIN CLIENTE
         //**********************************************************
@@ -184,11 +210,22 @@ namespace WCFProyectoFinal
         //**********************************************************
         private List<DtoCliente> cargaDtoClientes() {
             List<DtoCliente> dtoClientes = new List<DtoCliente>();
-            foreach (Cliente c in clienteBL.getClientes()) {
+            foreach (Cliente c in clienteBL.obtenerTodos()) {
                 dtoClientes.Add(new DtoCliente
                 {
                     Id = c.Id,
                     Nombre = c.Nombre,
+                    Apellido = c.Apellido,
+                    NombreUsuario = c.NombreUsuario,
+                    Contrasena = c.Contrasena,//ver si hay que cargarla
+                    UltimaModificacionContrasena = c.UltimaModificacionContrasena,
+                    Habilitado = c.Habilitado,
+                    CorreElectronico = c.CorreElectronico,
+                    Documento = c.Documento,
+                    Telefono = c.Documento,
+                    Direccion = c.Direccion,
+                    FechaAlta = c.FechaAlta,
+                    IdBarrio = c.Barrio.Id //ver que se podria trabajar con DtoBarrio
                 });
             }
             return dtoClientes;

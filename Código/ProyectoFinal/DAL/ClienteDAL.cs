@@ -10,6 +10,98 @@ namespace DAL
 {
     public class ClienteDAL
     {
+        public Cliente obtener(int id)
+        {
+            Cliente cli = null;
+            string cadenaSelectUsuario= "SELECT * FROM Usuario WHERE Id = @id";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectUsuario, con))
+                    {                        
+                        cmd.Parameters.AddWithValue("@id", id);
+                        con.Open();
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            dr.Read();
+                            if (dr.HasRows)
+                            {
+                                cli = new Cliente
+                                {
+                                    Id = Convert.ToInt32(dr["Id"]),
+                                    Nombre = dr["Nombre"].ToString(),
+                                    Apellido = dr["Apellido"].ToString(),
+                                    NombreUsuario = dr["NombreUsuario"].ToString(),
+                                    Contrasena = dr["Contrasenia"].ToString(),
+                                    UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
+                                    Habilitado = Convert.ToBoolean(dr["Habilitado"]),
+                                    CorreElectronico = dr["Email"].ToString(),
+                                    Documento = dr["Documento"].ToString(),
+                                    Telefono = dr["Telefono"].ToString(),
+                                    Direccion = dr["Direccion"].ToString(),
+                                    FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
+                                    Barrio= new Barrio { Id= Convert.ToInt32(dr["BarrioId"])}
+                                };
+                            }
+                        }
+                        //Ver que si el cliente tuviera datos en la tabla cliente habria que hacer otra lectura
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return cli;
+        }
+        public List<Cliente> obtenerTodos()
+        {
+            List<Cliente> clientes = new List<Cliente>();
+            string cadenaSelectUsuarios = "SELECT * FROM Usuario ORDER BY NombreUsuario ASC";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectUsuarios, con))
+                    {
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                Cliente cli = new Cliente
+                                {
+                                    Id = Convert.ToInt32(dr["Id"]),
+                                    Nombre = dr["Nombre"].ToString(),
+                                    Apellido = dr["Apellido"].ToString(),
+                                    NombreUsuario = dr["NombreUsuario"].ToString(),
+                                    Contrasena = dr["Contrasenia"].ToString(),
+                                    UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
+                                    Habilitado = Convert.ToBoolean(dr["Habilitado"]),
+                                    CorreElectronico = dr["Email"].ToString(),
+                                    Documento = dr["Documento"].ToString(),
+                                    Telefono = dr["Telefono"].ToString(),
+                                    Direccion = dr["Direccion"].ToString(),
+                                    FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
+                                    Barrio = new Barrio { Id = Convert.ToInt32(dr["BarrioId"]) }
+                                };
+                                //Ver que si el Cliente tuviera datos en la tabla Cliente se debe hacer otra consulta mas y agregar los datos
+                                clientes.Add(cli);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return clientes;
+        }
         public void altaCliente(Cliente cli) {
             string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @documento, @tel, @dir, @fechaAlta, @tipo, @barrio); 
                                             SELECT CAST(Scope_Identity() AS INT);";
@@ -107,30 +199,62 @@ namespace DAL
                 throw new ProyectoException("Error: " + ex.Message);
             }
         }
-        public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva)
+        public void actualizarContrasena(int id, string contrasenaNueva)
         {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
 
-        }
-        public List<Cliente> getClientes() {
-            List<Cliente> clientes = new List<Cliente>();
-            clientes.Add(new Cliente
+                    SqlCommand cmd = new SqlCommand("UPDATE Usuario SET Contrasenia = @pass WHERE id = @id", con);
+
+                    cmd.Parameters.AddWithValue("@pass", Utilidades.calcularMD5Hash(contrasenaNueva));
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
             {
-                Id = 1,
-                Nombre = "Federico"
-            });
-            clientes.Add(new Cliente
-            {
-                Id = 2,
-                Nombre = "Carlos"
-            });
-            return clientes;
+                throw new ProyectoException("Error: " + ex.Message);
+            }
         }
+        
         public void habilitarCliente(int id) {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
 
+                    SqlCommand cmd = new SqlCommand("Update Usuario SET Habilitado = 1 WHERE id = @id", con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
         }
         public void deshabilitarCliente(int id)
         {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
 
+                    SqlCommand cmd = new SqlCommand("Update Usuario SET Habilitado = 0 WHERE id = @id", con);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
         }
         public Cliente ingresarCliente(string nombre, string pass) {
             return null;

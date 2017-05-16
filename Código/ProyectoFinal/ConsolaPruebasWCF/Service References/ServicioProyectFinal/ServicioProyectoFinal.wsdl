@@ -7,11 +7,11 @@
       <xsd:import schemaLocation="http://localhost:22672/ServicioProyectoFinal.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IServicioProyectoFinal_getClientes_InputMessage">
-    <wsdl:part name="parameters" element="tns:getClientes" />
+  <wsdl:message name="IServicioProyectoFinal_obtenerTodos_InputMessage">
+    <wsdl:part name="parameters" element="tns:obtenerTodos" />
   </wsdl:message>
-  <wsdl:message name="IServicioProyectoFinal_getClientes_OutputMessage">
-    <wsdl:part name="parameters" element="tns:getClientesResponse" />
+  <wsdl:message name="IServicioProyectoFinal_obtenerTodos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:obtenerTodosResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioProyectoFinal_altaCliente_InputMessage">
     <wsdl:part name="parameters" element="tns:altaCliente" />
@@ -92,9 +92,9 @@
     <wsdl:part name="parameters" element="tns:ingresarAdministradorResponse" />
   </wsdl:message>
   <wsdl:portType name="IServicioProyectoFinal">
-    <wsdl:operation name="getClientes">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/getClientes" message="tns:IServicioProyectoFinal_getClientes_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/getClientesResponse" message="tns:IServicioProyectoFinal_getClientes_OutputMessage" />
+    <wsdl:operation name="obtenerTodos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodos" message="tns:IServicioProyectoFinal_obtenerTodos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodosResponse" message="tns:IServicioProyectoFinal_obtenerTodos_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="altaCliente">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/altaCliente" message="tns:IServicioProyectoFinal_altaCliente_InputMessage" />
@@ -151,8 +151,8 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServicioProyectoFinal" type="tns:IServicioProyectoFinal">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="getClientes">
-      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/getClientes" style="document" />
+    <wsdl:operation name="obtenerTodos">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
