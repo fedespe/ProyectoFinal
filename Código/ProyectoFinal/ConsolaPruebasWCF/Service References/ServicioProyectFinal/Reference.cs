@@ -424,11 +424,11 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioProyectFinal.IServicioProyectoFinal")]
     public interface IServicioProyectoFinal {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodos", ReplyAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodosResponse")]
-        ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] obtenerTodos();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodosClientes", ReplyAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodosClientesResponse")]
+        ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] obtenerTodosClientes();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodos", ReplyAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodosResponse")]
-        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> obtenerTodosAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodosClientes", ReplyAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodosClientesResponse")]
+        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> obtenerTodosClientesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaClienteResponse")]
         string altaCliente(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente dtoCliente);
@@ -466,43 +466,43 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/ingresarCliente", ReplyAction="http://tempuri.org/IServicioProyectoFinal/ingresarClienteResponse")]
         System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente> ingresarClienteAsync(string nombreUsuario, string pass);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaAdministradorResponse")]
-        void altaAdministrador(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodosAdministradores", ReplyAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodosAdministradoresResponse")]
+        ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[] obtenerTodosAdministradores();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/obtenerTodosAdministradores", ReplyAction="http://tempuri.org/IServicioProyectoFinal/obtenerTodosAdministradoresResponse")]
+        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[]> obtenerTodosAdministradoresAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaAdministradorResponse")]
-        System.Threading.Tasks.Task altaAdministradorAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado);
+        string altaAdministrador(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador dtoAdministrador);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/altaAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/altaAdministradorResponse")]
+        System.Threading.Tasks.Task<string> altaAdministradorAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador dtoAdministrador);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarAdministradorResponse")]
-        void actualizarAdministrador(string nombre, string apellido, string telefono);
+        string actualizarAdministrador(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador DtoAdministrador);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarAdministradorResponse")]
-        System.Threading.Tasks.Task actualizarAdministradorAsync(string nombre, string apellido, string telefono);
+        System.Threading.Tasks.Task<string> actualizarAdministradorAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador DtoAdministrador);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaAdministradorRespon" +
             "se")]
-        void actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva);
+        string actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaAdministradorRespon" +
             "se")]
-        System.Threading.Tasks.Task actualizarContrasenaAdministradorAsync(int id, string contrasenaAnterior, string contrasenaNueva);
+        System.Threading.Tasks.Task<string> actualizarContrasenaAdministradorAsync(int id, string contrasenaAnterior, string contrasenaNueva);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/getAdministradores", ReplyAction="http://tempuri.org/IServicioProyectoFinal/getAdministradoresResponse")]
-        ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[] getAdministradores();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/habilitarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/habilitarAdministradorResponse")]
+        string habilitarAdministrador(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/getAdministradores", ReplyAction="http://tempuri.org/IServicioProyectoFinal/getAdministradoresResponse")]
-        System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[]> getAdministradoresAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitradorResponse")]
-        void habilitarAdminitrador(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitradorResponse")]
-        System.Threading.Tasks.Task habilitarAdminitradorAsync(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/habilitarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/habilitarAdministradorResponse")]
+        System.Threading.Tasks.Task<string> habilitarAdministradorAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/deshabilitarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/deshabilitarAdministradorResponse")]
-        void deshabilitarAdministrador(int id);
+        string deshabilitarAdministrador(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/deshabilitarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/deshabilitarAdministradorResponse")]
-        System.Threading.Tasks.Task deshabilitarAdministradorAsync(int id);
+        System.Threading.Tasks.Task<string> deshabilitarAdministradorAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProyectoFinal/ingresarAdministrador", ReplyAction="http://tempuri.org/IServicioProyectoFinal/ingresarAdministradorResponse")]
         ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador ingresarAdministrador(string nombreUsuario, string pass);
@@ -538,12 +538,12 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
                 base(binding, remoteAddress) {
         }
         
-        public ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] obtenerTodos() {
-            return base.Channel.obtenerTodos();
+        public ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[] obtenerTodosClientes() {
+            return base.Channel.obtenerTodosClientes();
         }
         
-        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> obtenerTodosAsync() {
-            return base.Channel.obtenerTodosAsync();
+        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente[]> obtenerTodosClientesAsync() {
+            return base.Channel.obtenerTodosClientesAsync();
         }
         
         public string altaCliente(ConsolaPruebasWCF.ServicioProyectFinal.DtoCliente dtoCliente) {
@@ -594,51 +594,51 @@ namespace ConsolaPruebasWCF.ServicioProyectFinal {
             return base.Channel.ingresarClienteAsync(nombreUsuario, pass);
         }
         
-        public void altaAdministrador(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado) {
-            base.Channel.altaAdministrador(nombre, apellido, contrasena, nombreUsuario, correoElectronico, telefono, habilitado);
+        public ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[] obtenerTodosAdministradores() {
+            return base.Channel.obtenerTodosAdministradores();
         }
         
-        public System.Threading.Tasks.Task altaAdministradorAsync(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico, string telefono, bool habilitado) {
-            return base.Channel.altaAdministradorAsync(nombre, apellido, contrasena, nombreUsuario, correoElectronico, telefono, habilitado);
+        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[]> obtenerTodosAdministradoresAsync() {
+            return base.Channel.obtenerTodosAdministradoresAsync();
         }
         
-        public void actualizarAdministrador(string nombre, string apellido, string telefono) {
-            base.Channel.actualizarAdministrador(nombre, apellido, telefono);
+        public string altaAdministrador(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador dtoAdministrador) {
+            return base.Channel.altaAdministrador(dtoAdministrador);
         }
         
-        public System.Threading.Tasks.Task actualizarAdministradorAsync(string nombre, string apellido, string telefono) {
-            return base.Channel.actualizarAdministradorAsync(nombre, apellido, telefono);
+        public System.Threading.Tasks.Task<string> altaAdministradorAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador dtoAdministrador) {
+            return base.Channel.altaAdministradorAsync(dtoAdministrador);
         }
         
-        public void actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva) {
-            base.Channel.actualizarContrasenaAdministrador(id, contrasenaAnterior, contrasenaNueva);
+        public string actualizarAdministrador(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador DtoAdministrador) {
+            return base.Channel.actualizarAdministrador(DtoAdministrador);
         }
         
-        public System.Threading.Tasks.Task actualizarContrasenaAdministradorAsync(int id, string contrasenaAnterior, string contrasenaNueva) {
+        public System.Threading.Tasks.Task<string> actualizarAdministradorAsync(ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador DtoAdministrador) {
+            return base.Channel.actualizarAdministradorAsync(DtoAdministrador);
+        }
+        
+        public string actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva) {
+            return base.Channel.actualizarContrasenaAdministrador(id, contrasenaAnterior, contrasenaNueva);
+        }
+        
+        public System.Threading.Tasks.Task<string> actualizarContrasenaAdministradorAsync(int id, string contrasenaAnterior, string contrasenaNueva) {
             return base.Channel.actualizarContrasenaAdministradorAsync(id, contrasenaAnterior, contrasenaNueva);
         }
         
-        public ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[] getAdministradores() {
-            return base.Channel.getAdministradores();
+        public string habilitarAdministrador(int id) {
+            return base.Channel.habilitarAdministrador(id);
         }
         
-        public System.Threading.Tasks.Task<ConsolaPruebasWCF.ServicioProyectFinal.DtoAdministrador[]> getAdministradoresAsync() {
-            return base.Channel.getAdministradoresAsync();
+        public System.Threading.Tasks.Task<string> habilitarAdministradorAsync(int id) {
+            return base.Channel.habilitarAdministradorAsync(id);
         }
         
-        public void habilitarAdminitrador(int id) {
-            base.Channel.habilitarAdminitrador(id);
+        public string deshabilitarAdministrador(int id) {
+            return base.Channel.deshabilitarAdministrador(id);
         }
         
-        public System.Threading.Tasks.Task habilitarAdminitradorAsync(int id) {
-            return base.Channel.habilitarAdminitradorAsync(id);
-        }
-        
-        public void deshabilitarAdministrador(int id) {
-            base.Channel.deshabilitarAdministrador(id);
-        }
-        
-        public System.Threading.Tasks.Task deshabilitarAdministradorAsync(int id) {
+        public System.Threading.Tasks.Task<string> deshabilitarAdministradorAsync(int id) {
             return base.Channel.deshabilitarAdministradorAsync(id);
         }
         

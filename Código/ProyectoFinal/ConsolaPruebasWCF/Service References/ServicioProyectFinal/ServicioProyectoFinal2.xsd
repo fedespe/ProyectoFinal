@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:22672/ServicioProyectoFinal.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" />
-  <xs:element name="obtenerTodos">
+  <xs:element name="obtenerTodosClientes">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="obtenerTodosResponse">
+  <xs:element name="obtenerTodosClientesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" minOccurs="0" name="obtenerTodosResult" nillable="true" type="q1:ArrayOfDtoCliente" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" minOccurs="0" name="obtenerTodosClientesResult" nillable="true" type="q1:ArrayOfDtoCliente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -100,36 +100,44 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="obtenerTodosAdministradores">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="obtenerTodosAdministradoresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" minOccurs="0" name="obtenerTodosAdministradoresResult" nillable="true" type="q5:ArrayOfDtoAdministrador" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="altaAdministrador">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="apellido" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="contrasena" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="nombreUsuario" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="correoElectronico" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="telefono" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="habilitado" type="xs:boolean" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" minOccurs="0" name="dtoAdministrador" nillable="true" type="q6:DtoAdministrador" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="altaAdministradorResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="altaAdministradorResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="actualizarAdministrador">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="apellido" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="telefono" nillable="true" type="xs:string" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" minOccurs="0" name="DtoAdministrador" nillable="true" type="q7:DtoAdministrador" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="actualizarAdministradorResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="actualizarAdministradorResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="actualizarContrasenaAdministrador">
@@ -143,31 +151,23 @@
   </xs:element>
   <xs:element name="actualizarContrasenaAdministradorResponse">
     <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="getAdministradores">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="getAdministradoresResponse">
-    <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" minOccurs="0" name="getAdministradoresResult" nillable="true" type="q5:ArrayOfDtoAdministrador" />
+        <xs:element minOccurs="0" name="actualizarContrasenaAdministradorResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="habilitarAdminitrador">
+  <xs:element name="habilitarAdministrador">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="habilitarAdminitradorResponse">
+  <xs:element name="habilitarAdministradorResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="habilitarAdministradorResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="deshabilitarAdministrador">
@@ -179,7 +179,9 @@
   </xs:element>
   <xs:element name="deshabilitarAdministradorResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="deshabilitarAdministradorResult" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ingresarAdministrador">
@@ -193,7 +195,7 @@
   <xs:element name="ingresarAdministradorResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" minOccurs="0" name="ingresarAdministradorResult" nillable="true" type="q6:DtoAdministrador" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" minOccurs="0" name="ingresarAdministradorResult" nillable="true" type="q8:DtoAdministrador" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

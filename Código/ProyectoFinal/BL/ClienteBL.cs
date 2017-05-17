@@ -8,26 +8,31 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class ClienteBL
+    public class ClienteBL : UsuarioBL
     {
         private ClienteDAL clienteDAL = new ClienteDAL();
 
         public void altaCliente(Cliente cli)
         {
-            validarCliente(cli);//Falta validar barrio, se va a seleccionar de un combo y solo se trabaja con el id
+            base.validarUsuario(cli);//Falta validar barrio, se va a seleccionar de un combo y solo se trabaja con el id
+            //validarCliente(cli); tendriamos que hacer este metodo si tuviera datos particulares
             clienteDAL.altaCliente(cli);
         }       
         public void actualizarCliente(Cliente cli) {
-            validarActualizacion(cli);
+            base.validarActualizacionUsuario(cli);
             clienteDAL.actualizarCliente(cli);
         }       
         public void actualizarContrasena(int id, string contrasenaAnterior, string contrasenaNueva) {
-            validarContrasena(contrasenaNueva);
+            base.validarContrasena(contrasenaNueva);
             if (contrasenaAnterior.Equals(contrasenaNueva))
             {
                 throw new ProyectoException("Error: Contrasena anterior igual a nueva");
             }
             Cliente cli = clienteDAL.obtener(id);
+            if (cli == null)
+            {
+                throw new ProyectoException("Error: Cliente no encontrado");
+            }
             if (!Utilidades.calcularMD5Hash(contrasenaAnterior).Equals(cli.Contrasena))
             {
                 throw new ProyectoException("Error: Contrasena anterior");
@@ -38,62 +43,14 @@ namespace BL
            return clienteDAL.obtenerTodos();
         }
         public void habilitarCliente(int id) {
-            clienteDAL.habilitarCliente(id);
+            clienteDAL.habilitarUsuario(id);
         }
         public void deshabilitarCliente(int id) {
-            clienteDAL.deshabilitarCliente(id);
+            clienteDAL.deshabilitarUsuario(id);
         }
-        public Cliente ingresarCliente(string nombre, string pass) {
-            return clienteDAL.ingresarCliente(nombre, pass);
+        public Cliente ingresarCliente(string nombreUsu, string pass) {
+            return clienteDAL.ingresarCliente(nombreUsu, pass);
         }
-
-
-        private void validarCliente(Cliente cli)
-        {
-            validarActualizacion(cli);
-            validarContrasena(cli.Contrasena);
-            if (cli.NombreUsuario.Length < 3 || cli.NombreUsuario.Length > 50)
-            {
-                throw new ProyectoException("Error: NombreUsuario");
-            }
-            //Verificar metodo de comprobar email.
-            if (!(ET.Utilidades.ComprobarFormatoEmail(cli.CorreElectronico)))
-            {
-                throw new ProyectoException("Error: CorreElectronico");
-            }
-        }
-        private void validarActualizacion(Cliente cli)
-        {
-            if (cli.Nombre.Length < 2 || cli.Nombre.Length > 30)
-            {
-                throw new ProyectoException("Error: Nombre");
-            }
-            if (cli.Apellido.Length < 2 || cli.Apellido.Length > 30)
-            {
-                throw new ProyectoException("Error: Apellido");
-            }
-            if (cli.Telefono.Length < 6 || cli.Telefono.Length > 20)
-            {
-                throw new ProyectoException("Error: Telefono");
-            }
-            if (cli.Documento.Length < 6 || cli.Documento.Length > 20)
-            {
-                throw new ProyectoException("Error: Documento");
-            }
-            if (cli.Direccion.Length < 4 || cli.Direccion.Length > 100)
-            {
-                throw new ProyectoException("Error: Direccion");
-            }
-        }
-        private void validarContrasena(string contrasenaNueva)
-        {
-            //Ver si se le va agregar mas restricciones (expresion regular)
-            if (contrasenaNueva.Length < 8)
-            {
-                throw new ProyectoException("Error: Contrasena");
-            }           
-        }
-
 
     }
 }

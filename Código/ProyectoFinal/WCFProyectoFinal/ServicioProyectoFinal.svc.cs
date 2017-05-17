@@ -83,7 +83,7 @@ namespace WCFProyectoFinal
             }
             
         }
-        public List<DtoCliente> obtenerTodos()
+        public List<DtoCliente> obtenerTodosClientes()
         {
             List<DtoCliente> dtoClientes = cargaDtoClientes();
             return dtoClientes;
@@ -126,59 +126,112 @@ namespace WCFProyectoFinal
                         Habilitado=cli.Habilitado,
                         Nombre=cli.Nombre,
                         NombreUsuario=cli.NombreUsuario,
-                        Telefono=cli.Telefono
+                        Telefono=cli.Telefono,
+                        IdBarrio=cli.Barrio.Id,
+                        Direccion=cli.Direccion,
+                        FechaAlta=cli.FechaAlta,
+                        UltimaModificacionContrasena=cli.UltimaModificacionContrasena
                 };   
             }
             return dtoCli;
         }
-        
+
         //**********************************************************
         //FIN CLIENTE
         //**********************************************************
         //**********************************************************
         //ADMINISTRADOR
         //**********************************************************
-        public void altaAdministrador(string nombre, string apellido, string contrasena, 
-            string nombreUsuario, string correoElectronico, string telefono, bool habilitado)
+        public string altaAdministrador(DtoAdministrador dtoAdministrador)
         {
             Administrador admin = new Administrador
             {
-                Apellido = apellido,
-                Contrasena = contrasena,
-                CorreElectronico = correoElectronico,
-                Habilitado = habilitado,
-                Nombre = nombre,
-                NombreUsuario = nombreUsuario,
-                Telefono = telefono
+                Apellido = dtoAdministrador.Apellido,
+                Contrasena = dtoAdministrador.Contrasena,
+                CorreElectronico = dtoAdministrador.CorreElectronico,
+                Documento = dtoAdministrador.Documento,
+                Habilitado = dtoAdministrador.Habilitado,
+                Nombre = dtoAdministrador.Nombre,
+                NombreUsuario = dtoAdministrador.NombreUsuario,
+                Telefono = dtoAdministrador.Telefono,
+                Direccion = dtoAdministrador.Direccion,
+                Barrio = new Barrio { Id = dtoAdministrador.IdBarrio }
             };
-            adminBL.altaAdministrador(admin);
+            try
+            {
+                adminBL.altaAdministrador(admin);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
+
         }
-        public void actualizarAdministrador(string nombre, string apellido, string telefono)
+
+        public string actualizarAdministrador(DtoAdministrador dtoAdministrador)
         {
             Administrador admin = new Administrador
             {
-                Apellido = apellido,
-                Nombre = nombre,
-                Telefono = telefono
+                Id = dtoAdministrador.Id,
+                Apellido = dtoAdministrador.Apellido,
+                Documento = dtoAdministrador.Documento,
+                Nombre = dtoAdministrador.Nombre,
+                Telefono = dtoAdministrador.Telefono,
+                Direccion = dtoAdministrador.Direccion,
+                Barrio = new Barrio { Id = dtoAdministrador.IdBarrio }
             };
-            adminBL.altaAdministrador(admin);
+            try
+            {
+                adminBL.actualizarAdministrador(admin);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
         }
-        public void actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva)
+        public string actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva)
         {
-            adminBL.actualizarContrasena(id, contrasenaAnterior, contrasenaNueva);
+            try
+            {
+                adminBL.actualizarContrasena(id, contrasenaAnterior, contrasenaNueva);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
+
         }
-        public List<DtoAdministrador> getAdministradores()
+        public List<DtoAdministrador> obtenerTodosAdministradores()
         {
-            List<DtoAdministrador> dtoAdministradores = cargaDtoAdministradores();
-            return dtoAdministradores;
+            List<DtoAdministrador> dtoAdministrador = cargaDtoAdministradores();
+            return dtoAdministrador;
         }
-        public void habilitarAdminitrador(int id)
+        public string habilitarAdministrador(int id)
         {
-            adminBL.habilitarAdminitrador(id);
+            try
+            {
+                adminBL.habilitarAdministrador(id);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
         }
-        public void deshabilitarAdministrador(int id)
+        public string deshabilitarAdministrador(int id)
         {
-            adminBL.deshabilitarAdministrador(id);
+            try
+            {
+                adminBL.deshabilitarAdministrador(id);
+                return mensajeOk;
+            }
+            catch (ET.ProyectoException ex)
+            {
+                return ex.Message;
+            }
         }
         public DtoAdministrador ingresarAdministrador(string nombreUsuario, string pass)
         {
@@ -192,10 +245,15 @@ namespace WCFProyectoFinal
                     Apellido = admin.Apellido,
                     Contrasena = admin.Contrasena,
                     CorreElectronico = admin.CorreElectronico,
+                    Documento = admin.Documento,
                     Habilitado = admin.Habilitado,
                     Nombre = admin.Nombre,
                     NombreUsuario = admin.NombreUsuario,
-                    Telefono = admin.Telefono
+                    Telefono = admin.Telefono,
+                    IdBarrio = admin.Barrio.Id,
+                    Direccion = admin.Direccion,
+                    FechaAlta = admin.FechaAlta,
+                    UltimaModificacionContrasena = admin.UltimaModificacionContrasena
                 };
             }
             return dtoAdmin;
@@ -233,60 +291,30 @@ namespace WCFProyectoFinal
 
         private List<DtoAdministrador> cargaDtoAdministradores()
         {
-            List<DtoAdministrador> dtoAdministradores = new List<DtoAdministrador>();
-            foreach (Administrador a in adminBL.getAdministradores())
+            List<DtoAdministrador> dtoAdministrador = new List<DtoAdministrador>();
+            foreach (Administrador a in adminBL.obtenerTodos())
             {
-                dtoAdministradores.Add(new DtoAdministrador
+                dtoAdministrador.Add(new DtoAdministrador
                 {
                     Id = a.Id,
                     Nombre = a.Nombre,
+                    Apellido = a.Apellido,
+                    NombreUsuario = a.NombreUsuario,
+                    Contrasena = a.Contrasena,//ver si hay que cargarla
+                    UltimaModificacionContrasena = a.UltimaModificacionContrasena,
+                    Habilitado = a.Habilitado,
+                    CorreElectronico = a.CorreElectronico,
+                    Documento = a.Documento,
+                    Telefono = a.Documento,
+                    Direccion = a.Direccion,
+                    FechaAlta = a.FechaAlta,
+                    IdBarrio = a.Barrio.Id //ver que se podria trabajar con DtoBarrio
                 });
             }
-            return dtoAdministradores;
+            return dtoAdministrador;
         }
-
-
-
-        //public string altaCliente(string nombre, string apellido, string contrasena, 
-        //    string nombreUsuario, string correoElectronico, string telefono, bool habilitado, string documento)
-        //{
-        //    Cliente cli = new Cliente {
-        //        Apellido=apellido,
-        //        Contrasena=contrasena,
-        //        CorreElectronico=correoElectronico,
-        //        Documento=documento,
-        //        Habilitado=habilitado,
-        //        Nombre=nombre,
-        //        NombreUsuario=nombreUsuario,
-        //        Telefono=telefono
-        //    };
-        //    try {
-        //        clienteBL.altaCliente(cli);
-        //        return mensajeOk;
-        //    }
-        //    catch (ET.ProyectoException ex) {
-        //        return ex.Message;
-        //    }
-
-        //}
-        //public string actualizarCliente(string nombre, string apellido, string telefono, string documento)
-        //{
-        //    Cliente cli = new Cliente
-        //    {
-        //        Apellido = apellido,
-        //        Documento = documento,
-        //        Nombre = nombre,
-        //        Telefono = telefono
-        //    };
-        //    try
-        //    {
-        //        clienteBL.actualizarCliente(cli);
-        //        return mensajeOk;
-        //    }
-        //    catch (ET.ProyectoException ex)
-        //    {
-        //        return ex.Message;
-        //    }
-        //}
+        //**********************************************************
+        //FIN METODOS AUXILIARES
+        //**********************************************************
     }
 }

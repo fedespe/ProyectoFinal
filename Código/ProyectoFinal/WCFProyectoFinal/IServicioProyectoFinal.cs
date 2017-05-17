@@ -16,14 +16,9 @@ namespace WCFProyectoFinal
         //CLIENTE
         //**********************************************************
         [OperationContract]
-        List<DtoCliente> obtenerTodos();
-        //[OperationContract]
-        //string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
-        //    ,string telefono, bool habilitado, string documento);
+        List<DtoCliente> obtenerTodosClientes();
         [OperationContract]
         string altaCliente(DtoCliente dtoCliente);
-        //[OperationContract]
-        //string actualizarCliente(string nombre, string apellido, string telefono, string documento);
         [OperationContract]
         string actualizarCliente(DtoCliente DtoCliente);
         [OperationContract]
@@ -42,23 +37,27 @@ namespace WCFProyectoFinal
         //ADMINISTRADOR
         //**********************************************************
         [OperationContract]
-        void altaAdministrador(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
-            , string telefono, bool habilitado);
+        List<DtoAdministrador> obtenerTodosAdministradores();
         [OperationContract]
-        void actualizarAdministrador(string nombre, string apellido, string telefono);
+        string altaAdministrador(DtoAdministrador dtoAdministrador);
         [OperationContract]
-        void actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva);
+        string actualizarAdministrador(DtoAdministrador DtoAdministrador);
         [OperationContract]
-        List<DtoAdministrador> getAdministradores();
+        string actualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva);
         [OperationContract]
-        void habilitarAdminitrador(int id);
+        string habilitarAdministrador(int id);
         [OperationContract]
-        void deshabilitarAdministrador(int id);
+        string deshabilitarAdministrador(int id);
         [OperationContract]
         DtoAdministrador ingresarAdministrador(string nombreUsuario, string pass);
         //**********************************************************
         //FIN ADMINISTRADOR
         //**********************************************************
+        //[OperationContract]
+        //string altaCliente(string nombre, string apellido, string contrasena, string nombreUsuario, string correoElectronico
+        //    ,string telefono, bool habilitado, string documento);
+        //[OperationContract]
+        //string actualizarCliente(string nombre, string apellido, string telefono, string documento);
     }
 
     [DataContract]
