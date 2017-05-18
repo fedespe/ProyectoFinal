@@ -17,13 +17,29 @@ var router_1 = require("@angular/router");
 var data_service_1 = require("../shared/services/data.service");
 var mensaje_1 = require("../shared/mensaje");
 var cliente_1 = require("../shared/cliente");
+var barrio_1 = require("../shared/barrio");
 var RegistroClienteComponent = (function () {
     function RegistroClienteComponent(dataService, router) {
         this.dataService = dataService;
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
         this.cliente = new cliente_1.Cliente();
+        this.barrios = [];
+        //    Solo para prueba se tiene que cargar con un servicio que traiga los barrios del sistema    
+        var barrio = new barrio_1.Barrio();
+        barrio.Id = 1;
+        barrio.Nombre = 'Centro';
+        this.barrios.push(barrio);
+        var barrio2 = new barrio_1.Barrio();
+        barrio2.Id = 2;
+        barrio2.Nombre = "Cordón";
+        this.barrios.push(barrio2);
+        console.log("[registro-cliente.component.ts] - pruebaBarrios | barrio: " + JSON.stringify(this.barrios));
     }
+    RegistroClienteComponent.prototype.guardarDatoSelectBarrio = function (value) {
+        this.barrioSeleccionado = value;
+        console.log("[registro-cliente.component.ts] - guardarDatoSelectBarrio | barrioSeleccionado: " + JSON.stringify(this.barrioSeleccionado));
+    };
     RegistroClienteComponent.prototype.registrarCliente = function () {
         console.log("[registro-cliente.component.ts] - registrarCliente | cliente: " + JSON.stringify(this.cliente));
         this.mensajes.Errores = this.cliente.validarDatos();

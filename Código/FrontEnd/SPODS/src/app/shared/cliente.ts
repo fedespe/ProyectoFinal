@@ -10,6 +10,7 @@ export class Cliente {
     Telefono: string;
     Habilitado: boolean;
     Documento: string;
+    Direccion: string;
 
     validarDatos() : Error[]{
         console.log("[cliente.ts] - validarDatos | cliente: " + JSON.stringify(this));

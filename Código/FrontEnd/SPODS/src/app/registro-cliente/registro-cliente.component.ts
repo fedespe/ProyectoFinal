@@ -9,6 +9,8 @@ import { Mensaje } from "../shared/mensaje";
 import { Error } from "../shared/error";
 import { Cliente } from '../shared/cliente';
 
+import { Barrio } from '../shared/barrio';
+
 @Component({
     selector: 'registro-cliente',
     templateUrl: 'app/registro-cliente/registro-cliente.component.html',
@@ -17,9 +19,25 @@ import { Cliente } from '../shared/cliente';
 export class RegistroClienteComponent {
     mensajes: Mensaje = new Mensaje();
     cliente:Cliente = new Cliente();
+    barrios:Barrio[] = [];
+    barrioSeleccionado:string;
 
     constructor(private dataService: DataService, private router: Router) {
+    //    Solo para prueba se tiene que cargar con un servicio que traiga los barrios del sistema    
+       var barrio:Barrio=new Barrio();
+       barrio.Id=1;
+       barrio.Nombre='Centro';
+       this.barrios.push(barrio); 
+       var barrio2:Barrio= new Barrio();      
+       barrio2.Id=2;
+       barrio2.Nombre="Cordón";
+       this.barrios.push(barrio2);
+       console.log("[registro-cliente.component.ts] - pruebaBarrios | barrio: " + JSON.stringify(this.barrios));
+    }
 
+    guardarDatoSelectBarrio(value:any){
+        this.barrioSeleccionado=value;
+        console.log("[registro-cliente.component.ts] - guardarDatoSelectBarrio | barrioSeleccionado: " + JSON.stringify(this.barrioSeleccionado));
     }
 
     registrarCliente() {
