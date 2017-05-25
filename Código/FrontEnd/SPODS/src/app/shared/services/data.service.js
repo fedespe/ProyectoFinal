@@ -31,9 +31,11 @@ var DataService = (function () {
     DataService.prototype.postRegistroCliente = function (cliente) {
         console.log("[data.service.ts] - postRegistroCliente | cliente: " + JSON.stringify(cliente));
         var body = '{"idCarro":1,"marca":"Ferrari","modelo":2012}';
-        console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro');
+        this.contentHeadersJson = new http_1.Headers({ 'Content-Type': 'application/json' });
+        console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro/PostAltaCarro');
         console.log("[data.service.ts] - postRegistroCliente | body: " + body);
-        return this.http.post(this.baseUrl + '/api/carro', body, { headers: this.contentHeadersJson })
+        console.log("[data.service.ts] - postRegistroCliente | header: " + JSON.stringify(this.contentHeadersJson));
+        return this.http.post(this.baseUrl + '/api/carro/PostAltaCarro', body, { headers: this.contentHeadersJson })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };

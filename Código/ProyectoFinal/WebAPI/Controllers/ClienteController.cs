@@ -22,7 +22,8 @@ namespace WebAPI.Controllers
         {
             return clienteBL.obtener(id);
         }
-        public string PostAltaCliente(Cliente cli)
+        [HttpPost]
+        public string PostAltaCliente([FromBody]Cliente cli)
         {
             try
             {

@@ -43,7 +43,7 @@ var RegistroClienteComponent = (function () {
     RegistroClienteComponent.prototype.registrarCliente = function () {
         var _this = this;
         console.log("[registro-cliente.component.ts] - registrarCliente | cliente: " + JSON.stringify(this.cliente));
-        this.mensajes.Errores = this.cliente.validarDatos();
+        // this.mensajes.Errores = this.cliente.validarDatos();
         if (this.mensajes.Errores.length == 0) {
             this.dataService.postRegistroCliente(this.cliente)
                 .subscribe(function (res) { return _this.postRegistroClienteOk(res); }, function (error) { return _this.postRegistroClienteError(error); }, function () { return console.log("[registro-cliente.component.ts] - postRegistroCliente: Completado"); });

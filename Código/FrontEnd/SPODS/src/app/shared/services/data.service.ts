@@ -28,11 +28,13 @@ export class DataService {
         console.log("[data.service.ts] - postRegistroCliente | cliente: " + JSON.stringify(cliente));
 
         let body = '{"idCarro":1,"marca":"Ferrari","modelo":2012}';
+        this.contentHeadersJson = new Headers({'Content-Type': 'application/json'});
 
-        console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro');
+        console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro/PostAltaCarro');
         console.log("[data.service.ts] - postRegistroCliente | body: " + body);
+         console.log("[data.service.ts] - postRegistroCliente | header: " + JSON.stringify(this.contentHeadersJson));
 
-        return this.http.post(this.baseUrl + '/api/carro', body, { headers: this.contentHeadersJson })
+        return this.http.post(this.baseUrl + '/api/carro/PostAltaCarro', body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }

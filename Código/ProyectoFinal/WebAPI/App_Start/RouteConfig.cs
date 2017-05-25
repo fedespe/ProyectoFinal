@@ -18,6 +18,11 @@ namespace WebAPI
                 url: "{controller}/{action}/{id}",
                 defaults: new { action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "DefaultApiRouted",
+                url: "api/{controller}/{action}/{param}",
+                defaults: new { param = UrlParameter.Optional }
+            );
         }
     }
 }

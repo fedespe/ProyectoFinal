@@ -42,7 +42,7 @@ export class RegistroClienteComponent {
 
     registrarCliente() {
         console.log("[registro-cliente.component.ts] - registrarCliente | cliente: " + JSON.stringify(this.cliente));
-        this.mensajes.Errores = this.cliente.validarDatos();
+        // this.mensajes.Errores = this.cliente.validarDatos();
 
         if(this.mensajes.Errores.length == 0){
             this.dataService.postRegistroCliente(this.cliente)
