@@ -42,6 +42,10 @@ namespace BL
         public List<Cliente> obtenerTodos() {
            return clienteDAL.obtenerTodos();
         }
+        public Cliente obtener(int id)
+        {
+            return clienteDAL.obtener(id);
+        }
         public void habilitarCliente(int id) {
             clienteDAL.habilitarUsuario(id);
         }

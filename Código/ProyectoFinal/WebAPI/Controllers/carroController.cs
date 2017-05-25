@@ -37,5 +37,9 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
         }
+        public Carro PostAltaCarro(Carro car)
+        {
+            return car;
+        }
     }
 }
