@@ -22,18 +22,18 @@ var DataService = (function () {
         this.router = router;
         this.contentHeadersUrlEncoded = new http_1.Headers({ 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' });
         this.baseUrl = settings_1.Settings.baseUrl;
-        this.ini();
+        //this.ini();
     }
     DataService.prototype.ini = function () {
         this.contentHeadersJson = new http_1.Headers({ 'Authorization': 'OAuth ' + localStorage.getItem('access_token'), 'Content-Type': 'application/json' });
     };
     //2017-05-14
     DataService.prototype.postRegistroCliente = function (cliente) {
-        console.log("[data.service.ts] - postRegistroCliente");
-        var body = '{"dtoCliente": ' + JSON.stringify(cliente) + '}';
-        //Ver el baseURL
-        //Ver los Headers
-        return this.http.post(this.baseUrl + '/altaCliente', body, { headers: this.contentHeadersJson })
+        console.log("[data.service.ts] - postRegistroCliente | cliente: " + JSON.stringify(cliente));
+        var body = '{"idCarro":1,"marca":"Ferrari","modelo":2012}';
+        console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro');
+        console.log("[data.service.ts] - postRegistroCliente | body: " + body);
+        return this.http.post(this.baseUrl + '/api/carro', body, { headers: this.contentHeadersJson })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };

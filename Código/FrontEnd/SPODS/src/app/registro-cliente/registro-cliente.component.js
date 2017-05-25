@@ -25,7 +25,7 @@ var RegistroClienteComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.cliente = new cliente_1.Cliente();
         this.barrios = [];
-        //    Solo para prueba se tiene que cargar con un servicio que traiga los barrios del sistema    
+        //Solo para prueba se tiene que cargar con un servicio que traiga los barrios del sistema
         var barrio = new barrio_1.Barrio();
         barrio.Id = 1;
         barrio.Nombre = 'Centro';
@@ -34,31 +34,30 @@ var RegistroClienteComponent = (function () {
         barrio2.Id = 2;
         barrio2.Nombre = "Cordón";
         this.barrios.push(barrio2);
-        console.log("[registro-cliente.component.ts] - pruebaBarrios | barrio: " + JSON.stringify(this.barrios));
+        console.log("[registro-cliente.component.ts] - constructor | barrios: " + JSON.stringify(this.barrios));
     }
     RegistroClienteComponent.prototype.guardarDatoSelectBarrio = function (value) {
         this.barrioSeleccionado = value;
         console.log("[registro-cliente.component.ts] - guardarDatoSelectBarrio | barrioSeleccionado: " + JSON.stringify(this.barrioSeleccionado));
     };
     RegistroClienteComponent.prototype.registrarCliente = function () {
+        var _this = this;
         console.log("[registro-cliente.component.ts] - registrarCliente | cliente: " + JSON.stringify(this.cliente));
         this.mensajes.Errores = this.cliente.validarDatos();
-        // this.dataService.postRegistroCliente(this.cliente)
-        //         .subscribe(
-        //         res => this.postRegistroClienteOk(res),
-        //         error => this.postRegistroClienteError(error),
-        //         () => console.log("[registro-cliente.component.ts] - registrarCliente: Completed")
-        //     );
+        if (this.mensajes.Errores.length == 0) {
+            this.dataService.postRegistroCliente(this.cliente)
+                .subscribe(function (res) { return _this.postRegistroClienteOk(res); }, function (error) { return _this.postRegistroClienteError(error); }, function () { return console.log("[registro-cliente.component.ts] - postRegistroCliente: Completado"); });
+        }
     };
     RegistroClienteComponent.prototype.postRegistroClienteOk = function (response) {
         console.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
-        this.mensajes.Errores = response.Errores;
-        if (response.CodigoError == 200) {
-            this.iniciarSesion();
-        }
-        else {
-            //Acá podría controlar los códigos de error que me mando desde el backend
-        }
+        // this.mensajes.Errores = response.Errores;
+        // if(response.CodigoError ==  200){
+        //     this.iniciarSesion();
+        // }
+        // else{
+        //     //Acá podría controlar los códigos de error que me mando desde el backend
+        // }
     };
     RegistroClienteComponent.prototype.postRegistroClienteError = function (error) {
         console.log("[registro-cliente.component.ts] - postRegistroClienteError: " + JSON.stringify(error));

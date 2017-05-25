@@ -23,16 +23,16 @@ export class RegistroClienteComponent {
     barrioSeleccionado:string;
 
     constructor(private dataService: DataService, private router: Router) {
-    //    Solo para prueba se tiene que cargar con un servicio que traiga los barrios del sistema    
-       var barrio:Barrio=new Barrio();
-       barrio.Id=1;
-       barrio.Nombre='Centro';
-       this.barrios.push(barrio); 
-       var barrio2:Barrio= new Barrio();      
-       barrio2.Id=2;
-       barrio2.Nombre="Cordón";
-       this.barrios.push(barrio2);
-       console.log("[registro-cliente.component.ts] - pruebaBarrios | barrio: " + JSON.stringify(this.barrios));
+        //Solo para prueba se tiene que cargar con un servicio que traiga los barrios del sistema
+        var barrio:Barrio=new Barrio();
+        barrio.Id=1;
+        barrio.Nombre='Centro';
+        this.barrios.push(barrio); 
+        var barrio2:Barrio= new Barrio();      
+        barrio2.Id=2;
+        barrio2.Nombre="Cordón";
+        this.barrios.push(barrio2);
+        console.log("[registro-cliente.component.ts] - constructor | barrios: " + JSON.stringify(this.barrios));
     }
 
     guardarDatoSelectBarrio(value:any){
@@ -44,24 +44,26 @@ export class RegistroClienteComponent {
         console.log("[registro-cliente.component.ts] - registrarCliente | cliente: " + JSON.stringify(this.cliente));
         this.mensajes.Errores = this.cliente.validarDatos();
 
-        // this.dataService.postRegistroCliente(this.cliente)
-        //         .subscribe(
-        //         res => this.postRegistroClienteOk(res),
-        //         error => this.postRegistroClienteError(error),
-        //         () => console.log("[registro-cliente.component.ts] - registrarCliente: Completed")
-        //     );
+        if(this.mensajes.Errores.length == 0){
+            this.dataService.postRegistroCliente(this.cliente)
+                .subscribe(
+                res => this.postRegistroClienteOk(res),
+                error => this.postRegistroClienteError(error),
+                () => console.log("[registro-cliente.component.ts] - postRegistroCliente: Completado")
+            );
+        }
 }
 
     postRegistroClienteOk(response:any){
         console.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
         
-        this.mensajes.Errores = response.Errores;
-        if(response.CodigoError ==  200){
-            this.iniciarSesion();
-        }
-        else{
-            //Acá podría controlar los códigos de error que me mando desde el backend
-        }
+        // this.mensajes.Errores = response.Errores;
+        // if(response.CodigoError ==  200){
+        //     this.iniciarSesion();
+        // }
+        // else{
+        //     //Acá podría controlar los códigos de error que me mando desde el backend
+        // }
     }
 
     postRegistroClienteError(error:any){

@@ -41,5 +41,10 @@ namespace WebAPI.Controllers
         {
             return car;
         }
+
+        public Carro GetAltaCarro(Carro car)
+        {
+            return car;
+        }
     }
 }

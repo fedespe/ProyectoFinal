@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Settings } from "../settings";
 import { Observable } from 'rxjs/Observable';
@@ -16,7 +16,7 @@ export class DataService {
     constructor(private http:Http, private router: Router) {
         this.contentHeadersUrlEncoded = new Headers({'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'});
         this.baseUrl = Settings.baseUrl;
-        this.ini();
+        //this.ini();
     }
     
     public ini(){
@@ -25,13 +25,14 @@ export class DataService {
 
     //2017-05-14
     public postRegistroCliente(cliente:Cliente){
-        console.log("[data.service.ts] - postRegistroCliente");
+        console.log("[data.service.ts] - postRegistroCliente | cliente: " + JSON.stringify(cliente));
 
-        let body = '{"dtoCliente": '+ JSON.stringify(cliente) +'}';
+        let body = '{"idCarro":1,"marca":"Ferrari","modelo":2012}';
 
-        //Ver el baseURL
-        //Ver los Headers
-        return this.http.post(this.baseUrl + '/altaCliente', body, { headers: this.contentHeadersJson })
+        console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro');
+        console.log("[data.service.ts] - postRegistroCliente | body: " + body);
+
+        return this.http.post(this.baseUrl + '/api/carro', body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }

@@ -8,6 +8,6 @@ var Settings = (function () {
     }
     return Settings;
 }());
-Settings.baseUrl = 'http://localhost:8080/MarphJavaEnvironment';
+Settings.baseUrl = 'http://localhost:6075';
 exports.Settings = Settings;
 //# sourceMappingURL=settings.js.map

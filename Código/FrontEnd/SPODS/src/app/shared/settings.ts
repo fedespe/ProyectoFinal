@@ -3,5 +3,5 @@
  */
 
 export class Settings {
-    public static baseUrl:string = 'http://localhost:8080/MarphJavaEnvironment';
+    public static baseUrl:string = 'http://localhost:6075';
 }
