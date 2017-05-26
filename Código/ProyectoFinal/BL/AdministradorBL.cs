@@ -44,6 +44,10 @@ namespace BL
         {
             return adminitsradorDAL.obtenerTodos();
         }
+        public Administrador obtener(int id)
+        {
+            return adminitsradorDAL.obtener(id);
+        }
         public void habilitarAdministrador(int id)
         {
             adminitsradorDAL.habilitarUsuario(id);

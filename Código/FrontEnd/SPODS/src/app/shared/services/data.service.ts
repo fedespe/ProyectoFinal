@@ -27,11 +27,11 @@ export class DataService {
     public postRegistroCliente(cliente:Cliente){
         console.log("[data.service.ts] - postRegistroCliente | cliente: " + JSON.stringify(cliente));
 
-        let body = '{"idCarro":1,"marca":"Ferrari","modelo":2012}';
+        let body = {"idCarro":1,"marca":"Ferrari","modelo":2012};
         this.contentHeadersJson = new Headers({'Content-Type': 'application/json'});
 
         console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro/PostAltaCarro');
-        console.log("[data.service.ts] - postRegistroCliente | body: " + body);
+        console.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
          console.log("[data.service.ts] - postRegistroCliente | header: " + JSON.stringify(this.contentHeadersJson));
 
         return this.http.post(this.baseUrl + '/api/carro/PostAltaCarro', body, { headers: this.contentHeadersJson })

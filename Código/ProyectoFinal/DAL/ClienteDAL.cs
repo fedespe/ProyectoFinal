@@ -127,7 +127,7 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@dir", cli.Direccion); 
                         cmd.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
                         cmd.Parameters.AddWithValue("@tipo", "CLIENTE");
-                        cmd.Parameters.AddWithValue("@barrio", cli.Barrio.Id); 
+                        cmd.Parameters.AddWithValue("@barrio", cli.IdBarrio); 
 
                         con.Open();
                         trn = con.BeginTransaction();
@@ -172,7 +172,7 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@documento", cli.Documento);
                         cmd.Parameters.AddWithValue("@tel", cli.Telefono);
                         cmd.Parameters.AddWithValue("@dir", cli.Direccion);
-                        cmd.Parameters.AddWithValue("@barrio", cli.Barrio.Id);
+                        cmd.Parameters.AddWithValue("@barrio", cli.IdBarrio);
 
                         con.Open();
                         trn = con.BeginTransaction();

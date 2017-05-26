@@ -21,5 +21,7 @@ namespace ET
         public string Direccion { get; set; }
         public DateTime FechaAlta { get; set; }
         public Barrio Barrio { get; set; }
+        //Para pasarlo en el json en la webapi
+        public int IdBarrio { get; set; }
     }
 }

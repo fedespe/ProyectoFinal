@@ -9,28 +9,27 @@ using System.Web.Http;
 
 namespace WebAPI.Controllers
 {
-    public class ClienteController : ApiController
+    public class AdministradorController : ApiController
     {
-        private ClienteBL clienteBL = new ClienteBL();
+        private AdministradorBL adminBL = new AdministradorBL();
         private string mensajeOk = "OK";
 
-        //[HttpGet]
-        public IEnumerable<Cliente> GetAllClientes()
+        [HttpGet]
+        public IEnumerable<Administrador> GetAllAdministradores()
         {
-            return clienteBL.obtenerTodos();
+            return adminBL.obtenerTodos();
         }
-        //[HttpGet]       
-        public Cliente GetCliente(int id)
+        [HttpGet]
+        public Administrador GetAdministrador(int id)
         {
-            return clienteBL.obtener(id);
+            return adminBL.obtener(id);
         }
-        //[HttpPost]
-        [ActionName("AltaCliente")]
-        public string PostAltaCliente([FromBody]Cliente cli)
+        [HttpPost]
+        public string PostAltaAdministrador([FromBody]Administrador admin)
         {
             try
             {
-                clienteBL.altaCliente(cli);
+                adminBL.altaAdministrador(admin);
                 return mensajeOk;
             }
             catch (ET.ProyectoException ex)
@@ -38,12 +37,12 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        //[HttpPut]
-        public string PutActualizarCliente([FromBody]Cliente cli)
+        [HttpPut]
+        public string PutActualizarAdministrador([FromBody]Administrador admin)
         {
             try
             {
-                clienteBL.actualizarCliente(cli);
+                adminBL.actualizarAdministrador(admin);
                 return mensajeOk;
             }
             catch (ET.ProyectoException ex)
@@ -51,13 +50,12 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        //[HttpPost]//VER SI EL METODO ES GET, POST O PUT... 
-        [HttpGet, Route("api/Cliente/actualizarContrasena/{id}/{contrasenaAnterior}/{contrasenaNueva}")]
-        public string ActualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva)
+        [HttpPost]//VER SI EL METODO ES GET, POST O PUT... 
+        public string PostActualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva)
         {
             try
             {
-                clienteBL.actualizarContrasena(id, contrasenaAnterior, contrasenaNueva);
+                adminBL.actualizarContrasena(id, contrasenaAnterior, contrasenaNueva);
                 return mensajeOk;
             }
             catch (ET.ProyectoException ex)
@@ -66,11 +64,11 @@ namespace WebAPI.Controllers
             }
         }
         [HttpGet]
-        public string GetHabilitarCliente(int id)
+        public string GetHabilitarAdministrador(int id)
         {
             try
             {
-                clienteBL.habilitarCliente(id);
+                adminBL.habilitarAdministrador(id);
                 return mensajeOk;
             }
             catch (ET.ProyectoException ex)
@@ -79,11 +77,11 @@ namespace WebAPI.Controllers
             }
         }
         [HttpGet]
-        public string GetDeshabilitarCliente(int id)
+        public string GetDeshabilitarAdministrador(int id)
         {
             try
             {
-                clienteBL.deshabilitarCliente(id);
+                adminBL.deshabilitarAdministrador(id);
                 return mensajeOk;
             }
             catch (ET.ProyectoException ex)
@@ -92,12 +90,11 @@ namespace WebAPI.Controllers
             }
         }
         [HttpPost]//VER SI EL METODO ES GET, POST 
-        public Cliente GetIngresarCliente(string nombreUsuario, string pass)
+        public Administrador GetIngresarAdministrador(string nombreUsuario, string pass)
         {
-            Cliente cli = clienteBL.ingresarCliente(nombreUsuario, pass);
-            
-            return cli;
-        }
+            Administrador admin = adminBL.ingresarAdministrador(nombreUsuario, pass);
 
+            return admin;
+        }
     }
 }

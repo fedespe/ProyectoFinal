@@ -34,7 +34,7 @@ namespace WCFProyectoFinal
                 NombreUsuario = dtoCliente.NombreUsuario,
                 Telefono = dtoCliente.Telefono,
                 Direccion = dtoCliente.Direccion,
-                Barrio = new Barrio { Id=dtoCliente.IdBarrio}
+                IdBarrio = dtoCliente.IdBarrio
             };
             try
             {
@@ -58,7 +58,7 @@ namespace WCFProyectoFinal
                 Nombre = dtoCliente.Nombre,
                 Telefono = dtoCliente.Telefono,
                 Direccion = dtoCliente.Direccion,
-                Barrio = new Barrio { Id = dtoCliente.IdBarrio }
+                IdBarrio = dtoCliente.IdBarrio
             };
             try
             {
@@ -155,7 +155,7 @@ namespace WCFProyectoFinal
                 NombreUsuario = dtoAdministrador.NombreUsuario,
                 Telefono = dtoAdministrador.Telefono,
                 Direccion = dtoAdministrador.Direccion,
-                Barrio = new Barrio { Id = dtoAdministrador.IdBarrio }
+                IdBarrio = dtoAdministrador.IdBarrio
             };
             try
             {
@@ -179,7 +179,7 @@ namespace WCFProyectoFinal
                 Nombre = dtoAdministrador.Nombre,
                 Telefono = dtoAdministrador.Telefono,
                 Direccion = dtoAdministrador.Direccion,
-                Barrio = new Barrio { Id = dtoAdministrador.IdBarrio }
+                IdBarrio = dtoAdministrador.IdBarrio
             };
             try
             {
