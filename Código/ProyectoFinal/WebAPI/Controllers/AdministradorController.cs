@@ -14,17 +14,17 @@ namespace WebAPI.Controllers
         private AdministradorBL adminBL = new AdministradorBL();
         private string mensajeOk = "OK";
 
-        [HttpGet]
+        [HttpGet, Route("api/Administrador/obtenerTodos")]
         public IEnumerable<Administrador> GetAllAdministradores()
         {
             return adminBL.obtenerTodos();
         }
-        [HttpGet]
+        [HttpGet, Route("api/Administrador/obtener/{id}")]
         public Administrador GetAdministrador(int id)
         {
             return adminBL.obtener(id);
         }
-        [HttpPost]
+        [HttpPost, Route("api/Administrador/altaAdministrador")]
         public string PostAltaAdministrador([FromBody]Administrador admin)
         {
             try
@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        [HttpPut]
+        [HttpPut, Route("api/Administrador/actualizarAdministrador")]
         public string PutActualizarAdministrador([FromBody]Administrador admin)
         {
             try
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        [HttpPost]//VER SI EL METODO ES GET, POST O PUT... 
+        [HttpGet, Route("api/Administrador/actualizarContrasena/{id}/{contrasenaAnterior}/{contrasenaNueva}")]
         public string PostActualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva)
         {
             try
@@ -63,7 +63,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        [HttpGet]
+        [HttpGet, Route("api/Administrador/habilitarAdministrador/{id}")]
         public string GetHabilitarAdministrador(int id)
         {
             try
@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        [HttpGet]
+        [HttpGet, Route("api/Administrador/deshabilitarAdministrador/{id}")]
         public string GetDeshabilitarAdministrador(int id)
         {
             try
@@ -89,7 +89,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        [HttpPost]//VER SI EL METODO ES GET, POST 
+        [HttpGet, Route("api/Administrador/ingresarAdministrador/{nombreUsuario}/{pass}")]
         public Administrador GetIngresarAdministrador(string nombreUsuario, string pass)
         {
             Administrador admin = adminBL.ingresarAdministrador(nombreUsuario, pass);

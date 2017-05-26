@@ -14,18 +14,17 @@ namespace WebAPI.Controllers
         private ClienteBL clienteBL = new ClienteBL();
         private string mensajeOk = "OK";
 
-        //[HttpGet]
+        [HttpGet, Route("api/Cliente/obtenerTodos")]
         public IEnumerable<Cliente> GetAllClientes()
         {
             return clienteBL.obtenerTodos();
         }
-        //[HttpGet]       
+        [HttpGet, Route("api/Cliente/obtener/{id}")]
         public Cliente GetCliente(int id)
         {
             return clienteBL.obtener(id);
         }
-        //[HttpPost]
-        [ActionName("AltaCliente")]
+        [HttpPost, Route("api/Cliente/altaCliente")]
         public string PostAltaCliente([FromBody]Cliente cli)
         {
             try
@@ -38,7 +37,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        //[HttpPut]
+        [HttpPut, Route("api/Cliente/actualizarCliente")]
         public string PutActualizarCliente([FromBody]Cliente cli)
         {
             try
@@ -51,9 +50,8 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        //[HttpPost]//VER SI EL METODO ES GET, POST O PUT... 
         [HttpGet, Route("api/Cliente/actualizarContrasena/{id}/{contrasenaAnterior}/{contrasenaNueva}")]
-        public string ActualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva)
+        public string GetActualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva)
         {
             try
             {
@@ -65,7 +63,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        [HttpGet]
+        [HttpGet, Route("api/Cliente/habilitarCliente/{id}")]
         public string GetHabilitarCliente(int id)
         {
             try
@@ -78,7 +76,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        [HttpGet]
+        [HttpGet, Route("api/Cliente/deshabilitarCliente/{id}")]
         public string GetDeshabilitarCliente(int id)
         {
             try
@@ -91,7 +89,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
-        [HttpPost]//VER SI EL METODO ES GET, POST 
+        [HttpGet, Route("api/Cliente/ingresarCliente/{nombreUsuario}/{pass}")]
         public Cliente GetIngresarCliente(string nombreUsuario, string pass)
         {
             Cliente cli = clienteBL.ingresarCliente(nombreUsuario, pass);
