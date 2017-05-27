@@ -8,8 +8,8 @@ namespace WebAPI.Models
 {
     public class Carro
     {
-        public int idCarro { get; set; }
-        public string marca { get; set; }
-        public int modelo { get; set; }
+        public int Id { get; set; }
+        public string Marca { get; set; }
+        public int Modelo { get; set; }
     }
 }

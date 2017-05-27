@@ -10,41 +10,71 @@ namespace WebAPI.Controllers
 {
     public class carroController : ApiController
     {
-        Carro[] carros = new Carro[]
-        {
-            new Carro { idCarro = 1, marca = "Ferrari", modelo=2012 },
-            new Carro { idCarro = 2, marca = "BMW", modelo=2010 },
-            new Carro { idCarro = 3, marca = "Mazda", modelo=2002 },
-            new Carro { idCarro = 4, marca = "Nissan", modelo=2004 },
-            new Carro { idCarro = 5, marca = "Renault", modelo=1998 }
-        };
+        List<Carro> carros = new List<Carro>();
 
-        public IEnumerable<Carro> GetAllCarro()
+        public carroController()
         {
-            return carros;
+            this.carros.Add(new Carro { Id = 1, Marca = "Ferrari", Modelo = 2012 });
+            this.carros.Add(new Carro { Id = 2, Marca = "BMW", Modelo = 2010 });
+            this.carros.Add(new Carro { Id = 3, Marca = "Mazda", Modelo = 2002 });
+            this.carros.Add(new Carro { Id = 4, Marca = "Nissan", Modelo = 2004 });
+            this.carros.Add(new Carro { Id = 5, Marca = "Renault", Modelo = 1998 });
         }
 
-        public IHttpActionResult GetCarro(int id)
+        //Servicio por Get sin parámetros (Retorna todos)
+        [HttpGet, Route("api/Carro/obtenerTodos")]
+        public IEnumerable<Carro> GetAllCarros()
         {
-            var carro = carros.FirstOrDefault((c) => c.idCarro == id);
+            return this.carros;
+        }
 
-            if(carro != null)
+        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [HttpGet, Route("api/Carro/obtener/{id}")]
+        public Carro GetCarro(int id)
+        {
+            var carro = carros.FirstOrDefault((c) => c.Id == id);
+            return carro;
+        }
+
+        //Servicio por Post para alta
+        [HttpPost, Route("api/Carro/altaCarro")]
+        public IEnumerable<Carro> PostAltaCarro([FromBody]Carro carro)
+        {
+            this.carros.Add(carro);
+            return this.carros;
+        }
+
+        //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
+        [HttpPut, Route("api/Carro/actualizarCarro")]
+        public IEnumerable<Carro> PutActualizarCarro([FromBody]Carro carro)
+        {
+            foreach(Carro c in this.carros)
             {
-                return Ok(carro);
+                if (c.Id == carro.Id)
+                {
+                    c.Marca = carro.Marca;
+                    c.Modelo = carro.Modelo;
+                    break;
+                }
             }
-            else
-            {
-                return NotFound();
-            }
-        }
-        public Carro PostAltaCarro(Carro car)
-        {
-            return car;
+
+            return this.carros;
         }
 
-        public Carro GetAltaCarro(Carro car)
+        //Servicio por Delete para eliminar (Recibe el objeto a eliminar en el Body)
+        [HttpDelete, Route("api/Carro/eliminarCarro")]
+        public IEnumerable<Carro> PutEliminarCarro([FromBody]Carro carro)
         {
-            return car;
+            foreach (Carro c in this.carros)
+            {
+                if (c.Id == carro.Id)
+                {
+                    this.carros.Remove(c);
+                    break;
+                }
+            }
+
+            return this.carros;
         }
     }
 }

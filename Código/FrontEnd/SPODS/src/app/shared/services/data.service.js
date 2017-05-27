@@ -24,16 +24,73 @@ var DataService = (function () {
         this.headers = new http_1.Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
         this.baseUrl = settings_1.Settings.baseUrl;
     }
-    DataService.prototype.postRegistroCliente = function (cliente) {
-        var URL = this.baseUrl + '/api/carro/PostAltaCarro';
-        var body = { "IdCarro": 1, "Marca": "Ferrari", "Modelo": 2012 };
-        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
-        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
-        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+    //Prueba llamando un método por Get sin parámetros (Obtiene todos los carros)
+    //Retorna una colección de Carro
+    DataService.prototype.getCarroObtenerTodos = function () {
+        var URL = this.baseUrl + '/api/Carro/obtenerTodos';
+        utilidades_1.Utilidades.log("[data.service.ts] - getCarroObtenerTodos | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getCarroObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //Prueba llamando un método por Get con parámetro (Obtiene el carro con el id que se pasa)
+    //Retorna un Carro
+    DataService.prototype.getCarroObtenerPorId = function (id) {
+        var URL = this.baseUrl + '/api/Carro/obtener/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getCarroObtenerPorId | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getCarroObtenerPorId | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta el carro que se pasa)
+    //Retorna una colección de Carro
+    DataService.prototype.postCarroAlta = function (carro) {
+        var URL = this.baseUrl + '/api/Carro/altaCarro';
+        var body = JSON.stringify(carro);
+        utilidades_1.Utilidades.log("[data.service.ts] - postCarroAlta | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postCarroAlta | body: " + body);
+        utilidades_1.Utilidades.log("[data.service.ts] - postCarroAlta | headers: " + JSON.stringify({ headers: this.headers }));
         return this.http.post(URL, body, { headers: this.headers })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    //Prueba llamando un método por Put y pasando algo para modificar en el Body (Modifica el carro que se pasa buscándolo por el Id)
+    //Retorna una colección de Carro
+    DataService.prototype.putCarroActualizar = function (carro) {
+        var URL = this.baseUrl + '/api/Carro/actualizarCarro';
+        var body = JSON.stringify(carro);
+        utilidades_1.Utilidades.log("[data.service.ts] - putCarroActualizar | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - putCarroActualizar | body: " + body);
+        utilidades_1.Utilidades.log("[data.service.ts] - putCarroActualizar | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.put(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //Prueba llamando un método por Delete y pasando algo para eliminar en el Body (Elimina el carro que se pasa buscándolo por el Id)
+    //Retorna una colección de Carro
+    DataService.prototype.deleteCarroEliminar = function (carro) {
+        var URL = this.baseUrl + '/api/Carro/eliminarCarro';
+        var body = JSON.stringify(carro);
+        utilidades_1.Utilidades.log("[data.service.ts] - deleteCarroEliminar | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - deleteCarroEliminar | body: " + body);
+        utilidades_1.Utilidades.log("[data.service.ts] - deleteCarroEliminar | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.delete(URL, { body: body, headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta un carro)
+    // public postRegistroCliente(cliente:Cliente){
+    //     var URL : string = this.baseUrl + '/api/Carro/altaCarro';
+    //     let body = {"IdCarro":6,"Marca":"Volvo","Modelo":2017};
+    //     Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
+    //     Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
+    //     Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+    //     return this.http.post(URL, body, { headers: this.headers })
+    //         .map((res: Response) => res.json())
+    //         .catch(this.handleError);
+    // }
     //Función para lanzar excepciones que pueden surgir en las llamadas a los servicios
     DataService.prototype.handleError = function (error) {
         return Observable_1.Observable.throw(error.json().error || " server error");

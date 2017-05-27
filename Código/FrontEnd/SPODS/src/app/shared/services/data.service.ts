@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Cliente} from "../cliente";
+import {Carro} from "../carro";
 
 @Injectable()
 export class DataService {
@@ -18,18 +19,90 @@ export class DataService {
         this.baseUrl = Settings.baseUrl;
     }
 
-    public postRegistroCliente(cliente:Cliente){
-        var URL : string = this.baseUrl + '/api/carro/PostAltaCarro';
-        let body = {"IdCarro":1,"Marca":"Ferrari","Modelo":2012};
-        
-        Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
-        Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
-        Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+    //Prueba llamando un método por Get sin parámetros (Obtiene todos los carros)
+    //Retorna una colección de Carro
+    public getCarroObtenerTodos(){
+        var URL : string = this.baseUrl + '/api/Carro/obtenerTodos';
+
+        Utilidades.log("[data.service.ts] - getCarroObtenerTodos | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getCarroObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    //Prueba llamando un método por Get con parámetro (Obtiene el carro con el id que se pasa)
+    //Retorna un Carro
+    public getCarroObtenerPorId(id:number){
+        var URL : string = this.baseUrl + '/api/Carro/obtener/' + id;
+
+        Utilidades.log("[data.service.ts] - getCarroObtenerPorId | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getCarroObtenerPorId | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta el carro que se pasa)
+    //Retorna una colección de Carro
+    public postCarroAlta(carro:Carro){
+        var URL : string = this.baseUrl + '/api/Carro/altaCarro';
+        let body = JSON.stringify(carro);
+
+        Utilidades.log("[data.service.ts] - postCarroAlta | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postCarroAlta | body: " + body);
+        Utilidades.log("[data.service.ts] - postCarroAlta | headers: " + JSON.stringify({ headers: this.headers }));
 
         return this.http.post(URL, body, { headers: this.headers })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+
+    //Prueba llamando un método por Put y pasando algo para modificar en el Body (Modifica el carro que se pasa buscándolo por el Id)
+    //Retorna una colección de Carro
+    public putCarroActualizar(carro:Carro){
+        var URL : string = this.baseUrl + '/api/Carro/actualizarCarro';
+        let body = JSON.stringify(carro);
+        
+        Utilidades.log("[data.service.ts] - putCarroActualizar | URL: " + URL);
+        Utilidades.log("[data.service.ts] - putCarroActualizar | body: " + body);
+        Utilidades.log("[data.service.ts] - putCarroActualizar | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.put(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    //Prueba llamando un método por Delete y pasando algo para eliminar en el Body (Elimina el carro que se pasa buscándolo por el Id)
+    //Retorna una colección de Carro
+    public deleteCarroEliminar(carro:Carro){
+        var URL : string = this.baseUrl + '/api/Carro/eliminarCarro';
+        let body = JSON.stringify(carro);
+        
+        Utilidades.log("[data.service.ts] - deleteCarroEliminar | URL: " + URL);
+        Utilidades.log("[data.service.ts] - deleteCarroEliminar | body: " + body);
+        Utilidades.log("[data.service.ts] - deleteCarroEliminar | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.delete(URL, { body: body, headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta un carro)
+    // public postRegistroCliente(cliente:Cliente){
+    //     var URL : string = this.baseUrl + '/api/Carro/altaCarro';
+    //     let body = {"IdCarro":6,"Marca":"Volvo","Modelo":2017};
+
+    //     Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
+    //     Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
+    //     Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+    //     return this.http.post(URL, body, { headers: this.headers })
+    //         .map((res: Response) => res.json())
+    //         .catch(this.handleError);
+    // }
 
 
     //Función para lanzar excepciones que pueden surgir en las llamadas a los servicios

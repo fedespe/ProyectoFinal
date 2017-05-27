@@ -6,6 +6,7 @@ import { Mensaje } from "../shared/mensaje";
 import { Error } from "../shared/error";
 import { Cliente } from '../shared/cliente';
 import { Barrio } from '../shared/barrio';
+import { Carro } from '../shared/carro';
 
 @Component({
     selector: 'registro-cliente',
@@ -40,33 +41,106 @@ export class RegistroClienteComponent {
         Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
 
         this.mensajes.Errores = this.cliente.validarDatos();
-
         if(this.mensajes.Errores.length == 0){
-            this.dataService.postRegistroCliente(this.cliente)
-                .subscribe(
-                res => this.postRegistroClienteOk(res),
-                error => this.postRegistroClienteError(error),
-                () => Utilidades.log("[registro-cliente.component.ts] - postRegistroCliente: Completado")
-            );
+            //Llamaría al servicio para dar de alta clientes
         }
+
+        //this.pruebaGetSinParametro();
+        //this.pruebaGetConParametro();
+        //this.pruebaPost();
+        //this.pruebaPut();
+        this.pruebaDelete();
     }
 
-    postRegistroClienteOk(response:any){
-        Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
+    pruebaGetSinParametro(){
+        this.dataService.getCarroObtenerTodos()
+            .subscribe(
+            res => this.pruebaOk(res),
+            error => this.pruebaError(error),
+            () => Utilidades.log("[registro-cliente.component.ts] - getCarroObtenerTodos: Completado")
+        );
+    }
+
+    pruebaGetConParametro(){
+        let id : number = 1;
+        this.dataService.getCarroObtenerPorId(id)
+            .subscribe(
+            res => this.pruebaOk(res),
+            error => this.pruebaError(error),
+            () => Utilidades.log("[registro-cliente.component.ts] - getCarroObtenerPorId: Completado")
+        );
+    }
+
+    pruebaPost(){
+        let carro : Carro = new Carro();
+        carro.Id = 6;
+        carro.Marca = "Volvo";
+        carro.Modelo = 2017;
+
+        this.dataService.postCarroAlta(carro)
+            .subscribe(
+            res => this.pruebaOk(res),
+            error => this.pruebaError(error),
+            () => Utilidades.log("[registro-cliente.component.ts] - postCarroAlta: Completado")
+        );
+    }
+
+    pruebaPut(){
+        let carro : Carro = new Carro();
+        carro.Id = 1;
+        carro.Marca = "Volvo";
+        carro.Modelo = 2017;
         
-        // this.mensajes.Errores = response.Errores;
-        // if(response.CodigoError ==  200){
-        //     this.iniciarSesion();
-        // }
-        // else{
-        //     //Acá podría controlar los códigos de error que me mando desde el backend
-        // }
+        this.dataService.putCarroActualizar(carro)
+            .subscribe(
+            res => this.pruebaOk(res),
+            error => this.pruebaError(error),
+            () => Utilidades.log("[registro-cliente.component.ts] - putCarroActualizar: Completado")
+        );
     }
 
-    postRegistroClienteError(error:any){
-        Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteError | error: " + JSON.stringify(error));
+    pruebaDelete(){
+        let carro : Carro = new Carro();
+        carro.Id = 1;
+        carro.Marca = "Ferrari";
+        carro.Modelo = 2012;
+        
+        this.dataService.deleteCarroEliminar(carro)
+            .subscribe(
+            res => this.pruebaOk(res),
+            error => this.pruebaError(error),
+            () => Utilidades.log("[registro-cliente.component.ts] - deleteCarroEliminar: Completado")
+        );
+    }
+
+    pruebaOk(response:any){
+        Utilidades.log("[registro-cliente.component.ts] - pruebaOk | response: " + JSON.stringify(response));
+    }
+
+    pruebaError(error:any){
+        Utilidades.log("[registro-cliente.component.ts] - pruebaError | error: " + JSON.stringify(error));
         var errorInesperado = new Error();
         errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(errorInesperado);
     }
+
+
+    // postRegistroClienteOk(response:any){
+    //     Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
+        
+    //     // this.mensajes.Errores = response.Errores;
+    //     // if(response.CodigoError ==  200){
+    //     //     this.iniciarSesion();
+    //     // }
+    //     // else{
+    //     //     //Acá podría controlar los códigos de error que me mando desde el backend
+    //     // }
+    // }
+
+    // postRegistroClienteError(error:any){
+    //     Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteError | error: " + JSON.stringify(error));
+    //     var errorInesperado = new Error();
+    //     errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+    //     this.mensajes.Errores.push(errorInesperado);
+    // }
 }
