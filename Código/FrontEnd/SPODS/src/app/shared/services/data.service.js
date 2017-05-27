@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var settings_1 = require("../settings");
+var utilidades_1 = require("../utilidades");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
@@ -20,25 +21,20 @@ var DataService = (function () {
     function DataService(http, router) {
         this.http = http;
         this.router = router;
-        this.contentHeadersUrlEncoded = new http_1.Headers({ 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' });
+        this.headers = new http_1.Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
         this.baseUrl = settings_1.Settings.baseUrl;
-        //this.ini();
     }
-    DataService.prototype.ini = function () {
-        this.contentHeadersJson = new http_1.Headers({ 'Authorization': 'OAuth ' + localStorage.getItem('access_token'), 'Content-Type': 'application/json' });
-    };
-    //2017-05-14
     DataService.prototype.postRegistroCliente = function (cliente) {
-        console.log("[data.service.ts] - postRegistroCliente | cliente: " + JSON.stringify(cliente));
-        var body = { "idCarro": 1, "marca": "Ferrari", "modelo": 2012 };
-        this.contentHeadersJson = new http_1.Headers({ 'Content-Type': 'application/json' });
-        console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro/PostAltaCarro');
-        console.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
-        console.log("[data.service.ts] - postRegistroCliente | header: " + JSON.stringify(this.contentHeadersJson));
-        return this.http.post(this.baseUrl + '/api/carro/PostAltaCarro', body, { headers: this.contentHeadersJson })
+        var URL = this.baseUrl + '/api/carro/PostAltaCarro';
+        var body = { "IdCarro": 1, "Marca": "Ferrari", "Modelo": 2012 };
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.post(URL, body, { headers: this.headers })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    //Función para lanzar excepciones que pueden surgir en las llamadas a los servicios
     DataService.prototype.handleError = function (error) {
         return Observable_1.Observable.throw(error.json().error || " server error");
     };

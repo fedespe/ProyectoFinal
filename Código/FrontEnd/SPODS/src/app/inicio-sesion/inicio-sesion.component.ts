@@ -15,7 +15,7 @@ export class InicioSesionComponent{
     
     constructor(private dataService: DataService, private router: Router) {
     }
-
+    
     navegarRegistroCliente(){
         this.router.navigateByUrl('/registro-cliente');
     }

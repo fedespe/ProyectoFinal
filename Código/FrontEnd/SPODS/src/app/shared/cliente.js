@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var utilidades_1 = require("./utilidades");
 var error_1 = require("./error");
 var Cliente = (function () {
     function Cliente() {
     }
     Cliente.prototype.validarDatos = function () {
-        console.log("[cliente.ts] - validarDatos | cliente: " + JSON.stringify(this));
-        var errores = [];
+        utilidades_1.Utilidades.log("[cliente.ts] - validarDatos | this: " + JSON.stringify(this));
         var error;
+        var errores = [];
         if (this.Nombre == null) {
             error = new error_1.Error();
             error.Descripcion = "Debe ingresar un nombre.";
@@ -25,7 +26,7 @@ var Cliente = (function () {
                 errores.push(error);
             }
         }
-        if (this.Nombre == null) {
+        if (this.Apellido == null) {
             error = new error_1.Error();
             error.Descripcion = "Debe ingresar un apellido.";
             errores.push(error);
@@ -42,6 +43,11 @@ var Cliente = (function () {
                 errores.push(error);
             }
         }
+        // if(this.Barrio == null){
+        //     error = new Error();
+        //     error.Descripcion = "Debe seleccionar un barrio.";
+        //     errores.push(error);
+        // }
         return errores;
     };
     return Cliente;

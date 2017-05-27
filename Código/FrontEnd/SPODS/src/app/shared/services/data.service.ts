@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Settings } from "../settings";
+import { Utilidades } from "../utilidades";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -9,36 +10,29 @@ import {Cliente} from "../cliente";
 
 @Injectable()
 export class DataService {
-    contentHeadersUrlEncoded: Headers;
-    contentHeadersJson: Headers;
     baseUrl : string;
+    private headers : Headers;
 
     constructor(private http:Http, private router: Router) {
-        this.contentHeadersUrlEncoded = new Headers({'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'});
+        this.headers = new Headers({ 'Accept': 'application/json', 'Content-Type' : 'application/json' });
         this.baseUrl = Settings.baseUrl;
-        //this.ini();
-    }
-    
-    public ini(){
-        this.contentHeadersJson = new Headers({'Authorization': 'OAuth ' + localStorage.getItem('access_token'), 'Content-Type': 'application/json'});
     }
 
-    //2017-05-14
     public postRegistroCliente(cliente:Cliente){
-        console.log("[data.service.ts] - postRegistroCliente | cliente: " + JSON.stringify(cliente));
+        var URL : string = this.baseUrl + '/api/carro/PostAltaCarro';
+        let body = {"IdCarro":1,"Marca":"Ferrari","Modelo":2012};
+        
+        Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
+        Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
 
-        let body = {"idCarro":1,"marca":"Ferrari","modelo":2012};
-        this.contentHeadersJson = new Headers({'Content-Type': 'application/json'});
-
-        console.log("[data.service.ts] - postRegistroCliente | URL: " + this.baseUrl + '/api/carro/PostAltaCarro');
-        console.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
-         console.log("[data.service.ts] - postRegistroCliente | header: " + JSON.stringify(this.contentHeadersJson));
-
-        return this.http.post(this.baseUrl + '/api/carro/PostAltaCarro', body, { headers: this.contentHeadersJson })
+        return this.http.post(URL, body, { headers: this.headers })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
+
+    //Función para lanzar excepciones que pueden surgir en las llamadas a los servicios
     private handleError(error: any) {
         return Observable.throw(error.json().error || " server error");
     }

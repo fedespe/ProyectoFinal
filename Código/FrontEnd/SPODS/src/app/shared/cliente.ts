@@ -1,4 +1,6 @@
-import {Error} from "./error";
+import { Utilidades } from "./utilidades";
+import { Error } from "./error";
+import { Barrio } from "./barrio";
 
 export class Cliente {
     Id: number;
@@ -11,12 +13,13 @@ export class Cliente {
     Habilitado: boolean;
     Documento: string;
     Direccion: string;
+    Barrio: Barrio;
 
-    validarDatos() : Error[]{
-        console.log("[cliente.ts] - validarDatos | cliente: " + JSON.stringify(this));
+    public validarDatos() : Error[]{
+        Utilidades.log("[cliente.ts] - validarDatos | this: " + JSON.stringify(this));
 
-        var errores : Error[] = [];
         var error : Error;
+        var errores : Error[] = [];
 
         if(this.Nombre == null){
             error = new Error();
@@ -35,7 +38,7 @@ export class Cliente {
             }
         }
         
-         if(this.Nombre == null){
+        if(this.Apellido == null){
             error = new Error();
             error.Descripcion = "Debe ingresar un apellido.";
             errores.push(error);
@@ -52,6 +55,12 @@ export class Cliente {
             }
         }
 
+        // if(this.Barrio == null){
+        //     error = new Error();
+        //     error.Descripcion = "Debe seleccionar un barrio.";
+        //     errores.push(error);
+        // }
+        
         return errores;
     }
 }

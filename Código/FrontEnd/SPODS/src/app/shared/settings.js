@@ -9,5 +9,6 @@ var Settings = (function () {
     return Settings;
 }());
 Settings.baseUrl = 'http://localhost:6075';
+Settings.debug = true;
 exports.Settings = Settings;
 //# sourceMappingURL=settings.js.map

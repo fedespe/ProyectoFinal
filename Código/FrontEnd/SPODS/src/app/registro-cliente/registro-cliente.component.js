@@ -9,13 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Created by Bruno on 10/04/2017.
- */
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var data_service_1 = require("../shared/services/data.service");
+var utilidades_1 = require("../shared/utilidades");
 var mensaje_1 = require("../shared/mensaje");
+var error_1 = require("../shared/error");
 var cliente_1 = require("../shared/cliente");
 var barrio_1 = require("../shared/barrio");
 var RegistroClienteComponent = (function () {
@@ -34,23 +33,23 @@ var RegistroClienteComponent = (function () {
         barrio2.Id = 2;
         barrio2.Nombre = "Cordón";
         this.barrios.push(barrio2);
-        console.log("[registro-cliente.component.ts] - constructor | barrios: " + JSON.stringify(this.barrios));
     }
-    RegistroClienteComponent.prototype.guardarDatoSelectBarrio = function (value) {
-        this.barrioSeleccionado = value;
-        console.log("[registro-cliente.component.ts] - guardarDatoSelectBarrio | barrioSeleccionado: " + JSON.stringify(this.barrioSeleccionado));
+    RegistroClienteComponent.prototype.borrarMensajes = function () {
+        this.mensajes.Errores = [];
+        this.mensajes.Exitos = [];
     };
     RegistroClienteComponent.prototype.registrarCliente = function () {
         var _this = this;
-        console.log("[registro-cliente.component.ts] - registrarCliente | cliente: " + JSON.stringify(this.cliente));
-        // this.mensajes.Errores = this.cliente.validarDatos();
+        this.borrarMensajes();
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        this.mensajes.Errores = this.cliente.validarDatos();
         if (this.mensajes.Errores.length == 0) {
             this.dataService.postRegistroCliente(this.cliente)
-                .subscribe(function (res) { return _this.postRegistroClienteOk(res); }, function (error) { return _this.postRegistroClienteError(error); }, function () { return console.log("[registro-cliente.component.ts] - postRegistroCliente: Completado"); });
+                .subscribe(function (res) { return _this.postRegistroClienteOk(res); }, function (error) { return _this.postRegistroClienteError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroCliente: Completado"); });
         }
     };
     RegistroClienteComponent.prototype.postRegistroClienteOk = function (response) {
-        console.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
         // this.mensajes.Errores = response.Errores;
         // if(response.CodigoError ==  200){
         //     this.iniciarSesion();
@@ -60,22 +59,10 @@ var RegistroClienteComponent = (function () {
         // }
     };
     RegistroClienteComponent.prototype.postRegistroClienteError = function (error) {
-        console.log("[registro-cliente.component.ts] - postRegistroClienteError: " + JSON.stringify(error));
-        //miError : Error = new Error();
-        //miError.Descripcion = "Ha ocurrido un error!!!";
-        //this.errores.push(miError);
-    };
-    RegistroClienteComponent.prototype.iniciarSesion = function () {
-        //Llamar al Servicio que inicia sesión
-    };
-    RegistroClienteComponent.prototype.parseIniciarSesionOk = function (oauth) {
-        // console.log("[client-register.component.ts] - parseIniciarSesionOk: " + oauth.access_token);
-        // localStorage.setItem('access_token', oauth.access_token);
-        // this.dataService.ini();
-        // this.cargarTipoUsuario();
-    };
-    RegistroClienteComponent.prototype.parseIniciarSesionError = function (error) {
-        // console.log("[client-register.component.ts] - parseIniciarSesionError: " + JSON.stringify(error));
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteError | error: " + JSON.stringify(error));
+        var errorInesperado = new error_1.Error();
+        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(errorInesperado);
     };
     return RegistroClienteComponent;
 }());
