@@ -7,6 +7,7 @@ import { Error } from "../shared/error";
 import { Cliente } from '../shared/cliente';
 import { Barrio } from '../shared/barrio';
 import { Carro } from '../shared/carro';
+import { Marca } from '../shared/marca';
 
 @Component({
     selector: 'registro-cliente',
@@ -45,11 +46,11 @@ export class RegistroClienteComponent {
             //Llamaría al servicio para dar de alta clientes
         }
 
-        //this.pruebaGetSinParametro();
+        this.pruebaGetSinParametro();
         //this.pruebaGetConParametro();
         //this.pruebaPost();
         //this.pruebaPut();
-        this.pruebaDelete();
+        //this.pruebaDelete();
     }
 
     pruebaGetSinParametro(){
@@ -72,9 +73,12 @@ export class RegistroClienteComponent {
     }
 
     pruebaPost(){
+        let marca : Marca = new Marca();
+        marca.Id = 6;
+        marca.Nombre = "Volvo";
         let carro : Carro = new Carro();
         carro.Id = 6;
-        carro.Marca = "Volvo";
+        carro.Marca = marca;
         carro.Modelo = 2017;
 
         this.dataService.postCarroAlta(carro)
@@ -86,9 +90,13 @@ export class RegistroClienteComponent {
     }
 
     pruebaPut(){
+        let marca : Marca = new Marca();
+        marca.Id = 6;
+        marca.Nombre = "Volvo";
+
         let carro : Carro = new Carro();
         carro.Id = 1;
-        carro.Marca = "Volvo";
+        carro.Marca = marca;
         carro.Modelo = 2017;
         
         this.dataService.putCarroActualizar(carro)
@@ -100,9 +108,13 @@ export class RegistroClienteComponent {
     }
 
     pruebaDelete(){
+        let marca : Marca = new Marca();
+        marca.Id = 1;
+        marca.Nombre = "Ferrari";
+
         let carro : Carro = new Carro();
         carro.Id = 1;
-        carro.Marca = "Ferrari";
+        carro.Marca = marca;
         carro.Modelo = 2012;
         
         this.dataService.deleteCarroEliminar(carro)

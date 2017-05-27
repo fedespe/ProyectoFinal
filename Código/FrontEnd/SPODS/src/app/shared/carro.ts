@@ -1,5 +1,7 @@
+import { Marca } from "./marca";
+
 export class Carro {
     Id: number;
-    Marca: string;
-    Modelo: string;
+    Marca: Marca;
+    Modelo: number;
 }

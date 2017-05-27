@@ -11,14 +11,22 @@ namespace WebAPI.Controllers
     public class carroController : ApiController
     {
         List<Carro> carros = new List<Carro>();
+        List<Marca> marcas = new List<Marca>();
 
         public carroController()
         {
-            this.carros.Add(new Carro { Id = 1, Marca = "Ferrari", Modelo = 2012 });
-            this.carros.Add(new Carro { Id = 2, Marca = "BMW", Modelo = 2010 });
-            this.carros.Add(new Carro { Id = 3, Marca = "Mazda", Modelo = 2002 });
-            this.carros.Add(new Carro { Id = 4, Marca = "Nissan", Modelo = 2004 });
-            this.carros.Add(new Carro { Id = 5, Marca = "Renault", Modelo = 1998 });
+            this.marcas.Add(new Marca { Id = 1, Nombre = "Ferrari"});
+            this.marcas.Add(new Marca { Id = 1, Nombre = "BMW" });
+            this.marcas.Add(new Marca { Id = 1, Nombre = "Mazda" });
+            this.marcas.Add(new Marca { Id = 1, Nombre = "Nissan" });
+            this.marcas.Add(new Marca { Id = 1, Nombre = "Renault" });
+            this.marcas.Add(new Marca { Id = 1, Nombre = "Volvo" });
+
+            this.carros.Add(new Carro { Id = 1, Marca = this.marcas.ElementAt(0), Modelo = 2012 });
+            this.carros.Add(new Carro { Id = 2, Marca = this.marcas.ElementAt(1), Modelo = 2010 });
+            this.carros.Add(new Carro { Id = 3, Marca = this.marcas.ElementAt(2), Modelo = 2002 });
+            this.carros.Add(new Carro { Id = 4, Marca = this.marcas.ElementAt(3), Modelo = 2004 });
+            this.carros.Add(new Carro { Id = 5, Marca = this.marcas.ElementAt(4), Modelo = 1998 });
         }
 
         //Servicio por Get sin parámetros (Retorna todos)

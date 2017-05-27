@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Models
 {
-    public class Carro
+    public class Marca
     {
         public int Id { get; set; }
-        public Marca Marca { get; set; }
-        public int Modelo { get; set; }
+        public string Nombre { get; set; }
     }
 }

@@ -18,6 +18,7 @@ var error_1 = require("../shared/error");
 var cliente_1 = require("../shared/cliente");
 var barrio_1 = require("../shared/barrio");
 var carro_1 = require("../shared/carro");
+var marca_1 = require("../shared/marca");
 var RegistroClienteComponent = (function () {
     function RegistroClienteComponent(dataService, router) {
         this.dataService = dataService;
@@ -46,11 +47,11 @@ var RegistroClienteComponent = (function () {
         if (this.mensajes.Errores.length == 0) {
             //Llamaría al servicio para dar de alta clientes
         }
-        //this.pruebaGetSinParametro();
+        this.pruebaGetSinParametro();
         //this.pruebaGetConParametro();
         //this.pruebaPost();
         //this.pruebaPut();
-        this.pruebaDelete();
+        //this.pruebaDelete();
     };
     RegistroClienteComponent.prototype.pruebaGetSinParametro = function () {
         var _this = this;
@@ -65,27 +66,36 @@ var RegistroClienteComponent = (function () {
     };
     RegistroClienteComponent.prototype.pruebaPost = function () {
         var _this = this;
+        var marca = new marca_1.Marca();
+        marca.Id = 6;
+        marca.Nombre = "Volvo";
         var carro = new carro_1.Carro();
         carro.Id = 6;
-        carro.Marca = "Volvo";
+        carro.Marca = marca;
         carro.Modelo = 2017;
         this.dataService.postCarroAlta(carro)
             .subscribe(function (res) { return _this.pruebaOk(res); }, function (error) { return _this.pruebaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postCarroAlta: Completado"); });
     };
     RegistroClienteComponent.prototype.pruebaPut = function () {
         var _this = this;
+        var marca = new marca_1.Marca();
+        marca.Id = 6;
+        marca.Nombre = "Volvo";
         var carro = new carro_1.Carro();
         carro.Id = 1;
-        carro.Marca = "Volvo";
+        carro.Marca = marca;
         carro.Modelo = 2017;
         this.dataService.putCarroActualizar(carro)
             .subscribe(function (res) { return _this.pruebaOk(res); }, function (error) { return _this.pruebaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putCarroActualizar: Completado"); });
     };
     RegistroClienteComponent.prototype.pruebaDelete = function () {
         var _this = this;
+        var marca = new marca_1.Marca();
+        marca.Id = 1;
+        marca.Nombre = "Ferrari";
         var carro = new carro_1.Carro();
         carro.Id = 1;
-        carro.Marca = "Ferrari";
+        carro.Marca = marca;
         carro.Modelo = 2012;
         this.dataService.deleteCarroEliminar(carro)
             .subscribe(function (res) { return _this.pruebaOk(res); }, function (error) { return _this.pruebaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - deleteCarroEliminar: Completado"); });
