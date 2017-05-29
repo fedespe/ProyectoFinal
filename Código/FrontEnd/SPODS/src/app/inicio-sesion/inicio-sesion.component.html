@@ -1,15 +1,11 @@
 <div class="container">
-    <form class="form-signin" role="form">
-        <h2 class="form-signin-heading">Iniciar sesión</h2>
+    <form>
+        <h1>Iniciar sesión</h1>
+
         <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus  #username>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email">
         <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required #password>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Recordarme
-            </label>
-        </div>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña">
         <button class="btn btn-lg btn-primary btn-block">Iniciar Sesión</button>
         <label class="btn-block">
             <a href="javascript:void(0)" (click)="navegarRegistroCliente()">Registrarse</a>
@@ -18,9 +14,15 @@
             <a href="javascript:void(0)">Olvidó su contraseña?</a>
         </label>
 
-        <div *ngIf="errores.length > 0" class="alert alert-danger errores">
-            <div *ngFor="let error of errores;">
-                {{error.Description}}
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
             </div>
         </div>
     </form>

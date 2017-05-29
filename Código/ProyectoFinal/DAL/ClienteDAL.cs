@@ -37,7 +37,6 @@ namespace DAL
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
                                     CorreElectronico = dr["Email"].ToString(),
-                                    Documento = dr["Documento"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
@@ -82,7 +81,6 @@ namespace DAL
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
                                     CorreElectronico = dr["Email"].ToString(),
-                                    Documento = dr["Documento"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
@@ -103,7 +101,7 @@ namespace DAL
             return clientes;
         }
         public void altaCliente(Cliente cli) {
-            string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @documento, @tel, @dir, @fechaAlta, @tipo, @barrio); 
+            string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @tel, @dir, @fechaAlta, @tipo, @barrio); 
                                             SELECT CAST(Scope_Identity() AS INT);";
             string cadenaInsertCliente = "INSERT INTO Cliente VALUES(@idUsu);";
             int idClienteGenerado = 0;
@@ -122,12 +120,11 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@ultModif", DateTime.Now);
                         cmd.Parameters.AddWithValue("@habilitado", cli.Habilitado);
                         cmd.Parameters.AddWithValue("@email", cli.CorreElectronico);
-                        cmd.Parameters.AddWithValue("@documento", cli.Documento);
                         cmd.Parameters.AddWithValue("@tel", cli.Telefono);
                         cmd.Parameters.AddWithValue("@dir", cli.Direccion); 
                         cmd.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@barrio", cli.Barrio.Id);
                         cmd.Parameters.AddWithValue("@tipo", "CLIENTE");
-                        cmd.Parameters.AddWithValue("@barrio", cli.IdBarrio); 
 
                         con.Open();
                         trn = con.BeginTransaction();
@@ -155,7 +152,7 @@ namespace DAL
         }
         public void actualizarCliente(Cliente cli)
         {
-            string cadenaUpdateUsuario = @"UPDATE Usuario SET Nombre=@nom, Apellido=@ape, Documento=@documento, Telefono=@tel, Direccion=@dir, BarrioId=@barrio
+            string cadenaUpdateUsuario = @"UPDATE Usuario SET Nombre=@nom, Apellido=@ape, Telefono=@tel, Direccion=@dir, BarrioId=@barrio
                                             WHERE Id=@id;";
             //string cadenaUpdateCliente = "UPDATE Cliente SET datos... WHERE UduarioId=@id;"; //PARA CUANDO HAYA MAS DATOS
 
@@ -169,10 +166,9 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@id", cli.Id);
                         cmd.Parameters.AddWithValue("@nom", cli.Nombre);
                         cmd.Parameters.AddWithValue("@ape", cli.Apellido);
-                        cmd.Parameters.AddWithValue("@documento", cli.Documento);
                         cmd.Parameters.AddWithValue("@tel", cli.Telefono);
                         cmd.Parameters.AddWithValue("@dir", cli.Direccion);
-                        cmd.Parameters.AddWithValue("@barrio", cli.IdBarrio);
+                        cmd.Parameters.AddWithValue("@barrio", cli.Barrio.Id);
 
                         con.Open();
                         trn = con.BeginTransaction();
@@ -227,7 +223,6 @@ namespace DAL
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
                                     CorreElectronico = dr["Email"].ToString(),
-                                    Documento = dr["Documento"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
@@ -236,6 +231,7 @@ namespace DAL
                             }
                         }
                         //Ver que si el cliente tuviera datos en la tabla cliente habria que hacer otra lectura
+                        //Cargar demás datos del barrio sería lo mejor también
                     }
                 }
             }

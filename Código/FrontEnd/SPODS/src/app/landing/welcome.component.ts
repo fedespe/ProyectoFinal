@@ -10,8 +10,4 @@ import { Router } from '@angular/router';
 export class WelcomeComponent {
     constructor(private dataService: DataService, private router: Router) {
     }
-    
-    login() {
-        this.router.navigate(['inicio-sesion']);
-    }
 }

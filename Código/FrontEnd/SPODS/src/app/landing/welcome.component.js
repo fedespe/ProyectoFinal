@@ -17,9 +17,6 @@ var WelcomeComponent = (function () {
         this.dataService = dataService;
         this.router = router;
     }
-    WelcomeComponent.prototype.login = function () {
-        this.router.navigate(['inicio-sesion']);
-    };
     return WelcomeComponent;
 }());
 WelcomeComponent = __decorate([

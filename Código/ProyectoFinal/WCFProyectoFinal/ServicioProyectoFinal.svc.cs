@@ -28,13 +28,11 @@ namespace WCFProyectoFinal
                 Apellido = dtoCliente.Apellido,
                 Contrasena = dtoCliente.Contrasena,
                 CorreElectronico = dtoCliente.CorreElectronico,
-                Documento = dtoCliente.Documento,
                 Habilitado = dtoCliente.Habilitado,
                 Nombre = dtoCliente.Nombre,
                 NombreUsuario = dtoCliente.NombreUsuario,
                 Telefono = dtoCliente.Telefono,
                 Direccion = dtoCliente.Direccion,
-                IdBarrio = dtoCliente.IdBarrio
             };
             try
             {
@@ -54,11 +52,9 @@ namespace WCFProyectoFinal
             {
                 Id = dtoCliente.Id,
                 Apellido = dtoCliente.Apellido,
-                Documento = dtoCliente.Documento,
                 Nombre = dtoCliente.Nombre,
                 Telefono = dtoCliente.Telefono,
                 Direccion = dtoCliente.Direccion,
-                IdBarrio = dtoCliente.IdBarrio
             };
             try
             {
@@ -122,7 +118,6 @@ namespace WCFProyectoFinal
                         Apellido=cli.Apellido,
                         Contrasena=cli.Contrasena,
                         CorreElectronico=cli.CorreElectronico,
-                        Documento=cli.Documento,
                         Habilitado=cli.Habilitado,
                         Nombre=cli.Nombre,
                         NombreUsuario=cli.NombreUsuario,
@@ -155,7 +150,6 @@ namespace WCFProyectoFinal
                 NombreUsuario = dtoAdministrador.NombreUsuario,
                 Telefono = dtoAdministrador.Telefono,
                 Direccion = dtoAdministrador.Direccion,
-                IdBarrio = dtoAdministrador.IdBarrio
             };
             try
             {
@@ -179,7 +173,6 @@ namespace WCFProyectoFinal
                 Nombre = dtoAdministrador.Nombre,
                 Telefono = dtoAdministrador.Telefono,
                 Direccion = dtoAdministrador.Direccion,
-                IdBarrio = dtoAdministrador.IdBarrio
             };
             try
             {
@@ -279,8 +272,7 @@ namespace WCFProyectoFinal
                     UltimaModificacionContrasena = c.UltimaModificacionContrasena,
                     Habilitado = c.Habilitado,
                     CorreElectronico = c.CorreElectronico,
-                    Documento = c.Documento,
-                    Telefono = c.Documento,
+                    Telefono = c.Telefono,
                     Direccion = c.Direccion,
                     FechaAlta = c.FechaAlta,
                     IdBarrio = c.Barrio.Id //ver que se podria trabajar con DtoBarrio

@@ -4,7 +4,7 @@
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-        <a class="navbar-brand" href="#"><img src="../../img/LogoMarph.PNG"></a>
+        <a class="navbar-brand" href="#">SPODS</a>
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -20,7 +20,6 @@
     <div class="container-fluid">
         <div class="row">
             <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-
                 <ul class="nav nav-pills flex-column">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
@@ -31,14 +30,13 @@
                         </li>
                     </ul>
                 </ul>
-
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
                         <a class="nav-link linkMenu" href="javascript:void(0)" (click)="cerrarSesion()">Salir</a>
                     </li>
                 </ul>
             </nav>
-
+            
             <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
                 <div class="ContenedorDashboard">
                     <router-outlet></router-outlet>

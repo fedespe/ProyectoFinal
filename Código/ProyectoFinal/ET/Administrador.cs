@@ -8,5 +8,6 @@ namespace ET
 {
     public class Administrador : Usuario
     {
+        public string Documento { get; set; }
     }
 }

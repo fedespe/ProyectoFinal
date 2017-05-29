@@ -16,12 +16,9 @@ namespace ET
         public DateTime UltimaModificacionContrasena { get; set; }
         public bool Habilitado { get; set; }
         public string CorreElectronico { get; set; }
-        public string Documento { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }
         public DateTime FechaAlta { get; set; }
         public Barrio Barrio { get; set; }
-        //Para pasarlo en el json en la webapi
-        public int IdBarrio { get; set; }
     }
 }

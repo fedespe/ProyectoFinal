@@ -12,11 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var data_service_1 = require("../shared/services/data.service");
+var mensaje_1 = require("../shared/mensaje");
 var InicioSesionComponent = (function () {
     function InicioSesionComponent(dataService, router) {
         this.dataService = dataService;
         this.router = router;
-        this.errores = [];
+        this.mensajes = new mensaje_1.Mensaje();
     }
     InicioSesionComponent.prototype.navegarRegistroCliente = function () {
         this.router.navigateByUrl('/registro-cliente');

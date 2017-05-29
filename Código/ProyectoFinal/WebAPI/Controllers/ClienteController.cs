@@ -6,96 +6,137 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
     public class ClienteController : ApiController
     {
         private ClienteBL clienteBL = new ClienteBL();
-        private string mensajeOk = "OK";
+        private Retorno retorno = new Retorno();
 
+        //Servicio por Get sin parámetros (Retorna todos)
         [HttpGet, Route("api/Cliente/obtenerTodos")]
-        public IEnumerable<Cliente> GetAllClientes()
-        {
-            return clienteBL.obtenerTodos();
-        }
-        [HttpGet, Route("api/Cliente/obtener/{id}")]
-        public Cliente GetCliente(int id)
-        {
-            return clienteBL.obtener(id);
-        }
-        [HttpPost, Route("api/Cliente/altaCliente")]
-        public string PostAltaCliente([FromBody]Cliente cli)
+        public Retorno GetAllClientes()
         {
             try
             {
-                clienteBL.altaCliente(cli);
-                return mensajeOk;
+                List<Cliente> clientes = clienteBL.obtenerTodos();
+                foreach (Cliente c in clientes)
+                {
+                    retorno.Objetos.Add(c);
+                }
+                retorno.Codigo = 200;
             }
-            catch (ET.ProyectoException ex)
+            catch (ProyectoException ex)
             {
-                return ex.Message;
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
             }
-        }
-        [HttpPut, Route("api/Cliente/actualizarCliente")]
-        public string PutActualizarCliente([FromBody]Cliente cli)
-        {
-            try
-            {
-                clienteBL.actualizarCliente(cli);
-                return mensajeOk;
-            }
-            catch (ET.ProyectoException ex)
-            {
-                return ex.Message;
-            }
-        }
-        [HttpGet, Route("api/Cliente/actualizarContrasena/{id}/{contrasenaAnterior}/{contrasenaNueva}")]
-        public string GetActualizarContrasenaCliente(int id, string contrasenaAnterior, string contrasenaNueva)
-        {
-            try
-            {
-                clienteBL.actualizarContrasena(id, contrasenaAnterior, contrasenaNueva);
-                return mensajeOk;
-            }
-            catch (ET.ProyectoException ex)
-            {
-                return ex.Message;
-            }
-        }
-        [HttpGet, Route("api/Cliente/habilitarCliente/{id}")]
-        public string GetHabilitarCliente(int id)
-        {
-            try
-            {
-                clienteBL.habilitarCliente(id);
-                return mensajeOk;
-            }
-            catch (ET.ProyectoException ex)
-            {
-                return ex.Message;
-            }
-        }
-        [HttpGet, Route("api/Cliente/deshabilitarCliente/{id}")]
-        public string GetDeshabilitarCliente(int id)
-        {
-            try
-            {
-                clienteBL.deshabilitarCliente(id);
-                return mensajeOk;
-            }
-            catch (ET.ProyectoException ex)
-            {
-                return ex.Message;
-            }
-        }
-        [HttpGet, Route("api/Cliente/ingresarCliente/{nombreUsuario}/{pass}")]
-        public Cliente GetIngresarCliente(string nombreUsuario, string pass)
-        {
-            Cliente cli = clienteBL.ingresarCliente(nombreUsuario, pass);
-            
-            return cli;
+            return retorno;
         }
 
+        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [HttpGet, Route("api/Cliente/obtener/{id}")]
+        public Retorno GetCliente(int id)
+        {
+            try
+            {
+                Cliente cliente = clienteBL.obtener(id);
+                retorno.Objetos.Add(cliente);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
+        //Servicio por Post para alta
+        [HttpPost, Route("api/Cliente/altaCliente")]
+        public Retorno PostAltaCliente([FromBody]Cliente cliente)
+        {
+            try
+            {
+                clienteBL.altaCliente(cliente);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
+        //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
+        [HttpPut, Route("api/Cliente/actualizarCliente")]
+        public Retorno PutActualizarCliente([FromBody]Cliente cliente)
+        {
+            try
+            {
+                clienteBL.actualizarCliente(cliente);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
+        //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
+        [HttpPut, Route("api/Cliente/habilitarCliente")]
+        public Retorno PutHabilitarCliente([FromBody]Cliente cliente)
+        {
+            try
+            {
+                clienteBL.habilitarCliente(cliente.Id);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
+        //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
+        [HttpPut, Route("api/Cliente/habilitarCliente")]
+        public Retorno PutDeshabilitarCliente([FromBody]Cliente cliente)
+        {
+            try
+            {
+                clienteBL.deshabilitarCliente(cliente.Id);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
+        //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
+        [HttpPut, Route("api/Cliente/actualizarContrasena")]
+        public Retorno PutActualizarContrasenaCliente([FromBody]Cliente cliente, [FromBody]string contrasenaNueva)
+        {
+            try
+            {
+                clienteBL.actualizarContrasena(cliente.Id, cliente.Contrasena, contrasenaNueva);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
     }
 }

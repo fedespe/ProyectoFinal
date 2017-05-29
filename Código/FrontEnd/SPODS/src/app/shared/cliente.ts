@@ -7,11 +7,10 @@ export class Cliente {
     Nombre: string;
     Apellido: string;
     NombreUsuario: string;
-    CorreoElectronico: string;
     Contrasena: string;
-    Telefono: string;
     Habilitado: boolean;
-    Documento: string;
+    CorreoElectronico: string;
+    Telefono: string;
     Direccion: string;
     Barrio: Barrio;
 

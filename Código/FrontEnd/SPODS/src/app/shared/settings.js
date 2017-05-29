@@ -1,6 +1,3 @@
-/**
- * Created by Gaby RM on 16/04/13.
- */
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Settings = (function () {

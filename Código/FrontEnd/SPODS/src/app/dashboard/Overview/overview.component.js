@@ -1,6 +1,3 @@
-/**
- * Created by Bruno on 24/04/2017.
- */
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -24,7 +21,7 @@ var OverviewComponent = (function () {
 }());
 OverviewComponent = __decorate([
     core_1.Component({
-        //selector: 'verview',
+        //selector: 'overview',
         templateUrl: 'app/dashboard/overview/overview.component.html',
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.ActivatedRoute])

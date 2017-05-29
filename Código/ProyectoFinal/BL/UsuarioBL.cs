@@ -46,10 +46,6 @@ namespace BL
             {
                 throw new ProyectoException("Error: Telefono");
             }
-            if (usu.Documento.Length < 6 || usu.Documento.Length > 20)
-            {
-                throw new ProyectoException("Error: Documento");
-            }
             if (usu.Direccion.Length < 4 || usu.Direccion.Length > 100)
             {
                 throw new ProyectoException("Error: Direccion");

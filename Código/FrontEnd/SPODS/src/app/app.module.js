@@ -12,15 +12,15 @@ var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
-var inicio_sesion_component_1 = require("./inicio-sesion/inicio-sesion.component");
 var welcome_component_1 = require("./landing/welcome.component");
-var dashboard_component_1 = require("./dashboard/dashboard.component");
 var registro_cliente_component_1 = require("./registro-cliente/registro-cliente.component");
+var inicio_sesion_component_1 = require("./inicio-sesion/inicio-sesion.component");
+var dashboard_component_1 = require("./dashboard/dashboard.component");
 var overview_component_1 = require("./dashboard/overview/overview.component");
 var appRoutes = [
     { path: '', component: welcome_component_1.WelcomeComponent },
-    { path: 'inicio-sesion', component: inicio_sesion_component_1.InicioSesionComponent },
     { path: 'registro-cliente', component: registro_cliente_component_1.RegistroClienteComponent },
+    { path: 'inicio-sesion', component: inicio_sesion_component_1.InicioSesionComponent },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent,
         children: [
             { path: 'overview', component: overview_component_1.OverviewComponent }
@@ -35,11 +35,10 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [
-            platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, router_1.RouterModule, router_1.RouterModule.forRoot(appRoutes),
-            forms_1.ReactiveFormsModule
+            platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, router_1.RouterModule, router_1.RouterModule.forRoot(appRoutes), forms_1.ReactiveFormsModule
         ],
         declarations: [
-            app_component_1.AppComponent, inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent, overview_component_1.OverviewComponent
+            app_component_1.AppComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent, inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, overview_component_1.OverviewComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

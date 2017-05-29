@@ -4,6 +4,8 @@ import { DataService } from '../shared/services/data.service';
 import { Utilidades } from "../shared/utilidades";
 import { Mensaje } from "../shared/mensaje";
 import { Error } from "../shared/error";
+import { Exito } from "../shared/exito";
+
 import { Cliente } from '../shared/cliente';
 import { Barrio } from '../shared/barrio';
 import { Carro } from '../shared/carro';
