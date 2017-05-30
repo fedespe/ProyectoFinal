@@ -16,7 +16,6 @@ var utilidades_1 = require("../shared/utilidades");
 var mensaje_1 = require("../shared/mensaje");
 var error_1 = require("../shared/error");
 var cliente_1 = require("../shared/cliente");
-var barrio_1 = require("../shared/barrio");
 var carro_1 = require("../shared/carro");
 var marca_1 = require("../shared/marca");
 var RegistroClienteComponent = (function () {
@@ -26,33 +25,98 @@ var RegistroClienteComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.cliente = new cliente_1.Cliente();
         this.barrios = [];
-        //Solo para prueba se tiene que cargar con un servicio que traiga los barrios del sistema
-        var barrio = new barrio_1.Barrio();
-        barrio.Id = 1;
-        barrio.Nombre = 'Centro';
-        this.barrios.push(barrio);
-        var barrio2 = new barrio_1.Barrio();
-        barrio2.Id = 2;
-        barrio2.Nombre = "Cordón";
-        this.barrios.push(barrio2);
+        this.getObtenerBarrios();
     }
     RegistroClienteComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     };
     RegistroClienteComponent.prototype.registrarCliente = function () {
+        var _this = this;
         this.borrarMensajes();
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
-        this.mensajes.Errores = this.cliente.validarDatos();
+        this.cliente.Habilitado = true;
+        this.mensajes.Errores = this.cliente.validarDatos(this.contrasenaConfirmacion);
         if (this.mensajes.Errores.length == 0) {
-            //Llamaría al servicio para dar de alta clientes
+            this.dataService.postRegistrarCliente(this.cliente)
+                .subscribe(function (res) { return _this.postRegistrarClienteOk(res); }, function (error) { return _this.postRegistrarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistrarCliente: Completado"); });
         }
-        this.pruebaGetSinParametro();
+        //this.pruebaGetSinParametro();
         //this.pruebaGetConParametro();
         //this.pruebaPost();
         //this.pruebaPut();
         //this.pruebaDelete();
     };
+    RegistroClienteComponent.prototype.postRegistrarClienteOk = function (response) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response.Codigo));
+            this.ingresarCliente();
+        }
+        else {
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    RegistroClienteComponent.prototype.postRegistrarClienteError = function (error) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteError | error: " + JSON.stringify(error));
+        var errorInesperado = new error_1.Error();
+        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(errorInesperado);
+    };
+    RegistroClienteComponent.prototype.ingresarCliente = function () {
+        var _this = this;
+        this.borrarMensajes();
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        if (this.mensajes.Errores.length == 0) {
+            this.dataService.postIngresarCliente(this.cliente)
+                .subscribe(function (res) { return _this.postIngresarClienteOk(res); }, function (error) { return _this.postIngresarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postIngresarCliente: Completado"); });
+        }
+    };
+    RegistroClienteComponent.prototype.postIngresarClienteOk = function (response) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response: " + JSON.stringify(response.Objetos[0]));
+            //Guardar el response.Objetos[0] en local storage
+            //localStorage.setItem('access_token', oauth.access_token); como ejemplo
+            this.router.navigate(['dashboard/overview']);
+        }
+        else {
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    RegistroClienteComponent.prototype.postIngresarClienteError = function (error) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteError | error: " + JSON.stringify(error));
+        var errorInesperado = new error_1.Error();
+        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(errorInesperado);
+    };
+    RegistroClienteComponent.prototype.getObtenerBarrios = function () {
+        var _this = this;
+        this.dataService.getBarrioObtenerTodos()
+            .subscribe(function (res) { return _this.getBarrioObtenerTodosOk(res); }, function (error) { return _this.getBarrioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado"); });
+    };
+    RegistroClienteComponent.prototype.getBarrioObtenerTodosOk = function (response) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
+        this.barrios = response.Objetos;
+    };
+    RegistroClienteComponent.prototype.getBarrioObtenerTodosError = function (response) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response: " + JSON.stringify(response));
+        if (response.Codigo != 200) {
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    //*************************** */
+    //PRUEBA SERVICIOS
+    //*************************** */
     RegistroClienteComponent.prototype.pruebaGetSinParametro = function () {
         var _this = this;
         this.dataService.getCarroObtenerTodos()

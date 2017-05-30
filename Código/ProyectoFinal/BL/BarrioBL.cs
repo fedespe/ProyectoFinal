@@ -30,7 +30,7 @@ namespace BL
         }
         public List<Barrio> obtener(Departamento departamento)
         {
-            return barrioDAL.obtener(departamento);
+            return null;
         }
         public List<Barrio> obtenerTodos()
         {

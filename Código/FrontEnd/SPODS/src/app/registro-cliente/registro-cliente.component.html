@@ -12,6 +12,12 @@
             <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
             <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
 
+            <label for="inputContrasena" class="sr-only">Contraseña</label>
+            <input type="text" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
+
+            <label for="inputContrasenaConfirmacion" class="sr-only">Repetir Contraseña</label>
+            <input type="text" class="form-control" id="inputContrasenaConfirmacion" [(ngModel)]="contrasenaConfirmacion" name="ContrasenaConfirmacion" placeholder="Repetir Contraseña">
+
             <label for="inputCorreoElectronico" class="sr-only">Correo Electrónico</label>
             <input type="text" class="form-control" [(ngModel)]="cliente.CorreoElectronico" id="inputCorreoElectronico" name="CorreoElectronico" placeholder="Correo Electrónico">
 
@@ -22,12 +28,13 @@
             <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
 
             <!--Combo desplegable para barrio-->
+            <label for="selectBarrio" class="sr-only">Barrio</label>
+            <select id="selectBarrio" class="form-control" [(ngModel)]="cliente.Barrio.Id" name="Barrio">
+                <option value="0">Seleccione un Barrio</option>
+                <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
+            </select>
 
-            <label for="inputContrasena" class="sr-only">Contraseña</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
-
-            <label for="inputContrasenaConfirmacion" class="sr-only">Repetir Contraseña</label>
-            <input type="text" class="form-control" id="inputContrasenaConfirmacion" name="ContrasenaConfirmacion" placeholder="Repetir Contraseña">
+            
 
             <button class="btn btn-lg btn-primary btn-block" (click)="registrarCliente()">Registrarse</button>
         </div>
@@ -45,3 +52,4 @@
         </div>
     </form>
 </div>
+

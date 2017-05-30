@@ -27,7 +27,7 @@ namespace WCFProyectoFinal
             {
                 Apellido = dtoCliente.Apellido,
                 Contrasena = dtoCliente.Contrasena,
-                CorreElectronico = dtoCliente.CorreElectronico,
+                CorreoElectronico = dtoCliente.CorreElectronico,
                 Habilitado = dtoCliente.Habilitado,
                 Nombre = dtoCliente.Nombre,
                 NombreUsuario = dtoCliente.NombreUsuario,
@@ -117,7 +117,7 @@ namespace WCFProyectoFinal
                         Id=cli.Id,
                         Apellido=cli.Apellido,
                         Contrasena=cli.Contrasena,
-                        CorreElectronico=cli.CorreElectronico,
+                        CorreElectronico=cli.CorreoElectronico,
                         Habilitado=cli.Habilitado,
                         Nombre=cli.Nombre,
                         NombreUsuario=cli.NombreUsuario,
@@ -143,7 +143,7 @@ namespace WCFProyectoFinal
             {
                 Apellido = dtoAdministrador.Apellido,
                 Contrasena = dtoAdministrador.Contrasena,
-                CorreElectronico = dtoAdministrador.CorreElectronico,
+                CorreoElectronico = dtoAdministrador.CorreElectronico,
                 Documento = dtoAdministrador.Documento,
                 Habilitado = dtoAdministrador.Habilitado,
                 Nombre = dtoAdministrador.Nombre,
@@ -237,7 +237,7 @@ namespace WCFProyectoFinal
                     Id = admin.Id,
                     Apellido = admin.Apellido,
                     Contrasena = admin.Contrasena,
-                    CorreElectronico = admin.CorreElectronico,
+                    CorreElectronico = admin.CorreoElectronico,
                     Documento = admin.Documento,
                     Habilitado = admin.Habilitado,
                     Nombre = admin.Nombre,
@@ -271,7 +271,7 @@ namespace WCFProyectoFinal
                     Contrasena = c.Contrasena,//ver si hay que cargarla
                     UltimaModificacionContrasena = c.UltimaModificacionContrasena,
                     Habilitado = c.Habilitado,
-                    CorreElectronico = c.CorreElectronico,
+                    CorreElectronico = c.CorreoElectronico,
                     Telefono = c.Telefono,
                     Direccion = c.Direccion,
                     FechaAlta = c.FechaAlta,
@@ -295,7 +295,7 @@ namespace WCFProyectoFinal
                     Contrasena = a.Contrasena,//ver si hay que cargarla
                     UltimaModificacionContrasena = a.UltimaModificacionContrasena,
                     Habilitado = a.Habilitado,
-                    CorreElectronico = a.CorreElectronico,
+                    CorreElectronico = a.CorreoElectronico,
                     Documento = a.Documento,
                     Telefono = a.Documento,
                     Direccion = a.Direccion,

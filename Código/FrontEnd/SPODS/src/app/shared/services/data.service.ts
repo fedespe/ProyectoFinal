@@ -19,6 +19,63 @@ export class DataService {
         this.baseUrl = Settings.baseUrl;
     }
 
+    //*************************** */
+    // SERVICIOS CLIENTE
+    //*************************** */
+    //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta un carro)
+    public postRegistrarCliente(cliente:Cliente){
+        var URL : string = this.baseUrl + '/api/Cliente/altaCliente';
+        let body = JSON.stringify(cliente);
+
+        Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
+        Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.post(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+     public postIngresarCliente(cliente:Cliente){
+        var URL : string = this.baseUrl + '/api/Cliente/ingresarCliente';
+        let body = JSON.stringify(cliente);
+
+        Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
+        Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.post(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    //*************************** */
+    // FIN SERVICIOS CLIENTE
+    //*************************** */
+
+    //*************************** */
+    // SERVICIOS BARRIO
+    //*************************** */
+
+    public getBarrioObtenerTodos(){
+        var URL : string = this.baseUrl + '/api/Barrio/obtenerTodos';
+
+        Utilidades.log("[data.service.ts] - getCarroObtenerTodos | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getCarroObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    //*************************** */
+    // FIN SERVICIOS BARRIO
+    //*************************** */
+
+    //*************************** */
+    //PRUEBA SERVICIOS
+    //*************************** */
+
     //Prueba llamando un método por Get sin parámetros (Obtiene todos los carros)
     //Retorna una colección de Carro
     public getCarroObtenerTodos(){
@@ -90,19 +147,11 @@ export class DataService {
             .catch(this.handleError);
     }
 
-    //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta un carro)
-    // public postRegistroCliente(cliente:Cliente){
-    //     var URL : string = this.baseUrl + '/api/Carro/altaCarro';
-    //     let body = {"IdCarro":6,"Marca":"Volvo","Modelo":2017};
+    
 
-    //     Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
-    //     Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
-    //     Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
-
-    //     return this.http.post(URL, body, { headers: this.headers })
-    //         .map((res: Response) => res.json())
-    //         .catch(this.handleError);
-    // }
+    //*************************** */
+    //PRUEBA SERVICIOS
+    //*************************** */
 
 
     //Función para lanzar excepciones que pueden surgir en las llamadas a los servicios

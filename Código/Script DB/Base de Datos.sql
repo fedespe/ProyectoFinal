@@ -42,7 +42,7 @@ CREATE TABLE USUARIO
 	UltimaModificacionContrasenia DATETIME NOT NULL,
 	Habilitado BIT NOT NULL,
 	Email NVARCHAR(50) NOT NULL,
-	Documento NVARCHAR(20) NOT NULL,
+	--Documento NVARCHAR(20) NOT NULL,
 	Telefono NVARCHAR(20) NOT NULL,
 	Direccion NVARCHAR (100) NOT NULL,
 	FechaAlta DATETIME NOT NULL,

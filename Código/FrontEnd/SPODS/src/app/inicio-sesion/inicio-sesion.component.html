@@ -2,14 +2,18 @@
     <form>
         <h1>Iniciar sesión</h1>
 
-        <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email">
-        <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña">
-        <button class="btn btn-lg btn-primary btn-block">Iniciar Sesión</button>
+        <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
+
+        <label for="inputContrasena" class="sr-only">Contraseña</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
+
+        <button class="btn btn-lg btn-primary btn-block" (click)="ingresarCliente()">Iniciar Sesión</button>
+
         <label class="btn-block">
             <a href="javascript:void(0)" (click)="navegarRegistroCliente()">Registrarse</a>
         </label>
+
         <label class="btn-block">
             <a href="javascript:void(0)">Olvidó su contraseña?</a>
         </label>
@@ -25,5 +29,6 @@
                 {{exito.Descripcion}}
             </div>
         </div>
+
     </form>
 </div>

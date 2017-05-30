@@ -20,12 +20,12 @@ namespace BL
                 throw new ProyectoException("Error: NombreUsuario");
             }
             //Verificar metodo de comprobar email.
-            if (!(ET.Utilidades.ComprobarFormatoEmail(usu.CorreElectronico)))
+            if (!(ET.Utilidades.ComprobarFormatoEmail(usu.CorreoElectronico)))
             {
-                throw new ProyectoException("Error: CorreElectronico");
+                throw new ProyectoException("Error: CorreoElectronico");
             }
-            if (existeCorreoElectronico(usu.CorreElectronico)) {
-                throw new ProyectoException("Error: CorreElectronico ya existe");
+            if (existeCorreoElectronico(usu.CorreoElectronico)) {
+                throw new ProyectoException("Error: CorreoElectronico ya existe");
             }
             if (existeNombreUsuario(usu.NombreUsuario))
             {

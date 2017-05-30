@@ -138,5 +138,29 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
+        [HttpPost, Route("api/Cliente/ingresarCliente")]
+        public Retorno PostIngresarCliente([FromBody]Cliente cliente)
+        {
+            try
+            {
+                Cliente cli = clienteBL.ingresarCliente(cliente.NombreUsuario, cliente.Contrasena);
+                if (cli != null)
+                {
+                    retorno.Objetos.Add(cli);
+                    retorno.Codigo = 200;
+                }
+                else {
+                    retorno.Codigo = 1;
+                    retorno.Mensaje = "Datos incorrectos.";
+                }
+                
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
     }
 }

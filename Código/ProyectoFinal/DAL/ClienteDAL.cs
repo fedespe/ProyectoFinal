@@ -36,7 +36,7 @@ namespace DAL
                                     Contrasena = dr["Contrasenia"].ToString(),
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
-                                    CorreElectronico = dr["Email"].ToString(),
+                                    CorreoElectronico = dr["Email"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
@@ -80,7 +80,7 @@ namespace DAL
                                     Contrasena = dr["Contrasenia"].ToString(),
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
-                                    CorreElectronico = dr["Email"].ToString(),
+                                    CorreoElectronico = dr["Email"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
@@ -119,7 +119,7 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@pass", Utilidades.calcularMD5Hash(cli.Contrasena));
                         cmd.Parameters.AddWithValue("@ultModif", DateTime.Now);
                         cmd.Parameters.AddWithValue("@habilitado", cli.Habilitado);
-                        cmd.Parameters.AddWithValue("@email", cli.CorreElectronico);
+                        cmd.Parameters.AddWithValue("@email", cli.CorreoElectronico);
                         cmd.Parameters.AddWithValue("@tel", cli.Telefono);
                         cmd.Parameters.AddWithValue("@dir", cli.Direccion); 
                         cmd.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
@@ -222,7 +222,7 @@ namespace DAL
                                     Contrasena = dr["Contrasenia"].ToString(),
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
-                                    CorreElectronico = dr["Email"].ToString(),
+                                    CorreoElectronico = dr["Email"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),

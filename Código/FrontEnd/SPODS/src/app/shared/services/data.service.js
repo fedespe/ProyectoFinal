@@ -24,6 +24,50 @@ var DataService = (function () {
         this.headers = new http_1.Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
         this.baseUrl = settings_1.Settings.baseUrl;
     }
+    //*************************** */
+    // SERVICIOS CLIENTE
+    //*************************** */
+    //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta un carro)
+    DataService.prototype.postRegistrarCliente = function (cliente) {
+        var URL = this.baseUrl + '/api/Cliente/altaCliente';
+        var body = JSON.stringify(cliente);
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.post(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.postIngresarCliente = function (cliente) {
+        var URL = this.baseUrl + '/api/Cliente/ingresarCliente';
+        var body = JSON.stringify(cliente);
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
+        utilidades_1.Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.post(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //*************************** */
+    // FIN SERVICIOS CLIENTE
+    //*************************** */
+    //*************************** */
+    // SERVICIOS BARRIO
+    //*************************** */
+    DataService.prototype.getBarrioObtenerTodos = function () {
+        var URL = this.baseUrl + '/api/Barrio/obtenerTodos';
+        utilidades_1.Utilidades.log("[data.service.ts] - getCarroObtenerTodos | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getCarroObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //*************************** */
+    // FIN SERVICIOS BARRIO
+    //*************************** */
+    //*************************** */
+    //PRUEBA SERVICIOS
+    //*************************** */
     //Prueba llamando un método por Get sin parámetros (Obtiene todos los carros)
     //Retorna una colección de Carro
     DataService.prototype.getCarroObtenerTodos = function () {
@@ -80,17 +124,9 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta un carro)
-    // public postRegistroCliente(cliente:Cliente){
-    //     var URL : string = this.baseUrl + '/api/Carro/altaCarro';
-    //     let body = {"IdCarro":6,"Marca":"Volvo","Modelo":2017};
-    //     Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
-    //     Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
-    //     Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
-    //     return this.http.post(URL, body, { headers: this.headers })
-    //         .map((res: Response) => res.json())
-    //         .catch(this.handleError);
-    // }
+    //*************************** */
+    //PRUEBA SERVICIOS
+    //*************************** */
     //Función para lanzar excepciones que pueden surgir en las llamadas a los servicios
     DataService.prototype.handleError = function (error) {
         return Observable_1.Observable.throw(error.json().error || " server error");

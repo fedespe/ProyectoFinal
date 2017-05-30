@@ -94,7 +94,7 @@ namespace Testing
             using (Servicio.ServicioProyectoFinalClient cliente = new Servicio.ServicioProyectoFinalClient())
             {
                 string resultadoObtenido = cliente.altaCliente("Federico", "Speroni", "Federico1234", "Fede1234", "fsperoniphotmail.com", "099845498", true, "42614099");
-                Assert.AreEqual("Error: CorreElectronico", resultadoObtenido);
+                Assert.AreEqual("Error: CorreoElectronico", resultadoObtenido);
             }
         }
         [TestMethod]
