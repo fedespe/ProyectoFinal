@@ -1,0 +1,127 @@
+import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../../shared/services/data.service';
+import { Utilidades } from "../../shared/utilidades";
+import { Mensaje } from "../../shared/mensaje";
+import { Error } from "../../shared/error";
+import { Exito } from "../../shared/exito";
+import { Cliente } from '../../shared/cliente';
+import { Barrio } from '../../shared/barrio';
+import { Marca } from '../../shared/marca';
+
+@Component({
+    selector: 'perfil-usuario',
+    templateUrl: 'app/dashboard/perfil-usuario/perfil-usuario.component.html',
+    styleUrls:  ['css/perfil-usuario.css']//cambiar!!!
+})
+
+export class PerfilUsuarioComponent{
+    mensajes: Mensaje = new Mensaje();
+    cliente:Cliente = new Cliente();
+    barrios:Barrio[] = [];
+
+    constructor(private dataService: DataService, private router: Router) {
+        this.cliente.NombreUsuario=localStorage.getItem('nombre-usuario');
+        this.cliente.Id=parseInt(localStorage.getItem('id-usuario'));
+        this.getObtenerBarrios();
+        this.getObternerCliente();
+    }
+    borrarMensajes(){
+        this.mensajes.Errores = [];
+        this.mensajes.Exitos = [];
+    }
+    
+    actualizarCliente(){
+        this.borrarMensajes();
+        Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        
+        this.mensajes.Errores = this.cliente.validarActualizacionUsuario();
+
+        if(this.mensajes.Errores.length == 0){
+            this.dataService.putActualizarCliente(this.cliente)
+            .subscribe(
+                res => this.putActualizarClienteOk(res),
+                error => this.putActualizarClienteError(error),
+                () => Utilidades.log("[registro-cliente.component.ts] - postRegistrarCliente: Completado")
+            );
+        }
+    }
+
+
+    putActualizarClienteOk(response:any){
+        Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
+
+        if(response.Codigo ==  200){
+            Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response.Codigo));
+            this.router.navigate(['/dashboard']);
+        }
+        else{
+            Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    putActualizarClienteError(error:any){
+        Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteError | error: " + JSON.stringify(error));
+        var errorInesperado = new Error();
+        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(errorInesperado);
+    }
+
+    getObtenerBarrios(){
+        this.dataService.getBarrioObtenerTodos()
+            .subscribe(
+            res => this.getBarrioObtenerTodosOk(res),
+            error => this.getBarrioObtenerTodosError(error),
+            () => Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado")
+        );
+    }
+    getBarrioObtenerTodosOk(response:any){
+        Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
+        this.barrios = response.Objetos;
+    }
+
+    getBarrioObtenerTodosError(response:any){
+        Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response: " + JSON.stringify(response));
+
+        if(response.Codigo !=  200){
+            Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObternerCliente(){
+        this.dataService.getObtenerCliente(this.cliente.Id)
+            .subscribe(
+            res => this.getObternerClienteOk(res),
+            error => this.getObternerClienteError(error),
+            () => Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado")
+        );
+    }
+
+    getObternerClienteOk(response:any){
+        Utilidades.log("[registro-cliente.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
+        this.cliente.Nombre = response.Objetos[0].Nombre;
+        this.cliente.Apellido = response.Objetos[0].Apellido;
+        this.cliente.Telefono = response.Objetos[0].Telefono;
+        this.cliente.Direccion = response.Objetos[0].Direccion;
+        this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
+    }
+
+    getObternerClienteError(response:any){
+        Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | response: " + JSON.stringify(response));
+
+        if(response.Codigo !=  200){
+            Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    
+}

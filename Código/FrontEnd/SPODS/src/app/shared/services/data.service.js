@@ -48,6 +48,34 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.putActualizarCliente = function (cliente) {
+        var URL = this.baseUrl + '/api/Cliente/actualizarCliente';
+        var body = JSON.stringify(cliente);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarCliente | body: " + body);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.put(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getObtenerCliente = function (id) {
+        var URL = this.baseUrl + '/api/Cliente/obtener/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getCarroObtenerPorId | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getCarroObtenerPorId | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.putActualizarContrasena = function (actualizarContrasena) {
+        var URL = this.baseUrl + '/api/Cliente/actualizarContrasena';
+        var body = JSON.stringify(actualizarContrasena);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarContrasena | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarContrasena | body: " + body);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarContrasena | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.put(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS CLIENTE
     //*************************** */

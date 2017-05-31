@@ -50,19 +50,12 @@ export class Cliente {
             error = new Error();
             error.Descripcion = "Debe ingresar un correo electrónico.";
             errores.push(error);
-        }        
-
-        if(this.Barrio.Id == 0){
-            error = new Error();
-            error.Descripcion = "Debe seleccionar un barrio.";
-            errores.push(error);
-        }
-        
+        }               
         
         return errores;
     }
     public validarActualizacionUsuario() : Error[]{
-        Utilidades.log("[cliente.ts] - validarContrasena | this: " + JSON.stringify(this));
+        Utilidades.log("[cliente.ts] - validarActualizacionUsuario | this: " + JSON.stringify(this));
 
         var error : Error;
         var errores : Error[] = [];
@@ -134,6 +127,11 @@ export class Cliente {
                 errores.push(error);
             }
         }
+        if(this.Barrio.Id == 0){
+            error = new Error();
+            error.Descripcion = "Debe seleccionar un barrio.";
+            errores.push(error);
+        }
 
         return errores
     }
@@ -169,7 +167,7 @@ export class Cliente {
         }
 
         return errores
-    }
+    }   
 
 
 }

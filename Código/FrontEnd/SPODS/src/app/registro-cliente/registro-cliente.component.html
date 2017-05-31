@@ -1,55 +1,54 @@
-<div class="container">
-    <form>
-        <h1>Registro de usuario</h1>
+<form>
+    <h1>Registro de usuario</h1>
 
-        <div *ngIf="cliente">
-            <label for="inputNombre" class="sr-only">Nombre</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
+    <div *ngIf="cliente">
+        <label for="inputNombre" class="sr-only">Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
 
-            <label for="inputApellido" class="sr-only">Apellido</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
+        <label for="inputApellido" class="sr-only">Apellido</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
 
-            <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
+        <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
 
-            <label for="inputContrasena" class="sr-only">Contraseña</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
+        <label for="inputContrasena" class="sr-only">Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
 
-            <label for="inputContrasenaConfirmacion" class="sr-only">Repetir Contraseña</label>
-            <input type="text" class="form-control" id="inputContrasenaConfirmacion" [(ngModel)]="contrasenaConfirmacion" name="ContrasenaConfirmacion" placeholder="Repetir Contraseña">
+        <label for="inputContrasenaConfirmacion" class="sr-only">Repetir Contraseña</label>
+        <input type="password" class="form-control" id="inputContrasenaConfirmacion" [(ngModel)]="contrasenaConfirmacion" name="ContrasenaConfirmacion" placeholder="Repetir Contraseña">
 
-            <label for="inputCorreoElectronico" class="sr-only">Correo Electrónico</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.CorreoElectronico" id="inputCorreoElectronico" name="CorreoElectronico" placeholder="Correo Electrónico">
+        <label for="inputCorreoElectronico" class="sr-only">Correo Electrónico</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.CorreoElectronico" id="inputCorreoElectronico" name="CorreoElectronico" placeholder="Correo Electrónico">
 
-            <label for="inputTelefono" class="sr-only">Teléfono</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Telefono" id="inputTelefono" name="Telefono" placeholder="Teléfono">
-            
-            <label for="inputDireccion" class="sr-only">Dirección</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
+        <label for="inputTelefono" class="sr-only">Teléfono</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.Telefono" id="inputTelefono" name="Telefono" placeholder="Teléfono">
+        
+        <label for="inputDireccion" class="sr-only">Dirección</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
 
-            <!--Combo desplegable para barrio-->
-            <label for="selectBarrio" class="sr-only">Barrio</label>
-            <select id="selectBarrio" class="form-control" [(ngModel)]="cliente.Barrio.Id" name="Barrio">
-                <option value="0">Seleccione un Barrio</option>
-                <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
-            </select>
+        <!--Combo desplegable para barrio-->
+        <label for="selectBarrio" class="sr-only">Barrio</label>
+        <select id="selectBarrio" class="form-control" [(ngModel)]="cliente.Barrio.Id" name="Barrio">
+            <option value="0">Seleccione un Barrio</option>
+            <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
+        </select>
 
-            
+        
 
-            <button class="btn btn-lg btn-primary btn-block" (click)="registrarCliente()">Registrarse</button>
+        <button class="btn btn-lg btn-primary btn-block" (click)="registrarCliente()">Registrarse</button>
+    </div>
+
+    <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+        <div *ngFor="let error of mensajes.Errores;">
+            {{error.Descripcion}}
         </div>
+    </div>
 
-        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
-            <div *ngFor="let error of mensajes.Errores;">
-                {{error.Descripcion}}
-            </div>
+    <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+        <div *ngFor="let exito of mensajes.Exitos;">
+            {{exito.Descripcion}}
         </div>
+    </div>
+</form>
 
-        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
-            <div *ngFor="let exito of mensajes.Exitos;">
-                {{exito.Descripcion}}
-            </div>
-        </div>
-    </form>
-</div>
 

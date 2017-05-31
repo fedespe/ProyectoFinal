@@ -1,13 +1,25 @@
-.container {
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
   padding-top: 50px;
-  padding-bottom: 40px;
 }
+
+/*
+ * Typography
+ */
 
 h1 {
   margin-bottom: 20px;
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
 }
+
+/*
+ * Sidebar
+ */
 
 .sidebar {
   position: fixed;
@@ -19,9 +31,9 @@ h1 {
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   border-right: 1px solid #eee;
-  background-color: #414344;
 }
 
+/* Sidebar navigation */
 .sidebar {
   padding-left: 0;
   padding-right: 0;
@@ -43,6 +55,11 @@ h1 {
   border-radius: 0;
 }
 
+/*
+ * Dashboard
+ */
+
+ /* Placeholders */
 .placeholders {
   padding-bottom: 3rem;
 }
@@ -52,34 +69,6 @@ h1 {
   padding-bottom: 1.5rem;
 }
 
-.linkMenu{
-  color: #f1a822;
-}
-
-.linkMenu.active{
-  background-color: #f1a822;
-}
-
-.active .linkMenuBar{
-  color: #f1a822;
-}
-
-.btnSearch{
-   color: #f1a822;
-   border-color: #f1a822;
-}
-
-.btnSearch:Hover{
-  color: #000;
-  border-color: #000;
-  background-color: #f1a822;
-}
-
-/*#navbarsExampleDefault{*/
-  /*background-color: #000000;*/
-  /*color: #000000;*/
-/*}*/
-
-.ContenedorDashboard{
-  margin-top: 20px;
+main{
+ margin-top: 50px;
 }

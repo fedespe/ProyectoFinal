@@ -16,8 +16,11 @@ var DashboardComponent = (function () {
     function DashboardComponent(dataService, router) {
         this.dataService = dataService;
         this.router = router;
+        this.nombreUsuario = localStorage.getItem('nombre-usuario');
     }
     DashboardComponent.prototype.cerrarSesion = function () {
+        //limpiar local storage
+        this.router.navigate(['/']);
     };
     return DashboardComponent;
 }());

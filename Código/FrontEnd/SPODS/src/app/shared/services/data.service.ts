@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Cliente} from "../cliente";
 import {Carro} from "../carro";
+import {ActualizarContrasena} from "../actualizarContrasena";
 
 @Injectable()
 export class DataService {
@@ -45,6 +46,43 @@ export class DataService {
         Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
 
         return this.http.post(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+    
+    public putActualizarCliente(cliente:Cliente){
+        var URL : string = this.baseUrl + '/api/Cliente/actualizarCliente';
+        let body = JSON.stringify(cliente);
+        
+        Utilidades.log("[data.service.ts] - putActualizarCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - putActualizarCliente | body: " + body);
+        Utilidades.log("[data.service.ts] - putActualizarCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.put(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+    
+    public getObtenerCliente(id:number){
+        var URL : string = this.baseUrl + '/api/Cliente/obtener/' + id;
+
+        Utilidades.log("[data.service.ts] - getCarroObtenerPorId | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getCarroObtenerPorId | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+    
+    public putActualizarContrasena(actualizarContrasena:ActualizarContrasena){
+        var URL : string = this.baseUrl + '/api/Cliente/actualizarContrasena';
+        let body = JSON.stringify(actualizarContrasena);
+        
+        Utilidades.log("[data.service.ts] - putActualizarContrasena | URL: " + URL);
+        Utilidades.log("[data.service.ts] - putActualizarContrasena | body: " + body);
+        Utilidades.log("[data.service.ts] - putActualizarContrasena | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.put(URL, body, { headers: this.headers })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }

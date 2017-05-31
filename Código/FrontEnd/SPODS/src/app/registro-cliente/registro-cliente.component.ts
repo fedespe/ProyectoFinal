@@ -99,6 +99,8 @@ export class RegistroClienteComponent {
             Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response: " + JSON.stringify(response.Objetos[0]));
             //Guardar el response.Objetos[0] en local storage
             //localStorage.setItem('access_token', oauth.access_token); como ejemplo
+            localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
+            localStorage.setItem('id-usuario', response.Objetos[0].Id);
             this.router.navigate(['dashboard/overview']);
         }
         else{

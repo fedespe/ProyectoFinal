@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebAPI.Models;
+using WebAPI.Models.Cliente;
 
 namespace WebAPI.Controllers
 {
@@ -124,11 +125,11 @@ namespace WebAPI.Controllers
 
         //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
         [HttpPut, Route("api/Cliente/actualizarContrasena")]
-        public Retorno PutActualizarContrasenaCliente([FromBody]Cliente cliente, [FromBody]string contrasenaNueva)
+        public Retorno PutActualizarContrasenaCliente([FromBody]ActualizarContrasena actualizarContrasena)
         {
             try
             {
-                clienteBL.actualizarContrasena(cliente.Id, cliente.Contrasena, contrasenaNueva);
+                clienteBL.actualizarContrasena(actualizarContrasena.IdUsuario, actualizarContrasena.Contrasena, actualizarContrasena.ContrasenaNueva);
                 retorno.Codigo = 200;
             }
             catch (ProyectoException ex)

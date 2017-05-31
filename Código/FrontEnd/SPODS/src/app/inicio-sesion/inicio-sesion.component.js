@@ -44,8 +44,10 @@ var InicioSesionComponent = (function () {
         if (response.Codigo == 200) {
             utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response: " + JSON.stringify(response.Objetos[0]));
             //Guardar el response.Objetos[0] en local storage
-            //localStorage.setItem('access_token', oauth.access_token); como ejemplo
-            this.router.navigate(['dashboard/overview']);
+            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response: " + JSON.stringify(response.Objetos[0].NombreUsuario));
+            localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
+            localStorage.setItem('id-usuario', response.Objetos[0].Id);
+            this.router.navigate(['/dashboard']);
         }
         else {
             utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));

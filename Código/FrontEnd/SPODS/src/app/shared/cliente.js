@@ -37,15 +37,10 @@ var Cliente = (function () {
             error.Descripcion = "Debe ingresar un correo electrónico.";
             errores.push(error);
         }
-        if (this.Barrio.Id == 0) {
-            error = new error_1.Error();
-            error.Descripcion = "Debe seleccionar un barrio.";
-            errores.push(error);
-        }
         return errores;
     };
     Cliente.prototype.validarActualizacionUsuario = function () {
-        utilidades_1.Utilidades.log("[cliente.ts] - validarContrasena | this: " + JSON.stringify(this));
+        utilidades_1.Utilidades.log("[cliente.ts] - validarActualizacionUsuario | this: " + JSON.stringify(this));
         var error;
         var errores = [];
         if (this.Nombre == null) {
@@ -115,6 +110,11 @@ var Cliente = (function () {
                 error.Descripcion = "La dirección no puede tener más de 100 caracteres.";
                 errores.push(error);
             }
+        }
+        if (this.Barrio.Id == 0) {
+            error = new error_1.Error();
+            error.Descripcion = "Debe seleccionar un barrio.";
+            errores.push(error);
         }
         return errores;
     };

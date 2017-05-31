@@ -17,13 +17,23 @@ var registro_cliente_component_1 = require("./registro-cliente/registro-cliente.
 var inicio_sesion_component_1 = require("./inicio-sesion/inicio-sesion.component");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var overview_component_1 = require("./dashboard/overview/overview.component");
+var perfil_usuario_component_1 = require("./dashboard/perfil-usuario/perfil-usuario.component");
+var cambiar_contrasena_usuario_component_1 = require("./dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component");
 var appRoutes = [
-    { path: '', component: welcome_component_1.WelcomeComponent },
-    { path: 'registro-cliente', component: registro_cliente_component_1.RegistroClienteComponent },
-    { path: 'inicio-sesion', component: inicio_sesion_component_1.InicioSesionComponent },
+    { path: '', component: welcome_component_1.WelcomeComponent,
+        children: [
+            { path: 'registro-cliente', component: registro_cliente_component_1.RegistroClienteComponent },
+            { path: 'inicio-sesion', component: inicio_sesion_component_1.InicioSesionComponent }
+        ]
+    },
+    // { path: '', component: WelcomeComponent },
+    // { path: 'registro-cliente', component: RegistroClienteComponent },
+    // { path: 'inicio-sesion', component: InicioSesionComponent },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent,
         children: [
-            { path: 'overview', component: overview_component_1.OverviewComponent }
+            { path: 'overview', component: overview_component_1.OverviewComponent },
+            { path: 'perfil-usuario', component: perfil_usuario_component_1.PerfilUsuarioComponent },
+            { path: 'cambiar-contrasena-usuario', component: cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuario }
         ]
     },
 ];
@@ -38,7 +48,9 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, router_1.RouterModule, router_1.RouterModule.forRoot(appRoutes), forms_1.ReactiveFormsModule
         ],
         declarations: [
-            app_component_1.AppComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent, inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, overview_component_1.OverviewComponent
+            app_component_1.AppComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent,
+            inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, overview_component_1.OverviewComponent,
+            perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuario
         ],
         bootstrap: [app_component_1.AppComponent]
     })
