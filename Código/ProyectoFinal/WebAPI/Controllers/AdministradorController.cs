@@ -19,11 +19,13 @@ namespace WebAPI.Controllers
         {
             return adminBL.obtenerTodos();
         }
+
         [HttpGet, Route("api/Administrador/obtener/{id}")]
         public Administrador GetAdministrador(int id)
         {
             return adminBL.obtener(id);
         }
+
         [HttpPost, Route("api/Administrador/altaAdministrador")]
         public string PostAltaAdministrador([FromBody]Administrador admin)
         {
@@ -37,6 +39,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
+
         [HttpPut, Route("api/Administrador/actualizarAdministrador")]
         public string PutActualizarAdministrador([FromBody]Administrador admin)
         {
@@ -50,6 +53,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
+
         [HttpGet, Route("api/Administrador/actualizarContrasena/{id}/{contrasenaAnterior}/{contrasenaNueva}")]
         public string PostActualizarContrasenaAdministrador(int id, string contrasenaAnterior, string contrasenaNueva)
         {
@@ -63,6 +67,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
+
         [HttpGet, Route("api/Administrador/habilitarAdministrador/{id}")]
         public string GetHabilitarAdministrador(int id)
         {
@@ -76,6 +81,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
+
         [HttpGet, Route("api/Administrador/deshabilitarAdministrador/{id}")]
         public string GetDeshabilitarAdministrador(int id)
         {
@@ -89,6 +95,7 @@ namespace WebAPI.Controllers
                 return ex.Message;
             }
         }
+
         [HttpGet, Route("api/Administrador/ingresarAdministrador/{nombreUsuario}/{pass}")]
         public Administrador GetIngresarAdministrador(string nombreUsuario, string pass)
         {

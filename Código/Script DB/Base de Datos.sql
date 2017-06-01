@@ -236,21 +236,98 @@ Contrata: ClienteId, OfertaId, Fecha, FechaLimiteCalificacion
 Realiza: ClienteId, PublicacionId, AdministradorId, FechaEvaluada, Aprobada, Comentario
 Califica: ClienteId, ClientePublicaId, PublicacionId, Puntaje, Comentario, FechaRealizado
 */
-SELECT * FROM USUARIO;
-SELECT * FROM CLIENTE;
-SELECT * FROM ADMINISTRADOR;
-SELECT * FROM BARRIO;
 
 DELETE FROM CLIENTE;
 DELETE FROM ADMINISTRADOR;
 DELETE FROM USUARIO;
-
+DELETE FROM BARRIO;
+DELETE FROM DEPARTAMENTO;
 
 INSERT INTO DEPARTAMENTO VALUES
-('MONTEVIDEO');
+('ARTIGAS'),
+('CANELONES'),
+('CERRO LARGO'),
+('COLONIA'),
+('DURAZNO'),
+('FLORES'),
+('FLORIDA'),
+('LAVALLEJA'),
+('MALDONADO'),
+('MONTEVIDEO'),
+('PAYSANDU'),
+('RIO NEGRO'),
+('RIVERA'),
+('ROCHA'),
+('SALTO'),
+('SAN JOSE'),
+('SORIANO'),
+('TACUAREMBO'),
+('REINTA Y TRES');
+
 INSERT INTO BARRIO VALUES
-('CENTRO',1),
-('CORDON',1);
+('Aguada',10),
+('Aires Puros',10),
+('Atahualpa',10),
+('Bañados de Carrasco',10),
+('Barrio Sur',10),
+('Belvedere',10),
+('Brazo Oriental',10),
+('Buceo',10),
+('Capurro',10),
+('Carrasco',10),
+('Carrasco Norte',10),
+('Casabó',10),
+('Casavalle',10),
+('Centro',10),
+('Cerrito de la Victoria',10),
+('Ciudad Vieja',10),
+('Colón',10),
+('Conciliación',10),
+('Cordón',10),
+('Flor de Maroñas',10),
+('Goes',10),
+('Ituzaingó',10),
+('Jacinto Vera',10),
+('Jardines del Hipódromo',10),
+('La Blanqueada',10),
+('La Comercial',10),
+('La Figurita',10),
+('La Paloma',10),
+('La Teja',10),
+('Larrañaga',10),
+('Las Acacias',10),
+('Las Canteras',10),
+('Lezica',10),
+('Malvín',10),
+('Malvín Norte',10),
+('Manga',10),
+('Maroñas',10),
+('Mercado Modelo',10),
+('Nuevo París',10),
+('Palermo',10),
+('Parque Batlle',10),
+('Parque Rodó',10),
+('Paso de la Arena',10),
+('Paso de las Duranas',10),
+('Peñarol',10),
+('Piedras Blancas',10),
+('Pocitos',10),
+('Prado',10),
+('Punta Carretas',10),
+('Punta de Rieles',10),
+('Punta Gorda',10),
+('Reducto',10),
+('Sayago',10),
+('Tres Cruces',10),
+('Tres Ombúes',10),
+('Unión',10),
+('Villa del Cerro',10),
+('Villa Española',10),
+('Villa García',10),
+('Otro',10);
 
-
-
+SELECT * FROM USUARIO;
+SELECT * FROM CLIENTE;
+SELECT * FROM ADMINISTRADOR;
+SELECT * FROM BARRIO;
+SELECT * FROM DEPARTAMENTO;

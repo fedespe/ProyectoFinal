@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         private Retorno retorno = new Retorno();
 
         [HttpGet, Route("api/Barrio/obtenerTodos")]
-        public Retorno GetAllClientes()
+        public Retorno GetAllBarrios()
         {
             try
             {
