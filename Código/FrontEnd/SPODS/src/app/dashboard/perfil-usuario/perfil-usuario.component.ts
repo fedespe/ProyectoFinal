@@ -12,7 +12,7 @@ import { Marca } from '../../shared/marca';
 @Component({
     selector: 'perfil-usuario',
     templateUrl: 'app/dashboard/perfil-usuario/perfil-usuario.component.html',
-    styleUrls:  ['css/perfil-usuario.css']//cambiar!!!
+    styleUrls:  ['css/perfil-usuario.css']
 })
 
 export class PerfilUsuarioComponent{
@@ -22,7 +22,7 @@ export class PerfilUsuarioComponent{
 
     constructor(private dataService: DataService, private router: Router) {
         this.cliente.NombreUsuario=localStorage.getItem('nombre-usuario');
-        this.cliente.Id=parseInt(localStorage.getItem('id-usuario'));
+        this.cliente.Id = parseInt(localStorage.getItem('id-usuario'));
         this.getObtenerBarrios();
         this.getObternerCliente();
     }
@@ -52,22 +52,20 @@ export class PerfilUsuarioComponent{
         Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
 
         if(response.Codigo ==  200){
-            Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response.Codigo));
             this.router.navigate(['/dashboard']);
         }
         else{
-            Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
     }
 
-    putActualizarClienteError(error:any){
-        Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteError | error: " + JSON.stringify(error));
-        var errorInesperado = new Error();
-        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(errorInesperado);
+    putActualizarClienteError(responseError:any){
+        Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     }
 
     getObtenerBarrios(){
@@ -78,20 +76,25 @@ export class PerfilUsuarioComponent{
             () => Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado")
         );
     }
+
     getBarrioObtenerTodosOk(response:any){
         Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
         this.barrios = response.Objetos;
-    }
-
-    getBarrioObtenerTodosError(response:any){
-        Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response: " + JSON.stringify(response));
-
-        if(response.Codigo !=  200){
-            Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response.Mensaje: " + JSON.stringify(response.Mensaje));
+        if(response.Codigo ==  200){
+            
+        }
+        else{
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+    }
+
+    getBarrioObtenerTodosError(responseError:any){
+        Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     }
 
     getObternerCliente(){
@@ -105,22 +108,25 @@ export class PerfilUsuarioComponent{
 
     getObternerClienteOk(response:any){
         Utilidades.log("[registro-cliente.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
-        this.cliente.Nombre = response.Objetos[0].Nombre;
-        this.cliente.Apellido = response.Objetos[0].Apellido;
-        this.cliente.Telefono = response.Objetos[0].Telefono;
-        this.cliente.Direccion = response.Objetos[0].Direccion;
-        this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
-    }
-
-    getObternerClienteError(response:any){
-        Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | response: " + JSON.stringify(response));
-
-        if(response.Codigo !=  200){
-            Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | response.Mensaje: " + JSON.stringify(response.Mensaje));
+        if(response.Codigo ==  200){
+            this.cliente.Nombre = response.Objetos[0].Nombre;
+            this.cliente.Apellido = response.Objetos[0].Apellido;
+            this.cliente.Telefono = response.Objetos[0].Telefono;
+            this.cliente.Direccion = response.Objetos[0].Direccion;
+            this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
+        }
+        else{
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+    }
+
+    getObternerClienteError(responseError:any){
+        Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     }
 
     

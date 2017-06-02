@@ -33,7 +33,7 @@ var appRoutes = [
         children: [
             { path: 'overview', component: overview_component_1.OverviewComponent },
             { path: 'perfil-usuario', component: perfil_usuario_component_1.PerfilUsuarioComponent },
-            { path: 'cambiar-contrasena-usuario', component: cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuario }
+            { path: 'cambiar-contrasena-usuario', component: cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent }
         ]
     },
 ];
@@ -50,7 +50,7 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent,
             inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, overview_component_1.OverviewComponent,
-            perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuario
+            perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

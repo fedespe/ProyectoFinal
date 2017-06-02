@@ -8,15 +8,6 @@
         <label for="inputApellido" class="sr-only">Apellido</label>
         <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
 
-        <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
-        <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
-
-        <label for="inputContrasena" class="sr-only">Contraseña</label>
-        <input type="password" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
-
-        <label for="inputContrasenaConfirmacion" class="sr-only">Repetir Contraseña</label>
-        <input type="password" class="form-control" id="inputContrasenaConfirmacion" [(ngModel)]="contrasenaConfirmacion" name="ContrasenaConfirmacion" placeholder="Repetir Contraseña">
-
         <label for="inputCorreoElectronico" class="sr-only">Correo Electrónico</label>
         <input type="text" class="form-control" [(ngModel)]="cliente.CorreoElectronico" id="inputCorreoElectronico" name="CorreoElectronico" placeholder="Correo Electrónico">
 
@@ -33,7 +24,15 @@
             <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
         </select>
 
-        
+        <!--Yo le asignaría el correo en el back. Le evitamos recordar 2 cosas al usuario.-->
+        <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
+
+        <label for="inputContrasena" class="sr-only">Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
+
+        <label for="inputContrasenaConfirmacion" class="sr-only">Repetir Contraseña</label>
+        <input type="password" class="form-control" id="inputContrasenaConfirmacion" [(ngModel)]="contrasenaConfirmacion" name="ContrasenaConfirmacion" placeholder="Repetir Contraseña">
 
         <button class="btn btn-lg btn-primary btn-block" (click)="registrarCliente()">Registrarse</button>
     </div>

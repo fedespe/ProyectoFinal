@@ -12,10 +12,10 @@ import {ActualizarContrasena} from "../../shared/actualizarContrasena";
 @Component({
     selector: 'cambiar-contrasena-usuario',
     templateUrl: 'app/dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component.html',
-    styleUrls:  ['css/perfil-usuario.css']//cambiar!!!
+    styleUrls:  ['css/cambiar-contrasena-usuario.css']
 })
 
-export class CambiarContrasenaUsuario{
+export class CambiarContrasenaUsuarioComponent{
     mensajes: Mensaje = new Mensaje();
     cliente:Cliente = new Cliente();
     actualizarContrasena:ActualizarContrasena=new ActualizarContrasena();
@@ -67,7 +67,4 @@ export class CambiarContrasenaUsuario{
         errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(errorInesperado);
     }
-
-
-
 }

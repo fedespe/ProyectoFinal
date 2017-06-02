@@ -17,8 +17,8 @@ var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
 var cliente_1 = require("../../shared/cliente");
 var actualizarContrasena_1 = require("../../shared/actualizarContrasena");
-var CambiarContrasenaUsuario = (function () {
-    function CambiarContrasenaUsuario(dataService, router) {
+var CambiarContrasenaUsuarioComponent = (function () {
+    function CambiarContrasenaUsuarioComponent(dataService, router) {
         this.dataService = dataService;
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
@@ -27,11 +27,11 @@ var CambiarContrasenaUsuario = (function () {
         this.cliente.NombreUsuario = localStorage.getItem('nombre-usuario');
         this.actualizarContrasena.IdUsuario = parseInt(localStorage.getItem('id-usuario'));
     }
-    CambiarContrasenaUsuario.prototype.borrarMensajes = function () {
+    CambiarContrasenaUsuarioComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     };
-    CambiarContrasenaUsuario.prototype.putActualizarContrasena = function () {
+    CambiarContrasenaUsuarioComponent.prototype.putActualizarContrasena = function () {
         var _this = this;
         this.borrarMensajes();
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - actualizarContrasena | this.cliente: " + JSON.stringify(this.cliente));
@@ -41,7 +41,7 @@ var CambiarContrasenaUsuario = (function () {
                 .subscribe(function (res) { return _this.putActualizarContrasenaOk(res); }, function (error) { return _this.putActualizarContrasenaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - actualizarContrasena: Completado"); });
         }
     };
-    CambiarContrasenaUsuario.prototype.putActualizarContrasenaOk = function (response) {
+    CambiarContrasenaUsuarioComponent.prototype.putActualizarContrasenaOk = function (response) {
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarContrasenaOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarContrasenaOk | response: " + JSON.stringify(response.Codigo));
@@ -54,21 +54,21 @@ var CambiarContrasenaUsuario = (function () {
             this.mensajes.Errores.push(error);
         }
     };
-    CambiarContrasenaUsuario.prototype.putActualizarContrasenaError = function (error) {
+    CambiarContrasenaUsuarioComponent.prototype.putActualizarContrasenaError = function (error) {
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteError | error: " + JSON.stringify(error));
         var errorInesperado = new error_1.Error();
         errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(errorInesperado);
     };
-    return CambiarContrasenaUsuario;
+    return CambiarContrasenaUsuarioComponent;
 }());
-CambiarContrasenaUsuario = __decorate([
+CambiarContrasenaUsuarioComponent = __decorate([
     core_1.Component({
         selector: 'cambiar-contrasena-usuario',
         templateUrl: 'app/dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component.html',
-        styleUrls: ['css/perfil-usuario.css'] //cambiar!!!
+        styleUrls: ['css/cambiar-contrasena-usuario.css']
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])
-], CambiarContrasenaUsuario);
-exports.CambiarContrasenaUsuario = CambiarContrasenaUsuario;
+], CambiarContrasenaUsuarioComponent);
+exports.CambiarContrasenaUsuarioComponent = CambiarContrasenaUsuarioComponent;
 //# sourceMappingURL=cambiar-contrasena-usuario.component.js.map

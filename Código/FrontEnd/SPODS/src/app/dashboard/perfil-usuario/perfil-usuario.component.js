@@ -45,21 +45,19 @@ var PerfilUsuarioComponent = (function () {
     PerfilUsuarioComponent.prototype.putActualizarClienteOk = function (response) {
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
-            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response.Codigo));
             this.router.navigate(['/dashboard']);
         }
         else {
-            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
     };
-    PerfilUsuarioComponent.prototype.putActualizarClienteError = function (error) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteError | error: " + JSON.stringify(error));
-        var errorInesperado = new error_1.Error();
-        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(errorInesperado);
+    PerfilUsuarioComponent.prototype.putActualizarClienteError = function (responseError) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     };
     PerfilUsuarioComponent.prototype.getObtenerBarrios = function () {
         var _this = this;
@@ -69,15 +67,19 @@ var PerfilUsuarioComponent = (function () {
     PerfilUsuarioComponent.prototype.getBarrioObtenerTodosOk = function (response) {
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
         this.barrios = response.Objetos;
-    };
-    PerfilUsuarioComponent.prototype.getBarrioObtenerTodosError = function (response) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response: " + JSON.stringify(response));
-        if (response.Codigo != 200) {
-            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response.Mensaje: " + JSON.stringify(response.Mensaje));
+        if (response.Codigo == 200) {
+        }
+        else {
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
+    };
+    PerfilUsuarioComponent.prototype.getBarrioObtenerTodosError = function (responseError) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     };
     PerfilUsuarioComponent.prototype.getObternerCliente = function () {
         var _this = this;
@@ -86,20 +88,24 @@ var PerfilUsuarioComponent = (function () {
     };
     PerfilUsuarioComponent.prototype.getObternerClienteOk = function (response) {
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
-        this.cliente.Nombre = response.Objetos[0].Nombre;
-        this.cliente.Apellido = response.Objetos[0].Apellido;
-        this.cliente.Telefono = response.Objetos[0].Telefono;
-        this.cliente.Direccion = response.Objetos[0].Direccion;
-        this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
-    };
-    PerfilUsuarioComponent.prototype.getObternerClienteError = function (response) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | response: " + JSON.stringify(response));
-        if (response.Codigo != 200) {
-            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | response.Mensaje: " + JSON.stringify(response.Mensaje));
+        if (response.Codigo == 200) {
+            this.cliente.Nombre = response.Objetos[0].Nombre;
+            this.cliente.Apellido = response.Objetos[0].Apellido;
+            this.cliente.Telefono = response.Objetos[0].Telefono;
+            this.cliente.Direccion = response.Objetos[0].Direccion;
+            this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
+        }
+        else {
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
+    };
+    PerfilUsuarioComponent.prototype.getObternerClienteError = function (responseError) {
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     };
     return PerfilUsuarioComponent;
 }());
@@ -107,7 +113,7 @@ PerfilUsuarioComponent = __decorate([
     core_1.Component({
         selector: 'perfil-usuario',
         templateUrl: 'app/dashboard/perfil-usuario/perfil-usuario.component.html',
-        styleUrls: ['css/perfil-usuario.css'] //cambiar!!!
+        styleUrls: ['css/perfil-usuario.css']
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])
 ], PerfilUsuarioComponent);

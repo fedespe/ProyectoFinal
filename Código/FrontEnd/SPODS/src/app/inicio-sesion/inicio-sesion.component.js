@@ -56,11 +56,11 @@ var InicioSesionComponent = (function () {
             this.mensajes.Errores.push(error);
         }
     };
-    InicioSesionComponent.prototype.postIngresarClienteError = function (error) {
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteError | error: " + JSON.stringify(error));
-        var errorInesperado = new error_1.Error();
-        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(errorInesperado);
+    InicioSesionComponent.prototype.postIngresarClienteError = function (responseError) {
+        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     };
     return InicioSesionComponent;
 }());

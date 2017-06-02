@@ -62,10 +62,10 @@ export class InicioSesionComponent{
         }
     }
 
-    postIngresarClienteError(error:any){
-        Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteError | error: " + JSON.stringify(error));
-        var errorInesperado = new Error();
-        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(errorInesperado);
+    postIngresarClienteError(responseError:any){
+        Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     }
 }

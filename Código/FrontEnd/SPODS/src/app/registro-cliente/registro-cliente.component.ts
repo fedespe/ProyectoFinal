@@ -24,7 +24,7 @@ export class RegistroClienteComponent {
     contrasenaConfirmacion:string;
 
     constructor(private dataService: DataService, private router: Router) {      
-        this.getObtenerBarrios();
+        this.obtenerBarrios();
     }
 
     borrarMensajes(){
@@ -36,8 +36,7 @@ export class RegistroClienteComponent {
         this.borrarMensajes();
         Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
 
-        this.cliente.Habilitado=true;
-        
+        this.cliente.Habilitado = true;
         this.mensajes.Errores = this.cliente.validarDatos(this.contrasenaConfirmacion);
 
         if(this.mensajes.Errores.length == 0){
@@ -71,11 +70,11 @@ export class RegistroClienteComponent {
         }
     }
 
-    postRegistrarClienteError(error:any){
-        Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteError | error: " + JSON.stringify(error));
-        var errorInesperado = new Error();
-        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(errorInesperado);
+    postRegistrarClienteError(responseError:any){
+        Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     }
 
     ingresarCliente() {
@@ -111,15 +110,14 @@ export class RegistroClienteComponent {
         }
     }
 
-    postIngresarClienteError(error:any){
-        Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteError | error: " + JSON.stringify(error));
-        var errorInesperado = new Error();
-        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(errorInesperado);
+    postIngresarClienteError(responseError:any){
+        Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     }
 
-
-    getObtenerBarrios(){
+    obtenerBarrios(){
         this.dataService.getBarrioObtenerTodos()
             .subscribe(
             res => this.getBarrioObtenerTodosOk(res),
@@ -127,20 +125,24 @@ export class RegistroClienteComponent {
             () => Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado")
         );
     }
+
     getBarrioObtenerTodosOk(response:any){
         Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
-        this.barrios = response.Objetos;
-    }
-
-    getBarrioObtenerTodosError(response:any){
-        Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response: " + JSON.stringify(response));
-
-        if(response.Codigo !=  200){
-            Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | response.Mensaje: " + JSON.stringify(response.Mensaje));
+        if(response.Codigo ==  200){
+            this.barrios = response.Objetos;
+        }
+        else{
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+    }
+
+    getBarrioObtenerTodosError(responseError:any){
+        Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
     }
 
 
