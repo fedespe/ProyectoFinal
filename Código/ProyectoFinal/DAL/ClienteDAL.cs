@@ -198,7 +198,7 @@ namespace DAL
         //Por el momento se repite codigo... ver si interesa diferenciar el ingreso de administrador de cliente
         public Cliente ingresarCliente(string NombreUsu, string pass) {
             Cliente cli = null;
-            string cadenaSelectUsuario = "SELECT * FROM Usuario WHERE NombreUsuario=@nomUsu AND Contrasenia=@pass AND Habilitado=1";
+            string cadenaSelectUsuario = "SELECT * FROM Usuario WHERE NombreUsuario=@nomUsu AND Contrasenia=@pass AND Habilitado=1 AND Tipo='CLIENTE'";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -226,7 +226,8 @@ namespace DAL
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
-                                    Barrio = new Barrio { Id = Convert.ToInt32(dr["BarrioId"]) }
+                                    Barrio = new Barrio { Id = Convert.ToInt32(dr["BarrioId"]) },
+                                    Tipo = dr["Tipo"].ToString()
                                 };
                             }
                         }

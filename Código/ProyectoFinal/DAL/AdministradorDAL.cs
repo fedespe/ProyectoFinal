@@ -37,7 +37,7 @@ namespace DAL
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
                                     CorreoElectronico = dr["Email"].ToString(),
-                                    Documento = dr["Documento"].ToString(),
+                                    //Documento = dr["Documento"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
@@ -82,7 +82,7 @@ namespace DAL
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
                                     CorreoElectronico = dr["Email"].ToString(),
-                                    Documento = dr["Documento"].ToString(),
+                                    //Documento = dr["Documento"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
@@ -104,7 +104,7 @@ namespace DAL
         }
         public void altaAdministrador(Administrador admin)
         {
-            string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @documento, @tel, @dir, @fechaAlta, @tipo, @barrio); 
+            string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @tel, @dir, @fechaAlta, @tipo, @barrio); 
                                             SELECT CAST(Scope_Identity() AS INT);";
             string cadenaInsertCliente = "INSERT INTO Administrador VALUES(@idUsu);";
             int idAdminGenerado = 0;
@@ -123,10 +123,11 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@ultModif", DateTime.Now);
                         cmd.Parameters.AddWithValue("@habilitado", admin.Habilitado);
                         cmd.Parameters.AddWithValue("@email", admin.CorreoElectronico);
-                        cmd.Parameters.AddWithValue("@documento", admin.Documento);
+                        //cmd.Parameters.AddWithValue("@documento", admin.Documento);
                         cmd.Parameters.AddWithValue("@tel", admin.Telefono);
                         cmd.Parameters.AddWithValue("@dir", admin.Direccion);
                         cmd.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@barrio", admin.Barrio.Id);
                         cmd.Parameters.AddWithValue("@tipo", "ADMINISTRADOR");
 
                         con.Open();
@@ -155,7 +156,7 @@ namespace DAL
         }
         public void actualizarAdministrador(Administrador admin)
         {
-            string cadenaUpdateUsuario = @"UPDATE Usuario SET Nombre=@nom, Apellido=@ape, Documento=@documento, Telefono=@tel, Direccion=@dir, BarrioId=@barrio
+            string cadenaUpdateUsuario = @"UPDATE Usuario SET Nombre=@nom, Apellido=@ape, Telefono=@tel, Direccion=@dir, BarrioId=@barrio
                                             WHERE Id=@id;";
             //string cadenaUpdateAdmin = "UPDATE Administrador SET datos... WHERE UduarioId=@id;"; //PARA CUANDO HAYA MAS DATOS
 
@@ -169,9 +170,10 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@id", admin.Id);
                         cmd.Parameters.AddWithValue("@nom", admin.Nombre);
                         cmd.Parameters.AddWithValue("@ape", admin.Apellido);
-                        cmd.Parameters.AddWithValue("@documento", admin.Documento);
+                        //cmd.Parameters.AddWithValue("@documento", admin.Documento);
                         cmd.Parameters.AddWithValue("@tel", admin.Telefono);
                         cmd.Parameters.AddWithValue("@dir", admin.Direccion);
+                        cmd.Parameters.AddWithValue("@barrio", admin.Barrio.Id);
 
                         con.Open();
                         trn = con.BeginTransaction();
@@ -201,7 +203,7 @@ namespace DAL
         public Administrador ingresarAdministrador(string NombreUsu, string pass)
         {
             Administrador admin = null;
-            string cadenaSelectUsuario = "SELECT * FROM Usuario WHERE NombreUsuario=@nomUsu AND Contrasenia=@pass AND Habilitado=1";
+            string cadenaSelectUsuario = "SELECT * FROM Usuario WHERE NombreUsuario=@nomUsu AND Contrasenia=@pass AND Habilitado=1 AND (Tipo='ADMINISTRADOR' OR Tipo='SUPERADMINISTRADOR')";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -226,11 +228,12 @@ namespace DAL
                                     UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
                                     Habilitado = Convert.ToBoolean(dr["Habilitado"]),
                                     CorreoElectronico = dr["Email"].ToString(),
-                                    Documento = dr["Documento"].ToString(),
+                                    //Documento = dr["Documento"].ToString(),
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
-                                    Barrio = new Barrio { Id = Convert.ToInt32(dr["BarrioId"]) }
+                                    Barrio = new Barrio { Id = Convert.ToInt32(dr["BarrioId"]) },
+                                    Tipo = dr["Tipo"].ToString()
                                 };
                             }
                         }

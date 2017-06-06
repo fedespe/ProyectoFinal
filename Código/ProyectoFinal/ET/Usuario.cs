@@ -20,5 +20,6 @@ namespace ET
         public string Direccion { get; set; }
         public DateTime FechaAlta { get; set; }
         public Barrio Barrio { get; set; }
+        public string Tipo { get; set; }
     }
 }

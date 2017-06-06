@@ -1,0 +1,78 @@
+﻿@model AdministradoresWeb.ViewModel.AdministradorViewModel.AltaAdminViewModel
+@{
+    ViewBag.Title = "AltaAdmin";
+}
+
+<div class="row">
+    <div class="col-md-2 pull-left">
+        <div>
+            <h3>Gestión</h3>
+            @Html.ActionLink("Gestión Administradores", "ListaAdministradores", "SuperAdministrador")<br />
+            @Html.ActionLink("Gestión Clientes", "ListaClientes", "Cliente")<br />
+            @Html.ActionLink("Gestión Servicios", "ListaServicios", "Servicio")<br />
+            @Html.ActionLink("Gestión Publicaciones", "ListaPublicaciones", "Publicaciones")<br />
+            @Html.ActionLink("Configuración", "Editar", "Configuracion")
+        </div>
+    </div>
+    <div class="col-md-10 pull-right">
+        <h2>Nuevo Administrador</h2>
+        @using (Html.BeginForm("AltaAdmin", "Administrador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            //Seguridad
+            @Html.AntiForgeryToken()
+
+            @*@Html.HiddenFor(x => x.administrador.Id)*@
+
+            //Lista de errores
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Nombre, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(x => x.Nombre, new { @id = "nombre", @class = "form-control", @placeholder = "Nombre" })
+                @Html.ValidationMessageFor(x => x.Nombre, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Apellido, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(x => x.Apellido, new { @id = "apellido", @class = "form-control", @placeholder = "Apellido" })
+                @Html.ValidationMessageFor(x => x.Apellido, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.NombreUsuario, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(x => x.NombreUsuario, new { @id = "nombreUsuario", @class = "form-control", @placeholder = "Nombre Usuario" })
+                @Html.ValidationMessageFor(x => x.NombreUsuario, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Contrasena, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(x => x.Contrasena, new { @id = "contrasena", @class = "form-control", @placeholder = "Contraseña", type = "contrasena" })
+                @Html.ValidationMessageFor(x => x.Contrasena, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.CorreoElectronico, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(x => x.CorreoElectronico, new { @id = "correoElectronico", @class = "form-control", @placeholder = "correoElectronico" })
+                @Html.ValidationMessageFor(x => x.CorreoElectronico, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Telefono, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(x => x.Telefono, new { @id = "telefono", @class = "form-control", @placeholder = "Teléfono" })
+                @Html.ValidationMessageFor(x => x.Telefono, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Direccion, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(x => x.Direccion, new { @id = "direccion", @class = "form-control", @placeholder = "Dirección" })
+                @Html.ValidationMessageFor(x => x.Direccion, "", new { @class = "text-danger" })
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Ingresar
+            </button>
+        }
+    </div>
+</div>
