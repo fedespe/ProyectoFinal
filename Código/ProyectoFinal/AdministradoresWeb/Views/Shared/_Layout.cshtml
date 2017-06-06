@@ -21,11 +21,24 @@
                 @Html.ActionLink("SPODS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                </ul>
+                @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR"))
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Gestión Administradores", "ListaAdministradores", "Administrador")</li>
+                        <li>@Html.ActionLink("Gestión Clientes", "ListaClientes", "Cliente")</li>
+                        <li>@Html.ActionLink("Gestión Publicaciones", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Configuración", "Index", "Home")</li>
+                    </ul>
+                }
+                else if (Session["TipoUsuario"] != null && Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR"))
+                {
+                    <ul class="nav navbar-nav">                        
+                        <li>@Html.ActionLink("Gestión Clientes", "ListaClientes", "Cliente")</li>
+                        <li>@Html.ActionLink("Gestión Publicaciones", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Configuración", "Index", "Home")</li>
+                    </ul>
+                }
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

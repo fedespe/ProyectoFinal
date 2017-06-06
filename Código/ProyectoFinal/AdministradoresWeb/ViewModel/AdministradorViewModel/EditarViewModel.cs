@@ -32,6 +32,7 @@ namespace AdministradoresWeb.ViewModel.AdministradorViewModel
             this.administrador = new Administrador();
         }
         public void completarEditarVM() {
+            Id = administrador.Id;
             Nombre = administrador.Nombre;
             Apellido = administrador.Apellido;
             Direccion = administrador.Direccion;

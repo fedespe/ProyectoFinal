@@ -7,7 +7,7 @@
     <div class="col-md-2 pull-left">
         <div>
             <h3>Gestión</h3>
-            @Html.ActionLink("Gestión Administradores", "ListaAdministradores", "SuperAdministrador")<br />
+            @Html.ActionLink("Gestión Administradores", "ListaAdministradores", "Administrador")<br />
             @Html.ActionLink("Gestión Clientes", "ListaClientes", "Cliente")<br />
             @Html.ActionLink("Gestión Servicios", "ListaServicios", "Servicio")<br />
             @Html.ActionLink("Gestión Publicaciones", "ListaPublicaciones", "Publicaciones")<br />
@@ -52,7 +52,11 @@
                 @Html.ValidationMessageFor(x => x.Direccion, "", new { @class = "text-danger" })
             </div>
 
-
+            <div>
+                <a title="CambiarPassword" href="~/Administrador/CambiarPass/@Model.Id">
+                    <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cambiar Contraseña
+                </a>
+            </div>
 
             <button type="submit" class="btn btn-primary">
                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Actualizar
