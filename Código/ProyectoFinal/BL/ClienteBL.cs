@@ -38,7 +38,19 @@ namespace BL
                 throw new ProyectoException("Error: Contrasena anterior");
             }
             clienteDAL.actualizarContrasena(id,contrasenaNueva);
-        }       
+        }
+
+        //Para uso del administrador en caso de perdida de la misma por parte del cliente
+        public void nuevaContrasena(int id, string contrasenaNueva)
+        {
+            base.validarContrasena(contrasenaNueva);           
+            Cliente cli = clienteDAL.obtener(id);
+            if (cli == null)
+            {
+                throw new ProyectoException("Error: Cliente no encontrado");
+            }
+            clienteDAL.actualizarContrasena(id, contrasenaNueva);
+        }
         public List<Cliente> obtenerTodos() {
            return clienteDAL.obtenerTodos();
         }
@@ -55,6 +67,7 @@ namespace BL
         public Cliente ingresarCliente(string nombreUsu, string pass) {
             return clienteDAL.ingresarCliente(nombreUsu, pass);
         }
+
 
     }
 }

@@ -1,14 +1,14 @@
-﻿@model AdministradoresWeb.ViewModel.AdministradorViewModel.CambiarPassViewModel
+﻿@model AdministradoresWeb.ViewModel.ClienteViewModel.NuevoPassViewModel
 @{
-    ViewBag.Title = "CambiarPass";
+    ViewBag.Title = "NuevoPass";
 }
 
 <div class="row">
     @Html.Partial("_MenuPartial")
     <div class="col-md-10">
-        <h2>Cambiar Contraseña</h2>
+        <h2>Nueva Contraseña</h2>
 
-        @using (Html.BeginForm("CambiarPass", "Administrador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("NuevoPass", "Cliente", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 
@@ -24,12 +24,6 @@
                 </div>*@
 
             <h3>@Model.NombreUsuario</h3>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.PasswordActual, htmlAttributes: new { @class = "control-label" })
-                @Html.TextBoxFor(model => model.PasswordActual, new { @id = "passActual", @class = "form-control", @placeholder = "Contraseña Actual", type = "password" })
-                @Html.ValidationMessageFor(model => model.PasswordActual, "", new { @class = "text-danger" })
-            </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.PasswordNuevo, htmlAttributes: new { @class = "control-label" })
@@ -51,4 +45,5 @@
         }
     </div>
 </div>
+
 

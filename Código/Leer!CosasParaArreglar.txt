@@ -1,0 +1,2 @@
+*Poner imagenes a los cliente
+*Separar el acceso a datos de administrador y cliente a la hora de habilitar y deshabilitar

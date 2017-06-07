@@ -185,6 +185,7 @@
     <Compile Include="ViewModel\AdministradorViewModel\AltaAdminViewModel.cs" />
     <Compile Include="ViewModel\AdministradorViewModel\CambiarPassViewModel.cs" />
     <Compile Include="ViewModel\AdministradorViewModel\EditarViewModel.cs" />
+    <Compile Include="ViewModel\ClienteViewModel\NuevoPassViewModel.cs" />
     <Compile Include="ViewModel\CuentaViewModel\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +251,9 @@
     <Content Include="Views\Administrador\CambiarPass.cshtml" />
     <Content Include="Views\Administrador\Ver.cshtml" />
     <Content Include="Views\Cliente\ListaClientes.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Cliente\NuevoPass.cshtml" />
+    <Content Include="Views\Cliente\Ver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

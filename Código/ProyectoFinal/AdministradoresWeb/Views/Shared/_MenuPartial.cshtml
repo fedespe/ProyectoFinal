@@ -1,0 +1,13 @@
+﻿<div class="col-xs-12 col-md-2">
+    <div>
+        <h3>Gestión</h3>
+        @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR"))
+        {
+            @Html.ActionLink("Gestión Administradores", "ListaAdministradores", "Administrador")<br />
+        }
+        @Html.ActionLink("Gestión Clientes", "ListaClientes", "Cliente")<br />
+        @Html.ActionLink("Gestión Servicios", "Index", "Home")<br />
+        @Html.ActionLink("Gestión Publicaciones", "Index", "Home")<br />
+        @Html.ActionLink("Configuración", "Index", "Home")
+    </div>
+</div>

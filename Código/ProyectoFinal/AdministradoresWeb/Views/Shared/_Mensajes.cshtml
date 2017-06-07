@@ -6,16 +6,7 @@
 <div class="row">
     @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ADMINISTRADOR"))
     {
-        <div class="col-md-2">
-            <div>
-                <h3>Gestión</h3>
-                @Html.ActionLink("Gestión Administradores", "ListaAdministradores", "SuperAdministrador")<br />
-                @Html.ActionLink("Gestión Clientes", "ListaClientes", "Cliente")<br />
-                @Html.ActionLink("Gestión Servicios", "ListaServicios", "Servicio")<br />
-                @Html.ActionLink("Gestión Publicaciones", "ListaPublicaciones", "Publicaciones")<br />
-                @Html.ActionLink("Configuración", "Editar", "Configuracion")
-            </div>
-        </div>
+        @Html.Partial("_MenuPartial")
 
         <div class="col-md-10">
             <div>

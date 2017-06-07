@@ -4,16 +4,7 @@
 }
 
 <div class="row">
-    <div class="col-md-2 pull-left">
-        <div>
-            <h3>Gestión</h3>
-            @Html.ActionLink("Gestión Administradores", "ListaAdministradores", "Administrador")<br />
-            @Html.ActionLink("Gestión Clientes", "ListaClientes", "Cliente")<br />
-            @Html.ActionLink("Gestión Servicios", "ListaServicios", "Servicio")<br />
-            @Html.ActionLink("Gestión Publicaciones", "ListaPublicaciones", "Publicaciones")<br />
-            @Html.ActionLink("Configuración", "Editar", "Configuracion")
-        </div>
-    </div>
+    @Html.Partial("_MenuPartial")
     <div class="col-md-10 pull-right">
         <h2>Nuevo Administrador</h2>
         @using (Html.BeginForm("AltaAdmin", "Administrador", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -46,7 +37,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(x => x.Contrasena, htmlAttributes: new { @class = "control-label" })
-                @Html.TextBoxFor(x => x.Contrasena, new { @id = "contrasena", @class = "form-control", @placeholder = "Contraseña", type = "contrasena" })
+                @Html.TextBoxFor(x => x.Contrasena, new { @id = "contrasena", @class = "form-control", @placeholder = "Contraseña", type = "password" })
                 @Html.ValidationMessageFor(x => x.Contrasena, "", new { @class = "text-danger" })
             </div>
 

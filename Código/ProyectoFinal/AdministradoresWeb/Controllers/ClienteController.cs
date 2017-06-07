@@ -1,4 +1,5 @@
-﻿using BL;
+﻿using AdministradoresWeb.ViewModel.ClienteViewModel;
+using BL;
 using ET;
 using System;
 using System.Collections.Generic;
@@ -41,5 +42,183 @@ namespace AdministradoresWeb.Controllers
                 }
             }
         }
+
+        //GET: Cliente/NuevoPass
+        public ActionResult NuevoPass(int id = 0)
+        {
+            if (Session["TipoUsuario"] != null && (Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR") || Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR")))
+            {
+                try
+                {
+                    NuevoPassViewModel nuevoPassVM = new NuevoPassViewModel();
+                    nuevoPassVM.cli = clienteBL.obtener(id);
+                    if (nuevoPassVM.cli != null)
+                    {
+                        nuevoPassVM.NombreUsuario = nuevoPassVM.cli.NombreUsuario;
+                        nuevoPassVM.Id = id;
+                        return View(nuevoPassVM);
+                    }
+                    else {
+                        ViewBag.Mensaje = "No selecciono el usuario correctamente.";
+                        return View("~/Views/Shared/_Mensajes.cshtml");
+                    }
+
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+            else
+            {
+                try
+                {
+                    ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+        }
+
+        //POST: Cliente/NuevoPass
+        [HttpPost]
+        public ActionResult NuevoPass(NuevoPassViewModel nuevoPassVM)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Session["TipoUsuario"] != null && (Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR") || Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR")))
+                {
+                    try
+                    {
+                        if (nuevoPassVM.PasswordNuevo.Equals(nuevoPassVM.PasswordConfirmacion))
+                        {
+                            clienteBL.nuevaContrasena(nuevoPassVM.Id, nuevoPassVM.PasswordNuevo);
+                            nuevoPassVM.Mensaje = "Contraseña modificada correctamente.";
+                            return View(nuevoPassVM);
+
+                        }
+                        nuevoPassVM.Mensaje = "La contraseña nueva no coincide con la confirmación de contraseña. Por favor, inténtelo otra vez.";
+                        return View(nuevoPassVM);
+                    }
+                    catch (ProyectoException ex)
+                    {
+                        ViewBag.Mensaje = ex.Message;
+                        return View("~/Views/Shared/_Mensajes.cshtml");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                        return View("~/Views/Shared/_Mensajes.cshtml");
+                    }
+                    catch (ProyectoException ex)
+                    {
+                        ViewBag.Mensaje = ex.Message;
+                        return View("~/Views/Shared/_Mensajes.cshtml");
+                    }
+                }
+            }
+            else {
+                return View(nuevoPassVM);
+            }
+        }
+
+        public ActionResult Ver(int Id)
+        {
+            if (Session["TipoUsuario"] != null && (Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR") || Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR")))
+            {
+                try
+                {
+                    return View(clienteBL.obtener(Id));
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+            else
+            {
+                try
+                {
+                    ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+        }
+
+        public ActionResult Deshabilitar(int id)
+        {
+            if (Session["TipoUsuario"] != null && (Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR") || Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR")))
+            {
+                try
+                {
+                    clienteBL.deshabilitarCliente(id);
+                    return RedirectToAction("ListaClientes");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+            else
+            {
+                try
+                {
+                    ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+        }
+
+        public ActionResult Habilitar(int id)
+        {
+            if (Session["TipoUsuario"] != null && (Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR") || Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR")))
+            {
+                try
+                {
+                    clienteBL.habilitarCliente(id);
+                    return RedirectToAction("ListaClientes");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+            else
+            {
+                try
+                {
+                    ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+        }
+
+
     }
 }

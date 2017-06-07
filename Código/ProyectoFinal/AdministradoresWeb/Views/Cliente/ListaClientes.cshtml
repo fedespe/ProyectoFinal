@@ -4,16 +4,7 @@
 }
 
 <div class="row">
-    <div class="col-xs-12 col-md-2">
-        <div>
-            <h3>Gestión</h3>
-            @Html.ActionLink("Gestión Administradores", "ListaAdministradores", "Administrador")<br />
-            @Html.ActionLink("Gestión Clientes", "ListaClientes", "Cliente")<br />
-            @Html.ActionLink("Gestión Servicios", "ListaServicios", "Servicio")<br />
-            @Html.ActionLink("Gestión Publicaciones", "ListaPublicaciones", "Publicaciones")<br />
-            @Html.ActionLink("Configuración", "Editar", "Configuracion")
-        </div>
-    </div>
+    @Html.Partial("_MenuPartial")
     <div class="col-md-10">
         @*<h2>
             Lista Clientes
@@ -54,16 +45,16 @@
                             <td>No</td>
                         }
                         <td>
-                            <a title="Ver" href="~/Administrador/Ver/@c.Id">Ver</a>
+                            <a title="Ver" href="~/Cliente/Ver/@c.Id">Ver</a>
 
-                            @*<a title="Editar" href="~/Administrador/Editar/@c.Id">Editar</a>*@
+                            <a title="Nueva Contraseña" href="~/Cliente/NuevoPass/@c.Id">Nueva Contraseña</a>
 
                             @if (c.Habilitado)
                             {
-                                <a title="Deshabilitar" onclick="return confirm('¿Esta seguro?');" href="~/Administrador/Deshabilitar/@c.Id">Inhabilitar</a>
+                                <a title="Deshabilitar" onclick="return confirm('¿Esta seguro?');" href="~/Cliente/Deshabilitar/@c.Id">Inhabilitar</a>
                             }
                             else {
-                                <a title="Habilitar" onclick="return confirm('¿Esta seguro?');" href="~/Administrador/Habilitar/@c.Id">Habilitar</a>
+                                <a title="Habilitar" onclick="return confirm('¿Esta seguro?');" href="~/Cliente/Habilitar/@c.Id">Habilitar</a>
                             }
 
 
