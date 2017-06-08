@@ -1,33 +1,37 @@
-<form>
-    <h1>Modificar contraseña</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-6">
+        <h1>Modificar contraseña</h1>
 
-    <div *ngIf="cliente">
-        <h2>{{cliente.NombreUsuario}}</h2>
+        <div *ngIf="cliente">
+            <h2>{{cliente.NombreUsuario}}</h2>
 
-        <label for="inputContrasena" class="sr-only">Contraseña</label>
-        <input type="password" class="form-control" [(ngModel)]="actualizarContrasena.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
+            <label for="inputContrasena" class="sr-only">Contraseña</label>
+            <input type="password" class="form-control" [(ngModel)]="actualizarContrasena.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
 
-        <label for="inputContrasenaNueva" class="sr-only">Repetir Contraseña</label>
-        <input type="password" class="form-control" id="inputContrasenaNueva" [(ngModel)]="actualizarContrasena.ContrasenaNueva" name="ContrasenaNueva" placeholder="Contraseña Nueva">
+            <label for="inputContrasenaNueva" class="sr-only">Repetir Contraseña</label>
+            <input type="password" class="form-control" id="inputContrasenaNueva" [(ngModel)]="actualizarContrasena.ContrasenaNueva" name="ContrasenaNueva" placeholder="Contraseña Nueva">
 
-        <label for="inputConfirmacionContrasena" class="sr-only">Repetir Contraseña</label>
-        <input type="password" class="form-control" id="inputConfirmacionContrasena" [(ngModel)]="actualizarContrasena.ConfirmacionContrasenaNueva" name="ConfirmacionContrasena" placeholder="Repetir Contraseña Nueva">
+            <label for="inputConfirmacionContrasena" class="sr-only">Repetir Contraseña</label>
+            <input type="password" class="form-control" id="inputConfirmacionContrasena" [(ngModel)]="actualizarContrasena.ConfirmacionContrasenaNueva" name="ConfirmacionContrasena" placeholder="Repetir Contraseña Nueva">
+
+            
+            <button class="btn btn-lg btn-primary btn-block" (click)="putActualizarContrasena()">Guardar</button>
+        </div>
 
         
-        <button class="btn btn-lg btn-primary btn-block" (click)="putActualizarContrasena()">Guardar</button>
-    </div>
 
-    
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
 
-    <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
-        <div *ngFor="let error of mensajes.Errores;">
-            {{error.Descripcion}}
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
         </div>
     </div>
-
-    <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
-        <div *ngFor="let exito of mensajes.Exitos;">
-            {{exito.Descripcion}}
-        </div>
-    </div>
-</form>
+  </div>
+</div>
