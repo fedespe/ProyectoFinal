@@ -5,6 +5,7 @@ using WebAPI.Models;
 using WebAPI.Controllers;
 using ET;
 using System.Collections.Generic;
+using WebAPI.Models.Cliente;
 
 namespace ProyectoTesting.Tests
 {
@@ -179,7 +180,7 @@ namespace ProyectoTesting.Tests
                 UltimaModificacionContrasena = DateTime.Now
             };
             string result = controllerCliente.PostAltaCliente(cli).Mensaje.ToString();
-            Assert.AreEqual("Error: Contrasena", result);
+            Assert.AreEqual("Error: Contraseña", result);
         }
         [TestMethod]
         public void PostAltaCliente_NombreUsuarioExistente()
@@ -261,6 +262,184 @@ namespace ProyectoTesting.Tests
             };
             int result =Convert.ToInt32(controllerCliente.PutActualizarCliente(cli).Codigo);
             Assert.AreEqual(200, result);
+        }
+        [TestMethod]
+        public void PutActualizarCliente_NombreIncorrecto()
+        {
+            Cliente cli = new Cliente
+            {
+                Id = 5,
+                Apellido = "Cliente3Actualizado",
+                Nombre = "C",
+                Direccion = "Cliente3Actualizado dir",
+                Telefono = "099845498A",
+                Barrio = new Barrio { Id = 2 },
+            };
+            string result = Convert.ToString(controllerCliente.PutActualizarCliente(cli).Mensaje);
+            Assert.AreEqual("Error: Nombre", result);
+        }
+        [TestMethod]
+        public void PutActualizarCliente_ApellidoIncorrecto()
+        {
+            Cliente cli = new Cliente
+            {
+                Id = 5,
+                Apellido = "C",
+                Nombre = "Cliente3Actualizado",
+                Direccion = "Cliente3Actualizado dir",
+                Telefono = "099845498A",
+                Barrio = new Barrio { Id = 2 },
+            };
+            string result = Convert.ToString(controllerCliente.PutActualizarCliente(cli).Mensaje);
+            Assert.AreEqual("Error: Apellido", result);
+        }
+        [TestMethod]
+        public void PutActualizarCliente_DireccionIncorrecto()
+        {
+            Cliente cli = new Cliente
+            {
+                Id = 5,
+                Apellido = "Cliente3Actualizado",
+                Nombre = "Cliente3Actualizado",
+                Direccion = "",
+                Telefono = "099845498A",
+                Barrio = new Barrio { Id = 2 },
+            };
+            string result = Convert.ToString(controllerCliente.PutActualizarCliente(cli).Mensaje);
+            Assert.AreEqual("Error: Dirección", result);
+        }
+        [TestMethod]
+        public void PutActualizarCliente_TelefonoIncorrecto()
+        {
+            Cliente cli = new Cliente
+            {
+                Id = 5,
+                Apellido = "Cliente3Actualizado",
+                Nombre = "Cliente3Actualizado",
+                Direccion = "Cliente3Actualizado dir",
+                Telefono = "",
+                Barrio = new Barrio { Id = 2 },
+            };
+            string result = Convert.ToString(controllerCliente.PutActualizarCliente(cli).Mensaje);
+            Assert.AreEqual("Error: Teléfono", result);
+        }
+        [TestMethod]
+        public void PutActualizarCliente_BarrioNull()
+        {
+            Cliente cli = new Cliente
+            {
+                Id = 5,
+                Apellido = "Cliente3Actualizado",
+                Nombre = "Cliente3Actualizado",
+                Direccion = "Cliente3Actualizado dir",
+                Telefono = "099845498A",
+                Barrio = null,
+            };
+            string result = Convert.ToString(controllerCliente.PutActualizarCliente(cli).Mensaje);
+            Assert.AreEqual("Error: Barrio", result);
+        }
+        [TestMethod]
+        public void PutHabilitarCliente_OK()
+        {
+            Cliente cli = new Cliente
+            {
+                Id = 5,
+            };
+            int result = Convert.ToInt32(controllerCliente.PutHabilitarCliente(cli).Codigo);
+            Assert.AreEqual(200, result);
+        }
+        [TestMethod]
+        public void PutDeshabilitarCliente_OK()
+        {
+            Cliente cli = new Cliente
+            {
+                Id = 5,
+            };
+            int result = Convert.ToInt32(controllerCliente.PutDeshabilitarCliente(cli).Codigo);
+            Assert.AreEqual(200, result);
+        }
+        [TestMethod]
+        public void PutActualizarContrasenaCliente_OK()
+        {
+            ActualizarContrasena actCon = new ActualizarContrasena
+            {
+                Contrasena = "123456789",
+                ContrasenaNueva= "789456123",
+                IdUsuario=5
+            };
+            int result = Convert.ToInt32(controllerCliente.PutActualizarContrasenaCliente(actCon).Codigo);
+            Assert.AreEqual(200, result);
+        }
+        [TestMethod]
+        public void PutActualizarContrasenaCliente_ContrasenaAnteriorIncorrecta()
+        {
+            ActualizarContrasena actCon = new ActualizarContrasena
+            {
+                Contrasena = "123456789",
+                ContrasenaNueva = "789456123",
+                IdUsuario = 5
+            };
+            string result = Convert.ToString(controllerCliente.PutActualizarContrasenaCliente(actCon).Mensaje);
+            Assert.AreEqual("Error: Contraseña anterior", result);
+        }
+        [TestMethod]
+        public void PutActualizarContrasenaCliente_ContrasenaAnteriorIgualAlaNueva()
+        {
+            ActualizarContrasena actCon = new ActualizarContrasena
+            {
+                Contrasena = "789456123",
+                ContrasenaNueva = "789456123",
+                IdUsuario = 5
+            };
+            string result = Convert.ToString(controllerCliente.PutActualizarContrasenaCliente(actCon).Mensaje);
+            Assert.AreEqual("Error: Contraseña anterior igual a nueva", result);
+        }
+        [TestMethod]
+        public void PutActualizarContrasenaCliente_ClienteNoExistente()
+        {
+            ActualizarContrasena actCon = new ActualizarContrasena
+            {
+                Contrasena = "789456123",
+                ContrasenaNueva = "123456789",
+                IdUsuario = 50000
+            };
+            string result = Convert.ToString(controllerCliente.PutActualizarContrasenaCliente(actCon).Mensaje);
+            Assert.AreEqual("Error: Cliente no encontrado", result);
+        }
+
+        [TestMethod]
+        public void PostIngresarCliente_OK()
+        {
+            Cliente cli = new Cliente
+            {
+                NombreUsuario = "Cliente1",
+                Contrasena = "123456789"
+            };
+            Cliente result = (Cliente)controllerCliente.PostIngresarCliente(cli).Objetos[0];
+            Assert.AreEqual(3, result.Id);
+            Assert.AreEqual("Cliente1", result.Nombre);
+        }
+        [TestMethod]
+        public void PostIngresarCliente_NombreIncorrecto()
+        {
+            Cliente cli = new Cliente
+            {
+                NombreUsuario = "Cliente199999999",
+                Contrasena = "123456789"
+            };
+            string result = controllerCliente.PostIngresarCliente(cli).Mensaje;
+            Assert.AreEqual("Datos incorrectos.", result);
+        }
+        [TestMethod]
+        public void PostIngresarCliente_ContrasenaIncorrecta()
+        {
+            Cliente cli = new Cliente
+            {
+                NombreUsuario = "Cliente1",
+                Contrasena = "123456789000"
+            };
+            string result = controllerCliente.PostIngresarCliente(cli).Mensaje;
+            Assert.AreEqual("Datos incorrectos.", result);
         }
 
         //**********************************************************

@@ -44,11 +44,15 @@ namespace BL
             }
             if (usu.Telefono.Length < 6 || usu.Telefono.Length > 20)
             {
-                throw new ProyectoException("Error: Telefono");
+                throw new ProyectoException("Error: Teléfono");
             }
             if (usu.Direccion.Length < 4 || usu.Direccion.Length > 100)
             {
-                throw new ProyectoException("Error: Direccion");
+                throw new ProyectoException("Error: Dirección");
+            }
+            if (usu.Barrio==null)
+            {
+                throw new ProyectoException("Error: Barrio");
             }
         }
         protected void validarContrasena(string contrasenaNueva)
@@ -56,7 +60,7 @@ namespace BL
             //Ver si se le va agregar mas restricciones (expresion regular)
             if (contrasenaNueva.Length < 8)
             {
-                throw new ProyectoException("Error: Contrasena");
+                throw new ProyectoException("Error: Contraseña");
             }
         }
         protected bool existeNombreUsuario(string nombreUsuario) {

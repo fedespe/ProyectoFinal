@@ -26,7 +26,7 @@ namespace BL
             base.validarContrasena(contrasenaNueva);
             if (contrasenaAnterior.Equals(contrasenaNueva))
             {
-                throw new ProyectoException("Error: Contrasena anterior igual a nueva");
+                throw new ProyectoException("Error: Contraseña anterior igual a nueva");
             }
             Cliente cli = clienteDAL.obtener(id);
             if (cli == null)
@@ -35,7 +35,7 @@ namespace BL
             }
             if (!Utilidades.calcularMD5Hash(contrasenaAnterior).Equals(cli.Contrasena))
             {
-                throw new ProyectoException("Error: Contrasena anterior");
+                throw new ProyectoException("Error: Contraseña anterior");
             }
             clienteDAL.actualizarContrasena(id,contrasenaNueva);
         }
