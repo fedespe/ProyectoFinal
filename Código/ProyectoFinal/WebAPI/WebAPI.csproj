@@ -146,14 +146,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdministradorController.cs" />
     <Compile Include="Controllers\BarrioController.cs" />
-    <Compile Include="Controllers\carroController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente\ActualizarContrasena.cs" />
-    <Compile Include="Models\Carro.cs" />
-    <Compile Include="Models\Marca.cs" />
     <Compile Include="Models\Retorno.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
