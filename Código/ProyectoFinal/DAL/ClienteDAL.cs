@@ -40,7 +40,8 @@ namespace DAL
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
-                                    Barrio= new Barrio { Id= Convert.ToInt32(dr["BarrioId"])}
+                                    Barrio= new Barrio { Id= Convert.ToInt32(dr["BarrioId"])},
+                                    Tipo = dr["Tipo"].ToString()
                                 };
                             }
                         }
@@ -84,7 +85,8 @@ namespace DAL
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
-                                    Barrio = new Barrio { Id = Convert.ToInt32(dr["BarrioId"]) }
+                                    Barrio = new Barrio { Id = Convert.ToInt32(dr["BarrioId"]) },
+                                    Tipo = dr["Tipo"].ToString()
                                 };
                                 //Ver que si el Cliente tuviera datos en la tabla Cliente se debe hacer otra consulta mas y agregar los datos
                                 clientes.Add(cli);

@@ -330,6 +330,19 @@ INSERT INTO BARRIO VALUES
 INSERT INTO Usuario VALUES('SupAdmin', 'SupAdmin', 'SupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'SupAdmin@hotmail.com', '099845498', 'SupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1);
 INSERT INTO SUPERADMINISTRADOR VALUES(1);
 
+--contrasena 123456789
+INSERT INTO Usuario VALUES('Admin', 'Admin', 'Admin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Admin@hotmail.com', '099845498', 'Admin dir', getdate(), 'ADMINISTRADOR', 1);
+INSERT INTO ADMINISTRADOR VALUES(2);
+
+--contrasena 123456789
+INSERT INTO Usuario VALUES('Cliente1', 'Cliente1', 'Cliente1','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente1@hotmail.com', '099845498', 'Cliente1 dir', getdate(), 'CLIENTE', 1);
+INSERT INTO CLIENTE VALUES(3);
+
+--contrasena 123456789
+INSERT INTO Usuario VALUES('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1);
+INSERT INTO CLIENTE VALUES(4);
+
+
 SELECT * FROM USUARIO;
 SELECT * FROM CLIENTE;
 SELECT * FROM ADMINISTRADOR;
