@@ -134,12 +134,23 @@ CREATE TABLE PUBLICACION_IMAGEN
 );
 GO
 
+CREATE TABLE CATEGORIAPREGUNTA
+(
+	Id INT NOT NULL IDENTITY(1,1),
+	Categoria NVARCHAR(100) NOT NULL,
+
+	CONSTRAINT PK_CATEGORIAPREGUNTA PRIMARY KEY(Id),
+);
+GO
+
 CREATE TABLE PREGUNTA
 (
 	Id INT NOT NULL IDENTITY(1,1),
 	Pregunta NVARCHAR(300) NOT NULL,
+	CategoriaId INT NOT NULL,
 
 	CONSTRAINT PK_PREGUNTA PRIMARY KEY(Id),
+	CONSTRAINT FK_CategoriaId_CATEGORIAPREGUNTA FOREIGN KEY (CategoriaId) REFERENCES CATEGORIAPREGUNTA (Id),
 );
 GO
 
@@ -210,7 +221,7 @@ GO
 CREATE TABLE PRESUPUESTA
 (
 	ClienteId INT NOT NULL,
-	SolicitudId INT NOT NULL,
+	--SolicitudId INT NOT NULL,
 	Comentario NVARCHAR(150) NOT NULL,
 	Horario NVARCHAR(20) NOT NULL, --Ver si lo dejamos acá y como este tipo de dato
 	Precio MONEY NOT NULL,
@@ -218,9 +229,9 @@ CREATE TABLE PRESUPUESTA
 	Descartado BIT NOT NULL,
 	Destacado BIT NOT NULL,
 
-	CONSTRAINT PK_PRESUPUESTA PRIMARY KEY(ClienteId, SolicitudId), --Ver, porque de repente lo dejamos presupuestar más de una vez y en ese caso lo deberíamos cambiar...
+	--CONSTRAINT PK_PRESUPUESTA PRIMARY KEY(ClienteId, SolicitudId), --Ver, porque de repente lo dejamos presupuestar más de una vez y en ese caso lo deberíamos cambiar...
 	CONSTRAINT FK_ClienteId_PRESUPUESTA FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
-	CONSTRAINT FK_SolicitudId_PRESUPUESTA FOREIGN KEY (SolicitudId) REFERENCES SOLICITUD (PublicacionId)
+	--CONSTRAINT FK_SolicitudId_PRESUPUESTA FOREIGN KEY (SolicitudId) REFERENCES SOLICITUD (PublicacionId)
 );
 GO
 
@@ -335,10 +346,27 @@ INSERT INTO CLIENTE VALUES(3);
 INSERT INTO Usuario VALUES('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1);
 INSERT INTO CLIENTE VALUES(4);
 
+INSERT INTO CATEGORIAPREGUNTA VALUES
+('Categoría 1'),
+('Categoría 2'),
+('Categoría 3');
+
+INSERT INTO PREGUNTA VALUES
+('Pregunta 1',1),
+('Pregunta 2',1),
+('Pregunta 3',2),
+('Pregunta 4',1),
+('Pregunta 5',3),
+('Pregunta 6',2),
+('Pregunta 7',1);
+
+
 
 SELECT * FROM USUARIO;
 SELECT * FROM CLIENTE;
 SELECT * FROM ADMINISTRADOR;
 SELECT * FROM BARRIO;
 SELECT * FROM DEPARTAMENTO;
+SELECT * FROM CATEGORIAPREGUNTA;
+SELECT * FROM PREGUNTA;
 

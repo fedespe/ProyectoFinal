@@ -173,6 +173,7 @@
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PreguntaController.cs" />
     <Compile Include="Controllers\SuperAdministradorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,6 +188,7 @@
     <Compile Include="ViewModel\AdministradorViewModel\EditarViewModel.cs" />
     <Compile Include="ViewModel\ClienteViewModel\NuevoPassViewModel.cs" />
     <Compile Include="ViewModel\CuentaViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\PreguntaViewModel\AltaPreguntaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -254,6 +256,9 @@
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
     <Content Include="Views\Cliente\NuevoPass.cshtml" />
     <Content Include="Views\Cliente\Ver.cshtml" />
+    <Content Include="Views\Pregunta\ListaPreguntas.cshtml" />
+    <Content Include="Views\Pregunta\AltaPregunta.cshtml" />
+    <Content Include="Views\Pregunta\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

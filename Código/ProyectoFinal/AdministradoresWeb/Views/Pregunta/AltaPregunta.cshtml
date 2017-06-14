@@ -1,0 +1,33 @@
+﻿@model AdministradoresWeb.ViewModel.PreguntaViewModel.AltaPreguntaViewModel
+@{
+    ViewBag.Title = "AltaPregunta";
+}
+
+<div class="row">
+    @Html.Partial("_MenuPartial")
+    <div class="col-md-10 pull-right">
+        <h2>Nueva Pregunta</h2>
+        @using (Html.BeginForm("AltaPregunta", "Pregunta", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            //Seguridad
+            @Html.AntiForgeryToken()
+
+            @*@Html.HiddenFor(x => x.administrador.Id)*@
+
+            //Lista de errores
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.UnaPregunta, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(x => x.UnaPregunta, new { @id = "pregunta", @class = "form-control", @placeholder = "Pregunta" })
+                @Html.ValidationMessageFor(x => x.UnaPregunta, "", new { @class = "text-danger" })
+            </div>
+
+            <div>FALTA SELECCIONAR CATEGORIA EN ALTA Y EN EDITAR</div>
+
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Ingresar
+            </button>
+        }
+    </div>
+</div>
