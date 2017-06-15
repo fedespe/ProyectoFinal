@@ -360,7 +360,20 @@ INSERT INTO PREGUNTA VALUES
 ('Pregunta 6',2),
 ('Pregunta 7',1);
 
+INSERT INTO SERVICIO VALUES
+('Servicio 1','ImgServicio1.jpg',1,getDate()),
+('Servicio 2','ImgServicio2.jpg',1,getDate()),
+('Servicio 3','ImgServicio3.jpg',1,getDate()),
+('Servicio 4','ImgServicio4.jpg',1,getDate());
 
+INSERT INTO SERVICIOPREGUNTA VALUES
+(1,1),
+(1,2),
+(1,3),
+(2,1),
+(3,4),
+(3,5),
+(4,6);
 
 SELECT * FROM USUARIO;
 SELECT * FROM CLIENTE;

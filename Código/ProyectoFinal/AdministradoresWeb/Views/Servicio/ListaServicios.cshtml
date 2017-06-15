@@ -1,0 +1,47 @@
+﻿@model List<ET.Servicio>
+@{
+    ViewBag.Title = "ListaServicios";
+}
+
+<div class="row">
+    @Html.Partial("_MenuPartial")
+    <div class="col-md-10">
+        <h2>
+            Lista Servicios
+            <button type="button" class="btn btn-success pull-right" OnClick="location.href = 'AltaServicio'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Servicio
+            </button>
+        </h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>FALTA IMG</th>
+                    <th>Nombre</th>
+                    <th>Habilitado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td>IMG</td>
+                        <td>@c.Nombre</td>
+                        @if (c.Habilitado)
+                        {
+                            <td>Si</td>
+                        }
+                        else {
+                            <td>No</td>
+                        }
+                        <td>
+                            <a title="Ver" href="~/Servicio/Editar/@c.Id">Editar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
