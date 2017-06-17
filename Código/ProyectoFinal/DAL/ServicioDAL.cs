@@ -30,7 +30,7 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@fechaCreacion", DateTime.Now);                        
 
                         con.Open();
-                        trn = con.BeginTransaction();
+                        trn = con.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
                         cmd.Transaction = trn;
 
                         idServicioGenerado = (int)cmd.ExecuteScalar();
@@ -46,16 +46,16 @@ namespace DAL
 
                         trn.Commit();
                         trn.Dispose();
-                        trn = null;
+                        //trn = null;
                     }
                 }
             }
             catch (Exception ex)
             {
-                if (trn != null)
-                {
-                    trn.Rollback();
-                }
+                //if (trn != null)
+                //{
+                //    trn.Rollback();
+                //}
                 throw new ProyectoException("Error: " + ex.Message);
             }
         }
@@ -77,8 +77,8 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@idServicio", servicio.Id);
                         cmd.Parameters.AddWithValue("@nom", servicio.Nombre);
                         cmd.Parameters.AddWithValue("@img", servicio.Imagen);
-                        cmd.Parameters.AddWithValue("@habilitado", servicio.Habilitado);
-                        cmd.Parameters.AddWithValue("@fechaCreacion", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@hab", servicio.Habilitado);
+                        cmd.Parameters.AddWithValue("@fechaCre", DateTime.Now);
 
                         con.Open();
                         trn = con.BeginTransaction();
@@ -102,16 +102,16 @@ namespace DAL
 
                         trn.Commit();
                         trn.Dispose();
-                        trn = null;
+                        //trn = null;
                     }
                 }
             }
             catch (Exception ex)
             {
-                if (trn != null)
-                {
-                    trn.Rollback();
-                }
+                //if (trn != null)
+                //{
+                //    trn.Rollback();
+                //}
                 throw new ProyectoException("Error: " + ex.Message);
             }
         }
@@ -158,7 +158,7 @@ namespace DAL
             string cadenaSelectServicio = "SELECT * FROM Servicio WHERE Id=@idServicio;";
             string cadenaSelectPreguntas = @"SELECT sp.PreguntaId as Id, p.Pregunta as Pregunta, p.CategoriaId as CatId, c.Categoria as CatNom 
                                             FROM SERVICIOPREGUNTA sp, Pregunta p, CATEGORIAPREGUNTA c WHERE sp.PreguntaId=p.id 
-                                            AND c.Id=p.CategoriaId AND Id=@idServicio;";
+                                            AND c.Id=p.CategoriaId AND ServicioId=@idServicio;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))

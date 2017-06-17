@@ -14,5 +14,9 @@ namespace ET
         public bool Habilitado { get; set; }
         public DateTime FechaCreacion { get; set; }
         public List<Pregunta> Preguntas { get; set; }
+
+        public Servicio() {
+            Preguntas = new List<Pregunta>();
+        }
     }
 }
