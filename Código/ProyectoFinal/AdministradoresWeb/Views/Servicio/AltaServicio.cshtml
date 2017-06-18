@@ -3,7 +3,7 @@
     ViewBag.Title = "AltaServicio";
 }
 
-<script src="~/Scripts/alta-servicio.js"></script>
+<script src="~/Scripts/servicio-alta.js"></script>
 
 <div class="row">
     @Html.Partial("_MenuPartial")
@@ -19,7 +19,16 @@
             //Lista de errores
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div>FALTA SELECCIONAR LA IMAGEN</div>
+            <div class="col-xs-5 col-sm-5 col-md-2">
+                <div class="thumbnail">
+                    <img src=@("/Imagenes/Servicios/SinImagen.jpg") id="ImgArchivo" onclick="$('#Archivo').click()" style="width:100%; height:100%;" />
+                </div>
+            </div>
+
+            <input type="file" style="display:none;" name="Archivo" id="Archivo" onchange="$(mostrarImagen(this));">
+
+            <div class="clearfix"></div>
+            <br>
 
             <div class="form-group">
                 @Html.LabelFor(x => x.Nombre, htmlAttributes: new { @class = "control-label" })

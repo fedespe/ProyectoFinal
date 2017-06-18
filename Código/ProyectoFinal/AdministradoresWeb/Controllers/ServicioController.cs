@@ -81,6 +81,7 @@ namespace AdministradoresWeb.Controllers
                 {
                     crearVM.completarServicio();
                     servicioBL.altaServicio(crearVM.Servicio);
+                    crearVM.guardarArchivo();
                     return RedirectToAction("ListaServicios");
                 }
                 catch (ProyectoException ex)
@@ -144,6 +145,7 @@ namespace AdministradoresWeb.Controllers
                 {
                     editVM.completarServicio();
                     servicioBL.actualizarServicio(editVM.Servicio);
+                    editVM.guardarArchivo();
 
                     return RedirectToAction("ListaServicios");
 
@@ -158,6 +160,67 @@ namespace AdministradoresWeb.Controllers
                 return View(editVM);
             }
         }
+        public ActionResult Deshabilitar(int id)
+        {
+            if (Session["TipoUsuario"] != null && (Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR") || Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR")))
+            {
+                try
+                {
+                    servicioBL.deshabilitarServicio(id);
+                    return RedirectToAction("ListaServicios");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+            else
+            {
+                try
+                {
+                    ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+        }
+
+        public ActionResult Habilitar(int id)
+        {
+            if (Session["TipoUsuario"] != null && (Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR") || Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR")))
+            {
+                try
+                {
+                    servicioBL.habilitarServicio(id);
+                    return RedirectToAction("ListaServicios");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+            else
+            {
+                try
+                {
+                    ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+        }
+
+
 
 
 

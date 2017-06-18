@@ -7,16 +7,16 @@
     @Html.Partial("_MenuPartial")
     <div class="col-md-10">
         <h2>
-            Lista Servicios
+            Lista Servicios          
             <button type="button" class="btn btn-success pull-right" OnClick="location.href = 'AltaServicio'">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Servicio
-            </button>
+            </button>      
         </h2>
-
+        <a title="Preguntas" href="~/Pregunta/ListaPreguntas">Gestión Preguntas</a>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>FALTA IMG</th>
+                    <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Habilitado</th>
                     <th>Acciones</th>
@@ -27,7 +27,9 @@
                 @foreach (var c in Model)
                 {
                     <tr>
-                        <td>IMG</td>
+                        <td>
+                            <img src=@("/Imagenes/Servicios/" + c.Imagen) height="50" width="50" />
+                        </td>
                         <td>@c.Nombre</td>
                         @if (c.Habilitado)
                         {
@@ -38,6 +40,13 @@
                         }
                         <td>
                             <a title="Editar" href="~/Servicio/Editar/@c.Id">Editar</a>
+                            @if (c.Habilitado)
+                            {
+                                <a title="Deshabilitar" onclick="return confirm('¿Esta seguro?');" href="~/Servicio/Deshabilitar/@c.Id">Inhabilitar</a>
+                            }
+                            else {
+                                <a title="Habilitar" onclick="return confirm('¿Esta seguro?');" href="~/Servicio/Habilitar/@c.Id">Habilitar</a>
+                            }
                         </td>
                     </tr>
                 }

@@ -3,6 +3,7 @@ using ET;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -19,7 +20,7 @@ namespace AdministradoresWeb.ViewModel.ServicioViewModel
         public int IdServicio { get; set; }
         public List<Pregunta> Preguntas { get; set;}
         public string CadenaPreguntas { get; set; }
-        //FALTA IMAGEN
+        public HttpPostedFileBase Archivo { get; set; }
 
 
         public AltaServicioViewModel()
@@ -32,11 +33,11 @@ namespace AdministradoresWeb.ViewModel.ServicioViewModel
         {
             Servicio.FechaCreacion = DateTime.Now;
             Servicio.Habilitado = true;
+            //Ver si viene vacio
             Servicio.Nombre = Nombre;
             cargarPreguntas();
 
-            //Ver seleccion de imagen
-            Servicio.Imagen="imagen1.jpg";
+            Servicio.Imagen=Servicio.Nombre.ToUpper().Replace(" ","")+".jpg";
         }
 
         public void completarAltaServicioVM()
@@ -68,6 +69,11 @@ namespace AdministradoresWeb.ViewModel.ServicioViewModel
                     }
                 }
             }
+        }
+
+        public void guardarArchivo()
+        {
+            Utilidades.Utilidades.guardarArchivoNuevo("Imagenes/Servicios/", this.Servicio.Imagen, Archivo);           
         }
 
 
