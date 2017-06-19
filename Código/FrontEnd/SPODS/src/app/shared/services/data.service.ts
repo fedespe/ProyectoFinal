@@ -111,6 +111,25 @@ export class DataService {
     //*************************** */
 
     //*************************** */
+    // SERVICIOS SERVICIO
+    //*************************** */
+
+    public getServicioObtenerTodos(){
+        var URL : string = this.baseUrl + '/api/Servicio/obtenerTodosHabilitados';
+
+        Utilidades.log("[data.service.ts] - getServicioObtenerTodos | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getServicioObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    //*************************** */
+    // FIN SERVICIOS SERVICIO
+    //*************************** */
+
+    //*************************** */
     //PRUEBA SERVICIOS
     //*************************** */
 

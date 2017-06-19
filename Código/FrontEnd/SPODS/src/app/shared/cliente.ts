@@ -12,7 +12,7 @@ export class Cliente {
     CorreoElectronico: string;
     Telefono: string;
     Direccion: string;
-    Barrio: Barrio 
+    Barrio: Barrio; 
 
     constructor() {      
         this.Barrio = new Barrio();

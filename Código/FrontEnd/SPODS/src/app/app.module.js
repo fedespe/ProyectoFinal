@@ -19,6 +19,7 @@ var dashboard_component_1 = require("./dashboard/dashboard.component");
 var overview_component_1 = require("./dashboard/overview/overview.component");
 var perfil_usuario_component_1 = require("./dashboard/perfil-usuario/perfil-usuario.component");
 var cambiar_contrasena_usuario_component_1 = require("./dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component");
+var listado_servicios_component_1 = require("./dashboard/listado-servicios/listado-servicios.component");
 var appRoutes = [
     { path: '', component: welcome_component_1.WelcomeComponent,
         children: [
@@ -33,7 +34,8 @@ var appRoutes = [
         children: [
             { path: 'overview', component: overview_component_1.OverviewComponent },
             { path: 'perfil-usuario', component: perfil_usuario_component_1.PerfilUsuarioComponent },
-            { path: 'cambiar-contrasena-usuario', component: cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent }
+            { path: 'cambiar-contrasena-usuario', component: cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent },
+            { path: 'listado-servicios', component: listado_servicios_component_1.ListadoServiciosComponent }
         ]
     },
 ];
@@ -50,7 +52,8 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent,
             inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, overview_component_1.OverviewComponent,
-            perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent
+            perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent,
+            listado_servicios_component_1.ListadoServiciosComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

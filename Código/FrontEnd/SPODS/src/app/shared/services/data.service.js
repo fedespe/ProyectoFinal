@@ -94,6 +94,20 @@ var DataService = (function () {
     // FIN SERVICIOS BARRIO
     //*************************** */
     //*************************** */
+    // SERVICIOS SERVICIO
+    //*************************** */
+    DataService.prototype.getServicioObtenerTodos = function () {
+        var URL = this.baseUrl + '/api/Servicio/obtenerTodosHabilitados';
+        utilidades_1.Utilidades.log("[data.service.ts] - getServicioObtenerTodos | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getServicioObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //*************************** */
+    // FIN SERVICIOS SERVICIO
+    //*************************** */
+    //*************************** */
     //PRUEBA SERVICIOS
     //*************************** */
     //Prueba llamando un método por Get sin parámetros (Obtiene todos los carros)

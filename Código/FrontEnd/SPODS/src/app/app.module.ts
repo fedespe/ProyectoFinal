@@ -12,6 +12,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { OverviewComponent } from "./dashboard/overview/overview.component";
 import { PerfilUsuarioComponent } from "./dashboard/perfil-usuario/perfil-usuario.component";
 import { CambiarContrasenaUsuarioComponent } from "./dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component";
+import { ListadoServiciosComponent } from "./dashboard/listado-servicios/listado-servicios.component";
 
 const appRoutes: Routes = [
   { path: '', component: WelcomeComponent, 
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     children:[
       { path: 'overview',component: OverviewComponent },
       { path: 'perfil-usuario',component: PerfilUsuarioComponent},
-      { path: 'cambiar-contrasena-usuario', component: CambiarContrasenaUsuarioComponent }
+      { path: 'cambiar-contrasena-usuario', component: CambiarContrasenaUsuarioComponent },
+      { path: 'listado-servicios', component: ListadoServiciosComponent }
     ]
   }, 
 ];
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent, WelcomeComponent, RegistroClienteComponent, 
     InicioSesionComponent, DashboardComponent, OverviewComponent, 
-    PerfilUsuarioComponent, CambiarContrasenaUsuarioComponent
+    PerfilUsuarioComponent, CambiarContrasenaUsuarioComponent, 
+    ListadoServiciosComponent
   ],
   bootstrap:    [ AppComponent ]
 })
