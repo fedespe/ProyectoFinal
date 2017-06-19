@@ -15,6 +15,7 @@ var data_service_1 = require("../../shared/services/data.service");
 var utilidades_1 = require("../../shared/utilidades");
 var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
+var settings_1 = require("../../shared/settings");
 var ListadoServiciosComponent = (function () {
     function ListadoServiciosComponent(dataService, router) {
         this.dataService = dataService;
@@ -22,6 +23,7 @@ var ListadoServiciosComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.servicios = [];
         this.obtenerServicios();
+        this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
     }
     ListadoServiciosComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];

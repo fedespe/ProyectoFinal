@@ -6,6 +6,7 @@ import { Mensaje } from "../../shared/mensaje";
 import { Error } from "../../shared/error";
 import { Exito } from "../../shared/exito";
 import { Servicio } from "../../shared/servicio";
+import { Settings } from "../../shared/settings";
 
 @Component({
     selector: 'listado-servicios',
@@ -16,9 +17,10 @@ import { Servicio } from "../../shared/servicio";
 export class ListadoServiciosComponent{
     mensajes: Mensaje = new Mensaje();
     servicios: Servicio[] = [];
-
+    baseURL:string;
     constructor(private dataService: DataService, private router: Router) {
         this.obtenerServicios();
+        this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
     }
 
     
