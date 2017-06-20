@@ -1,8 +1,8 @@
 {
-  "name": "marph",
+  "name": "spods",
   "version": "1.0.0",
   "private": true,
-  "description": "Project for MARPH.",
+  "description": "Project for SPODS.",
   "scripts": {
     "test:once": "karma start karma.conf.js --single-run",
     "build": "tsc -p src/",
