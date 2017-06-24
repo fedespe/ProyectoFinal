@@ -1,0 +1,5 @@
+PENDIENTE SPRINT 5
+*Ver que el uml no refleja que las respuestas son en base a las preguntas que tiene el servicio que tiene la publicacion
+*Mer no refleja realidad (entidad Respuesta)
+*Validaciones de publicación
+*Comentarios y puntuación. 
