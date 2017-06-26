@@ -30,9 +30,9 @@ namespace BL
         {
             return publicacionDAL.obtener(id);
         }
-        public List<Publicacion> obtenerTodosCliente(int idCliente)
+        public List<Publicacion> obtenerPublicacionesCliente(int idCliente)
         {
-            return publicacionDAL.obtenerTodosCliente(idCliente);
+            return publicacionDAL.obtenerPublicacionesCliente(idCliente);
         }
         public void habilitarPublicacion(int id)
         {
@@ -52,6 +52,10 @@ namespace BL
             if (publicacion.Titulo.Length < 3)
             {
                 throw new ProyectoException("Error: Título debe contener al menos 3 caracteres");
+            }
+            if (publicacion.Imagenes==null)
+            {
+                throw new ProyectoException("Error: La publicación debe tener al menos una imagen");
             }
         }
     }

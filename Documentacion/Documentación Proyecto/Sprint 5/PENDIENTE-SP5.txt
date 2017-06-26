@@ -3,3 +3,5 @@ PENDIENTE SPRINT 5
 *Mer no refleja realidad (entidad Respuesta)
 *Validaciones de publicación
 *Comentarios y puntuación. 
+*La fecha de vencimiento en el alta de puiblicacion se da como null
+*Faltan las respuestas a las preguntas

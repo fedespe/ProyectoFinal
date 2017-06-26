@@ -12,8 +12,8 @@ namespace ET
 {    
     public static class Utilidades
     {
-        //public static string conn = "Data Source = .; Initial Catalog=SPODS;Integrated Security=True;";
-        public static string conn = ConfigurationManager.ConnectionStrings["conn"].ToString();
+        public static string conn = "Data Source = .; Initial Catalog=SPODS;Integrated Security=True;";
+        //public static string conn = ConfigurationManager.ConnectionStrings["conn"].ToString();
         public static string calcularMD5Hash(string input)
         {
             MD5 md5 = MD5.Create();

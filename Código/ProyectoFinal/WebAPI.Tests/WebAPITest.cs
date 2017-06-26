@@ -445,5 +445,99 @@ namespace ProyectoTesting.Tests
         //**********************************************************
         //FIN PRUEBAS CLIENTE
         //**********************************************************
+
+        //**********************************************************
+        //PRUEBAS PUBLICACION
+        //**********************************************************
+        private PublicacionBL publicacionBL = new PublicacionBL();
+        private PublicacionController controllerPublicacion = new PublicacionController();
+
+        [TestMethod]
+        public void GetAllPublicaciones_ObtienePublicacionesConCapaBLOK()
+        {
+            var publicaciones = publicacionBL.obtenerTodos();
+            var result = controllerPublicacion.GetAllPublicaciones().Objetos;
+            Assert.AreEqual(publicaciones.Count, result.Count);
+        }
+        [TestMethod]
+        public void GetAllPublicaciones_ObtienePublicacionesComparaConBDOK()
+        {
+            int cantPublicaciones = 4;//ver cantidad de publicaciones en la base
+            var result = controllerPublicacion.GetAllPublicaciones().Objetos;
+            Assert.AreEqual(cantPublicaciones, result.Count);
+        }
+        [TestMethod]
+        public void GetPublicacionPorId_ObtienePublicacionComparaConBDOK()
+        {
+            Publicacion publicacion = new Publicacion
+            {
+                Id = 1,
+                Activa = true,
+                Cliente= new Cliente() { Id=3},
+                Descripcion= "Descripción P1",
+                Servicio=new Servicio() { Id=1},
+                Titulo= "Publicación 1",
+                Tipo= "OFERTA",
+                Imagenes=new List<string>()
+            };
+            publicacion.Imagenes.Add("PUBLICACION1IMG1.jpg");
+            publicacion.Imagenes.Add("PUBLICACION1IMG2.jpg");
+            publicacion.Imagenes.Add("PUBLICACION1IMG3.jpg");
+            Publicacion result = (Publicacion)controllerPublicacion.GetPublicacion(1).Objetos[0];
+            Assert.AreEqual(publicacion.Id, result.Id);
+            Assert.AreEqual(publicacion.Activa, result.Activa);
+            Assert.AreEqual(publicacion.Cliente.Id, result.Cliente.Id);
+            Assert.AreEqual(publicacion.Descripcion, result.Descripcion);
+            Assert.AreEqual(publicacion.Servicio.Id, result.Servicio.Id);
+            Assert.AreEqual(publicacion.Titulo, result.Titulo);
+            Assert.AreEqual(publicacion.Tipo, result.Tipo);
+        }
+        [TestMethod]
+        public void GetPublicacionesCliente_ObtienePublicacionesClienteComparaConBDOK()
+        {
+            int cantPublicaciones = 3;//ver cantidad de publicaciones en la base
+            var result = controllerPublicacion.GetPublicacionesCliente(3).Objetos;
+            Assert.AreEqual(cantPublicaciones, result.Count);
+        }
+        [TestMethod]
+        public void PostAltaPublicacion_AltaPublicacionOK()
+        {
+            Publicacion publicacion = new Publicacion
+            {
+                Activa = true,
+                Cliente = new Cliente() { Id = 3 },
+                Descripcion = "Descripción PTest",
+                Servicio = new Servicio() { Id = 1 },
+                Titulo = "Publicación Test",
+                Tipo = "OFERTA",
+                Imagenes = new List<string>(),
+                FechaAlta= DateTime.Now,                
+            };
+            publicacion.Imagenes.Add("PUBLICACIONTESTIMG1.jpg");
+            publicacion.Imagenes.Add("PUBLICACIONTESTIMG2.jpg");
+            publicacion.Imagenes.Add("PUBLICACIONTESTIMG3.jpg");
+
+            int result = Convert.ToInt32(controllerPublicacion.PostAltaPublicacion(publicacion).Codigo);
+            Assert.AreEqual(200, result);
+        }
+        [TestMethod]
+        public void PutActualizarPublicacion_ActualizarPublicacionOK()
+        {
+            Publicacion publicacion = new Publicacion
+            {
+                Id=5,
+                Descripcion = "Descripción PTest",
+                Titulo = "Publicación Test",
+                Imagenes = new List<string>(),
+            };
+            publicacion.Imagenes.Add("PUBLICACIONTESTACT_IMG1.jpg");
+            publicacion.Imagenes.Add("PUBLICACIONTESTACT_IMG2.jpg");
+
+            int result = Convert.ToInt32(controllerPublicacion.PutActualizarPublicacion(publicacion).Codigo);
+            Assert.AreEqual(200, result);
+        }
+        //**********************************************************
+        //FIN PRUEBAS PUBLICACION 
+        //**********************************************************
     }
 }
