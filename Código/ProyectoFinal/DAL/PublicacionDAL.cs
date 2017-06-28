@@ -18,6 +18,7 @@ namespace DAL
                                              @tipo,@idServicio,@idCliente); 
                                             SELECT CAST(Scope_Identity() AS INT);";
             string cadenaInsertImagen = "INSERT INTO PublicacionImagen VALUES(@idPublicacion,@imagen);";
+            string cadenaInsertRespuesta = "INSERT INTO PUBLICACIONRESPUESTA VALUES(@idPublicacion,@idServicio,@idPregunta,@respuesta);";
             int idPublicacionGenerado = 0;
 
             SqlTransaction trn = null;
@@ -52,6 +53,19 @@ namespace DAL
                                 cmd.ExecuteNonQuery();
                             }
                         }
+                        if (publicacion.Respuestas != null)
+                        {
+                            cmd.CommandText = cadenaInsertRespuesta;
+                            foreach (Respuesta r in publicacion.Respuestas)
+                            {
+                                cmd.Parameters.Clear();
+                                cmd.Parameters.AddWithValue("@idPublicacion", idPublicacionGenerado);
+                                cmd.Parameters.AddWithValue("@idServicio", publicacion.Servicio.Id);
+                                cmd.Parameters.AddWithValue("@idPregunta", r.Pregunta.Id);
+                                cmd.Parameters.AddWithValue("@respuesta", r.unaRespuesta);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
 
                         trn.Commit();
                         trn.Dispose();
@@ -74,6 +88,8 @@ namespace DAL
                                             WHERE Id = @idPublicacion; ";
             string cadenaDeleteImagen = "DELETE FROM PublicacionImagen WHERE PublicacionId = @idPublicacion;";
             string cadenaInsertImagen = "INSERT INTO PublicacionImagen VALUES(@idPublicacion,@imagen);";
+            string cadenaDeleteRespuestas = "DELETE FROM PUBLICACIONRESPUESTA WHERE PublicacionId = @idPublicacion;";
+            string cadenaInsertRespuesta = "INSERT INTO PUBLICACIONRESPUESTA VALUES(@idPublicacion,@idServicio,@idPregunta,@respuesta);";
             SqlTransaction trn = null;
             try
             {
@@ -102,13 +118,35 @@ namespace DAL
                         cmd.CommandText = cadenaDeleteImagen;
                         cmd.ExecuteNonQuery();
 
-                        cmd.CommandText = cadenaInsertImagen;
-                        foreach (string i in publicacion.Imagenes)
+                        if (publicacion.Imagenes != null)
                         {
-                            cmd.Parameters.Clear();
-                            cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
-                            cmd.Parameters.AddWithValue("@imagen", i);
-                            cmd.ExecuteNonQuery();
+                            cmd.CommandText = cadenaInsertImagen;
+                            foreach (string i in publicacion.Imagenes)
+                            {
+                                cmd.Parameters.Clear();
+                                cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
+                                cmd.Parameters.AddWithValue("@imagen", i);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
+                        cmd.CommandText = cadenaDeleteRespuestas;
+                        cmd.ExecuteNonQuery();
+
+                        if (publicacion.Respuestas != null)
+                        {
+                            cmd.CommandText = cadenaInsertRespuesta;
+                            foreach (Respuesta r in publicacion.Respuestas)
+                            {
+                                cmd.Parameters.Clear();
+                                cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
+                                cmd.Parameters.AddWithValue("@idServicio", publicacion.Servicio.Id);
+                                cmd.Parameters.AddWithValue("@idPregunta", r.Pregunta.Id);
+                                cmd.Parameters.AddWithValue("@respuesta", r.unaRespuesta);
+                                cmd.ExecuteNonQuery();
+                            }
                         }
 
                         trn.Commit();
@@ -254,11 +292,12 @@ namespace DAL
                                         Activa = Convert.ToBoolean(dr["Activa"]),
                                         Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]) },
                                         FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
-                                    //ver que es null por el momento la fecha de vencimiento
-                                    //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
-                                    Tipo = dr["Tipo"].ToString(),
+                                        //ver que es null por el momento la fecha de vencimiento
+                                        //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
+                                        Tipo = dr["Tipo"].ToString(),
                                         Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]) },
-                                        Imagenes = new List<string>()
+                                        Imagenes = new List<string>(),
+                                        Respuestas = new List<Respuesta>()
                                     };                               
                             }
                         }
@@ -271,6 +310,20 @@ namespace DAL
                             while (dr.Read())
                             {
                                 publicacion.Imagenes.Add(dr["Imagen"].ToString());
+                            }
+                        }
+                        //AGREGO RESPUESTAS
+                        cmd.Parameters.Clear();
+                        cmd.CommandText = @"SELECT * FROM PUBLICACIONRESPUESTA WHERE PublicacionId =@id";
+                        cmd.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                publicacion.Respuestas.Add(new Respuesta() {
+                                    Pregunta= new Pregunta() { Id=Convert.ToInt32(dr["PreguntaId"]) },
+                                    unaRespuesta= dr["Respuesta"].ToString()
+                                });
                             }
                         }
                     }

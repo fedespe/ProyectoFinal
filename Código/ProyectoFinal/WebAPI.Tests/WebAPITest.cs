@@ -511,11 +511,22 @@ namespace ProyectoTesting.Tests
                 Titulo = "Publicación Test",
                 Tipo = "OFERTA",
                 Imagenes = new List<string>(),
-                FechaAlta= DateTime.Now,                
+                FechaAlta= DateTime.Now,    
+                Respuestas=new List<Respuesta>()            
             };
             publicacion.Imagenes.Add("PUBLICACIONTESTIMG1.jpg");
             publicacion.Imagenes.Add("PUBLICACIONTESTIMG2.jpg");
             publicacion.Imagenes.Add("PUBLICACIONTESTIMG3.jpg");
+
+            publicacion.Respuestas.Add(new Respuesta() {
+                Pregunta = new Pregunta() { Id = 1 },
+                unaRespuesta = "Respuesta pregunta 1."
+                });
+            publicacion.Respuestas.Add(new Respuesta()
+            {
+                Pregunta = new Pregunta() { Id = 2 },
+                unaRespuesta = "Respuesta pregunta 2."
+            });
 
             int result = Convert.ToInt32(controllerPublicacion.PostAltaPublicacion(publicacion).Codigo);
             Assert.AreEqual(200, result);
@@ -529,11 +540,44 @@ namespace ProyectoTesting.Tests
                 Descripcion = "Descripción PTest",
                 Titulo = "Publicación Test",
                 Imagenes = new List<string>(),
+                Respuestas = new List<Respuesta>(),
+                Servicio = new Servicio() { Id = 1 },
             };
             publicacion.Imagenes.Add("PUBLICACIONTESTACT_IMG1.jpg");
             publicacion.Imagenes.Add("PUBLICACIONTESTACT_IMG2.jpg");
 
+            publicacion.Respuestas.Add(new Respuesta()
+            {
+                Pregunta = new Pregunta() { Id = 1 },
+                unaRespuesta = "Respuesta pregunta 1 actualizada."
+            });
+            publicacion.Respuestas.Add(new Respuesta()
+            {
+                Pregunta = new Pregunta() { Id = 2 },
+                unaRespuesta = "Respuesta pregunta 2 actualizada."
+            });
+
             int result = Convert.ToInt32(controllerPublicacion.PutActualizarPublicacion(publicacion).Codigo);
+            Assert.AreEqual(200, result);
+        }
+        [TestMethod]
+        public void PutDeshabilitarPublicacion_OK()
+        {
+            Publicacion publicacion = new Publicacion
+            {
+                Id = 3,
+            };
+            int result = Convert.ToInt32(controllerPublicacion.PutDeshabilitarPublicacion(publicacion).Codigo);
+            Assert.AreEqual(200, result);
+        }
+        [TestMethod]
+        public void PutHabilitarPublicacion_OK()
+        {
+            Publicacion publicacion = new Publicacion
+            {
+                Id = 3,
+            };
+            int result = Convert.ToInt32(controllerPublicacion.PutHabilitarPublicacion(publicacion).Codigo);
             Assert.AreEqual(200, result);
         }
         //**********************************************************
