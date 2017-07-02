@@ -13,6 +13,7 @@ import { OverviewComponent } from "./dashboard/overview/overview.component";
 import { PerfilUsuarioComponent } from "./dashboard/perfil-usuario/perfil-usuario.component";
 import { CambiarContrasenaUsuarioComponent } from "./dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component";
 import { ListadoServiciosComponent } from "./dashboard/listado-servicios/listado-servicios.component";
+import { OfrecerServicioComponent } from "./dashboard/ofrecer-servicio/ofrecer-servicio.component";
 
 const appRoutes: Routes = [
   { path: '', component: WelcomeComponent, 
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
       { path: 'overview',component: OverviewComponent },
       { path: 'perfil-usuario',component: PerfilUsuarioComponent},
       { path: 'cambiar-contrasena-usuario', component: CambiarContrasenaUsuarioComponent },
-      { path: 'listado-servicios', component: ListadoServiciosComponent }
+      { path: 'listado-servicios', component: ListadoServiciosComponent },
+      { path: 'ofrecer-servicio', component: OfrecerServicioComponent }
     ]
   }, 
 ];
@@ -43,7 +45,7 @@ const appRoutes: Routes = [
     AppComponent, WelcomeComponent, RegistroClienteComponent, 
     InicioSesionComponent, DashboardComponent, OverviewComponent, 
     PerfilUsuarioComponent, CambiarContrasenaUsuarioComponent, 
-    ListadoServiciosComponent
+    ListadoServiciosComponent, OfrecerServicioComponent
   ],
   bootstrap:    [ AppComponent ]
 })

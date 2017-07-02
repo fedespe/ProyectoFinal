@@ -35,5 +35,25 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
+
+        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [HttpGet, Route("api/Servicio/obtener/{id}")]
+        public Retorno GetServicio(int id)
+        {
+            try
+            {
+                Servicio servicio = servicioBL.obtener(id);
+                retorno.Objetos.Add(servicio);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
+
     }
 }

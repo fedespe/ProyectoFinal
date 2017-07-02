@@ -62,7 +62,7 @@ namespace DAL
                                 cmd.Parameters.AddWithValue("@idPublicacion", idPublicacionGenerado);
                                 cmd.Parameters.AddWithValue("@idServicio", publicacion.Servicio.Id);
                                 cmd.Parameters.AddWithValue("@idPregunta", r.Pregunta.Id);
-                                cmd.Parameters.AddWithValue("@respuesta", r.unaRespuesta);
+                                cmd.Parameters.AddWithValue("@respuesta", r.UnaRespuesta);
                                 cmd.ExecuteNonQuery();
                             }
                         }
@@ -144,7 +144,7 @@ namespace DAL
                                 cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
                                 cmd.Parameters.AddWithValue("@idServicio", publicacion.Servicio.Id);
                                 cmd.Parameters.AddWithValue("@idPregunta", r.Pregunta.Id);
-                                cmd.Parameters.AddWithValue("@respuesta", r.unaRespuesta);
+                                cmd.Parameters.AddWithValue("@respuesta", r.UnaRespuesta);
                                 cmd.ExecuteNonQuery();
                             }
                         }
@@ -322,7 +322,7 @@ namespace DAL
                             {
                                 publicacion.Respuestas.Add(new Respuesta() {
                                     Pregunta= new Pregunta() { Id=Convert.ToInt32(dr["PreguntaId"]) },
-                                    unaRespuesta= dr["Respuesta"].ToString()
+                                    UnaRespuesta= dr["Respuesta"].ToString()
                                 });
                             }
                         }

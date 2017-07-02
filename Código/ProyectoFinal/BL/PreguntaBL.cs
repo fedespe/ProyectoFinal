@@ -33,7 +33,7 @@ namespace BL
         }
         //ver validaciones
         private void validarPregunta(Pregunta pregunta) {
-            if (pregunta.unaPregunta.Length < 3) {
+            if (pregunta.UnaPregunta.Length < 3) {
                 throw new ProyectoException("Error: Validación pregunta");
             }
             if (pregunta.Categoria.Id == 0)

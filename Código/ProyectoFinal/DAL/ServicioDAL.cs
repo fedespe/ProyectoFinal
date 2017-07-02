@@ -193,7 +193,7 @@ namespace DAL
                                 Pregunta p = new Pregunta
                                 {
                                     Id = Convert.ToInt32(dr["Id"]),
-                                    unaPregunta = dr["Pregunta"].ToString(),
+                                    UnaPregunta = dr["Pregunta"].ToString(),
                                     Categoria = new CategoriaPregunta {
                                         Id = Convert.ToInt32(dr["CatId"]),
                                         Categoria = dr["CatNom"].ToString()

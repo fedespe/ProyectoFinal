@@ -104,8 +104,32 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getObtenerServicio = function (id) {
+        var URL = this.baseUrl + '/api/Servicio/obtener/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerServicio | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerServicio | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS SERVICIO
+    //*************************** */
+    //*************************** */
+    // FIN SERVICIOS PUBLICACION
+    //*************************** */
+    DataService.prototype.postAltaPublicacion = function (publicacion) {
+        var URL = this.baseUrl + '/api/Publicacion/altaPublicacion';
+        var body = JSON.stringify(publicacion);
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaPublicacion | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaPublicacion | body: " + JSON.stringify(body));
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.post(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //*************************** */
+    // FIN SERVICIOS PUBLICACION
     //*************************** */
     //*************************** */
     //PRUEBA SERVICIOS

@@ -9,7 +9,7 @@ namespace ET
     public class Pregunta
     {
         public int Id { get; set; }
-        public string unaPregunta { get; set; }
+        public string UnaPregunta { get; set; }
         public CategoriaPregunta Categoria { get; set; }
 
         public override bool Equals(object obj)

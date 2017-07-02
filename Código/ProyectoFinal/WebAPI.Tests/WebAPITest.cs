@@ -520,12 +520,12 @@ namespace ProyectoTesting.Tests
 
             publicacion.Respuestas.Add(new Respuesta() {
                 Pregunta = new Pregunta() { Id = 1 },
-                unaRespuesta = "Respuesta pregunta 1."
+                UnaRespuesta = "Respuesta pregunta 1."
                 });
             publicacion.Respuestas.Add(new Respuesta()
             {
                 Pregunta = new Pregunta() { Id = 2 },
-                unaRespuesta = "Respuesta pregunta 2."
+                UnaRespuesta = "Respuesta pregunta 2."
             });
 
             int result = Convert.ToInt32(controllerPublicacion.PostAltaPublicacion(publicacion).Codigo);
@@ -549,12 +549,12 @@ namespace ProyectoTesting.Tests
             publicacion.Respuestas.Add(new Respuesta()
             {
                 Pregunta = new Pregunta() { Id = 1 },
-                unaRespuesta = "Respuesta pregunta 1 actualizada."
+                UnaRespuesta = "Respuesta pregunta 1 actualizada."
             });
             publicacion.Respuestas.Add(new Respuesta()
             {
                 Pregunta = new Pregunta() { Id = 2 },
-                unaRespuesta = "Respuesta pregunta 2 actualizada."
+                UnaRespuesta = "Respuesta pregunta 2 actualizada."
             });
 
             int result = Convert.ToInt32(controllerPublicacion.PutActualizarPublicacion(publicacion).Codigo);

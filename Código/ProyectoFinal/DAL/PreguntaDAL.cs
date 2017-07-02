@@ -19,7 +19,7 @@ namespace DAL
                 {
                     using (SqlCommand cmd = new SqlCommand(cadenaInsertPregunta, con))
                     {
-                        cmd.Parameters.AddWithValue("@preg", pregunta.unaPregunta);                        
+                        cmd.Parameters.AddWithValue("@preg", pregunta.UnaPregunta);                        
                         cmd.Parameters.AddWithValue("@idCat", pregunta.Categoria.Id);
 
                         con.Open();                       
@@ -43,7 +43,7 @@ namespace DAL
                     using (SqlCommand cmd = new SqlCommand(cadenaUpdatePregunta, con))
                     {
                         cmd.Parameters.AddWithValue("@id", pregunta.Id);
-                        cmd.Parameters.AddWithValue("@preg", pregunta.unaPregunta);
+                        cmd.Parameters.AddWithValue("@preg", pregunta.UnaPregunta);
                         cmd.Parameters.AddWithValue("@idCat", pregunta.Categoria.Id);
 
                         con.Open();
@@ -76,7 +76,7 @@ namespace DAL
                                 Pregunta pregunta = new Pregunta
                                 {
                                     Id = Convert.ToInt32(dr["IdPregunta"]),
-                                    unaPregunta = dr["Pregunta"].ToString(),
+                                    UnaPregunta = dr["Pregunta"].ToString(),
                                     Categoria = new CategoriaPregunta {
                                         Id = Convert.ToInt32(dr["IdCategoria"]),
                                         Categoria = dr["Categoria"].ToString(),
@@ -115,7 +115,7 @@ namespace DAL
                                 pregunta = new Pregunta
                                 {
                                     Id = Convert.ToInt32(dr["IdPregunta"]),
-                                    unaPregunta = dr["Pregunta"].ToString(),
+                                    UnaPregunta = dr["Pregunta"].ToString(),
                                     Categoria = new CategoriaPregunta
                                     {
                                         Id = Convert.ToInt32(dr["IdCategoria"]),

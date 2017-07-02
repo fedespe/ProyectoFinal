@@ -8,7 +8,7 @@ namespace ET
 {
     public class Respuesta
     {
-        public string unaRespuesta { get; set; }
+        public string UnaRespuesta { get; set; }
         public Pregunta Pregunta { get; set; }
     }
 }

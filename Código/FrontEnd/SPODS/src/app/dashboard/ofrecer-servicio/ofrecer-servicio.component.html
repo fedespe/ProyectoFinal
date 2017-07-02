@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-6">
+        <h1>Ofrecer Servicio</h1>
+        <h2>{{publicacion.Cliente.NombreUsuario}}</h2>
+
+        <!--Combo desplegable para barrio-->
+        <label for="selectServicio" class="sr-only">Servicio:</label>
+        <select id="selectServicio" class="form-control" [(ngModel)]="publicacion.Servicio.Id" name="Servicio" (ngModelChange)="seleccionServicio()">
+            <option value="0" >Seleccione un Servicio</option>
+            <option *ngFor="let servicio of servicios;" [value]="servicio.Id">{{servicio.Nombre}}</option>
+        </select>
+
+        <label for="inputTitulo" class="sr-only">Título:</label>
+        <input type="text" class="form-control" [(ngModel)]="publicacion.Titulo" id="inputTitulo" name="Titulo" placeholder="Título">
+
+        <label for="inputDescripcion" class="sr-only">Descripción:</label>
+        <input type="text" class="form-control" [(ngModel)]="publicacion.Descripcion" id="inputDescripcion" name="Descripcion" placeholder="Descripción">
+            
+        <p>FALTAN IMAGENES... POR EL MOMENTO SE CARGAN LOS NOMBRES EN EL CONSTRUCTOR DEL TS</p>  
+
+        <div *ngIf="servicioSeleccionado.Preguntas.length > 0">
+            <div *ngFor="let pregunta of servicioSeleccionado.Preguntas;">           
+                <label for="input{{pregunta.Id}}">{{pregunta.UnaPregunta}}</label>
+                <input type="text" class="form-control" [(ngModel)]="respuestas[pregunta.Id]" id="input{{pregunta.Id}}" name="Respuestainput{{pregunta.Id}}" placeholder="">   
+            </div>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" (click)="postAltaPublicacion()">Guardar</button>
+
+        
+
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

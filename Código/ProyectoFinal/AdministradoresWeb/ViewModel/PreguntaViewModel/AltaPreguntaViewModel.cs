@@ -27,7 +27,7 @@ namespace AdministradoresWeb.ViewModel.PreguntaViewModel
 
         public void completarPregunta()
         {
-            pregunta.unaPregunta = UnaPregunta;
+            pregunta.UnaPregunta = UnaPregunta;
 
             //Ver seleccion de categoria, con desplegable o con checkbox
             pregunta.Categoria = new CategoriaPregunta { Id = 1 };
@@ -35,7 +35,7 @@ namespace AdministradoresWeb.ViewModel.PreguntaViewModel
 
         public void completarAltaPreguntaVM() {
             IdPregunta = pregunta.Id;
-            UnaPregunta = pregunta.unaPregunta;
+            UnaPregunta = pregunta.UnaPregunta;
             IdCategoria = pregunta.Categoria.Id;
             Categoria = pregunta.Categoria.Categoria;
         }

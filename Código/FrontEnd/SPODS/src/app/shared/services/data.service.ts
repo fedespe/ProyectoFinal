@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 import {Cliente} from "../cliente";
 import {Carro} from "../carro";
 import {ActualizarContrasena} from "../actualizarContrasena";
+import {Publicacion} from "../publicacion";
 
 @Injectable()
 export class DataService {
@@ -125,8 +126,38 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    public getObtenerServicio(id:number){
+        var URL : string = this.baseUrl + '/api/Servicio/obtener/' + id;
+
+        Utilidades.log("[data.service.ts] - getObtenerServicio | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerServicio | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
     //*************************** */
     // FIN SERVICIOS SERVICIO
+    //*************************** */
+    //*************************** */
+    // FIN SERVICIOS PUBLICACION
+    //*************************** */
+
+    public postAltaPublicacion(publicacion:Publicacion){
+        var URL : string = this.baseUrl + '/api/Publicacion/altaPublicacion';
+        let body = JSON.stringify(publicacion);
+
+        Utilidades.log("[data.service.ts] - postAltaPublicacion | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postAltaPublicacion | body: " + JSON.stringify(body));
+        Utilidades.log("[data.service.ts] - postAltaPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.post(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+    //*************************** */
+    // FIN SERVICIOS PUBLICACION
     //*************************** */
 
     //*************************** */
