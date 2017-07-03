@@ -21,6 +21,8 @@ var perfil_usuario_component_1 = require("./dashboard/perfil-usuario/perfil-usua
 var cambiar_contrasena_usuario_component_1 = require("./dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component");
 var listado_servicios_component_1 = require("./dashboard/listado-servicios/listado-servicios.component");
 var ofrecer_servicio_component_1 = require("./dashboard/ofrecer-servicio/ofrecer-servicio.component");
+var listado_servicios_cliente_component_1 = require("./dashboard/listado-servicios-cliente/listado-servicios-cliente.component");
+var editar_servicio_cliente_component_1 = require("./dashboard/editar-servicio-cliente/editar-servicio-cliente.component");
 var appRoutes = [
     { path: '', component: welcome_component_1.WelcomeComponent,
         children: [
@@ -37,7 +39,9 @@ var appRoutes = [
             { path: 'perfil-usuario', component: perfil_usuario_component_1.PerfilUsuarioComponent },
             { path: 'cambiar-contrasena-usuario', component: cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent },
             { path: 'listado-servicios', component: listado_servicios_component_1.ListadoServiciosComponent },
-            { path: 'ofrecer-servicio', component: ofrecer_servicio_component_1.OfrecerServicioComponent }
+            { path: 'ofrecer-servicio', component: ofrecer_servicio_component_1.OfrecerServicioComponent },
+            { path: 'listado-servicios-cliente', component: listado_servicios_cliente_component_1.ListadoServiciosClienteComponent },
+            { path: 'editar-servicio-cliente/:id', component: editar_servicio_cliente_component_1.EditarServicioClienteComponent }
         ]
     },
 ];
@@ -55,7 +59,8 @@ AppModule = __decorate([
             app_component_1.AppComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent,
             inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, overview_component_1.OverviewComponent,
             perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent,
-            listado_servicios_component_1.ListadoServiciosComponent, ofrecer_servicio_component_1.OfrecerServicioComponent
+            listado_servicios_component_1.ListadoServiciosComponent, ofrecer_servicio_component_1.OfrecerServicioComponent, listado_servicios_cliente_component_1.ListadoServiciosClienteComponent,
+            editar_servicio_cliente_component_1.EditarServicioClienteComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

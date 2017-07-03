@@ -128,6 +128,38 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getObtenerPublicacionesClienteOferta = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/obtenerPublicacionesClienteOferta/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getDesactivarPublicacion = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/deshabilitarPublicacion/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getDesactivarPublicacion | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getDesactivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getActivarPublicacion = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/habilitarPublicacion/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getActivarPublicacion | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getActivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getPublicacion = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/obtener/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getActivarPublicacion | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getActivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS PUBLICACION
     //*************************** */

@@ -416,4 +416,4 @@ SELECT * FROM SERVICIO;
 SELECT * FROM SERVICIOPREGUNTA;
 SELECT * FROM PUBLICACION;
 
-SELECT p.Id as IdPublicacion, i.Imagen as Imagen,* from PUBLICACION p, PUBLICACIONIMAGEN i WHERE i.PublicacionId=p.Id ORDER BY p.Id;
+SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND p.ClienteId=3 AND s.id=p.ServicioId

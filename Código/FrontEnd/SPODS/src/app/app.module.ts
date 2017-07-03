@@ -14,6 +14,8 @@ import { PerfilUsuarioComponent } from "./dashboard/perfil-usuario/perfil-usuari
 import { CambiarContrasenaUsuarioComponent } from "./dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component";
 import { ListadoServiciosComponent } from "./dashboard/listado-servicios/listado-servicios.component";
 import { OfrecerServicioComponent } from "./dashboard/ofrecer-servicio/ofrecer-servicio.component";
+import { ListadoServiciosClienteComponent } from "./dashboard/listado-servicios-cliente/listado-servicios-cliente.component";
+import { EditarServicioClienteComponent } from "./dashboard/editar-servicio-cliente/editar-servicio-cliente.component";
 
 const appRoutes: Routes = [
   { path: '', component: WelcomeComponent, 
@@ -32,7 +34,9 @@ const appRoutes: Routes = [
       { path: 'perfil-usuario',component: PerfilUsuarioComponent},
       { path: 'cambiar-contrasena-usuario', component: CambiarContrasenaUsuarioComponent },
       { path: 'listado-servicios', component: ListadoServiciosComponent },
-      { path: 'ofrecer-servicio', component: OfrecerServicioComponent }
+      { path: 'ofrecer-servicio', component: OfrecerServicioComponent },
+      { path: 'listado-servicios-cliente', component: ListadoServiciosClienteComponent },
+      { path: 'editar-servicio-cliente/:id', component: EditarServicioClienteComponent }
     ]
   }, 
 ];
@@ -45,7 +49,8 @@ const appRoutes: Routes = [
     AppComponent, WelcomeComponent, RegistroClienteComponent, 
     InicioSesionComponent, DashboardComponent, OverviewComponent, 
     PerfilUsuarioComponent, CambiarContrasenaUsuarioComponent, 
-    ListadoServiciosComponent, OfrecerServicioComponent
+    ListadoServiciosComponent, OfrecerServicioComponent, ListadoServiciosClienteComponent,
+    EditarServicioClienteComponent
   ],
   bootstrap:    [ AppComponent ]
 })

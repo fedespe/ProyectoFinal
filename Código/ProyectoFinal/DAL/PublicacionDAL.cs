@@ -167,7 +167,7 @@ namespace DAL
         public List<Publicacion> obtenerTodos()
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen,* from PUBLICACION p, PUBLICACIONIMAGEN i WHERE i.PublicacionId=p.Id ORDER BY p.Id;";
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND s.id=p.ServicioId ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -190,7 +190,7 @@ namespace DAL
                                         Titulo = dr["Titulo"].ToString(),
                                         Descripcion = dr["Descripcion"].ToString(),
                                         Activa = Convert.ToBoolean(dr["Activa"]),
-                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]) },
+                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]), Nombre = dr["ServicioNombre"].ToString() },
                                         FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
                                         //ver que es null por el momento la fecha de vencimiento
                                         //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
@@ -217,7 +217,7 @@ namespace DAL
         public List<Publicacion> obtenerPublicacionesCliente(int idCliente)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen,* from PUBLICACION p, PUBLICACIONIMAGEN i WHERE i.PublicacionId=p.Id AND p.ClienteId=@idCliente;";
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND p.ClienteId=@idCliente AND s.id=p.ServicioId;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -241,7 +241,7 @@ namespace DAL
                                         Titulo = dr["Titulo"].ToString(),
                                         Descripcion = dr["Descripcion"].ToString(),
                                         Activa = Convert.ToBoolean(dr["Activa"]),
-                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]) },
+                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]), Nombre= dr["ServicioNombre"].ToString() },
                                         FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
                                         //ver que es null por el momento la fecha de vencimiento
                                         //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
@@ -267,7 +267,7 @@ namespace DAL
         }
         public Publicacion obtener(int id)
         {
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen,* from PUBLICACION p, PUBLICACIONIMAGEN i WHERE i.PublicacionId=p.Id AND p.Id=@id;";
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre,* from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND s.id=p.ServicioId AND p.Id=@id;";
             Publicacion publicacion = new Publicacion();
             try
             {
@@ -290,7 +290,7 @@ namespace DAL
                                         Titulo = dr["Titulo"].ToString(),
                                         Descripcion = dr["Descripcion"].ToString(),
                                         Activa = Convert.ToBoolean(dr["Activa"]),
-                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]) },
+                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]), Nombre = dr["ServicioNombre"].ToString() },
                                         FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
                                         //ver que es null por el momento la fecha de vencimiento
                                         //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),

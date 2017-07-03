@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-6">
+        <h1>Servicios Ofrecidos</h1>
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Título</th>
+                    <th>Activa</th>
+                    <th style="text-align: center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="publicaciones.length > 0">
+                <tr *ngFor="let publicacion of publicaciones;">
+                    <th scope="row">{{publicacion.Servicio.Nombre}}</th>
+                    <td>{{publicacion.Titulo}}</td>
+                    <td *ngIf="publicacion.Activa">Si</td>
+                    <td *ngIf="!publicacion.Activa">No</td>
+                    <td>
+                        <div class="linkManual float-left" routerLink="/dashboard/editar-servicio-cliente/{{publicacion.Id}}">Editar</div>
+                        <div *ngIf="!publicacion.Activa" class="linkManual float-left" (click)="activarPublicacion(publicacion.Id)">Activar</div>
+                        <div *ngIf="publicacion.Activa" class="linkManual float-left" (click)="desactivarPublicacion(publicacion.Id)">Desactivar</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>   
+    
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

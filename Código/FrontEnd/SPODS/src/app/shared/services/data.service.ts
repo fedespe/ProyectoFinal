@@ -137,6 +137,8 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    
+
     //*************************** */
     // FIN SERVICIOS SERVICIO
     //*************************** */
@@ -156,6 +158,51 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+
+    public getObtenerPublicacionesClienteOferta(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesClienteOferta/' + id;
+
+        Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    public getDesactivarPublicacion(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/deshabilitarPublicacion/' + id;
+
+        Utilidades.log("[data.service.ts] - getDesactivarPublicacion | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getDesactivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    public getActivarPublicacion(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/habilitarPublicacion/' + id;
+
+        Utilidades.log("[data.service.ts] - getActivarPublicacion | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getActivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    public getPublicacion(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtener/' + id;
+
+        Utilidades.log("[data.service.ts] - getActivarPublicacion | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getActivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
     //*************************** */
     // FIN SERVICIOS PUBLICACION
     //*************************** */

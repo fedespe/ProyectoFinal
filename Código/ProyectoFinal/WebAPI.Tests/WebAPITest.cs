@@ -561,23 +561,23 @@ namespace ProyectoTesting.Tests
             Assert.AreEqual(200, result);
         }
         [TestMethod]
-        public void PutDeshabilitarPublicacion_OK()
+        public void GetDeshabilitarPublicacion_OK()
         {
             Publicacion publicacion = new Publicacion
             {
                 Id = 3,
             };
-            int result = Convert.ToInt32(controllerPublicacion.PutDeshabilitarPublicacion(publicacion).Codigo);
+            int result = Convert.ToInt32(controllerPublicacion.GetDeshabilitarPublicacion(publicacion.Id).Codigo);
             Assert.AreEqual(200, result);
         }
         [TestMethod]
-        public void PutHabilitarPublicacion_OK()
+        public void GetHabilitarPublicacion_OK()
         {
             Publicacion publicacion = new Publicacion
             {
                 Id = 3,
             };
-            int result = Convert.ToInt32(controllerPublicacion.PutHabilitarPublicacion(publicacion).Codigo);
+            int result = Convert.ToInt32(controllerPublicacion.GetHabilitarPublicacion(publicacion.Id).Codigo);
             Assert.AreEqual(200, result);
         }
         //**********************************************************

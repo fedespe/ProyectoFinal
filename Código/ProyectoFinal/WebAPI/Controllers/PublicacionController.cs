@@ -54,12 +54,12 @@ namespace WebAPI.Controllers
             return retorno;
         }
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
-        [HttpGet, Route("api/Publicacion/obtenerPublicacionesCliente/{id}")]
-        public Retorno GetPublicacionesCliente(int id)
+        [HttpGet, Route("api/Publicacion/obtenerPublicacionesClienteOferta/{id}")]
+        public Retorno GetPublicacionesClienteOferta(int id)
         {
             try
-            {
-                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesCliente(id);
+            {               
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesCliente(id).Where(p => p.Tipo.Equals("OFERTA")).OrderBy(p => p.Servicio.Nombre).ToList();
                 foreach (Publicacion p in publicaciones)
                 {
                     retorno.Objetos.Add(p);
@@ -73,6 +73,28 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
+
+        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [HttpGet, Route("api/Publicacion/obtenerPublicacionesClienteSolicitud/{id}")]
+        public Retorno GetPublicacionesClienteSolicitud(int id)
+        {
+            try
+            {
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesCliente(id).Where(p => p.Tipo.Equals("SOLICITUD")).OrderBy(p => p.Servicio.Nombre).ToList();
+                foreach (Publicacion p in publicaciones)
+                {
+                    retorno.Objetos.Add(p);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
         //Servicio por Post para alta
         [HttpPost, Route("api/Publicacion/altaPublicacion")]
         public Retorno PostAltaPublicacion([FromBody]Publicacion publicacion)
@@ -106,12 +128,12 @@ namespace WebAPI.Controllers
             return retorno;
         }
         //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
-        [HttpPut, Route("api/Publicacion/habilitarPublicacion")]
-        public Retorno PutHabilitarPublicacion([FromBody]Publicacion publicacion)
+        [HttpGet, Route("api/Publicacion/habilitarPublicacion/{id}")]
+        public Retorno GetHabilitarPublicacion(int id)
         {
             try
             {
-                publicacionBL.habilitarPublicacion(publicacion.Id);
+                publicacionBL.habilitarPublicacion(id);
                 retorno.Codigo = 200;
             }
             catch (ProyectoException ex)
@@ -123,12 +145,12 @@ namespace WebAPI.Controllers
         }
 
         //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
-        [HttpPut, Route("api/Publicacion/habilitarPublicacion")]
-        public Retorno PutDeshabilitarPublicacion([FromBody]Publicacion publicacion)
+        [HttpGet, Route("api/Publicacion/deshabilitarPublicacion/{id}")]
+        public Retorno GetDeshabilitarPublicacion(int id)
         {
             try
             {
-                publicacionBL.deshabilitarPublicacion(publicacion.Id);
+                publicacionBL.deshabilitarPublicacion(id);
                 retorno.Codigo = 200;
             }
             catch (ProyectoException ex)
