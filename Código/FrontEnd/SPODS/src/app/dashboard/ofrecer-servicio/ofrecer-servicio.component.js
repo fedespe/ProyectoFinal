@@ -31,6 +31,7 @@ var OfrecerServicioComponent = (function () {
         this.publicacion.Cliente.NombreUsuario = localStorage.getItem('nombre-usuario');
         this.publicacion.Activa = true;
         this.publicacion.Tipo = "OFERTA";
+        this.publicacion.Servicio.Id = 0;
         this.obtenerServicios();
         //Solo prueba
         this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG1.jpg");
@@ -64,8 +65,13 @@ var OfrecerServicioComponent = (function () {
         this.mensajes.Errores.push(error);
     };
     OfrecerServicioComponent.prototype.seleccionServicio = function () {
-        this.respuestas = [];
-        this.obtenerServicio(this.publicacion.Servicio.Id);
+        if (this.publicacion.Servicio.Id != 0) {
+            this.respuestas = [];
+            this.obtenerServicio(this.publicacion.Servicio.Id);
+        }
+        else {
+            this.servicioSeleccionado = new servicio_1.Servicio();
+        }
     };
     OfrecerServicioComponent.prototype.obtenerServicio = function (id) {
         var _this = this;

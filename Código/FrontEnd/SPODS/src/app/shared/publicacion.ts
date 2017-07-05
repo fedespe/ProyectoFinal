@@ -51,7 +51,12 @@ public validarDatos() : Error[]{
             error = new Error();
             error.Descripcion = "Debe seleccionar un servicio.";
             errores.push(error);
-        }    
+        }   
+        if(this.Servicio.Id == 0){
+            error = new Error();
+            error.Descripcion = "Debe seleccionar un servicio.";
+            errores.push(error);
+        }     
         if(this.Descripcion == null){
             this.Descripcion="Sin descripción.";
         }      

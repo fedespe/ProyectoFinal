@@ -37,6 +37,11 @@ var Publicacion = (function () {
             error.Descripcion = "Debe seleccionar un servicio.";
             errores.push(error);
         }
+        if (this.Servicio.Id == 0) {
+            error = new error_1.Error();
+            error.Descripcion = "Debe seleccionar un servicio.";
+            errores.push(error);
+        }
         if (this.Descripcion == null) {
             this.Descripcion = "Sin descripción.";
         }

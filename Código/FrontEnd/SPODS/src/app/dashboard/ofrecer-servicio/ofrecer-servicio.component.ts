@@ -28,6 +28,7 @@ export class OfrecerServicioComponent{
         this.publicacion.Cliente.NombreUsuario=localStorage.getItem('nombre-usuario');
         this.publicacion.Activa=true;
         this.publicacion.Tipo="OFERTA";
+        this.publicacion.Servicio.Id=0;
         this.obtenerServicios();
 
         //Solo prueba
@@ -70,9 +71,13 @@ export class OfrecerServicioComponent{
         this.mensajes.Errores.push(error);
     }
 
-    seleccionServicio(){   
-        this.respuestas=[];  
-        this.obtenerServicio(this.publicacion.Servicio.Id);
+    seleccionServicio(){       
+        if(this.publicacion.Servicio.Id!=0){
+            this.respuestas=[]; 
+            this.obtenerServicio(this.publicacion.Servicio.Id);
+        }else{
+            this.servicioSeleccionado=new Servicio();
+        }      
     }
 
     obtenerServicio(id:number){
