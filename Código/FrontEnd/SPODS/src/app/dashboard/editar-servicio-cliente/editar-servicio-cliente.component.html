@@ -14,14 +14,14 @@
             
         <p>FALTAN IMAGENES...</p>  
 
-        <div *ngIf="servicioSeleccionado.Preguntas.length > 0">
-            <div *ngFor="let pregunta of servicioSeleccionado.Preguntas;">           
+        <div *ngIf="publicacion.Servicio.Preguntas.length > 0">
+            <div *ngFor="let pregunta of publicacion.Servicio.Preguntas;">           
                 <label for="input{{pregunta.Id}}">{{pregunta.UnaPregunta}}</label>
-                <input type="text" class="form-control" [(ngModel)]="respuestas[pregunta.Id]" id="input{{pregunta.Id}}" name="Respuestainput{{pregunta.Id}}" placeholder="">   
+                <input type="text" class="form-control" [(ngModel)]="pregunta.UnaRespuesta" id="input{{pregunta.Id}}" name="Respuestainput{{pregunta.Id}}" placeholder="Respuesta...">   
             </div>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" (click)="postAltaPublicacion()">Guardar</button>
+        <button class="btn btn-lg btn-primary btn-block" (click)="putActualizarPublicacion()">Guardar</button>
 
         
 

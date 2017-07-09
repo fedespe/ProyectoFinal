@@ -19,10 +19,16 @@
             
         <p>FALTAN IMAGENES... POR EL MOMENTO SE CARGAN LOS NOMBRES EN EL CONSTRUCTOR DEL TS</p>  
 
-        <div *ngIf="servicioSeleccionado.Preguntas.length > 0">
+        <!--<div *ngIf="servicioSeleccionado.Preguntas.length > 0">
             <div *ngFor="let pregunta of servicioSeleccionado.Preguntas;">           
                 <label for="input{{pregunta.Id}}">{{pregunta.UnaPregunta}}</label>
                 <input type="text" class="form-control" [(ngModel)]="respuestas[pregunta.Id]" id="input{{pregunta.Id}}" name="Respuestainput{{pregunta.Id}}" placeholder="">   
+            </div>
+        </div>-->
+        <div *ngIf="servicioSeleccionado.Preguntas.length > 0">
+            <div *ngFor="let pregunta of servicioSeleccionado.Preguntas;">           
+                <label for="input{{pregunta.Id}}">{{pregunta.UnaPregunta}}</label>
+                <input type="text" class="form-control" [(ngModel)]="pregunta.UnaRespuesta" id="input{{pregunta.Id}}" name="Respuestainput{{pregunta.Id}}" placeholder="Respuesta...">   
             </div>
         </div>
 

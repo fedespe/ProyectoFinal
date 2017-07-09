@@ -89,11 +89,10 @@ export class OfrecerServicioComponent{
         );
     }
 
-    getObtenerServicioOk(response:any){
-        this.servicioSeleccionado = response.Objetos[0];
+    getObtenerServicioOk(response:any){      
         Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if(response.Codigo ==  200){
-            
+            this.servicioSeleccionado = response.Objetos[0];
         }
         else{
             var error = new Error();
@@ -113,13 +112,21 @@ export class OfrecerServicioComponent{
         Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.respuestas));
         this.mensajes.Errores = this.publicacion.validarDatos();
         if(this.mensajes.Errores.length==0){
-            for (var i = 0; i < this.respuestas.length; i++) {
-                if(this.respuestas[i]!=null){
+            // for (var i = 0; i < this.respuestas.length; i++) {
+            //     if(this.respuestas[i]!=null){
+            //         var r = new Respuesta();
+            //         r.Pregunta.Id=i;
+            //         r.UnaRespuesta=this.respuestas[i];
+            //         this.publicacion.Respuestas.push(r);
+            //     }
+            // } 
+            for (var i = 0; i < this.servicioSeleccionado.Preguntas.length; i++) {
+                if(this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=null && this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=""){
                     var r = new Respuesta();
-                    r.Pregunta.Id=i;
-                    r.UnaRespuesta=this.respuestas[i];
+                    r.Pregunta.Id=this.servicioSeleccionado.Preguntas[i].Id;
+                    r.UnaRespuesta=this.servicioSeleccionado.Preguntas[i].UnaRespuesta;
                     this.publicacion.Respuestas.push(r);
-                }
+                }              
             } 
             Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.publicacion));
             this.dataService.postAltaPublicacion(this.publicacion)
@@ -134,7 +141,7 @@ export class OfrecerServicioComponent{
 
     postAltaPublicacionOk(response:any){  
         if(response.Codigo ==  200){
-            this.router.navigate(['dashboard/overview']);
+            this.router.navigate(['dashboard/listado-servicios-cliente']);
         }
         else{
             var error = new Error();

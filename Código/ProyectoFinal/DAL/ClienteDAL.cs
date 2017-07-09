@@ -103,7 +103,7 @@ namespace DAL
             return clientes;
         }
         public void altaCliente(Cliente cli) {
-            string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @tel, @dir, @fechaAlta, @tipo, @barrio); 
+            string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @tel, @dir, @fechaAlta, @tipo, @barrio, @img); 
                                             SELECT CAST(Scope_Identity() AS INT);";
             string cadenaInsertCliente = "INSERT INTO Cliente VALUES(@idUsu);";
             int idClienteGenerado = 0;
@@ -127,6 +127,8 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
                         cmd.Parameters.AddWithValue("@barrio", cli.Barrio.Id);
                         cmd.Parameters.AddWithValue("@tipo", "CLIENTE");
+
+                        cmd.Parameters.AddWithValue("@img", "CLIENTE.jpg");
 
                         con.Open();
                         trn = con.BeginTransaction();

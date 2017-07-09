@@ -79,9 +79,9 @@ var OfrecerServicioComponent = (function () {
             .subscribe(function (res) { return _this.getObtenerServicioOk(res); }, function (error) { return _this.getObtenerServicioError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicio: Completado"); });
     };
     OfrecerServicioComponent.prototype.getObtenerServicioOk = function (response) {
-        this.servicioSeleccionado = response.Objetos[0];
         utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if (response.Codigo == 200) {
+            this.servicioSeleccionado = response.Objetos[0];
         }
         else {
             var error = new error_1.Error();
@@ -100,11 +100,19 @@ var OfrecerServicioComponent = (function () {
         utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.respuestas));
         this.mensajes.Errores = this.publicacion.validarDatos();
         if (this.mensajes.Errores.length == 0) {
-            for (var i = 0; i < this.respuestas.length; i++) {
-                if (this.respuestas[i] != null) {
+            // for (var i = 0; i < this.respuestas.length; i++) {
+            //     if(this.respuestas[i]!=null){
+            //         var r = new Respuesta();
+            //         r.Pregunta.Id=i;
+            //         r.UnaRespuesta=this.respuestas[i];
+            //         this.publicacion.Respuestas.push(r);
+            //     }
+            // } 
+            for (var i = 0; i < this.servicioSeleccionado.Preguntas.length; i++) {
+                if (this.servicioSeleccionado.Preguntas[i].UnaRespuesta != null && this.servicioSeleccionado.Preguntas[i].UnaRespuesta != "") {
                     var r = new respuesta_1.Respuesta();
-                    r.Pregunta.Id = i;
-                    r.UnaRespuesta = this.respuestas[i];
+                    r.Pregunta.Id = this.servicioSeleccionado.Preguntas[i].Id;
+                    r.UnaRespuesta = this.servicioSeleccionado.Preguntas[i].UnaRespuesta;
                     this.publicacion.Respuestas.push(r);
                 }
             }
@@ -115,7 +123,7 @@ var OfrecerServicioComponent = (function () {
     };
     OfrecerServicioComponent.prototype.postAltaPublicacionOk = function (response) {
         if (response.Codigo == 200) {
-            this.router.navigate(['dashboard/overview']);
+            this.router.navigate(['dashboard/listado-servicios-cliente']);
         }
         else {
             var error = new error_1.Error();

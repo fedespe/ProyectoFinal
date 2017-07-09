@@ -48,6 +48,7 @@ CREATE TABLE USUARIO
 	FechaAlta DATETIME NOT NULL,
 	Tipo NVARCHAR(20) NOT NULL,
 	BarrioId INT NOT NULL,
+	Imagen NVARCHAR(300) NOT NULL,
 
 	CONSTRAINT PK_USUARIO PRIMARY KEY(Id),
 	CONSTRAINT UK_NombreUsuario_USUARIO UNIQUE(NombreUsuario),
@@ -107,7 +108,7 @@ CREATE TABLE PUBLICACION
 (
 	Id	INT  NOT NULL IDENTITY(1,1),
 	Titulo NVARCHAR(50) NOT NULL,
-	Descripcion NVARCHAR(150) NOT NULL,
+	Descripcion NVARCHAR(300) NOT NULL,
 	Activa BIT NOT NULL,
 	FechaAlta DATETIME NOT NULL,
 	FechaVencimiento DATETIME,
@@ -170,12 +171,14 @@ GO
 CREATE TABLE PUBLICACIONRESPUESTA
 (
 	PublicacionId INT NOT NULL,
-	ServicioPreguntaId INT NOT NULL,
+	ServicioId INT NOT NULL,
+	PreguntaId INT NOT NULL,
 	Respuesta NVARCHAR(300) NOT NULL,
 
-	CONSTRAINT PK_PUBLICACION_RESPUESTA PRIMARY KEY(PublicacionId, ServicioPreguntaId),
+	CONSTRAINT PK_PUBLICACION_RESPUESTA PRIMARY KEY(PublicacionId, ServicioId, PreguntaId),
 	CONSTRAINT FK_PublicacionId_PUBLICACIONRESPUESTA FOREIGN KEY (PublicacionId) REFERENCES PUBLICACION (Id),
-	CONSTRAINT FK_ServicioPreguntaId_PUBLICACIONRESPUESTA FOREIGN KEY (ServicioPreguntaId) REFERENCES SERVICIOPREGUNTA (Id)	
+	CONSTRAINT FK_ServicioId_PUBLICACIONRESPUESTA FOREIGN KEY (ServicioId) REFERENCES SERVICIO (Id),
+	CONSTRAINT FK_PreguntaId_PUBLICACIONRESPUESTA FOREIGN KEY (PreguntaId) REFERENCES PREGUNTA (Id)		
 );
 GO
 
@@ -345,19 +348,19 @@ INSERT INTO BARRIO VALUES
 ('Otro',10);
 
 --contrasena 123456789
-INSERT INTO Usuario VALUES('SupAdmin', 'SupAdmin', 'SupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'SupAdmin@hotmail.com', '099845498', 'SupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1);
+INSERT INTO Usuario VALUES('SupAdmin', 'SupAdmin', 'SupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'SupAdmin@hotmail.com', '099845498', 'SupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1,'SUPERADMINISTRADOR.jpg');
 INSERT INTO SUPERADMINISTRADOR VALUES(1);
 
 --contrasena 123456789
-INSERT INTO Usuario VALUES('Admin', 'Admin', 'Admin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Admin@hotmail.com', '099845498', 'Admin dir', getdate(), 'ADMINISTRADOR', 1);
+INSERT INTO Usuario VALUES('Admin', 'Admin', 'Admin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Admin@hotmail.com', '099845498', 'Admin dir', getdate(), 'ADMINISTRADOR', 1, 'ADMINISTRADOR.jpg');
 INSERT INTO ADMINISTRADOR VALUES(2);
 
 --contrasena 123456789
-INSERT INTO Usuario VALUES('Cliente1', 'Cliente1', 'Cliente1','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente1@hotmail.com', '099845498', 'Cliente1 dir', getdate(), 'CLIENTE', 1);
+INSERT INTO Usuario VALUES('Cliente1', 'Cliente1', 'Cliente1','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente1@hotmail.com', '099845498', 'Cliente1 dir', getdate(), 'CLIENTE', 1,'CLIENTE.jpg');
 INSERT INTO CLIENTE VALUES(3);
 
 --contrasena 123456789
-INSERT INTO Usuario VALUES('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1);
+INSERT INTO Usuario VALUES('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1, 'CLIENTE.jpg');
 INSERT INTO CLIENTE VALUES(4);
 
 INSERT INTO CATEGORIAPREGUNTA VALUES
@@ -416,4 +419,3 @@ SELECT * FROM SERVICIO;
 SELECT * FROM SERVICIOPREGUNTA;
 SELECT * FROM PUBLICACION;
 
-SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND p.ClienteId=3 AND s.id=p.ServicioId

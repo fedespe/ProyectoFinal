@@ -106,7 +106,7 @@ namespace DAL
         }
         public void altaAdministrador(Administrador admin)
         {
-            string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @tel, @dir, @fechaAlta, @tipo, @barrio); 
+            string cadenaInsertUsuario = @"INSERT INTO Usuario VALUES(@nom, @ape, @nomUsu,@pass, @ultModif, @habilitado, @email, @tel, @dir, @fechaAlta, @tipo, @barrio, @img); 
                                             SELECT CAST(Scope_Identity() AS INT);";
             string cadenaInsertCliente = "INSERT INTO Administrador VALUES(@idUsu);";
             int idAdminGenerado = 0;
@@ -131,6 +131,8 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
                         cmd.Parameters.AddWithValue("@barrio", admin.Barrio.Id);
                         cmd.Parameters.AddWithValue("@tipo", "ADMINISTRADOR");
+
+                        cmd.Parameters.AddWithValue("@img", "ADMINISTRADOR.jpg");
 
                         con.Open();
                         trn = con.BeginTransaction();

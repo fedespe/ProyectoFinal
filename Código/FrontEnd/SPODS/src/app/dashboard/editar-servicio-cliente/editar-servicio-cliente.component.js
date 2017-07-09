@@ -17,13 +17,10 @@ var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
 var servicio_1 = require("../../shared/servicio");
 var publicacion_1 = require("../../shared/publicacion");
+var respuesta_1 = require("../../shared/respuesta");
 var router_2 = require("@angular/router");
 var EditarServicioClienteComponent = (function () {
     function EditarServicioClienteComponent(dataService, router, route) {
-        // this.publicacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario'));
-        // this.publicacion.Cliente.NombreUsuario=localStorage.getItem('nombre-usuario');
-        // this.publicacion.Activa=true;
-        // this.publicacion.Tipo="OFERTA";
         this.dataService = dataService;
         this.router = router;
         this.route = route;
@@ -32,10 +29,6 @@ var EditarServicioClienteComponent = (function () {
         this.publicacion = new publicacion_1.Publicacion();
         this.servicioSeleccionado = new servicio_1.Servicio();
         this.respuestas = [];
-        // //Solo prueba
-        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG1.jpg");
-        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG2.jpg");
-        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG3.jpg");
     }
     EditarServicioClienteComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -43,7 +36,7 @@ var EditarServicioClienteComponent = (function () {
         this.route.params
             .subscribe(function (params) {
             _this.idPublicacion = parseInt(params['id']);
-            utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - ngOnInit | id: " + JSON.stringify(_this.idPublicacion));
+            utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - ngOnInit | id: " + JSON.stringify(_this.idPublicacion));
         });
         this.obtenerPublicacion();
     };
@@ -53,14 +46,15 @@ var EditarServicioClienteComponent = (function () {
     };
     EditarServicioClienteComponent.prototype.obtenerPublicacion = function () {
         var _this = this;
-        utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
+        utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
         this.dataService.getPublicacion(this.idPublicacion)
-            .subscribe(function (res) { return _this.getPublicacionOk(res); }, function (error) { return _this.getPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicios: Completado"); });
+            .subscribe(function (res) { return _this.getPublicacionOk(res); }, function (error) { return _this.getPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicios: Completado"); });
     };
     EditarServicioClienteComponent.prototype.getPublicacionOk = function (response) {
-        utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicacion = response.Objetos[0];
+            this.obtenerServicio(this.publicacion.Servicio.Id);
         }
         else {
             var error = new error_1.Error();
@@ -69,7 +63,84 @@ var EditarServicioClienteComponent = (function () {
         }
     };
     EditarServicioClienteComponent.prototype.getPublicacionError = function (responseError) {
-        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    EditarServicioClienteComponent.prototype.obtenerServicio = function (id) {
+        var _this = this;
+        this.dataService.getObtenerServicio(id)
+            .subscribe(function (res) { return _this.getObtenerServicioOk(res); }, function (error) { return _this.getObtenerServicioError(error); }, function () { return utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicio: Completado"); });
+    };
+    EditarServicioClienteComponent.prototype.getObtenerServicioOk = function (response) {
+        utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        if (response.Codigo == 200) {
+            this.publicacion.Servicio = response.Objetos[0];
+            this.responderPreguntas(); //metodo que completa en alngular las respuestas a las preguntas
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    EditarServicioClienteComponent.prototype.getObtenerServicioError = function (responseError) {
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    EditarServicioClienteComponent.prototype.responderPreguntas = function () {
+        for (var i = 0; i < this.publicacion.Respuestas.length; i++) {
+            for (var j = 0; j < this.publicacion.Servicio.Preguntas.length; j++) {
+                if (this.publicacion.Servicio.Preguntas[j].Id == this.publicacion.Respuestas[i].Pregunta.Id) {
+                    this.publicacion.Servicio.Preguntas[j].UnaRespuesta = this.publicacion.Respuestas[i].UnaRespuesta;
+                }
+            }
+        }
+    };
+    EditarServicioClienteComponent.prototype.putActualizarPublicacion = function () {
+        var _this = this;
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.respuestas));
+        this.borrarMensajes();
+        //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
+        //Se crea una nueva publicacion para hacer la validacion
+        var p = new publicacion_1.Publicacion();
+        p.Titulo = this.publicacion.Titulo;
+        p.Imagenes = this.publicacion.Imagenes;
+        p.Servicio = this.publicacion.Servicio;
+        p.Descripcion = this.publicacion.Descripcion;
+        this.mensajes.Errores = p.validarDatos();
+        //fin validacion
+        this.publicacion.Respuestas = [];
+        if (this.mensajes.Errores.length == 0) {
+            for (var i = 0; i < this.publicacion.Servicio.Preguntas.length; i++) {
+                if (this.publicacion.Servicio.Preguntas[i].UnaRespuesta != null && this.publicacion.Servicio.Preguntas[i].UnaRespuesta != "") {
+                    var r = new respuesta_1.Respuesta();
+                    r.Pregunta.Id = this.publicacion.Servicio.Preguntas[i].Id;
+                    r.UnaRespuesta = this.publicacion.Servicio.Preguntas[i].UnaRespuesta;
+                    this.publicacion.Respuestas.push(r);
+                }
+            }
+            utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.publicacion));
+            this.dataService.putActualizarPublicacion(this.publicacion)
+                .subscribe(function (res) { return _this.putActualizarPublicacionOk(res); }, function (error) { return _this.putActualizarPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado"); });
+        }
+    };
+    EditarServicioClienteComponent.prototype.putActualizarPublicacionOk = function (response) {
+        utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - putActualizarPublicacionOK | response: " + JSON.stringify(this.servicioSeleccionado));
+        if (response.Codigo == 200) {
+            this.router.navigate(['dashboard/listado-servicios-cliente']);
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    EditarServicioClienteComponent.prototype.putActualizarPublicacionError = function (responseError) {
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

@@ -272,7 +272,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Imagenes\Clientes\" />
+    <Folder Include="Imagenes\Ofertas\" />
     <Folder Include="Imagenes\Servicios\" />
+    <Folder Include="Imagenes\Solicitudes\" />
     <Folder Include="Views\SuperAdministrador\" />
   </ItemGroup>
   <ItemGroup>

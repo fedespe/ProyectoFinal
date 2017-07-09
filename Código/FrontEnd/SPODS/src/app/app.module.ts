@@ -16,6 +16,7 @@ import { ListadoServiciosComponent } from "./dashboard/listado-servicios/listado
 import { OfrecerServicioComponent } from "./dashboard/ofrecer-servicio/ofrecer-servicio.component";
 import { ListadoServiciosClienteComponent } from "./dashboard/listado-servicios-cliente/listado-servicios-cliente.component";
 import { EditarServicioClienteComponent } from "./dashboard/editar-servicio-cliente/editar-servicio-cliente.component";
+import { ListadoServiciosOfrecidosComponent } from "./dashboard/listado-servicios-ofrecidos/listado-servicios-ofrecidos.component";
 
 const appRoutes: Routes = [
   { path: '', component: WelcomeComponent, 
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
       { path: 'listado-servicios', component: ListadoServiciosComponent },
       { path: 'ofrecer-servicio', component: OfrecerServicioComponent },
       { path: 'listado-servicios-cliente', component: ListadoServiciosClienteComponent },
-      { path: 'editar-servicio-cliente/:id', component: EditarServicioClienteComponent }
+      { path: 'editar-servicio-cliente/:id', component: EditarServicioClienteComponent },
+      { path: 'listado-servicios-ofrecidos/:id', component: ListadoServiciosOfrecidosComponent }
     ]
   }, 
 ];
@@ -50,7 +52,7 @@ const appRoutes: Routes = [
     InicioSesionComponent, DashboardComponent, OverviewComponent, 
     PerfilUsuarioComponent, CambiarContrasenaUsuarioComponent, 
     ListadoServiciosComponent, OfrecerServicioComponent, ListadoServiciosClienteComponent,
-    EditarServicioClienteComponent
+    EditarServicioClienteComponent, ListadoServiciosOfrecidosComponent
   ],
   bootstrap:    [ AppComponent ]
 })

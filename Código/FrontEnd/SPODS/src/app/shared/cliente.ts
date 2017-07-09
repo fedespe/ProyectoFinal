@@ -13,6 +13,7 @@ export class Cliente {
     Telefono: string;
     Direccion: string;
     Barrio: Barrio; 
+    Imagen: string;
 
     constructor() {      
         this.Barrio = new Barrio();

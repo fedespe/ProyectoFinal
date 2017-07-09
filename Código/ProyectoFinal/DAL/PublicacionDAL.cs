@@ -265,6 +265,57 @@ namespace DAL
 
             return publicaciones;
         }
+        public List<Publicacion> obtenerPublicacionesServicio(int idServicio)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s, USUARIO u WHERE i.PublicacionId=p.Id AND p.ServicioId=@idServicio AND s.id=p.ServicioId AND p.Activa=1 AND u.Id=p.ClienteId;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectPublicacion, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idServicio", idServicio);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            int ultimoId = 0;
+                            while (dr.Read())
+                            {
+                                if (ultimoId != Convert.ToInt32(dr["IdPublicacion"]))
+                                {
+                                    //VER CUANDO CAMBIAR A UNA NUEVA PUBLICACION
+                                    Publicacion publicacion = new Publicacion
+                                    {
+                                        Id = Convert.ToInt32(dr["IdPublicacion"]),
+                                        Titulo = dr["Titulo"].ToString(),
+                                        Descripcion = dr["Descripcion"].ToString(),
+                                        Activa = Convert.ToBoolean(dr["Activa"]),
+                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]), Nombre = dr["ServicioNombre"].ToString() },
+                                        FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
+                                        //ver que es null por el momento la fecha de vencimiento
+                                        //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
+                                        Tipo = dr["Tipo"].ToString(),
+                                        Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]), Imagen= dr["ImgUsuario"].ToString(), NombreUsuario = dr["NombreUsuario"].ToString() },
+                                        Imagenes = new List<string>()
+                                    };
+                                    publicacion.Imagenes.Add(dr["Imagen"].ToString());
+                                    publicaciones.Add(publicacion);
+                                    ultimoId = Convert.ToInt32(dr["IdPublicacion"]);
+                                }//EN UN ELSE SI QUISIERA TRAIGO EL RESTO DE LAS IMAGENES
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return publicaciones;
+        }
         public Publicacion obtener(int id)
         {
             string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre,* from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND s.id=p.ServicioId AND p.Id=@id;";

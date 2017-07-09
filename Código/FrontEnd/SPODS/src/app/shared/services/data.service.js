@@ -160,6 +160,24 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.putActualizarPublicacion = function (publicacion) {
+        var URL = this.baseUrl + '/api/Publicacion/actualizarPublicacion';
+        var body = JSON.stringify(publicacion);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarPublicacion | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarPublicacion | body: " + body);
+        utilidades_1.Utilidades.log("[data.service.ts] - putActualizarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.put(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getPublicacionesServicio = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/obtenerPublicacionesServicio/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getPublicacionesServicio | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getPublicacionesServicio | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS PUBLICACION
     //*************************** */

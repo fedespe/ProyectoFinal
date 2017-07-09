@@ -202,6 +202,28 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+    public putActualizarPublicacion(publicacion:Publicacion){
+        var URL : string = this.baseUrl + '/api/Publicacion/actualizarPublicacion';
+        let body = JSON.stringify(publicacion);
+        
+        Utilidades.log("[data.service.ts] - putActualizarPublicacion | URL: " + URL);
+        Utilidades.log("[data.service.ts] - putActualizarPublicacion | body: " + body);
+        Utilidades.log("[data.service.ts] - putActualizarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.put(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+    public getPublicacionesServicio(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesServicio/' + id;
+
+        Utilidades.log("[data.service.ts] - getPublicacionesServicio | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getPublicacionesServicio | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
 
     //*************************** */
     // FIN SERVICIOS PUBLICACION

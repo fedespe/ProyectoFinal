@@ -26,17 +26,7 @@ export class EditarServicioClienteComponent implements OnInit{
     idPublicacion:number;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
-        // this.publicacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario'));
-        // this.publicacion.Cliente.NombreUsuario=localStorage.getItem('nombre-usuario');
-        // this.publicacion.Activa=true;
-        // this.publicacion.Tipo="OFERTA";
         
-
-        // //Solo prueba
-        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG1.jpg");
-        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG2.jpg");
-        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG3.jpg");
-
     }
 
     ngOnInit() {
@@ -44,9 +34,9 @@ export class EditarServicioClienteComponent implements OnInit{
         this.route.params
         .subscribe(params => {
             this.idPublicacion = parseInt(params['id']);
-            Utilidades.log("[[ofrecer-servicio.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));   
+            Utilidades.log("[[editar-servicio-cliente.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));   
         });
-        this.obtenerPublicacion();
+        this.obtenerPublicacion();       
     }
 
     borrarMensajes(){
@@ -55,19 +45,20 @@ export class EditarServicioClienteComponent implements OnInit{
     }
 
     obtenerPublicacion(){
-         Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
+         Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
         this.dataService.getPublicacion(this.idPublicacion)
             .subscribe(
             res => this.getPublicacionOk(res),
             error => this.getPublicacionError(error),
-            () => Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicios: Completado")
+            () => Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicios: Completado")
         );
     }
 
     getPublicacionOk(response:any){
-        Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
+        Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
         if(response.Codigo ==  200){
-            this.publicacion = response.Objetos[0];
+            this.publicacion = response.Objetos[0];          
+            this.obtenerServicio(this.publicacion.Servicio.Id);
         }
         else{
             var error = new Error();
@@ -77,86 +68,101 @@ export class EditarServicioClienteComponent implements OnInit{
     }
 
     getPublicacionError(responseError:any){
-        Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
 
-    // seleccionServicio(){   
-    //     this.respuestas=[];  
-    //     this.obtenerServicio(this.publicacion.Servicio.Id);
-    // }
+    obtenerServicio(id:number){
+        this.dataService.getObtenerServicio(id)
+            .subscribe(
+            res => this.getObtenerServicioOk(res),
+            error => this.getObtenerServicioError(error),
+            () => Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicio: Completado")
+        );
+    }
 
-    // obtenerServicio(id:number){
-    //     this.dataService.getObtenerServicio(id)
-    //         .subscribe(
-    //         res => this.getObtenerServicioOk(res),
-    //         error => this.getObtenerServicioError(error),
-    //         () => Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicio: Completado")
-    //     );
-    // }
-
-    // getObtenerServicioOk(response:any){
-    //     this.servicioSeleccionado = response.Objetos[0];
-    //     Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
-    //     if(response.Codigo ==  200){
-            
-    //     }
-    //     else{
-    //         var error = new Error();
-    //         error.Descripcion = response.Mensaje;           
-    //         this.mensajes.Errores.push(error);
-    //     }
-    // }
-
-    // getObtenerServicioError(responseError:any){
-    //     Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
-    //     var error = new Error();
-    //     error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-    //     this.mensajes.Errores.push(error);
-    // }
-
-    // postAltaPublicacion(){
-    //     Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.respuestas));
-    //     this.mensajes.Errores = this.publicacion.validarDatos();
-    //     if(this.mensajes.Errores.length==0){
-    //         for (var i = 0; i < this.respuestas.length; i++) {
-    //             if(this.respuestas[i]!=null){
-    //                 var r = new Respuesta();
-    //                 r.Pregunta.Id=i;
-    //                 r.UnaRespuesta=this.respuestas[i];
-    //                 this.publicacion.Respuestas.push(r);
-    //             }
-    //         } 
-    //         Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.publicacion));
-    //         this.dataService.postAltaPublicacion(this.publicacion)
-    //             .subscribe(
-    //             res => this.postAltaPublicacionOk(res),
-    //             error => this.postAltaPublicacionError(error),
-    //             () => Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion: Completado")
-    //         );
-    //     }
+    getObtenerServicioOk(response:any){
         
-    // }
+        Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        if(response.Codigo ==  200){
+            this.publicacion.Servicio = response.Objetos[0];
+            this.responderPreguntas();//metodo que completa en alngular las respuestas a las preguntas
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
 
-    // postAltaPublicacionOk(response:any){  
-    //     if(response.Codigo ==  200){
-    //         this.router.navigate(['dashboard/overview']);
-    //     }
-    //     else{
-    //         var error = new Error();
-    //         error.Descripcion = response.Mensaje;           
-    //         this.mensajes.Errores.push(error);
-    //     }
-    // }
+    getObtenerServicioError(responseError:any){
+        Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
 
-    // postAltaPublicacionError(responseError:any){
-    //     Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacionError | responseError: " + JSON.stringify(responseError));
-    //     var error = new Error();
-    //     error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-    //     this.mensajes.Errores.push(error);
-    // }
+    responderPreguntas(){
+        for (var i = 0; i < this.publicacion.Respuestas.length; i++) {
+            for (var j = 0; j < this.publicacion.Servicio.Preguntas.length; j++) {
+                if(this.publicacion.Servicio.Preguntas[j].Id==this.publicacion.Respuestas[i].Pregunta.Id){
+                    this.publicacion.Servicio.Preguntas[j].UnaRespuesta=this.publicacion.Respuestas[i].UnaRespuesta;
+                }         
+            }                
+        } 
+    }
+
+    putActualizarPublicacion(){
+        Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.respuestas));
+        this.borrarMensajes();
+        //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
+        //Se crea una nueva publicacion para hacer la validacion
+        var p = new Publicacion();
+        p.Titulo=this.publicacion.Titulo;
+        p.Imagenes=this.publicacion.Imagenes;
+        p.Servicio=this.publicacion.Servicio;
+        p.Descripcion=this.publicacion.Descripcion;
+        this.mensajes.Errores = p.validarDatos();
+        //fin validacion
+        this.publicacion.Respuestas=[];
+        if(this.mensajes.Errores.length==0){
+            for (var i = 0; i < this.publicacion.Servicio.Preguntas.length; i++) {
+                if(this.publicacion.Servicio.Preguntas[i].UnaRespuesta!=null && this.publicacion.Servicio.Preguntas[i].UnaRespuesta!=""){
+                    var r = new Respuesta();
+                    r.Pregunta.Id=this.publicacion.Servicio.Preguntas[i].Id;
+                    r.UnaRespuesta=this.publicacion.Servicio.Preguntas[i].UnaRespuesta;
+                    this.publicacion.Respuestas.push(r);
+                }              
+            } 
+            Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.publicacion));
+            this.dataService.putActualizarPublicacion(this.publicacion)
+                .subscribe(
+                res => this.putActualizarPublicacionOk(res),
+                error => this.putActualizarPublicacionError(error),
+                () => Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado")
+            );
+        }
+    }
+    putActualizarPublicacionOk(response:any){       
+        Utilidades.log("[[editar-servicio-cliente.component.ts] - putActualizarPublicacionOK | response: " + JSON.stringify(this.servicioSeleccionado));
+        if(response.Codigo ==  200){
+            this.router.navigate(['dashboard/listado-servicios-cliente']);
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    putActualizarPublicacionError(responseError:any){
+        Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacionError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
 
 
 
