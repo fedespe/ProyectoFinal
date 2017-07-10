@@ -41,7 +41,8 @@ namespace DAL
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
                                     Barrio= new Barrio { Id= Convert.ToInt32(dr["BarrioId"])},
-                                    Tipo = dr["Tipo"].ToString()
+                                    Tipo = dr["Tipo"].ToString(),
+                                    Imagen= dr["Imagen"].ToString()
                                 };
                             }
                         }

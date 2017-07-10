@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-12">
+        <h1>Servicio Ofrecido</h1>
+        <h2>{{publicacion.Servicio.Nombre}}</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8"> 
+                    <div class="card">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">                      
+                                    <img class="card-img-top" src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" alt="{{publicacion.Imagenes[0]}}" height="100" width="100">
+                                    Galeria de imagenes  
+                                </div>
+                                <div class="col-8">
+                                    <div class="card-block">             
+                                        <!--<small>{{publicacion.FechaAlta}}</small>              -->
+                                        <h4 class="card-title">{{publicacion.Titulo}} </h4>
+                                        <p class="card-text">{{publicacion.Descripcion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" *ngFor="let respuesta of publicacion.Respuestas;">
+                                <div>
+                                    <b>{{respuesta.Pregunta.UnaPregunta}}</b> 
+                                    <br>
+                                    <p>{{respuesta.UnaRespuesta}}</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <!--<div class="card-block">
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="col-md-4">                      
+                    <div class="card">
+                        <img class="card-img-top align-self-center" src="{{baseURL}}/Imagenes/Clientes/{{publicacion.Cliente.Imagen}}" alt="{{publicacion.Cliente.Imagen}}" height="100" width="100">
+                        <div class="card-block">
+                            <h4 class="card-title">{{publicacion.Cliente.NombreUsuario}}</h4>
+                            <p class="card-text">Puntuación...</p>
+                            <a href="#" class="btn btn-primary">Ver comentarios</a>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+

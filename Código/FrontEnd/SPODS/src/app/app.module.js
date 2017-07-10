@@ -24,6 +24,7 @@ var ofrecer_servicio_component_1 = require("./dashboard/ofrecer-servicio/ofrecer
 var listado_servicios_cliente_component_1 = require("./dashboard/listado-servicios-cliente/listado-servicios-cliente.component");
 var editar_servicio_cliente_component_1 = require("./dashboard/editar-servicio-cliente/editar-servicio-cliente.component");
 var listado_servicios_ofrecidos_component_1 = require("./dashboard/listado-servicios-ofrecidos/listado-servicios-ofrecidos.component");
+var ver_publicacion_ofrecida_component_1 = require("./dashboard/ver-publicacion-ofrecida/ver-publicacion-ofrecida.component");
 var appRoutes = [
     { path: '', component: welcome_component_1.WelcomeComponent,
         children: [
@@ -43,7 +44,8 @@ var appRoutes = [
             { path: 'ofrecer-servicio', component: ofrecer_servicio_component_1.OfrecerServicioComponent },
             { path: 'listado-servicios-cliente', component: listado_servicios_cliente_component_1.ListadoServiciosClienteComponent },
             { path: 'editar-servicio-cliente/:id', component: editar_servicio_cliente_component_1.EditarServicioClienteComponent },
-            { path: 'listado-servicios-ofrecidos/:id', component: listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent }
+            { path: 'listado-servicios-ofrecidos/:id', component: listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent },
+            { path: 'ver-publicacion-ofrecida/:id', component: ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent }
         ]
     },
 ];
@@ -62,7 +64,7 @@ AppModule = __decorate([
             inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, overview_component_1.OverviewComponent,
             perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent,
             listado_servicios_component_1.ListadoServiciosComponent, ofrecer_servicio_component_1.OfrecerServicioComponent, listado_servicios_cliente_component_1.ListadoServiciosClienteComponent,
-            editar_servicio_cliente_component_1.EditarServicioClienteComponent, listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent
+            editar_servicio_cliente_component_1.EditarServicioClienteComponent, listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent, ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

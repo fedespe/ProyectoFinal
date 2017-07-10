@@ -10,7 +10,7 @@
         </div>-->
 
         <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let publicacion of publicaciones;">
+            <a routerLink="/dashboard/ver-publicacion-ofrecida/{{publicacion.Id}}" class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let publicacion of publicaciones;">
                 <div class="container">
                     <div class="row">
                         <div class="col">
