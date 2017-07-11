@@ -219,6 +219,66 @@ namespace AdministradoresWeb.Controllers
             }
         }
 
+        //GET: Cliente/IngresarImagen
+        public ActionResult IngresarImagen(int idCliente = 0, string contrasena="")
+        {
+            try
+            {
+                if (idCliente != 0 && contrasena != "")
+                {
+                    IngresarImagenViewModel ingImgVM = new IngresarImagenViewModel();
+                    ingImgVM.Id = idCliente;
+                    ingImgVM.Contrasena = contrasena;
+                    ingImgVM.completarCliente();
+                    ingImgVM.asignarArchivoPorDefecto();
+
+                    return View(ingImgVM);
+                }
+                else {
+                    ViewBag.Mensaje = "No selecciono el usuario correctamente.";
+                    return View("~/Views/Shared/_MensajeAngular.cshtml");
+                }
+            }
+            catch (ProyectoException ex)
+            {
+                ViewBag.Mensaje = ex.Message;
+                return View("~/Views/Shared/_MensajeAngular.cshtml");
+            }           
+        }
+
+        //POST: Cliente/NuevoPass
+        [HttpPost]
+        public ActionResult IngresarImagen(IngresarImagenViewModel ingImgVM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ingImgVM.completarCliente();
+                    ingImgVM.guardarArchivo();
+                    ViewBag.Mensaje = "Imagen guardada con exito.";
+                    return View("~/Views/Shared/_MensajeAngular.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_MensajeAngular.cshtml");
+                }
+            }
+            else {
+                try
+                {
+                    ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                    return View("~/Views/Shared/_MensajeAngular.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_MensajeAngular.cshtml");
+                }
+            }
+        }
+
 
     }
 }

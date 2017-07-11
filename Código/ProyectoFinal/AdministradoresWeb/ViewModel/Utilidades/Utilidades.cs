@@ -8,6 +8,15 @@ namespace AdministradoresWeb.ViewModel.Utilidades
 {
     public static class Utilidades
     {
+        //Utilizada para asignar archivo cuando se da de alta el cliente desde angular, por si no selecciona una imagen y ya se creo el usuario, el mismo no quede sin imagen
+        public static void asignarArchivoPorDefecto(string directorio, string nombreArchivo)
+        {
+            string ruta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, directorio);            
+            //Asiganar imagen 
+            if (!System.IO.File.Exists(System.IO.Path.Combine(ruta, nombreArchivo)))
+                File.Copy(System.IO.Path.Combine(ruta, "SinImagen.jpg"), System.IO.Path.Combine(ruta, nombreArchivo));
+        }
+
         //Para guardar archivos recien creados NO MODIFICADOS
         //Ejemplo de uso Utilidades.Utilidades.guardarArchivo("Imagenes/Servicios/", "nombreImg1.jpg", Archivo);
         public static void guardarArchivoNuevo(string directorio, string nombreArchivo, HttpPostedFileBase archivo)
@@ -22,8 +31,9 @@ namespace AdministradoresWeb.ViewModel.Utilidades
                 archivo.SaveAs(System.IO.Path.Combine(ruta, nombreArchivo));
             }
             else {
-                //Asiganar imagen                   
-                File.Copy(System.IO.Path.Combine(ruta, "SinImagen.jpg"), System.IO.Path.Combine(ruta, nombreArchivo));
+                //Asiganar imagen 
+                if (!System.IO.File.Exists(System.IO.Path.Combine(ruta, nombreArchivo)))
+                    File.Copy(System.IO.Path.Combine(ruta, "SinImagen.jpg"), System.IO.Path.Combine(ruta, nombreArchivo));
             }
         }
 

@@ -187,6 +187,7 @@
     <Compile Include="ViewModel\AdministradorViewModel\AltaAdminViewModel.cs" />
     <Compile Include="ViewModel\AdministradorViewModel\CambiarPassViewModel.cs" />
     <Compile Include="ViewModel\AdministradorViewModel\EditarViewModel.cs" />
+    <Compile Include="ViewModel\ClienteViewModel\IngresarImagenViewModel.cs" />
     <Compile Include="ViewModel\ClienteViewModel\NuevoPassViewModel.cs" />
     <Compile Include="ViewModel\CuentaViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PreguntaViewModel\AltaPreguntaViewModel.cs" />
@@ -269,6 +270,8 @@
     <Content Include="Views\Servicio\ListaServicios.cshtml" />
     <Content Include="Views\Servicio\AltaServicio.cshtml" />
     <Content Include="Views\Servicio\Editar.cshtml" />
+    <Content Include="Views\Cliente\IngresarImagen.cshtml" />
+    <Content Include="Views\Shared\_MensajeAngular.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

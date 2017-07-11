@@ -25,7 +25,12 @@ var RegistroClienteComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.cliente = new cliente_1.Cliente();
         this.barrios = [];
+        this.step = 1;
+        this.urlImagen = "http://localhost:39770/Cliente/IngresarImagen"; //?idCliente=3&contrasena=123456789";
         this.obtenerBarrios();
+        //Prueba
+        //this.step=2;
+        //fin prueba
     }
     RegistroClienteComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
@@ -83,7 +88,8 @@ var RegistroClienteComponent = (function () {
             //localStorage.setItem('access_token', oauth.access_token); como ejemplo
             localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
             localStorage.setItem('id-usuario', response.Objetos[0].Id);
-            this.router.navigate(['dashboard/overview']);
+            this.step = 2;
+            //this.router.navigate(['dashboard/overview']);
         }
         else {
             utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));

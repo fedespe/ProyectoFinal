@@ -22,9 +22,16 @@ export class RegistroClienteComponent {
     cliente:Cliente = new Cliente();
     barrios:Barrio[] = [];
     contrasenaConfirmacion:string;
+    step:number=1;
+    urlImagen:string="http://localhost:39770/Cliente/IngresarImagen";//?idCliente=3&contrasena=123456789";
+    
 
     constructor(private dataService: DataService, private router: Router) {      
         this.obtenerBarrios();
+        
+        //Prueba
+        //this.step=2;
+        //fin prueba
     }
 
     borrarMensajes(){
@@ -100,7 +107,8 @@ export class RegistroClienteComponent {
             //localStorage.setItem('access_token', oauth.access_token); como ejemplo
             localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
             localStorage.setItem('id-usuario', response.Objetos[0].Id);
-            this.router.navigate(['dashboard/overview']);
+            this.step=2;            
+            //this.router.navigate(['dashboard/overview']);
         }
         else{
             Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));

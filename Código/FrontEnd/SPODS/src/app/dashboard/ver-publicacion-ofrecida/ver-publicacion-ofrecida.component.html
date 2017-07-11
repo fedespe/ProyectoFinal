@@ -9,9 +9,31 @@
                     <div class="card">
                         <div class="container">
                             <div class="row">
-                                <div class="col">                      
-                                    <img class="card-img-top" src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" alt="{{publicacion.Imagenes[0]}}" height="100" width="100">
-                                    Galeria de imagenes  
+                                <div class="col-4">   
+
+                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner" role="listbox">
+                                            <div class="carousel-item active" >
+                                                <!--class="d-block img-fluid"-->
+                                                <img class="d-block" src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}"  alt="First slide" height="200" width="200">
+                                            </div>
+                                            <!--Se repite la primera imagen, es solo de prueba hay que elegir una galeria acorde-->
+                                            <div class="carousel-item" *ngFor="let imagen of publicacion.Imagenes;">           
+                                                <img class="d-block" src="{{baseURL}}/Imagenes/Ofertas/{{imagen}}"  alt="First slide"  height="200" width="200">
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                        
+                                    <!--<img class="card-img-top" src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" alt="{{publicacion.Imagenes[0]}}" height="100" width="100">
+                                    Galeria de imagenes  -->
                                 </div>
                                 <div class="col-8">
                                     <div class="card-block">             
@@ -41,9 +63,17 @@
                     <div class="card">
                         <img class="card-img-top align-self-center" src="{{baseURL}}/Imagenes/Clientes/{{publicacion.Cliente.Imagen}}" alt="{{publicacion.Cliente.Imagen}}" height="100" width="100">
                         <div class="card-block">
-                            <h4 class="card-title">{{publicacion.Cliente.NombreUsuario}}</h4>
+                            <h4 class="card-title" style="text-align: center">{{publicacion.Cliente.NombreUsuario}}</h4>
                             <p class="card-text">Puntuación...</p>
-                            <a href="#" class="btn btn-primary">Ver comentarios</a>
+                            <p class="card-text">Comentarios...</p>
+                            <!--<a href="#" class="btn btn-primary">Contactar</a>-->
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <a href="#" class="btn btn-primary">Contactar</a>
+                                    </div>                                   
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>               
