@@ -16,8 +16,6 @@ var utilidades_1 = require("../shared/utilidades");
 var mensaje_1 = require("../shared/mensaje");
 var error_1 = require("../shared/error");
 var cliente_1 = require("../shared/cliente");
-var carro_1 = require("../shared/carro");
-var marca_1 = require("../shared/marca");
 var RegistroClienteComponent = (function () {
     function RegistroClienteComponent(dataService, router) {
         this.dataService = dataService;
@@ -28,35 +26,49 @@ var RegistroClienteComponent = (function () {
         this.step = 1;
         this.urlImagen = "http://localhost:39770/Cliente/IngresarImagen"; //?idCliente=3&contrasena=123456789";
         this.obtenerBarrios();
-        //Prueba
-        //this.step=2;
-        //fin prueba
     }
     RegistroClienteComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     };
+    RegistroClienteComponent.prototype.registrarClientePaso1 = function () {
+        this.borrarMensajes(),
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
+        this.cliente.Habilitado = true;
+        this.mensajes.Errores = this.cliente.validarDatos1();
+        if (this.mensajes.Errores.length == 0) {
+            this.step = 2;
+        }
+    };
+    RegistroClienteComponent.prototype.registrarClientePaso2 = function () {
+        this.borrarMensajes(),
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
+        this.cliente.Habilitado = true;
+        this.mensajes.Errores = this.cliente.validarDatos2(this.contrasenaConfirmacion);
+        if (this.mensajes.Errores.length == 0) {
+            this.registrarCliente();
+        }
+    };
+    RegistroClienteComponent.prototype.registrarClientePaso3 = function () {
+        this.ingresarCliente();
+    };
+    RegistroClienteComponent.prototype.volverPaso1 = function () {
+        this.step = 1;
+    };
     RegistroClienteComponent.prototype.registrarCliente = function () {
         var _this = this;
         this.borrarMensajes();
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
-        this.cliente.Habilitado = true;
-        this.mensajes.Errores = this.cliente.validarDatos(this.contrasenaConfirmacion);
         if (this.mensajes.Errores.length == 0) {
             this.dataService.postRegistrarCliente(this.cliente)
                 .subscribe(function (res) { return _this.postRegistrarClienteOk(res); }, function (error) { return _this.postRegistrarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistrarCliente: Completado"); });
         }
-        //this.pruebaGetSinParametro();
-        //this.pruebaGetConParametro();
-        //this.pruebaPost();
-        //this.pruebaPut();
-        //this.pruebaDelete();
     };
     RegistroClienteComponent.prototype.postRegistrarClienteOk = function (response) {
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response.Codigo));
-            this.ingresarCliente();
+            this.step = 3;
         }
         else {
             utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
@@ -88,8 +100,7 @@ var RegistroClienteComponent = (function () {
             //localStorage.setItem('access_token', oauth.access_token); como ejemplo
             localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
             localStorage.setItem('id-usuario', response.Objetos[0].Id);
-            this.step = 2;
-            //this.router.navigate(['dashboard/overview']);
+            this.router.navigate(['dashboard/overview']);
         }
         else {
             utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
@@ -125,65 +136,6 @@ var RegistroClienteComponent = (function () {
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
-    };
-    //*************************** */
-    //PRUEBA SERVICIOS
-    //*************************** */
-    RegistroClienteComponent.prototype.pruebaGetSinParametro = function () {
-        var _this = this;
-        this.dataService.getCarroObtenerTodos()
-            .subscribe(function (res) { return _this.pruebaOk(res); }, function (error) { return _this.pruebaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getCarroObtenerTodos: Completado"); });
-    };
-    RegistroClienteComponent.prototype.pruebaGetConParametro = function () {
-        var _this = this;
-        var id = 1;
-        this.dataService.getCarroObtenerPorId(id)
-            .subscribe(function (res) { return _this.pruebaOk(res); }, function (error) { return _this.pruebaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getCarroObtenerPorId: Completado"); });
-    };
-    RegistroClienteComponent.prototype.pruebaPost = function () {
-        var _this = this;
-        var marca = new marca_1.Marca();
-        marca.Id = 6;
-        marca.Nombre = "Volvo";
-        var carro = new carro_1.Carro();
-        carro.Id = 6;
-        carro.Marca = marca;
-        carro.Modelo = 2017;
-        this.dataService.postCarroAlta(carro)
-            .subscribe(function (res) { return _this.pruebaOk(res); }, function (error) { return _this.pruebaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postCarroAlta: Completado"); });
-    };
-    RegistroClienteComponent.prototype.pruebaPut = function () {
-        var _this = this;
-        var marca = new marca_1.Marca();
-        marca.Id = 6;
-        marca.Nombre = "Volvo";
-        var carro = new carro_1.Carro();
-        carro.Id = 1;
-        carro.Marca = marca;
-        carro.Modelo = 2017;
-        this.dataService.putCarroActualizar(carro)
-            .subscribe(function (res) { return _this.pruebaOk(res); }, function (error) { return _this.pruebaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putCarroActualizar: Completado"); });
-    };
-    RegistroClienteComponent.prototype.pruebaDelete = function () {
-        var _this = this;
-        var marca = new marca_1.Marca();
-        marca.Id = 1;
-        marca.Nombre = "Ferrari";
-        var carro = new carro_1.Carro();
-        carro.Id = 1;
-        carro.Marca = marca;
-        carro.Modelo = 2012;
-        this.dataService.deleteCarroEliminar(carro)
-            .subscribe(function (res) { return _this.pruebaOk(res); }, function (error) { return _this.pruebaError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - deleteCarroEliminar: Completado"); });
-    };
-    RegistroClienteComponent.prototype.pruebaOk = function (response) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - pruebaOk | response: " + JSON.stringify(response));
-    };
-    RegistroClienteComponent.prototype.pruebaError = function (error) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - pruebaError | error: " + JSON.stringify(error));
-        var errorInesperado = new error_1.Error();
-        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(errorInesperado);
     };
     return RegistroClienteComponent;
 }());

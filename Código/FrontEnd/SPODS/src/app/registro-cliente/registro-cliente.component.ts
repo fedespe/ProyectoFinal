@@ -28,23 +28,46 @@ export class RegistroClienteComponent {
 
     constructor(private dataService: DataService, private router: Router) {      
         this.obtenerBarrios();
-        
-        //Prueba
-        //this.step=2;
-        //fin prueba
     }
+
+    
 
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     }
 
+    registrarClientePaso1(){
+        this.borrarMensajes(),
+        Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
+        this.cliente.Habilitado = true;
+        this.mensajes.Errores = this.cliente.validarDatos1();
+        if(this.mensajes.Errores.length == 0){
+            this.step=2;
+        }       
+    }
+    registrarClientePaso2(){
+        this.borrarMensajes(),
+        Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
+        this.cliente.Habilitado = true;
+        this.mensajes.Errores = this.cliente.validarDatos2(this.contrasenaConfirmacion);
+        if(this.mensajes.Errores.length == 0){
+            this.registrarCliente();          
+        }     
+    }
+    registrarClientePaso3(){
+        this.ingresarCliente();
+    }
+
+    volverPaso1(){
+        this.step=1;
+    }
+
+
     registrarCliente() {
         this.borrarMensajes();
         Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
 
-        this.cliente.Habilitado = true;
-        this.mensajes.Errores = this.cliente.validarDatos(this.contrasenaConfirmacion);
 
         if(this.mensajes.Errores.length == 0){
             this.dataService.postRegistrarCliente(this.cliente)
@@ -54,12 +77,6 @@ export class RegistroClienteComponent {
                 () => Utilidades.log("[registro-cliente.component.ts] - postRegistrarCliente: Completado")
             );
         }
-
-        //this.pruebaGetSinParametro();
-        //this.pruebaGetConParametro();
-        //this.pruebaPost();
-        //this.pruebaPut();
-        //this.pruebaDelete();
     }
 
     postRegistrarClienteOk(response:any){
@@ -67,7 +84,7 @@ export class RegistroClienteComponent {
 
         if(response.Codigo ==  200){
             Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response.Codigo));
-            this.ingresarCliente();
+            this.step=3;
         }
         else{
             Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
@@ -106,9 +123,8 @@ export class RegistroClienteComponent {
             //Guardar el response.Objetos[0] en local storage
             //localStorage.setItem('access_token', oauth.access_token); como ejemplo
             localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
-            localStorage.setItem('id-usuario', response.Objetos[0].Id);
-            this.step=2;            
-            //this.router.navigate(['dashboard/overview']);
+            localStorage.setItem('id-usuario', response.Objetos[0].Id);           
+            this.router.navigate(['dashboard/overview']);
         }
         else{
             Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
@@ -166,91 +182,105 @@ export class RegistroClienteComponent {
     //*************************** */
     //PRUEBA SERVICIOS
     //*************************** */
-    pruebaGetSinParametro(){
-        this.dataService.getCarroObtenerTodos()
-            .subscribe(
-            res => this.pruebaOk(res),
-            error => this.pruebaError(error),
-            () => Utilidades.log("[registro-cliente.component.ts] - getCarroObtenerTodos: Completado")
-        );
-    }
+    // pruebaGetSinParametro(){
+    //     this.dataService.getCarroObtenerTodos()
+    //         .subscribe(
+    //         res => this.pruebaOk(res),
+    //         error => this.pruebaError(error),
+    //         () => Utilidades.log("[registro-cliente.component.ts] - getCarroObtenerTodos: Completado")
+    //     );
+    // }
 
-    pruebaGetConParametro(){
-        let id : number = 1;
-        this.dataService.getCarroObtenerPorId(id)
-            .subscribe(
-            res => this.pruebaOk(res),
-            error => this.pruebaError(error),
-            () => Utilidades.log("[registro-cliente.component.ts] - getCarroObtenerPorId: Completado")
-        );
-    }
+    // pruebaGetConParametro(){
+    //     let id : number = 1;
+    //     this.dataService.getCarroObtenerPorId(id)
+    //         .subscribe(
+    //         res => this.pruebaOk(res),
+    //         error => this.pruebaError(error),
+    //         () => Utilidades.log("[registro-cliente.component.ts] - getCarroObtenerPorId: Completado")
+    //     );
+    // }
 
-    pruebaPost(){
-        let marca : Marca = new Marca();
-        marca.Id = 6;
-        marca.Nombre = "Volvo";
-        let carro : Carro = new Carro();
-        carro.Id = 6;
-        carro.Marca = marca;
-        carro.Modelo = 2017;
+    // pruebaPost(){
+    //     let marca : Marca = new Marca();
+    //     marca.Id = 6;
+    //     marca.Nombre = "Volvo";
+    //     let carro : Carro = new Carro();
+    //     carro.Id = 6;
+    //     carro.Marca = marca;
+    //     carro.Modelo = 2017;
 
-        this.dataService.postCarroAlta(carro)
-            .subscribe(
-            res => this.pruebaOk(res),
-            error => this.pruebaError(error),
-            () => Utilidades.log("[registro-cliente.component.ts] - postCarroAlta: Completado")
-        );
-    }
+    //     this.dataService.postCarroAlta(carro)
+    //         .subscribe(
+    //         res => this.pruebaOk(res),
+    //         error => this.pruebaError(error),
+    //         () => Utilidades.log("[registro-cliente.component.ts] - postCarroAlta: Completado")
+    //     );
+    // }
 
-    pruebaPut(){
-        let marca : Marca = new Marca();
-        marca.Id = 6;
-        marca.Nombre = "Volvo";
+    // pruebaPut(){
+    //     let marca : Marca = new Marca();
+    //     marca.Id = 6;
+    //     marca.Nombre = "Volvo";
 
-        let carro : Carro = new Carro();
-        carro.Id = 1;
-        carro.Marca = marca;
-        carro.Modelo = 2017;
+    //     let carro : Carro = new Carro();
+    //     carro.Id = 1;
+    //     carro.Marca = marca;
+    //     carro.Modelo = 2017;
         
-        this.dataService.putCarroActualizar(carro)
-            .subscribe(
-            res => this.pruebaOk(res),
-            error => this.pruebaError(error),
-            () => Utilidades.log("[registro-cliente.component.ts] - putCarroActualizar: Completado")
-        );
-    }
+    //     this.dataService.putCarroActualizar(carro)
+    //         .subscribe(
+    //         res => this.pruebaOk(res),
+    //         error => this.pruebaError(error),
+    //         () => Utilidades.log("[registro-cliente.component.ts] - putCarroActualizar: Completado")
+    //     );
+    // }
 
-    pruebaDelete(){
-        let marca : Marca = new Marca();
-        marca.Id = 1;
-        marca.Nombre = "Ferrari";
+    // pruebaDelete(){
+    //     let marca : Marca = new Marca();
+    //     marca.Id = 1;
+    //     marca.Nombre = "Ferrari";
 
-        let carro : Carro = new Carro();
-        carro.Id = 1;
-        carro.Marca = marca;
-        carro.Modelo = 2012;
+    //     let carro : Carro = new Carro();
+    //     carro.Id = 1;
+    //     carro.Marca = marca;
+    //     carro.Modelo = 2012;
         
-        this.dataService.deleteCarroEliminar(carro)
-            .subscribe(
-            res => this.pruebaOk(res),
-            error => this.pruebaError(error),
-            () => Utilidades.log("[registro-cliente.component.ts] - deleteCarroEliminar: Completado")
-        );
-    }
+    //     this.dataService.deleteCarroEliminar(carro)
+    //         .subscribe(
+    //         res => this.pruebaOk(res),
+    //         error => this.pruebaError(error),
+    //         () => Utilidades.log("[registro-cliente.component.ts] - deleteCarroEliminar: Completado")
+    //     );
+    // }
 
-    pruebaOk(response:any){
-        Utilidades.log("[registro-cliente.component.ts] - pruebaOk | response: " + JSON.stringify(response));
-    }
+    // pruebaOk(response:any){
+    //     Utilidades.log("[registro-cliente.component.ts] - pruebaOk | response: " + JSON.stringify(response));
+    // }
 
-    pruebaError(error:any){
-        Utilidades.log("[registro-cliente.component.ts] - pruebaError | error: " + JSON.stringify(error));
-        var errorInesperado = new Error();
-        errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(errorInesperado);
-    }
+    // pruebaError(error:any){
+    //     Utilidades.log("[registro-cliente.component.ts] - pruebaError | error: " + JSON.stringify(error));
+    //     var errorInesperado = new Error();
+    //     errorInesperado.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+    //     this.mensajes.Errores.push(errorInesperado);
+    // }
 
     //*************************** */
     //PRUEBA SERVICIOS
     //*************************** */
+
+    // setClassesStep1(){
+    //     let classes = {
+    //         hidden: this.step==1,  
+    //     };
+    //     return classes;
+    // }
+
+    // setClassesStep2(){
+    //     let classes = {
+    //         hidden: this.step==2,  
+    //     };
+    //     return classes;
+    // }
    
 }

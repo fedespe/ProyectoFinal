@@ -30,13 +30,19 @@
                 //Lista de errores
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="col-xs-8">
-                    <div class="thumbnail" style="cursor: pointer;">
-                        <img src=@("/Imagenes/Clientes/SinImagen.jpg") id="ImgArchivo" onclick="$('#Archivo').click()" style="width:100%; height:100%;" />
+                <div class="col-xs-12">
+                    <div class="col-xs-6">
+                        <div class="thumbnail" style="cursor: pointer;">
+                            <img src=@("/Imagenes/Clientes/SinImagen.jpg") id="ImgArchivo" onclick="$('#Archivo').click()" style="width:100%; height:100%;" />
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">
+                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Guardar
+                        </button>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;">
-                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Guardar
-                    </button>
+                    <div class="col-xs-6">
+                        <div class="alert alert-info" role="alert">Seleccione una imagen para su perfil.</div>
+                    </div>
+
                 </div>
 
                 <input type="file" style="display:none;" name="Archivo" id="Archivo" onchange="$(mostrarImagen(this));">
