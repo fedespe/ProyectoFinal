@@ -46,6 +46,9 @@ namespace BL
         {
             publicacionDAL.deshabilitarPublicacion(id);
         }
+        public int obtenerUltimoIdPublicacionCliente(int idCliente) {
+            return publicacionDAL.obtenerUltimoIdPublicacionCliente(idCliente);
+        }
         public void guardarImagenesPublicacion(Publicacion publicacion) {
             publicacionDAL.guardarImagenePublicacion(publicacion);
         }

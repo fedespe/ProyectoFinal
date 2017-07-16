@@ -53,8 +53,8 @@
                     var s = "Archivo" + contador;
                     var s1 = "ImgArchivo" + contador;
                     var s3 = "EliminarArchivo" + contador;
-                    <div class="col-xs-6 col-md-2" style="padding-bottom:10px;">
-                        <div class="thumbnail">
+                    <div class="col-xs-4 col-md-2" style="padding-bottom:10px;">
+                        <div class="thumbnail" style="cursor: pointer;">
                             <img src=@("/Imagenes/Ofertas/" + i) id="@s1" onclick="$(@s).click()" style="width:80%; height:80%;" />
                             <div class="caption">
                                 <label class="checkbox-inline">
@@ -72,8 +72,8 @@
                     var s = "Archivo" + @i;
                     var s1 = "ImgArchivo" + @i;
                     var s3 = "EliminarArchivo" + @i;
-                    <div class="col-xs-6 col-md-2" style="padding-bottom:10px;">
-                        <div class="thumbnail">
+                    <div class="col-xs-4 col-md-2" style="padding-bottom:10px;">
+                        <div class="thumbnail" style="cursor: pointer;">
                             <img src=@("/Imagenes/Ofertas/SinImagen.jpg") id="@s1" onclick="$(@s).click()" style="width:100%; height:100%;" />
                             <div class="caption">
                                 <label class="checkbox-inline">
@@ -101,9 +101,9 @@
 
 
 
-                <div class="col-xs-10">
+                <div class="col-xs-12">
                     <div class="col-xs-12">
-                        <div class="alert alert-info" role="alert">Seleccione las imagenes para la publicación. Guarde los cambios realizados al finalizar.</div>
+                        <div class="alert alert-info" role="alert">Seleccione las imagenes para la publicación. Guarde los cambios realizados antes de finalizar.</div>
                     </div>
                     <div class="col-xs-12">
                         <button type="submit" class="btn btn-primary" style="width:100%;">

@@ -181,6 +181,22 @@ namespace WebAPI.Controllers
             return retorno;
         }
 
+        [HttpGet, Route("api/Publicacion/obtenerUltimoIdPublicacionCliente/{id}")]
+        public Retorno obtenerUltimoIdPublicacionCliente(int id)
+        {
+            try
+            {
+                retorno.Objetos.Add(publicacionBL.obtenerUltimoIdPublicacionCliente(id)); ;
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
 
     }
 }

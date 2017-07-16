@@ -22,6 +22,41 @@ export class Publicacion {
         this.Cliente=new Cliente();
         this.Servicio=new Servicio();
     }
+    
+    public validarDatos1() : Error[]{
+        Utilidades.log("[publicacion.ts] - validarDatos | this: " + JSON.stringify(this));
+
+        var error : Error;
+        var errores : Error[] = [];
+        
+        if(this.Titulo == null){
+            error = new Error();
+            error.Descripcion = "Debe ingresar un título a la publicación.";
+            errores.push(error);
+        }else{
+            if(this.Titulo.trim().length < 3){
+                error = new Error();
+                error.Descripcion = "El título debe tener al menos 3 caracteres.";
+                errores.push(error);
+            }
+        }  
+
+        if(this.Servicio.Id == null){
+            error = new Error();
+            error.Descripcion = "Debe seleccionar un servicio.";
+            errores.push(error);
+        }   
+        if(this.Servicio.Id == 0){
+            error = new Error();
+            error.Descripcion = "Debe seleccionar un servicio.";
+            errores.push(error);
+        }     
+        if(this.Descripcion == null){
+            this.Descripcion="Sin descripción.";
+        }      
+        
+        return errores;
+    }
 
 public validarDatos() : Error[]{
         Utilidades.log("[publicacion.ts] - validarDatos | this: " + JSON.stringify(this));

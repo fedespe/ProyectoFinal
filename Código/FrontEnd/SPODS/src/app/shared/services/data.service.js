@@ -178,6 +178,14 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getUltimoIdPublicacionCliente = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/obtenerUltimoIdPublicacionCliente/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS PUBLICACION
     //*************************** */

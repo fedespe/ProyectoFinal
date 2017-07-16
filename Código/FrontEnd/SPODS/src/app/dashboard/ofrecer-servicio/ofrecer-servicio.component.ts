@@ -22,6 +22,8 @@ export class OfrecerServicioComponent{
     publicacion: Publicacion = new Publicacion();
     servicioSeleccionado: Servicio = new Servicio();
     respuestas: string[] = [];
+    step:number=1;
+    urlImagen:string="http://localhost:39770/Oferta/IngresarImagenes";
 
     constructor(private dataService: DataService, private router: Router) {
         this.publicacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario'));
@@ -32,15 +34,34 @@ export class OfrecerServicioComponent{
         this.obtenerServicios();
 
         //Solo prueba
-        this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG1.jpg");
-        this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG2.jpg");
-        this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG3.jpg");
+        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG1.jpg");
+        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG2.jpg");
+        // this.publicacion.Imagenes.push("PUBLICACIONPRUEBAANGULAR_IMG3.jpg");
     }
 
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     }
+
+    ofrecerServicioPaso1(){
+        this.borrarMensajes(),
+        this.mensajes.Errores = this.publicacion.validarDatos1();
+        if(this.mensajes.Errores.length == 0){
+            this.step=2;
+        }    
+    }
+    ofrecerServicioPaso2(){
+        this.postAltaPublicacion();
+        this.step=3;
+    }
+    ofrecerServicioPaso3(){
+       this.router.navigate(['dashboard/listado-servicios-cliente']);
+    }
+    volverPaso1(){
+        this.step=1;
+    }
+
 
     obtenerServicios(){
         this.dataService.getServicioObtenerTodos()
@@ -110,38 +131,30 @@ export class OfrecerServicioComponent{
 
     postAltaPublicacion(){
         Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.respuestas));
-        this.mensajes.Errores = this.publicacion.validarDatos();
-        if(this.mensajes.Errores.length==0){
-            // for (var i = 0; i < this.respuestas.length; i++) {
-            //     if(this.respuestas[i]!=null){
-            //         var r = new Respuesta();
-            //         r.Pregunta.Id=i;
-            //         r.UnaRespuesta=this.respuestas[i];
-            //         this.publicacion.Respuestas.push(r);
-            //     }
-            // } 
-            for (var i = 0; i < this.servicioSeleccionado.Preguntas.length; i++) {
-                if(this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=null && this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=""){
-                    var r = new Respuesta();
-                    r.Pregunta.Id=this.servicioSeleccionado.Preguntas[i].Id;
-                    r.UnaRespuesta=this.servicioSeleccionado.Preguntas[i].UnaRespuesta;
-                    this.publicacion.Respuestas.push(r);
-                }              
-            } 
-            Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.publicacion));
-            this.dataService.postAltaPublicacion(this.publicacion)
-                .subscribe(
-                res => this.postAltaPublicacionOk(res),
-                error => this.postAltaPublicacionError(error),
-                () => Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion: Completado")
-            );
-        }
+        //this.mensajes.Errores = this.publicacion.validarDatos();
+        //if(this.mensajes.Errores.length==0){
+        for (var i = 0; i < this.servicioSeleccionado.Preguntas.length; i++) {
+            if(this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=null && this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=""){
+                var r = new Respuesta();
+                r.Pregunta.Id=this.servicioSeleccionado.Preguntas[i].Id;
+                r.UnaRespuesta=this.servicioSeleccionado.Preguntas[i].UnaRespuesta;
+                this.publicacion.Respuestas.push(r);
+            }              
+        } 
+        Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.publicacion));
+        this.dataService.postAltaPublicacion(this.publicacion)
+            .subscribe(
+            res => this.postAltaPublicacionOk(res),
+            error => this.postAltaPublicacionError(error),
+            () => Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion: Completado")
+        );
+        //}
         
     }
 
     postAltaPublicacionOk(response:any){  
         if(response.Codigo ==  200){
-            this.router.navigate(['dashboard/listado-servicios-cliente']);
+            this.obtenerUtlimaPublicacioncliente();          
         }
         else{
             var error = new Error();
@@ -157,6 +170,34 @@ export class OfrecerServicioComponent{
         this.mensajes.Errores.push(error);
     }
 
+    obtenerUtlimaPublicacioncliente(){
+        var idCli=parseInt(localStorage.getItem('id-usuario'));
+        this.dataService.getUltimoIdPublicacionCliente(idCli)
+            .subscribe(
+            res => this.getUltimoIdPublicacionClienteOK(res),
+            error => this.getUltimoIdPublicacionClienteError(error),
+            () => Utilidades.log("[ofrecer-servicio.component.ts] - getUltimoIdPublicacionCliente: Completado")
+        );
+    }
+    getUltimoIdPublicacionClienteOK(response:any){  
+        if(response.Codigo ==  200){
+            Utilidades.log("[ofrecer-servicio.component.ts] - getUltimoIdPublicacionClienteOK | responseError: " + JSON.stringify(response.Objetos[0]));
+            this.publicacion.Id = parseInt(response.Objetos[0]);
+            document.getElementById('inputIdPublicacion').setAttribute('value',this.publicacion.Id.toString());
+            document.getElementById('mostrarImagenes').click();
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getUltimoIdPublicacionClienteError(responseError:any){
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
 
 
 }

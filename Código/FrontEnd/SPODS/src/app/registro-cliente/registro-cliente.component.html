@@ -81,8 +81,9 @@
             <label for="inputContrasenaConfirmacion" class="sr-only">Repetir Contraseña</label>
             <input type="password" class="form-control" id="inputContrasenaConfirmacion" [(ngModel)]="contrasenaConfirmacion" name="ContrasenaConfirmacion" placeholder="Repetir Contraseña">
 
-            <button class="btn btn-lg btn-primary btn-block" (click)="registrarClientePaso2()" onclick="document.getElementById('moodleform').submit();">Siguiente</button>          
+            <button class="btn btn-lg btn-primary btn-block" (click)="registrarClientePaso2()">Siguiente</button>          
             <button class="btn btn-lg btn-secondary btn-block" (click)="volverPaso1()" >Anterior</button>
+            <button onclick="document.getElementById('moodleform').submit();" id="mostrarImagenes" style="display: none"></button>
         </div>
 
         <!--PASO 3-->
@@ -110,8 +111,9 @@
             </div>
             <!--<button class="btn btn-lg btn-primary " id="btnFrame" onclick="document.getElementById('moodleform').submit();">Prueba</button>-->
             <form id="moodleform" target="iframe" method="get" action="{{urlImagen}}">
-                <input type="hidden" name="idCliente" value="3"/>
-                <input type="hidden" name="contrasena" value="123456789"/>
+                <!--NO SE POR QUE EN LA CONTRASE;A ANDA BIEN ANGULAR PERO EN EL IDCLIENTE NO... LO SETEE A MANO DESDE TYPESCRIPT-->
+                <input type="hidden" name="idCliente" id="inputIdCliente"/>
+                <input type="hidden" name="contrasena" value="{{cliente.Contrasena}}"/>
             </form>
             <iframe name="iframe" width=100% height=350 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
             <button class="btn btn-lg btn-primary btn-block" (click)="registrarClientePaso3()">Finalizar</button>
@@ -131,6 +133,7 @@
     </div>
   </div>
 </div>
+
 
 
 

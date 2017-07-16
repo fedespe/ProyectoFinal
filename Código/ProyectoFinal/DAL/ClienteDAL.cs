@@ -129,7 +129,7 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@barrio", cli.Barrio.Id);
                         cmd.Parameters.AddWithValue("@tipo", "CLIENTE");
 
-                        cmd.Parameters.AddWithValue("@img", "CLIENTE.jpg");
+                        cmd.Parameters.AddWithValue("@img", cli.NombreUsuario.ToUpper().Replace(" ", "") + ".jpg");
 
                         con.Open();
                         trn = con.BeginTransaction();

@@ -225,6 +225,17 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    public getUltimoIdPublicacionCliente(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerUltimoIdPublicacionCliente/' + id;
+
+        Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
     //*************************** */
     // FIN SERVICIOS PUBLICACION
     //*************************** */

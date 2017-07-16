@@ -210,7 +210,7 @@ namespace DAL
         public List<Publicacion> obtenerTodos()
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND s.id=p.ServicioId ORDER BY p.Id;";
+            string cadenaSelectPublicacion = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -241,7 +241,8 @@ namespace DAL
                                         Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]) },
                                         Imagenes = new List<string>()
                                     };
-                                    publicacion.Imagenes.Add(dr["Imagen"].ToString());
+                                    if(dr["Imagen"]!= DBNull.Value)
+                                        publicacion.Imagenes.Add(dr["Imagen"].ToString());
                                     publicaciones.Add(publicacion);
                                     ultimoId = Convert.ToInt32(dr["IdPublicacion"]);
                                 }//EN UN ELSE SI QUISIERA TRAIGO EL RESTO DE LAS IMAGENES
@@ -260,7 +261,7 @@ namespace DAL
         public List<Publicacion> obtenerPublicacionesCliente(int idCliente)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND p.ClienteId=@idCliente AND s.id=p.ServicioId;";
+            string cadenaSelectPublicacion = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id Where p.ClienteId=3 ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -292,7 +293,8 @@ namespace DAL
                                         Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]) },
                                         Imagenes = new List<string>()
                                     };
-                                    publicacion.Imagenes.Add(dr["Imagen"].ToString());
+                                    if (dr["Imagen"] != DBNull.Value)
+                                        publicacion.Imagenes.Add(dr["Imagen"].ToString());
                                     publicaciones.Add(publicacion);
                                     ultimoId = Convert.ToInt32(dr["IdPublicacion"]);
                                 }//EN UN ELSE SI QUISIERA TRAIGO EL RESTO DE LAS IMAGENES
@@ -311,7 +313,7 @@ namespace DAL
         public List<Publicacion> obtenerPublicacionesServicio(int idServicio)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s, USUARIO u WHERE i.PublicacionId=p.Id AND p.ServicioId=@idServicio AND s.id=p.ServicioId AND p.Activa=1 AND u.Id=p.ClienteId;";
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId Where p.ServicioId=@idServicio AND p.Activa=1 ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -459,6 +461,25 @@ namespace DAL
                     SqlCommand cmd = new SqlCommand("Update Publicacion SET Activa = 0 WHERE id = @id", con);
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+        }
+
+        public int obtenerUltimoIdPublicacionCliente(int idCliente) {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+
+                    SqlCommand cmd = new SqlCommand("Select Max(p.Id) as ulitmaPub From Publicacion p WHERE ClienteId = @idCli;", con);
+                    cmd.Parameters.AddWithValue("@idCli", idCliente);
+                    int retorno = Convert.ToInt32(cmd.ExecuteScalar());
+                    return retorno;
                 }
             }
             catch (Exception ex)

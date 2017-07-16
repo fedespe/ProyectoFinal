@@ -50,7 +50,7 @@ var RegistroClienteComponent = (function () {
         }
     };
     RegistroClienteComponent.prototype.registrarClientePaso3 = function () {
-        this.ingresarCliente();
+        this.router.navigate(['dashboard/overview']);
     };
     RegistroClienteComponent.prototype.volverPaso1 = function () {
         this.step = 1;
@@ -68,6 +68,7 @@ var RegistroClienteComponent = (function () {
         utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistroClienteOk | response: " + JSON.stringify(response.Codigo));
+            this.ingresarCliente();
             this.step = 3;
         }
         else {
@@ -100,7 +101,10 @@ var RegistroClienteComponent = (function () {
             //localStorage.setItem('access_token', oauth.access_token); como ejemplo
             localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
             localStorage.setItem('id-usuario', response.Objetos[0].Id);
-            this.router.navigate(['dashboard/overview']);
+            //PARA EL SUBMIT DEL IFRAME        
+            this.cliente.Id = response.Objetos[0].Id;
+            document.getElementById('inputIdCliente').setAttribute('value', this.cliente.Id.toString());
+            document.getElementById('mostrarImagenes').click();
         }
         else {
             utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
