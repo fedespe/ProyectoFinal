@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="row">
-        <div class="col-md-4 pull-right">
+        <div>
             @*<h2>IngresarImagen</h2>*@
             @using (Html.BeginForm("IngresarImagen", "Cliente", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
@@ -40,7 +40,7 @@
                         </button>
                     </div>
                     <div class="col-xs-6">
-                        <div class="alert alert-info" role="alert">Seleccione una imagen para su perfil.</div>
+                        <div class="alert alert-info" role="alert">Seleccione una imagen para su perfil.. Guarde los cambios realizados al finalizar.</div>
                     </div>
 
                 </div>

@@ -224,7 +224,7 @@ namespace AdministradoresWeb.Controllers
         {
             try
             {
-                if (idCliente != 0 && contrasena != "")
+                if (idCliente != 0 && contrasena != "")//FALTA CONTROL DE SEGURIDAD... VERIFICAR LA CONTRASENA
                 {
                     IngresarImagenViewModel ingImgVM = new IngresarImagenViewModel();
                     ingImgVM.Id = idCliente;

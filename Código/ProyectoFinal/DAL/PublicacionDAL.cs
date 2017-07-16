@@ -164,6 +164,49 @@ namespace DAL
                 throw new ProyectoException("Error: " + ex.Message);
             }
         }
+        public void guardarImagenePublicacion(Publicacion publicacion) {
+            string cadenaDeleteImagen = "DELETE FROM PublicacionImagen WHERE PublicacionId = @idPublicacion;";
+            string cadenaInsertImagen = "INSERT INTO PublicacionImagen VALUES(@idPublicacion,@imagen);";
+            SqlTransaction trn = null;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    using (SqlCommand cmd = new SqlCommand(cadenaDeleteImagen, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
+
+                        con.Open();
+                        trn = con.BeginTransaction();
+                        cmd.Transaction = trn;
+
+                        cmd.ExecuteNonQuery();
+                        if (publicacion.Imagenes != null)
+                        {
+                            cmd.CommandText = cadenaInsertImagen;
+                            foreach (string i in publicacion.Imagenes)
+                            {
+                                cmd.Parameters.Clear();
+                                cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
+                                cmd.Parameters.AddWithValue("@imagen", i);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                        trn.Commit();
+                        trn.Dispose();
+                        //trn = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //if (trn != null)
+                //{
+                //    trn.Rollback();
+                //}
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+        }
         public List<Publicacion> obtenerTodos()
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
@@ -318,7 +361,7 @@ namespace DAL
         }
         public Publicacion obtener(int id)
         {
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre,* from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND s.id=p.ServicioId AND p.Id=@id;";
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, s.Nombre as ServicioNombre,* from PUBLICACION p, SERVICIO s WHERE s.id=p.ServicioId AND p.Id=@id;";
             Publicacion publicacion = new Publicacion();
             try
             {

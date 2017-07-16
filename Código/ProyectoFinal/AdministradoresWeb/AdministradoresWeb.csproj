@@ -173,6 +173,7 @@
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OfertaController.cs" />
     <Compile Include="Controllers\PreguntaController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\SuperAdministradorController.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="ViewModel\ClienteViewModel\IngresarImagenViewModel.cs" />
     <Compile Include="ViewModel\ClienteViewModel\NuevoPassViewModel.cs" />
     <Compile Include="ViewModel\CuentaViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\OfertaViewModel\IngresarImagenesViewModel.cs" />
     <Compile Include="ViewModel\PreguntaViewModel\AltaPreguntaViewModel.cs" />
     <Compile Include="ViewModel\ServicioViewModel\AltaServicioViewModel.cs" />
     <Compile Include="ViewModel\ServicioViewModel\EditarServicioViewModel.cs" />
@@ -202,6 +204,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\oferta-imagenes.js" />
     <Content Include="Scripts\servicio-alta.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -272,6 +275,7 @@
     <Content Include="Views\Servicio\Editar.cshtml" />
     <Content Include="Views\Cliente\IngresarImagen.cshtml" />
     <Content Include="Views\Shared\_MensajeAngular.cshtml" />
+    <Content Include="Views\Oferta\IngresarImagenes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

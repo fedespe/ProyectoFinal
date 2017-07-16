@@ -46,6 +46,9 @@ namespace BL
         {
             publicacionDAL.deshabilitarPublicacion(id);
         }
+        public void guardarImagenesPublicacion(Publicacion publicacion) {
+            publicacionDAL.guardarImagenePublicacion(publicacion);
+        }
         //VER VALIDACIONES
         private void validarPublicacion(Publicacion publicacion)
         {
