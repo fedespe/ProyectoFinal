@@ -15,11 +15,11 @@
     <button class="btn btn-lg btn-primary btn-block" (click)="ingresarCliente()">Iniciar Sesión</button>
 
     <label class="btn-block">
-        <a href="javascript:void(0)" (click)="navegarRegistroCliente()">Registrarse</a>
+        <a href="javascript:void(0)" (click)="navegarRegistroCliente()"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a>
     </label>
 
     <label class="btn-block">
-        <a href="javascript:void(0)">Olvidó su contraseña?</a>
+        <a href="javascript:void(0)"><i class="fa fa-lock" aria-hidden="true"></i> Olvidó su contraseña?</a>
     </label>
 
     <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">

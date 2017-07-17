@@ -24,7 +24,9 @@ export class EditarServicioClienteComponent implements OnInit{
     servicioSeleccionado: Servicio = new Servicio();
     respuestas: string[] = [];
     idPublicacion:number;
+    step:number=1;
     urlImagen:string="http://localhost:39770/Oferta/IngresarImagenes";
+
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         
@@ -43,6 +45,29 @@ export class EditarServicioClienteComponent implements OnInit{
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+    }
+    editarServicioPaso1(){
+        this.borrarMensajes();
+        //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
+        //Se crea una nueva publicacion para hacer la validacion
+        var p = new Publicacion();
+        p.Titulo=this.publicacion.Titulo;
+        p.Servicio=this.publicacion.Servicio;
+        p.Descripcion=this.publicacion.Descripcion;
+        this.mensajes.Errores = p.validarDatos1();
+        //fin validacion
+        if(this.mensajes.Errores.length == 0){
+            this.step=2;
+        }    
+    }
+    editarServicioPaso2(){
+        this.putActualizarPublicacion();       
+    }
+    editarServicioPaso3(){
+        this.router.navigate(['dashboard/listado-servicios-cliente']);
+    }
+    volverPaso1(){
+        this.step=1;
     }
 
     obtenerPublicacion(){
@@ -151,7 +176,7 @@ export class EditarServicioClienteComponent implements OnInit{
     putActualizarPublicacionOk(response:any){       
         Utilidades.log("[[editar-servicio-cliente.component.ts] - putActualizarPublicacionOK | response: " + JSON.stringify(this.servicioSeleccionado));
         if(response.Codigo ==  200){
-            this.router.navigate(['dashboard/listado-servicios-cliente']);
+            this.step=3;
         }
         else{
             var error = new Error();

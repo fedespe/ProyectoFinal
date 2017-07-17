@@ -18,9 +18,9 @@
                     <td *ngIf="publicacion.Activa">Si</td>
                     <td *ngIf="!publicacion.Activa">No</td>
                     <td>
-                        <div class="linkManual float-left" routerLink="/dashboard/editar-servicio-cliente/{{publicacion.Id}}">Editar</div>
-                        <div *ngIf="!publicacion.Activa" class="linkManual float-left" (click)="activarPublicacion(publicacion.Id)">Activar</div>
-                        <div *ngIf="publicacion.Activa" class="linkManual float-left" (click)="desactivarPublicacion(publicacion.Id)">Desactivar</div>
+                        <div class="linkManual float-left" routerLink="/dashboard/editar-servicio-cliente/{{publicacion.Id}}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</div>
+                        <div *ngIf="!publicacion.Activa" class="linkManual float-left" (click)="activarPublicacion(publicacion.Id)"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
+                        <div *ngIf="publicacion.Activa" class="linkManual float-left" (click)="desactivarPublicacion(publicacion.Id)"><i class="fa fa-times" aria-hidden="true"></i> Desactivar</div>
                     </td>
                 </tr>
             </tbody>

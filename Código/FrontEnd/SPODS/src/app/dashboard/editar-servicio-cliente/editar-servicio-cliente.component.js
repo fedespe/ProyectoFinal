@@ -29,6 +29,7 @@ var EditarServicioClienteComponent = (function () {
         this.publicacion = new publicacion_1.Publicacion();
         this.servicioSeleccionado = new servicio_1.Servicio();
         this.respuestas = [];
+        this.step = 1;
         this.urlImagen = "http://localhost:39770/Oferta/IngresarImagenes";
     }
     EditarServicioClienteComponent.prototype.ngOnInit = function () {
@@ -44,6 +45,29 @@ var EditarServicioClienteComponent = (function () {
     EditarServicioClienteComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+    };
+    EditarServicioClienteComponent.prototype.editarServicioPaso1 = function () {
+        this.borrarMensajes();
+        //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
+        //Se crea una nueva publicacion para hacer la validacion
+        var p = new publicacion_1.Publicacion();
+        p.Titulo = this.publicacion.Titulo;
+        p.Servicio = this.publicacion.Servicio;
+        p.Descripcion = this.publicacion.Descripcion;
+        this.mensajes.Errores = p.validarDatos1();
+        //fin validacion
+        if (this.mensajes.Errores.length == 0) {
+            this.step = 2;
+        }
+    };
+    EditarServicioClienteComponent.prototype.editarServicioPaso2 = function () {
+        this.putActualizarPublicacion();
+    };
+    EditarServicioClienteComponent.prototype.editarServicioPaso3 = function () {
+        this.router.navigate(['dashboard/listado-servicios-cliente']);
+    };
+    EditarServicioClienteComponent.prototype.volverPaso1 = function () {
+        this.step = 1;
     };
     EditarServicioClienteComponent.prototype.obtenerPublicacion = function () {
         var _this = this;
@@ -134,7 +158,7 @@ var EditarServicioClienteComponent = (function () {
     EditarServicioClienteComponent.prototype.putActualizarPublicacionOk = function (response) {
         utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - putActualizarPublicacionOK | response: " + JSON.stringify(this.servicioSeleccionado));
         if (response.Codigo == 200) {
-            this.router.navigate(['dashboard/listado-servicios-cliente']);
+            this.step = 3;
         }
         else {
             var error = new error_1.Error();
