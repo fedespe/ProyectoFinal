@@ -24,6 +24,7 @@ export class EditarServicioClienteComponent implements OnInit{
     servicioSeleccionado: Servicio = new Servicio();
     respuestas: string[] = [];
     idPublicacion:number;
+    urlImagen:string="http://localhost:39770/Oferta/IngresarImagenes";
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         
@@ -57,7 +58,9 @@ export class EditarServicioClienteComponent implements OnInit{
     getPublicacionOk(response:any){
         Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
         if(response.Codigo ==  200){
-            this.publicacion = response.Objetos[0];          
+            this.publicacion = response.Objetos[0]; 
+            document.getElementById('inputIdPublicacion').setAttribute('value',this.publicacion.Id.toString());
+            document.getElementById('mostrarImagenes').click();         
             this.obtenerServicio(this.publicacion.Servicio.Id);
         }
         else{

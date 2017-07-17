@@ -29,6 +29,7 @@ var EditarServicioClienteComponent = (function () {
         this.publicacion = new publicacion_1.Publicacion();
         this.servicioSeleccionado = new servicio_1.Servicio();
         this.respuestas = [];
+        this.urlImagen = "http://localhost:39770/Oferta/IngresarImagenes";
     }
     EditarServicioClienteComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -54,6 +55,8 @@ var EditarServicioClienteComponent = (function () {
         utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicacion = response.Objetos[0];
+            document.getElementById('inputIdPublicacion').setAttribute('value', this.publicacion.Id.toString());
+            document.getElementById('mostrarImagenes').click();
             this.obtenerServicio(this.publicacion.Servicio.Id);
         }
         else {

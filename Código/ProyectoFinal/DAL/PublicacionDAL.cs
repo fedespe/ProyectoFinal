@@ -42,7 +42,7 @@ namespace DAL
                         cmd.Transaction = trn;
 
                         idPublicacionGenerado = (int)cmd.ExecuteScalar();
-                       
+                        //PUBLICACION.IMAGENES SIEMPRE VIENE EN NULL DEL FRONT, LAS IMAGENES SE GUARDAN DESDE EL IFRAME
                         if (publicacion.Imagenes != null) {
                             cmd.CommandText = cadenaInsertImagen;
                             foreach (string i in publicacion.Imagenes)
@@ -86,8 +86,8 @@ namespace DAL
         {
             string cadenaUpdatePublicacion = @"UPDATE Publicacion SET Titulo=@titulo, Descripcion=@descripcion 
                                             WHERE Id = @idPublicacion; ";
-            string cadenaDeleteImagen = "DELETE FROM PublicacionImagen WHERE PublicacionId = @idPublicacion;";
-            string cadenaInsertImagen = "INSERT INTO PublicacionImagen VALUES(@idPublicacion,@imagen);";
+            //string cadenaDeleteImagen = "DELETE FROM PublicacionImagen WHERE PublicacionId = @idPublicacion;";
+            //string cadenaInsertImagen = "INSERT INTO PublicacionImagen VALUES(@idPublicacion,@imagen);";
             string cadenaDeleteRespuestas = "DELETE FROM PUBLICACIONRESPUESTA WHERE PublicacionId = @idPublicacion;";
             string cadenaInsertRespuesta = "INSERT INTO PUBLICACIONRESPUESTA VALUES(@idPublicacion,@idServicio,@idPregunta,@respuesta);";
             SqlTransaction trn = null;
@@ -113,22 +113,23 @@ namespace DAL
 
                         cmd.ExecuteNonQuery();
 
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
-                        cmd.CommandText = cadenaDeleteImagen;
-                        cmd.ExecuteNonQuery();
+                        //NO SE SECESITA ACTUALIZAR IMAGENES, SE ACTUALIZAN CON IFRAME
+                        //cmd.Parameters.Clear();
+                        //cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
+                        //cmd.CommandText = cadenaDeleteImagen;
+                        //cmd.ExecuteNonQuery();
 
-                        if (publicacion.Imagenes != null)
-                        {
-                            cmd.CommandText = cadenaInsertImagen;
-                            foreach (string i in publicacion.Imagenes)
-                            {
-                                cmd.Parameters.Clear();
-                                cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
-                                cmd.Parameters.AddWithValue("@imagen", i);
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
+                        //if (publicacion.Imagenes != null)
+                        //{
+                        //    cmd.CommandText = cadenaInsertImagen;
+                        //    foreach (string i in publicacion.Imagenes)
+                        //    {
+                        //        cmd.Parameters.Clear();
+                        //        cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);
+                        //        cmd.Parameters.AddWithValue("@imagen", i);
+                        //        cmd.ExecuteNonQuery();
+                        //    }
+                        //}
 
                         cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@idPublicacion", publicacion.Id);

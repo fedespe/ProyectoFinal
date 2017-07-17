@@ -418,4 +418,14 @@ SELECT * FROM PREGUNTA;
 SELECT * FROM SERVICIO;
 SELECT * FROM SERVICIOPREGUNTA;
 SELECT * FROM PUBLICACION;
+SELECT * FROM PUBLICACIONIMAGEN;
+SELECT * FROM PUBLICACIONRESPUESTA;
 
+
+SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s WHERE i.PublicacionId=p.Id AND s.id=p.ServicioId ORDER BY p.Id;
+
+Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id Where p.ClienteId=3 ORDER BY p.Id;
+
+SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from PUBLICACION p, PUBLICACIONIMAGEN i, SERVICIO s, USUARIO u WHERE i.PublicacionId=p.Id AND p.ServicioId=1 AND s.id=p.ServicioId AND p.Activa=1 AND u.Id=p.ClienteId
+
+SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId Where p.ServicioId=1 AND p.Activa=1 ORDER BY p.Id;

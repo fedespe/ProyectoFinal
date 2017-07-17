@@ -12,8 +12,14 @@
         <label for="inputDescripcion" class="sr-only">Descripción:</label>
         <input type="text" class="form-control" [(ngModel)]="publicacion.Descripcion" id="inputDescripcion" name="Descripcion" placeholder="Descripción">
             
-        <p>FALTAN IMAGENES...</p>  
-
+        <form id="moodleform" target="iframe" method="get" action="{{urlImagen}}">
+                <input type="hidden" name="idPublicacion" id="inputIdPublicacion"/>
+                <input type="hidden" name="idCliente" value="3"/>
+                <input type="hidden" name="contrasena" value="123456789"/>
+            </form>
+        <iframe name="iframe" width=100% height=600 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
+        <button onclick="document.getElementById('moodleform').submit();" id="mostrarImagenes" style="display: none"></button> 
+        
         <div *ngIf="publicacion.Servicio.Preguntas.length > 0">
             <div *ngFor="let pregunta of publicacion.Servicio.Preguntas;">           
                 <label for="input{{pregunta.Id}}">{{pregunta.UnaPregunta}}</label>
@@ -21,7 +27,7 @@
             </div>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" (click)="putActualizarPublicacion()">Guardar</button>
+        <button class="btn btn-lg btn-primary btn-block" (click)="putActualizarPublicacion()">Finalizar</button>
 
         
 
