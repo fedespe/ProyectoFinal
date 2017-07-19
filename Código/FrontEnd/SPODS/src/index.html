@@ -2,20 +2,29 @@
 <html>
   <head>
     <title>SPODS</title>
-    <base href="/">
+    <base href="">
     <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+    <meta http-equiv="pragma" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	  <!-- For safari and older browsers -->
+    <!--<script> window.Promise || document.write('<script src="js/lib/bluebird.min.js"><\/script>')</script> -->
+    <!--<script type="text/javascript" src="js/lib/localforage.nopromises.min.js"></script> -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+	  <link href="css/global.css" rel="stylesheet">
+	
+	  <!-- Las 5 siguientes líneas son para Desarrollo -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="systemjs.config.js"></script>
-    <script>
-      System.import('main.js').catch(function(err){ console.error(err); });
-    </script>
+    <script>System.import('main.js').catch(function(err){ console.error(err); });</script>
+	  <!-- En Producción simplemente las dejamos comentadas -->
   </head>
+  
   <body>
     <my-app>
       <center>
@@ -28,6 +37,15 @@
         </div>
       </center>
     </my-app>
+	  <!-- For IE older browsers -->
+    <!--<script src="js/lib/check-ie.js"></script> -->
+    <!--<script>window.detectIE() && document.write('<script src="js/lib/es6-shim.min.js"><\/script><script src="js/lib/system-polyfills.js"><\/script><script src="js/lib/shims_for_IE.js"><\/script>')</script> -->
+	
+	  <!-- Las 2 siguientes líneas son para Producción -->
+  	<!--<script src="dist/vendor.bundle.min.js?9"></script>
+    <script src="dist/app.bundle.min.js?9"></script>
+  	 En desarrollo simplemente las dejamos comentadas -->
+	
     <script src="js/jquery-3.2.0.min.js"></script>
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
