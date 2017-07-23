@@ -1,7 +1,3 @@
-.errores {
-  margin-top: 20px;
-}
-
-.exitos {
-  margin-top: 20px;
+input, select, .contenedorProgressBar{
+  margin-bottom: 20px;
 }

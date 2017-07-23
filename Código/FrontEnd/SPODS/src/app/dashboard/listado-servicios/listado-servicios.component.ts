@@ -22,7 +22,6 @@ export class ListadoServiciosComponent{
         this.obtenerServicios();
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
     }
-
     
     borrarMensajes(){
         this.mensajes.Errores = [];

@@ -1,10 +1,8 @@
-.errores {
-  margin-top: 20px;
-}
-
-.exitos {
-  margin-top: 20px;
-}
 h1{
   text-align: center;
 }
+
+input{
+  margin-bottom: 20px;
+}
+

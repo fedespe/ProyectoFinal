@@ -4,11 +4,12 @@ GO
 DROP TABLE dbo.PRESUPUESTA;
 DROP TABLE dbo.PROVEE;
 DROP TABLE dbo.DENUNCIA;
+DROP TABLE dbo.COMENTARIOPUNTUACION;
 DROP TABLE dbo.PUBLICACIONRESPUESTA;
 DROP TABLE dbo.SERVICIOPREGUNTA;
 DROP TABLE dbo.PREGUNTA;
 DROP TABLE dbo.CATEGORIAPREGUNTA;
-DROP TABLE dbo.PUBLICACION_IMAGEN;
+DROP TABLE dbo.PUBLICACIONIMAGEN;
 DROP TABLE dbo.PUBLICACION;
 DROP TABLE dbo.SERVICIO;
 DROP TABLE dbo.SUPERADMINISTRADOR;
@@ -36,7 +37,7 @@ CREATE TABLE dbo.BARRIO
 
 	CONSTRAINT PK_BARRIO PRIMARY KEY(Id),
 	CONSTRAINT UK_Nombre_DepartamentoId_BARRIO UNIQUE(Nombre, DepartamentoId),
-	CONSTRAINT FK_DepartamentoId_BARRIO FOREIGN KEY (DepartamentoId) REFERENCES DEPARTAMENTO (Id)
+	CONSTRAINT FK_DepartamentoId_BARRIO FOREIGN KEY (DepartamentoId) REFERENCES dbo.DEPARTAMENTO (Id)
 );
 GO
 
@@ -50,17 +51,19 @@ CREATE TABLE dbo.USUARIO
 	UltimaModificacionContrasenia DATETIME NOT NULL,
 	Habilitado BIT NOT NULL,
 	Email NVARCHAR(50) NOT NULL,
+	--Documento NVARCHAR(20) NOT NULL,
 	Telefono NVARCHAR(20) NOT NULL,
 	Direccion NVARCHAR (100) NOT NULL,
 	FechaAlta DATETIME NOT NULL,
 	Tipo NVARCHAR(20) NOT NULL,
 	BarrioId INT NOT NULL,
+	Imagen NVARCHAR(300) NOT NULL,
 
 	CONSTRAINT PK_USUARIO PRIMARY KEY(Id),
 	CONSTRAINT UK_NombreUsuario_USUARIO UNIQUE(NombreUsuario),
 	CONSTRAINT UK_Email_USUARIO UNIQUE(Email),
-	CONSTRAINT FK_BarrioId_USUARIO FOREIGN KEY (BarrioId) REFERENCES BARRIO (Id),
-	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_USUARIO CHECK (FechaAlta <= GetDate()),
+	CONSTRAINT FK_BarrioId_USUARIO FOREIGN KEY (BarrioId) REFERENCES dbo.BARRIO (Id),
+	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_USUARIO CHECK (FechaAlta <= GetDate()),  --Ver: Ojo con la hora!!! SOLUCIONADO LA HORA
 	CONSTRAINT CK_COL_Tipo_InValores_TAB_USUARIO CHECK (Tipo in('CLIENTE', 'ADMINISTRADOR', 'SUPERADMINISTRADOR'))
 );
 GO
@@ -70,7 +73,7 @@ CREATE TABLE dbo.CLIENTE
 	UsuarioId INT  NOT NULL,	
 
 	CONSTRAINT PK_CLIENTE PRIMARY KEY(UsuarioId),
-	CONSTRAINT FK_UsuarioId_CLIENTE FOREIGN KEY (UsuarioId) REFERENCES USUARIO (Id)
+	CONSTRAINT FK_UsuarioId_CLIENTE FOREIGN KEY (UsuarioId) REFERENCES dbo.USUARIO (Id)
 );
 GO
 
@@ -79,7 +82,7 @@ CREATE TABLE dbo.ADMINISTRADOR
 	UsuarioId INT  NOT NULL,
 
 	CONSTRAINT PK_ADMINISTRADOR PRIMARY KEY(UsuarioId),
-	CONSTRAINT FK_UsuarioId_ADMINISTRADOR FOREIGN KEY (UsuarioId) REFERENCES USUARIO (Id)
+	CONSTRAINT FK_UsuarioId_ADMINISTRADOR FOREIGN KEY (UsuarioId) REFERENCES dbo.USUARIO (Id)
 );
 GO
 
@@ -88,13 +91,10 @@ CREATE TABLE dbo.SUPERADMINISTRADOR
 	UsuarioId INT  NOT NULL,
 
 	CONSTRAINT PK_SUPERADMINISTRADOR PRIMARY KEY(UsuarioId),
-	CONSTRAINT FK_UsuarioId_SUPERADMINISTRADOR FOREIGN KEY (UsuarioId) REFERENCES USUARIO (Id)
+	CONSTRAINT FK_UsuarioId_SUPERADMINISTRADOR FOREIGN KEY (UsuarioId) REFERENCES dbo.USUARIO (Id)
 );
 GO
 
---******************
---NUEVO REVISAR
---******************
 CREATE TABLE dbo.SERVICIO
 (
 	Id	INT  NOT NULL IDENTITY(1,1),
@@ -105,8 +105,8 @@ CREATE TABLE dbo.SERVICIO
 
 	CONSTRAINT PK_SERVICIO PRIMARY KEY(Id),
 	CONSTRAINT UK_Nombre_SERVICIO UNIQUE(Nombre),
-	CONSTRAINT UK_Imagen_SERVICIO UNIQUE(Imagen),
-	CONSTRAINT CK_COL_FechaCreacion_MenorIgual_Hoy_TAB_SERVICIO CHECK (FechaCreacion <= GetDate()),
+	--CONSTRAINT UK_Imagen_SERVICIO UNIQUE(Imagen),
+	CONSTRAINT CK_COL_FechaCreacion_MenorIgual_Hoy_TAB_SERVICIO CHECK (FechaCreacion <= GetDate()),  --Ver: Ojo con la hora!!!
 );
 GO
 
@@ -114,7 +114,7 @@ CREATE TABLE dbo.PUBLICACION
 (
 	Id	INT  NOT NULL IDENTITY(1,1),
 	Titulo NVARCHAR(50) NOT NULL,
-	Descripcion NVARCHAR(150) NOT NULL,
+	Descripcion NVARCHAR(300) NOT NULL,
 	Activa BIT NOT NULL,
 	FechaAlta DATETIME NOT NULL,
 	FechaVencimiento DATETIME,
@@ -123,21 +123,21 @@ CREATE TABLE dbo.PUBLICACION
 	ClienteId INT NOT NULL,
 
 	CONSTRAINT PK_PUBLICACION PRIMARY KEY(Id),
-	CONSTRAINT FK_ServicioId_PUBLICACION FOREIGN KEY (ServicioId) REFERENCES SERVICIO (Id),
-	CONSTRAINT FK_ClienteId_PUBLICACION FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
-	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_PUBLICACION CHECK (FechaAlta <= GetDate()),
+	CONSTRAINT FK_ServicioId_PUBLICACION FOREIGN KEY (ServicioId) REFERENCES dbo.SERVICIO (Id),
+	CONSTRAINT FK_ClienteId_PUBLICACION FOREIGN KEY (ClienteId) REFERENCES dbo.CLIENTE (UsuarioId),
+	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_PUBLICACION CHECK (FechaAlta <= GetDate()), --Ver: Ojo con la hora!!!
 	CONSTRAINT CK_COL_FechaVencimiento_Mayor_FechaAlta_TAB_PUBLICACION CHECK (FechaVencimiento > FechaAlta),
 	CONSTRAINT CK_COL_Tipo_InValores_TAB_PUBLICACION CHECK (Tipo in('OFERTA', 'SOLICITUD'))
 );
 GO
 
-CREATE TABLE dbo.PUBLICACION_IMAGEN
+CREATE TABLE dbo.PUBLICACIONIMAGEN
 (
 	PublicacionId INT NOT NULL,
 	Imagen NVARCHAR(300) NOT NULL,
 
-	CONSTRAINT PK_PUBLICACION_IMAGEN PRIMARY KEY(PublicacionId, Imagen),
-	CONSTRAINT FK_PublicacionId_PUBLICACION_IMAGEN FOREIGN KEY (PublicacionId) REFERENCES PUBLICACION (Id)
+	CONSTRAINT PK_PUBLICACIONIMAGEN PRIMARY KEY(PublicacionId, Imagen),
+	CONSTRAINT FK_PublicacionId_PUBLICACIONIMAGEN FOREIGN KEY (PublicacionId) REFERENCES dbo.PUBLICACION (Id)
 );
 GO
 
@@ -157,7 +157,7 @@ CREATE TABLE dbo.PREGUNTA
 	CategoriaId INT NOT NULL,
 
 	CONSTRAINT PK_PREGUNTA PRIMARY KEY(Id),
-	CONSTRAINT FK_CategoriaId_CATEGORIAPREGUNTA FOREIGN KEY (CategoriaId) REFERENCES CATEGORIAPREGUNTA (Id),
+	CONSTRAINT FK_CategoriaId_PREGUNTA FOREIGN KEY (CategoriaId) REFERENCES dbo.CATEGORIAPREGUNTA (Id),
 );
 GO
 
@@ -168,8 +168,8 @@ CREATE TABLE dbo.SERVICIOPREGUNTA
 	PreguntaId INT NOT NULL,
 
 	CONSTRAINT PK_SERVICIOPREGUNTA PRIMARY KEY(Id),
-	CONSTRAINT FK_ServicioId_SERVICIO FOREIGN KEY (ServicioId) REFERENCES SERVICIO (Id),
-	CONSTRAINT FK_PreguntaId_PREGUNTA FOREIGN KEY (PreguntaId) REFERENCES PREGUNTA (Id),
+	CONSTRAINT FK_ServicioId_SERVICIOPREGUNTA FOREIGN KEY (ServicioId) REFERENCES dbo.SERVICIO (Id),
+	CONSTRAINT FK_PreguntaId_SERVICIOPREGUNTA FOREIGN KEY (PreguntaId) REFERENCES dbo.PREGUNTA (Id),
 	--VER QUE EL PAR SERVICIOID Y PREGUNTAID PODRIAN SER UNIC
 );
 GO
@@ -177,20 +177,30 @@ GO
 CREATE TABLE dbo.PUBLICACIONRESPUESTA
 (
 	PublicacionId INT NOT NULL,
-	ServicioPreguntaId INT NOT NULL,
+	ServicioId INT NOT NULL,
+	PreguntaId INT NOT NULL,
 	Respuesta NVARCHAR(300) NOT NULL,
 
-	CONSTRAINT PK_PUBLICACION_RESPUESTA PRIMARY KEY(PublicacionId, ServicioPreguntaId),
-	CONSTRAINT FK_PublicacionId_PUBLICACION FOREIGN KEY (PublicacionId) REFERENCES PUBLICACION (Id),
-	CONSTRAINT FK_ServicioPreguntaId_SERVICIOPREGUNTA FOREIGN KEY (ServicioPreguntaId) REFERENCES SERVICIOPREGUNTA (Id)	
+	CONSTRAINT PK_PUBLICACION_RESPUESTA PRIMARY KEY(PublicacionId, ServicioId, PreguntaId),
+	CONSTRAINT FK_PublicacionId_PUBLICACIONRESPUESTA FOREIGN KEY (PublicacionId) REFERENCES dbo.PUBLICACION (Id),
+	CONSTRAINT FK_ServicioId_PUBLICACIONRESPUESTA FOREIGN KEY (ServicioId) REFERENCES dbo.SERVICIO (Id),
+	CONSTRAINT FK_PreguntaId_PUBLICACIONRESPUESTA FOREIGN KEY (PreguntaId) REFERENCES dbo.PREGUNTA (Id)		
 );
 GO
 
---******************
---FIN NUEVO REVISAR
---******************
+CREATE TABLE dbo.COMENTARIOPUNTUACION
+(
+	Id INT NOT NULL IDENTITY(1,1),
+	Comentario NVARCHAR(300) NOT NULL,
+	Puntuacion INT NOT NULL,
+	PublicacionId INT NOT NULL,
+	ClienteId INT NOT NULL,
 
-
+	CONSTRAINT PK_COMENTARIOPUNTUACION PRIMARY KEY(Id),
+	CONSTRAINT FK_PublicacionId_COMENTARIOPUNTUACION FOREIGN KEY (PublicacionId) REFERENCES dbo.PUBLICACION (Id),
+	CONSTRAINT FK_ClienteId_COMENTARIOPUNTUACION FOREIGN KEY (ClienteId) REFERENCES dbo.CLIENTE (UsuarioId),
+);
+GO
 
 CREATE TABLE dbo.DENUNCIA
 (
@@ -204,10 +214,10 @@ CREATE TABLE dbo.DENUNCIA
 	PublicacionDenuinciadaId INT,
 
 	CONSTRAINT PK_DENUNCIA PRIMARY KEY(Id),
-	CONSTRAINT FK_AdministradorId_DENUNCIA FOREIGN KEY (AdministradorId) REFERENCES ADMINISTRADOR (UsuarioId),
-	CONSTRAINT FK_ClienteId_DENUNCIA FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
-	CONSTRAINT FK_ClienteDenunciadoId_DENUNCIA FOREIGN KEY (ClienteDenunciadoId) REFERENCES CLIENTE (UsuarioId),
-	CONSTRAINT FK_PublicacionDenuinciadaId_DENUNCIA FOREIGN KEY (PublicacionDenuinciadaId) REFERENCES PUBLICACION (Id),
+	CONSTRAINT FK_AdministradorId_DENUNCIA FOREIGN KEY (AdministradorId) REFERENCES dbo.ADMINISTRADOR (UsuarioId),
+	CONSTRAINT FK_ClienteId_DENUNCIA FOREIGN KEY (ClienteId) REFERENCES dbo.CLIENTE (UsuarioId),
+	CONSTRAINT FK_ClienteDenunciadoId_DENUNCIA FOREIGN KEY (ClienteDenunciadoId) REFERENCES dbo.CLIENTE (UsuarioId),
+	CONSTRAINT FK_PublicacionDenuinciadaId_DENUNCIA FOREIGN KEY (PublicacionDenuinciadaId) REFERENCES dbo.PUBLICACION (Id),
 	CONSTRAINT CK_COL_FechaRealizacion_MenorIgual_Hoy_TAB_DENUNCIA CHECK (FechaRealizacion <= GetDate()), --Ver: Ojo con la hora!!!
 	CONSTRAINT CK_COL_FechaResolucion_Mayor_FechaRealizacion_TAB_DENUNCIA CHECK (FechaResolucion > FechaRealizacion) --Ver: Ojo con el tema de los NULL!!!
 );
@@ -220,8 +230,8 @@ CREATE TABLE dbo.PROVEE
 	Habilitado BIT NOT NULL,
 
 	CONSTRAINT PK_PROVEE PRIMARY KEY(ClienteId, ServicioId),
-	CONSTRAINT FK_ClienteId_PROVEE FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
-	CONSTRAINT FK_ServicioId_PROVEE FOREIGN KEY (ServicioId) REFERENCES SERVICIO (Id)
+	CONSTRAINT FK_ClienteId_PROVEE FOREIGN KEY (ClienteId) REFERENCES dbo.CLIENTE (UsuarioId),
+	CONSTRAINT FK_ServicioId_PROVEE FOREIGN KEY (ServicioId) REFERENCES dbo.SERVICIO (Id)
 );
 GO
 
@@ -237,7 +247,7 @@ CREATE TABLE dbo.PRESUPUESTA
 	Destacado BIT NOT NULL,
 
 	--CONSTRAINT PK_PRESUPUESTA PRIMARY KEY(ClienteId, SolicitudId), --Ver, porque de repente lo dejamos presupuestar más de una vez y en ese caso lo deberíamos cambiar...
-	CONSTRAINT FK_ClienteId_PRESUPUESTA FOREIGN KEY (ClienteId) REFERENCES CLIENTE (UsuarioId),
+	CONSTRAINT FK_ClienteId_PRESUPUESTA FOREIGN KEY (ClienteId) REFERENCES dbo.CLIENTE (UsuarioId),
 	--CONSTRAINT FK_SolicitudId_PRESUPUESTA FOREIGN KEY (SolicitudId) REFERENCES SOLICITUD (PublicacionId)
 );
 GO
@@ -326,47 +336,104 @@ INSERT INTO dbo.BARRIO VALUES
 ('Otro',10);
 
 --contrasena 123456789
-INSERT INTO dbo.Usuario VALUES('SupAdmin', 'SupAdmin', 'SupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'SupAdmin@hotmail.com', '099845498', 'SupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1);
-INSERT INTO dbo.SUPERADMINISTRADOR VALUES(1);
+INSERT INTO dbo.USUARIO VALUES
+/*1 - SupAdmin*/('TutorSupAdmin', 'TutorSupAdmin', 'TutorSupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorSupAdmin@mailinator.com', '099999999', 'TutorSupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1,'TUTORSUPADMIN.jpg'),
+/*2 - SupAdmin*/('SupAdmin', 'SupAdmin', 'SupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'SupAdmin@hotmail.com', '099845498', 'SupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1,'SUPADMIN.jpg'),
+/*3 - Admin*/('TutorAdmin', 'TutorAdmin', 'TutorAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorAdmin@mailinator.com', '099999999', 'TutorAdmin dir', getdate(), 'ADMINISTRADOR', 1, 'TUTORADMIN.jpg'),
+/*4 - Admin*/('Admin', 'Admin', 'Admin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Admin@hotmail.com', '099845498', 'Admin dir', getdate(), 'ADMINISTRADOR', 1, 'ADMIN.jpg'),
+/*5 - Cliente*/('TutorCliente', 'TutorCliente', 'TutorCliente','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorCliente@mailinator.com', '099999999', 'TutorCliente dir', getdate(), 'CLIENTE', 1,'TUTORCLIENTE.jpg'),
+/*6 - Cliente*/('Cliente1', 'Cliente1', 'Cliente1','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente1@hotmail.com', '099845498', 'Cliente1 dir', getdate(), 'CLIENTE', 1,'CLIENTE1.jpg'),
+/*7 - Cliente*/('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1, 'CLIENTE2.jpg');
 
---contrasena 123456789
-INSERT INTO dbo.Usuario VALUES('Admin', 'Admin', 'Admin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Admin@hotmail.com', '099845498', 'Admin dir', getdate(), 'ADMINISTRADOR', 1);
-INSERT INTO dbo.ADMINISTRADOR VALUES(2);
+INSERT INTO dbo.SUPERADMINISTRADOR VALUES
+(1),
+(2);
 
---contrasena 123456789
-INSERT INTO dbo.Usuario VALUES('Cliente1', 'Cliente1', 'Cliente1','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente1@hotmail.com', '099845498', 'Cliente1 dir', getdate(), 'CLIENTE', 1);
-INSERT INTO dbo.CLIENTE VALUES(3);
+INSERT INTO dbo.ADMINISTRADOR VALUES
+(3),
+(4);
 
---contrasena 123456789
-INSERT INTO dbo.Usuario VALUES('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1);
-INSERT INTO dbo.CLIENTE VALUES(4);
+INSERT INTO dbo.CLIENTE Values
+(5),
+(6),
+(7);
 
 INSERT INTO dbo.CATEGORIAPREGUNTA VALUES
-('Categoría 1'),
-('Categoría 2'),
-('Categoría 3');
+('Generales'),
+('Lavados'),
+('Cuidados'),
+('Profesorado'),
+('Otros');
 
 INSERT INTO dbo.PREGUNTA VALUES
-('Pregunta 1',1),
-('Pregunta 2',1),
-('Pregunta 3',2),
-('Pregunta 4',1),
-('Pregunta 5',3),
-('Pregunta 6',2),
-('Pregunta 7',1);
+/*1*/('Precio por hora',1),
+/*2*/('Precio por canasto',2),
+/*3*/('Precio por hora por niño',3),
+/*4*/('Máxima cantidad de niños',3),
+/*5*/('Disponibilidad Horaria',1),
+/*6*/('Materias que dicta',4),
+/*7*/('Materias disponibles',4),
+/*8*/('Colores disponibles',5),
+/*9*/('Precio por kilo',2);
 
 INSERT INTO dbo.SERVICIO VALUES
-('Servicio 1','ImgServicio1.jpg',1,getDate()),
-('Servicio 2','ImgServicio2.jpg',1,getDate()),
-('Servicio 3','ImgServicio3.jpg',1,getDate()),
-('Servicio 4','ImgServicio4.jpg',1,getDate());
+/*1*/('Cuidado de Niños','CUIDADODENIÑOS.jpg',1,getDate()),
+/*2*/('Lavado de Ropa','LAVADODEROPA.jpg',1,getDate()),
+/*3*/('Profesor Particular','PROFESORPARTICULAR.jpg',1,getDate()),
+/*4*/('Impresiones 3D','IMPRESIONES3D.jpg',1,getDate());
 
 INSERT INTO dbo.SERVICIOPREGUNTA VALUES
-(1,1),
-(1,2),
-(1,3),
-(2,1),
-(3,4),
-(3,5),
-(4,6);
+(1,3), --Cuidado de Niños - Precio por hora por niño
+(1,4), --Cuidado de Niños - Máxima cantidad de niños
+(1,5), --Cuidado de Niños - Disponibilidad Horaria
 
+(2,2), --Lavado de Ropa - Precio por canasto
+(2,5), --Lavado de Ropa - Disponibilidad Horaria
+
+(3,1), --Profesor Particular - Precio por hora
+(3,5), --Profesor Particular - Disponibilidad Horaria
+(3,6), --Profesor Particular - Materias que dicta
+
+(4,5), --Impresiones 3D - Disponibilidad Horaria
+(4,7), --Impresiones 3D - Materias disponibles
+(4,8), --Impresiones 3D - Colores disponibles
+(4,9); --Impresiones 3D - Precio por kilo
+
+INSERT INTO dbo.PUBLICACION VALUES
+('Se cuidan niños','Se cuidan niños de hasta 12 años.',1,getDate(),null,'OFERTA',1,6),
+('Lavandería Otelo','Lavamos su ropa. También trabajamos con empresas!!!',1,getDate(),null,'OFERTA',2,7),
+('Prof. Particular - Varias Materias','Se dictan clases de Matemáticas, Física, Química y Dibujo.',1,getDate(),null,'OFERTA',3,6),
+('Impresiones 3D','Vení a imprimir tu modelo 3D!!! Si tenes las idea y no sabes diseñar, contamos con personal capacitado que puede ayudarte.',1,getDate(),null,'OFERTA',4,6);
+
+INSERT INTO dbo.PUBLICACIONIMAGEN VALUES
+(1,'SECUIDANNIÑOS_IMG1.jpg'),
+(1,'SECUIDANNIÑOS_IMG2.jpg'),
+(1,'SECUIDANNIÑOS_IMG3.jpg'),
+(2,'LAVANDERIAOTELO_IMG1.jpg'),
+(2,'LAVANDERIAOTELO_IMG2.jpg'),
+(3,'PROF.PARTICULAR-VARIASMATERIAS_IMG1.jpg'),
+(4,'IMPRESIONES3D_IMG1.jpg'),
+(4,'IMPRESIONES3D_IMG2.jpg');
+
+/*
+SELECT * FROM dbo.USUARIO;
+SELECT * FROM dbo.CLIENTE;
+SELECT * FROM dbo.ADMINISTRADOR;
+SELECT * FROM dbo.BARRIO;
+SELECT * FROM dbo.DEPARTAMENTO;
+SELECT * FROM dbo.CATEGORIAPREGUNTA;
+SELECT * FROM dbo.PREGUNTA;
+SELECT * FROM dbo.SERVICIO;
+SELECT * FROM dbo.SERVICIOPREGUNTA;
+SELECT * FROM dbo.PUBLICACION;
+SELECT * FROM dbo.PUBLICACIONIMAGEN;
+SELECT * FROM dbo.PUBLICACIONRESPUESTA;
+
+SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from dbo.PUBLICACION p, dbo.PUBLICACIONIMAGEN i, dbo.SERVICIO s WHERE i.PublicacionId=p.Id AND s.id=p.ServicioId ORDER BY p.Id;
+
+SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from dbo.PUBLICACION p left join dbo.SERVICIO s on s.id=p.ServicioId left join dbo.PUBLICACIONIMAGEN i on i.PublicacionId=p.Id Where p.ClienteId=6 ORDER BY p.Id;
+
+SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from dbo.PUBLICACION p, dbo.PUBLICACIONIMAGEN i, dbo.SERVICIO s, dbo.USUARIO u WHERE i.PublicacionId=p.Id AND p.ServicioId=1 AND s.id=p.ServicioId AND p.Activa=1 AND u.Id=p.ClienteId
+
+SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from dbo.PUBLICACION p left join dbo.SERVICIO s on s.id=p.ServicioId left join dbo.PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join dbo.USUARIO u on u.Id=p.ClienteId Where p.ServicioId=1 AND p.Activa=1 ORDER BY p.Id;
+*/

@@ -5,9 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent }  from './app.component';
-import { WelcomeComponent } from "./landing/welcome.component";
-import { RegistroClienteComponent } from "./registro-cliente/registro-cliente.component";
-import { InicioSesionComponent } from "./inicio-sesion/inicio-sesion.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { LandingComponent } from "./landing/landing.component";
+import { WelcomeComponent } from "./landing/welcome/welcome.component";
+import { RegistroClienteComponent } from "./landing/registro-cliente/registro-cliente.component";
+import { InicioSesionComponent } from "./landing/inicio-sesion/inicio-sesion.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { OverviewComponent } from "./dashboard/overview/overview.component";
 import { PerfilUsuarioComponent } from "./dashboard/perfil-usuario/perfil-usuario.component";
@@ -20,16 +22,14 @@ import { ListadoServiciosOfrecidosComponent } from "./dashboard/listado-servicio
 import { VerPublicacionOfrecidaComponent } from "./dashboard/ver-publicacion-ofrecida/ver-publicacion-ofrecida.component";
 
 const appRoutes: Routes = [
-  { path: '', component: WelcomeComponent, 
+  { path: '', component: LandingComponent, 
     children:[
+      { path: '', component: WelcomeComponent },
+      { path: 'welcome', component: WelcomeComponent },
       { path: 'registro-cliente', component: RegistroClienteComponent },
       { path: 'inicio-sesion', component: InicioSesionComponent }
     ]
-  },  
-  // { path: '', component: WelcomeComponent },
-  // { path: 'registro-cliente', component: RegistroClienteComponent },
-  // { path: 'inicio-sesion', component: InicioSesionComponent },
-
+  },
   { path: 'dashboard', component: DashboardComponent,
     children:[
       { path: 'overview',component: OverviewComponent },
@@ -42,7 +42,8 @@ const appRoutes: Routes = [
       { path: 'listado-servicios-ofrecidos/:id', component: ListadoServiciosOfrecidosComponent },
       { path: 'ver-publicacion-ofrecida/:id', component: VerPublicacionOfrecidaComponent }
     ]
-  }, 
+  },
+  {path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
@@ -50,7 +51,7 @@ const appRoutes: Routes = [
     BrowserModule, FormsModule, HttpModule, RouterModule,  RouterModule.forRoot(appRoutes), ReactiveFormsModule
   ],
   declarations: [
-    AppComponent, WelcomeComponent, RegistroClienteComponent, 
+    AppComponent, NotFoundComponent, LandingComponent, WelcomeComponent, RegistroClienteComponent, 
     InicioSesionComponent, DashboardComponent, OverviewComponent, 
     PerfilUsuarioComponent, CambiarContrasenaUsuarioComponent, 
     ListadoServiciosComponent, OfrecerServicioComponent, ListadoServiciosClienteComponent,

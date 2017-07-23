@@ -6,6 +6,7 @@ import { Mensaje } from "../../shared/mensaje";
 import { Error } from "../../shared/error";
 import { Exito } from "../../shared/exito";
 import { Servicio } from "../../shared/servicio";
+import { Settings } from "../../shared/settings";
 import { Publicacion } from "../../shared/publicacion";
 import { Respuesta } from "../../shared/respuesta";
 
@@ -23,7 +24,7 @@ export class OfrecerServicioComponent{
     servicioSeleccionado: Servicio = new Servicio();
     respuestas: string[] = [];
     step:number=1;
-    urlImagen:string="http://localhost:39770/Oferta/IngresarImagenes";
+    urlImagen:string=Settings.srcImg+"/Oferta/IngresarImagenes";
 
     constructor(private dataService: DataService, private router: Router) {
         this.publicacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario'));

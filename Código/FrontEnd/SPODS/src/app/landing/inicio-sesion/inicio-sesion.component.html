@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <h1>Iniciar sesión</h1>
+
+        <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
+        <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
+
+        <label for="inputContrasena" class="sr-only">Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
+
+        <button class="btn btn-lg btn-primary btn-block" (click)="ingresarCliente()">Iniciar Sesión</button>
+
+        <label class="btn-block">
+            <a href="javascript:void(0)" (click)="navegarRegistroCliente()"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a>
+        </label>
+
+        <label class="btn-block">
+            <a href="javascript:void(0)"><i class="fa fa-lock" aria-hidden="true"></i> Olvidó su contraseña?</a>
+        </label>
+
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>

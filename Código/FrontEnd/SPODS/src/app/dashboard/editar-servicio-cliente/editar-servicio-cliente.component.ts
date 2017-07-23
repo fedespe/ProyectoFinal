@@ -6,6 +6,7 @@ import { Mensaje } from "../../shared/mensaje";
 import { Error } from "../../shared/error";
 import { Exito } from "../../shared/exito";
 import { Servicio } from "../../shared/servicio";
+import { Settings } from "../../shared/settings";
 import { Publicacion } from "../../shared/publicacion";
 import { Respuesta } from "../../shared/respuesta";
 import { ActivatedRoute } from '@angular/router';  
@@ -25,7 +26,7 @@ export class EditarServicioClienteComponent implements OnInit{
     respuestas: string[] = [];
     idPublicacion:number;
     step:number=1;
-    urlImagen:string="http://localhost:39770/Oferta/IngresarImagenes";
+   urlImagen:string=Settings.srcImg+"/Oferta/IngresarImagenes";
 
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {

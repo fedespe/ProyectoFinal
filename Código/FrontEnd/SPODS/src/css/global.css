@@ -3,6 +3,11 @@ body {
   height: 100%;
 }
 
+body{
+  overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}
+
 .loading {
   height: 100px;
   width: 100px;
@@ -10,4 +15,24 @@ body {
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.errores {
+  margin-top: 20px;
+}
+
+.exitos {
+  margin-top: 20px;
+}
+
+h1, h2, h3, h4, h5, h6{
+  margin: 0 0 20px 0;
+}
+
+.noPadding{
+  padding: 0;
+}
+
+.noMargin{
+  margin: 0;
 }

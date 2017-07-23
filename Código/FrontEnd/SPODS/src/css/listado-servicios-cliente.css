@@ -3,9 +3,11 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
 .linkManual:active,.linkManual:hover{
     outline-width: 0;
 }
+
 .linkManual{
     color: #0275d8;
     text-decoration: none;

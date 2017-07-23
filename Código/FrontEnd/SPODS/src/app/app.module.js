@@ -12,9 +12,11 @@ var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
-var welcome_component_1 = require("./landing/welcome.component");
-var registro_cliente_component_1 = require("./registro-cliente/registro-cliente.component");
-var inicio_sesion_component_1 = require("./inicio-sesion/inicio-sesion.component");
+var not_found_component_1 = require("./not-found/not-found.component");
+var landing_component_1 = require("./landing/landing.component");
+var welcome_component_1 = require("./landing/welcome/welcome.component");
+var registro_cliente_component_1 = require("./landing/registro-cliente/registro-cliente.component");
+var inicio_sesion_component_1 = require("./landing/inicio-sesion/inicio-sesion.component");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var overview_component_1 = require("./dashboard/overview/overview.component");
 var perfil_usuario_component_1 = require("./dashboard/perfil-usuario/perfil-usuario.component");
@@ -26,15 +28,14 @@ var editar_servicio_cliente_component_1 = require("./dashboard/editar-servicio-c
 var listado_servicios_ofrecidos_component_1 = require("./dashboard/listado-servicios-ofrecidos/listado-servicios-ofrecidos.component");
 var ver_publicacion_ofrecida_component_1 = require("./dashboard/ver-publicacion-ofrecida/ver-publicacion-ofrecida.component");
 var appRoutes = [
-    { path: '', component: welcome_component_1.WelcomeComponent,
+    { path: '', component: landing_component_1.LandingComponent,
         children: [
+            { path: '', component: welcome_component_1.WelcomeComponent },
+            { path: 'welcome', component: welcome_component_1.WelcomeComponent },
             { path: 'registro-cliente', component: registro_cliente_component_1.RegistroClienteComponent },
             { path: 'inicio-sesion', component: inicio_sesion_component_1.InicioSesionComponent }
         ]
     },
-    // { path: '', component: WelcomeComponent },
-    // { path: 'registro-cliente', component: RegistroClienteComponent },
-    // { path: 'inicio-sesion', component: InicioSesionComponent },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent,
         children: [
             { path: 'overview', component: overview_component_1.OverviewComponent },
@@ -48,6 +49,7 @@ var appRoutes = [
             { path: 'ver-publicacion-ofrecida/:id', component: ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent }
         ]
     },
+    { path: '**', component: not_found_component_1.NotFoundComponent }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -60,7 +62,7 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, router_1.RouterModule, router_1.RouterModule.forRoot(appRoutes), forms_1.ReactiveFormsModule
         ],
         declarations: [
-            app_component_1.AppComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent,
+            app_component_1.AppComponent, not_found_component_1.NotFoundComponent, landing_component_1.LandingComponent, welcome_component_1.WelcomeComponent, registro_cliente_component_1.RegistroClienteComponent,
             inicio_sesion_component_1.InicioSesionComponent, dashboard_component_1.DashboardComponent, overview_component_1.OverviewComponent,
             perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent,
             listado_servicios_component_1.ListadoServiciosComponent, ofrecer_servicio_component_1.OfrecerServicioComponent, listado_servicios_cliente_component_1.ListadoServiciosClienteComponent,

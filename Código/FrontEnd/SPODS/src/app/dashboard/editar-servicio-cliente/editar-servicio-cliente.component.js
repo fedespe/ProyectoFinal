@@ -16,6 +16,7 @@ var utilidades_1 = require("../../shared/utilidades");
 var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
 var servicio_1 = require("../../shared/servicio");
+var settings_1 = require("../../shared/settings");
 var publicacion_1 = require("../../shared/publicacion");
 var respuesta_1 = require("../../shared/respuesta");
 var router_2 = require("@angular/router");
@@ -30,7 +31,7 @@ var EditarServicioClienteComponent = (function () {
         this.servicioSeleccionado = new servicio_1.Servicio();
         this.respuestas = [];
         this.step = 1;
-        this.urlImagen = "http://localhost:39770/Oferta/IngresarImagenes";
+        this.urlImagen = settings_1.Settings.srcImg + "/Oferta/IngresarImagenes";
     }
     EditarServicioClienteComponent.prototype.ngOnInit = function () {
         var _this = this;

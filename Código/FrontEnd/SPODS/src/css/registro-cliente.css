@@ -1,16 +1,15 @@
-.errores {
-  margin-top: 20px;
-}
-
-.exitos {
-  margin-top: 20px;
-}
 h1{
   text-align: center;
 }
+
 b{
   color: #0275d8;
 }
+
 small{
   color: dimgrey;
+}
+
+input, select, .contenedorProgressBar, .btn-primary{
+  margin-bottom: 20px;
 }
