@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <h1 class="col-12 text-center">Perfil de Usuario</h1>
+        
+        <div *ngIf="loading">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+
+        <div *ngIf="!loading && cliente" class="col-md-6 col-lg-5 col-xl-4">
+            <h2>{{cliente.NombreUsuario}}</h2>
+
+                <label for="inputNombre">Nombre:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
+
+                <label for="inputApellido">Apellido:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
+                
+                <label for="inputTelefono">Teléfono:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Telefono" id="inputTelefono" name="Telefono" placeholder="Teléfono">
+                
+                <label for="inputDireccion">Dirección:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
+        </div>
+        
+        <div class="col-12">
+            <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+                <div *ngFor="let error of mensajes.Errores;">
+                    {{error.Descripcion}}
+                </div>
+            </div>
+
+            <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+                <div *ngFor="let exito of mensajes.Exitos;">
+                    {{exito.Descripcion}}
+                </div>
+            </div>
+        </div>
+  </div>
+</div>

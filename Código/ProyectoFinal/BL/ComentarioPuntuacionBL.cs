@@ -27,6 +27,16 @@ namespace BL
         {
             return comentarioPuntuacionDAL.obtenerPorPublicacion(idPublicacion);
         }
+        public double obtenerPromedioPuntajePublicacion(int idPublicacion)
+        {
+            return comentarioPuntuacionDAL.obtenerPromedioPuntajePublicacion(idPublicacion);
+        }
+
+        public double obtenerPromedioPuntajeClienteServicio(int idCliente, int idServicio)
+        {
+            return comentarioPuntuacionDAL.obtenerPromedioPuntajeClienteServicio(idCliente, idServicio);
+        }
+
         //ver validaciones
         private void validarComentarioPuntuacion(ComentarioPuntuacion comentarioPuntuacion)
         {
@@ -45,6 +55,35 @@ namespace BL
             if (comentarioPuntuacion.Cliente.Id == 0)
             {
                 throw new ProyectoException("Error: Id Cliente");
+            }
+        }
+
+
+
+        //Contacto!
+
+        public void altaContacto(Contacto contacto)
+        {
+            validarContacto(contacto);
+            comentarioPuntuacionDAL.altaContacto(contacto);
+        }
+
+        private void validarContacto(Contacto contacto)
+        {
+            if(contacto == null)
+            {
+                throw new ProyectoException("Error: Contacto");
+            }
+            else
+            {
+                if (contacto.Publicacion.Id == 0)
+                {
+                    throw new ProyectoException("Error: IdPublicacion");
+                }
+                if (contacto.Cliente.Id == 0)
+                {
+                    throw new ProyectoException("Error: IdCliente");
+                }
             }
         }
     }

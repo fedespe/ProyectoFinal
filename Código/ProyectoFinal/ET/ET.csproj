@@ -46,6 +46,7 @@
     <Compile Include="CategoriaPregunta.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="ComentarioPuntuacion.cs" />
+    <Compile Include="Contacto.cs" />
     <Compile Include="Departamento.cs" />
     <Compile Include="Pregunta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

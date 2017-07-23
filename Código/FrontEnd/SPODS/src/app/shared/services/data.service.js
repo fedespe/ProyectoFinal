@@ -25,6 +25,22 @@ var DataService = (function () {
         this.baseUrl = settings_1.Settings.baseUrl;
     }
     //*************************** */
+    // SERVICIOS COMENTARIOPUNTUACION
+    //*************************** */
+    DataService.prototype.postAltaContacto = function (contacto) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/altaContacto';
+        var body = JSON.stringify(contacto);
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaContacto | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaContacto | body: " + JSON.stringify(body));
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaContacto | this.headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.post(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    //*************************** */
+    // FIN SERVICIOS COMENTARIOPUNTUACION
+    //*************************** */
+    //*************************** */
     // SERVICIOS CLIENTE
     //*************************** */
     //Prueba llamando un método por Post y pasando algo para dar de alta en el Body (Da de alta un carro)

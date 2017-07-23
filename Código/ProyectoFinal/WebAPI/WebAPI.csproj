@@ -148,6 +148,7 @@
     <Compile Include="Controllers\AdministradorController.cs" />
     <Compile Include="Controllers\BarrioController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ComentarioPuntuacionController.cs" />
     <Compile Include="Controllers\PublicacionController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Global.asax.cs">

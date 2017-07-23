@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Cliente} from "../cliente";
+import {Contacto} from "../contacto";
 import {Carro} from "../carro";
 import {ActualizarContrasena} from "../actualizarContrasena";
 import {Publicacion} from "../publicacion";
@@ -20,6 +21,26 @@ export class DataService {
         this.headers = new Headers({ 'Accept': 'application/json', 'Content-Type' : 'application/json' });
         this.baseUrl = Settings.baseUrl;
     }
+    //*************************** */
+    // SERVICIOS COMENTARIOPUNTUACION
+    //*************************** */
+
+    public postAltaContacto(contacto:Contacto){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/altaContacto';
+        let body = JSON.stringify(contacto);
+
+        Utilidades.log("[data.service.ts] - postAltaContacto | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postAltaContacto | body: " + JSON.stringify(body));
+        Utilidades.log("[data.service.ts] - postAltaContacto | this.headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.post(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    //*************************** */
+    // FIN SERVICIOS COMENTARIOPUNTUACION
+    //*************************** */
 
     //*************************** */
     // SERVICIOS CLIENTE

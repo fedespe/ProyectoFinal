@@ -10,7 +10,7 @@ import { Publicacion } from "../../shared/publicacion";
 import { Respuesta } from "../../shared/respuesta";
 import { ActivatedRoute } from '@angular/router';  
 import { Settings } from "../../shared/settings"; 
-
+import { Contacto } from "../../shared/contacto"; 
 
 @Component({
     selector: 'ver-publicacion-ofrecida',
@@ -145,5 +145,40 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         this.mensajes.Errores.push(error);
     }
 
+    contactar(){
+        var contacto:Contacto = new Contacto();
 
+        contacto.Cliente.Id = parseInt(localStorage.getItem("id-usuario"));
+        contacto.Publicacion = this.publicacion;
+
+        this.dataService.postAltaContacto(contacto)
+            .subscribe(
+            res => this.postAltaContactoOk(res),
+            error => this.postAltaContactoError(error),
+            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postAltaContacto: Completado")
+        );
+    }
+
+     postAltaContactoOk(response:any){
+        
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postAltaContactoOk | response: " + JSON.stringify(response.Objetos[0]));
+        if(response.Codigo ==  200){
+            this.router.navigate(["dashboard/ver-perfil-usuario", this.publicacion.Cliente.Id]);
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = "Ha ocurrido un error al cargar los datos del usuario.";           
+            this.mensajes.Errores.push(error);
+            error = new Error();
+            error.Descripcion = "Intente nuevamente o contacte al administrador.";           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    postAltaContactoError(responseError:any){
+        Utilidades.log("[editar-servicio-cliente.component.ts] - postAltaContactoError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
 }

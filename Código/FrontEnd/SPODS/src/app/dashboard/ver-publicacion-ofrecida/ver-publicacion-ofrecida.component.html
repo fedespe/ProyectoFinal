@@ -13,12 +13,7 @@
 
                                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                         <div class="carousel-inner" role="listbox">
-                                            <div class="carousel-item active" >
-                                                <!--class="d-block img-fluid"-->
-                                                <img class="d-block" src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}"  alt="First slide" height="200" width="200">
-                                            </div>
-                                            <!--Se repite la primera imagen, es solo de prueba hay que elegir una galeria acorde-->
-                                            <div class="carousel-item" *ngFor="let imagen of publicacion.Imagenes;">           
+                                            <div [ngClass]="{ active: publicacion.Imagenes[0] == imagen }" class="carousel-item" *ngFor="let imagen of publicacion.Imagenes;">           
                                                 <img class="d-block" src="{{baseURL}}/Imagenes/Ofertas/{{imagen}}"  alt="First slide"  height="200" width="200">
                                             </div>
                                         </div>
@@ -70,13 +65,13 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-6">
-                                        <a href="#" class="btn btn-primary">Contactar</a>
-                                    </div>                                   
+                                        <a (click)="contactar()" class="btn btn-primary">Contactar</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>               
+                </div>
             </div>
         </div>
 

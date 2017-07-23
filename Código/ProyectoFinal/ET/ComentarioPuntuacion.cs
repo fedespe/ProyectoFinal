@@ -9,6 +9,7 @@ namespace ET
     public class ComentarioPuntuacion
     {
         public int Id { get; set; }
+        public DateTime Fecha { get; set; }
         public string Comentario { get; set; }
         public int Puntuacion { get; set; }
         public Publicacion Publicacion { get; set; }
