@@ -43,6 +43,7 @@
     <Compile Include="AdministradorBL.cs" />
     <Compile Include="BarrioBL.cs" />
     <Compile Include="ClienteBL.cs" />
+    <Compile Include="ComentarioPuntuacionBL.cs" />
     <Compile Include="DepartamentoBL.cs" />
     <Compile Include="PreguntaBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
