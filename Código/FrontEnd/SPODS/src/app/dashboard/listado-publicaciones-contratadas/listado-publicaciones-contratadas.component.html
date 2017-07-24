@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+        <h1 class="col-12">Servicios Contratados</h1>
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Imagen</th>                                       
+                    <th>Servicio</th>
+                    <th>Título</th>
+                    <th>Activa</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="publicaciones.length > 0">
+                <tr *ngFor="let publicacion of publicaciones;">
+                    <td *ngIf="publicacion.Imagenes[0]!=null && publicacion.Imagenes[0]!=''"><img src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
+                    <td *ngIf="publicacion.Imagenes[0]==null || publicacion.Imagenes[0]==''"><img src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>                   
+                    <th scope="row">{{publicacion.Servicio.Nombre}}</th>  
+                    <td>{{publicacion.Titulo}}</td>                 
+                    <td *ngIf="publicacion.Activa">Si</td>
+                    <td *ngIf="!publicacion.Activa">No</td>
+                    <td>
+                        <div *ngIf="!publicacion.Activa">No hay acciones disponibles</div>
+                        <div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente==null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, 0 ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver</div>
+                        <div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]"><i class="fa fa-eye" aria-hidden="true"></i> <i class="fa fa-comments-o" aria-hidden="true"></i> Ver (Comentario pendiente)</div>
+                        <!--<div *ngIf="publicacion.Activa && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left"><i class="fa fa-comments-o" aria-hidden="true"></i></div>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>   
+    
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+  </div>
+</div>

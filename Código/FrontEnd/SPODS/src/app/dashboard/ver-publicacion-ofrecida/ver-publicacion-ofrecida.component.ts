@@ -24,6 +24,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     publicacion: Publicacion = new Publicacion();
     idPublicacion:number;
     baseURL:string;
+    idContacto:number;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -34,9 +35,11 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         this.route.params
         .subscribe(params => {
             this.idPublicacion = parseInt(params['id']);
-            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));   
+            this.idContacto = parseInt(params['idContacto']);
+            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));
+            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | idContacto: " + JSON.stringify(this.idContacto));   
         });
-        this.obtenerPublicacion();       
+        this.obtenerPublicacion();           
     }
 
     borrarMensajes(){
@@ -60,6 +63,11 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
             this.publicacion = response.Objetos[0];          
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
+
+            //Terminado la carga de la publicacion, en caso de que haya comentario pendiente, se habre ventana modal
+            if(this.idContacto!=0){
+                document.getElementById('btnModal').click();
+            }  
         }
         else{
             var error = new Error();

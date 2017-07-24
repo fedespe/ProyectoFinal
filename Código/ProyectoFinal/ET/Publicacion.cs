@@ -19,5 +19,17 @@ namespace ET
         public Servicio Servicio { get; set; }
         public Cliente Cliente { get; set; }
         public List<Respuesta> Respuestas { get; set; }
+        //Bidireccionalidad
+        public Contacto ContactoConComentarioPendiente { get; set; }
+
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj is Publicacion)
+        //    {//No se por que cuando edito una pregunta entra y compara con string vacio que no es una categoria por eso el control
+        //        Publicacion p = (Publicacion)obj;
+        //        return p.Id == this.Id;
+        //    }
+        //    return false;
+        //}
     }
 }

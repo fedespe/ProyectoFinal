@@ -34,6 +34,10 @@ namespace BL
         {
             return publicacionDAL.obtenerPublicacionesCliente(idCliente);
         }
+        public List<Publicacion> obtenerPublicacionesContratadasPorCliente(int idCliente)
+        {
+            return publicacionDAL.obtenerPublicacionesContratadasPorCliente(idCliente);
+        }
         public List<Publicacion> obtenerPublicacionesServicio(int idServicio)
         {
             return publicacionDAL.obtenerPublicacionesServicio(idServicio);

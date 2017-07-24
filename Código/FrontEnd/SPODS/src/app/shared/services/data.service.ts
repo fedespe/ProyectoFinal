@@ -191,6 +191,17 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    public getobtenerPublicacionesContratadasPorCliente(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesContratadasPorCliente/' + id;
+
+        Utilidades.log("[data.service.ts] - getobtenerPublicacionesContratadasPorCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getobtenerPublicacionesContratadasPorCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
     public getDesactivarPublicacion(id:number){
         var URL : string = this.baseUrl + '/api/Publicacion/deshabilitarPublicacion/' + id;
 

@@ -4,12 +4,14 @@ var utilidades_1 = require("./utilidades");
 var servicio_1 = require("./servicio");
 var cliente_1 = require("./cliente");
 var error_1 = require("./error");
+var contacto_1 = require("./contacto");
 var Publicacion = (function () {
     function Publicacion() {
         this.Imagenes = [];
-        this.Respuestas = [];
-        this.Cliente = new cliente_1.Cliente();
         this.Servicio = new servicio_1.Servicio();
+        this.Cliente = new cliente_1.Cliente();
+        this.Respuestas = [];
+        this.ContactoConComentarioPendiente = new contacto_1.Contacto();
     }
     Publicacion.prototype.validarDatos1 = function () {
         utilidades_1.Utilidades.log("[publicacion.ts] - validarDatos | this: " + JSON.stringify(this));

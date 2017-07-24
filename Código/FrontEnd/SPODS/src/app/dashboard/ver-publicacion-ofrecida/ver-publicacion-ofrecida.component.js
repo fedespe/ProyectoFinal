@@ -35,7 +35,9 @@ var VerPublicacionOfrecidaComponent = (function () {
         this.route.params
             .subscribe(function (params) {
             _this.idPublicacion = parseInt(params['id']);
+            _this.idContacto = parseInt(params['idContacto']);
             utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | id: " + JSON.stringify(_this.idPublicacion));
+            utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | idContacto: " + JSON.stringify(_this.idContacto));
         });
         this.obtenerPublicacion();
     };
@@ -55,6 +57,10 @@ var VerPublicacionOfrecidaComponent = (function () {
             this.publicacion = response.Objetos[0];
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
+            //Terminado la carga de la publicacion, en caso de que haya comentario pendiente, se habre ventana modal
+            if (this.idContacto != 0) {
+                document.getElementById('btnModal').click();
+            }
         }
         else {
             var error = new error_1.Error();

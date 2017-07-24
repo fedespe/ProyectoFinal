@@ -54,6 +54,26 @@ namespace WebAPI.Controllers
             return retorno;
         }
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [HttpGet, Route("api/Publicacion/obtenerPublicacionesContratadasPorCliente/{id}")]
+        public Retorno GetPublicacionesContratadasPorCliente(int id)
+        {
+            try
+            {
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesContratadasPorCliente(id);
+                foreach (Publicacion p in publicaciones)
+                {
+                    retorno.Objetos.Add(p);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesClienteOferta/{id}")]
         public Retorno GetPublicacionesClienteOferta(int id)
         {

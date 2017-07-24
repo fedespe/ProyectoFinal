@@ -82,6 +82,75 @@ namespace DAL
                 throw new ProyectoException("Error: " + ex.Message);
             }
         }
+
+        public List<Publicacion> obtenerPublicacionesContratadasPorCliente(int idCliente)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();
+            string cadenaSelectPublicacion = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, c.Id as IdContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join CONTACTO c on c.PublicacionId=p.Id Where c.ClienteId= @idCliente ORDER BY c.Fecha desc;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectPublicacion, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            int ultimoIdPublicacion = 0;
+                            //int ultimoIdContacto = 0;
+                            while (dr.Read())
+                            {
+                                if (ultimoIdPublicacion != Convert.ToInt32(dr["IdPublicacion"]))
+                                {
+                                    //VER CUANDO CAMBIAR A UNA NUEVA PUBLICACION
+                                    Publicacion publicacion = new Publicacion
+                                    {
+                                        Id = Convert.ToInt32(dr["IdPublicacion"]),
+                                        Titulo = dr["Titulo"].ToString(),
+                                        Descripcion = dr["Descripcion"].ToString(),
+                                        Activa = Convert.ToBoolean(dr["Activa"]),
+                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]), Nombre = dr["ServicioNombre"].ToString() },
+                                        FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
+                                        //ver que es null por el momento la fecha de vencimiento
+                                        //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
+                                        Tipo = dr["Tipo"].ToString(),
+                                        Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]) },
+                                        Imagenes = new List<string>()
+                                    };
+                                    if (dr["Imagen"] != DBNull.Value)
+                                        publicacion.Imagenes.Add(dr["Imagen"].ToString());
+                                    //if (!publicaciones.Contains(publicacion))
+                                        publicaciones.Add(publicacion);
+                                    ultimoIdPublicacion = Convert.ToInt32(dr["IdPublicacion"]);
+                                }
+                                //Agrego el el primer contacto sin comentario para poder comentar.
+                                if(publicaciones[publicaciones.Count-1].ContactoConComentarioPendiente==null && dr["ComentarioPuntuacionId"] == DBNull.Value)
+                                {
+                                    //Proximo comentario a crear
+                                    publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente = new Contacto
+                                    {
+                                        Id= Convert.ToInt32(dr["IdContacto"]),
+                                        Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
+                                        Cliente = new Cliente { Id = Convert.ToInt32(dr["ClienteId"]) },
+                                        Fecha = Convert.ToDateTime(dr["Fecha"])
+                                    };
+                                }
+                                //ultimoIdContacto = Convert.ToInt32(dr["IdContacto"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return publicaciones;
+        }
+
         public void actualizarPublicacion(Publicacion publicacion)
         {
             string cadenaUpdatePublicacion = @"UPDATE Publicacion SET Titulo=@titulo, Descripcion=@descripcion 

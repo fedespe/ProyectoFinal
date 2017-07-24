@@ -152,6 +152,14 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getobtenerPublicacionesContratadasPorCliente = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/obtenerPublicacionesContratadasPorCliente/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getobtenerPublicacionesContratadasPorCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getobtenerPublicacionesContratadasPorCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     DataService.prototype.getDesactivarPublicacion = function (id) {
         var URL = this.baseUrl + '/api/Publicacion/deshabilitarPublicacion/' + id;
         utilidades_1.Utilidades.log("[data.service.ts] - getDesactivarPublicacion | URL: " + URL);

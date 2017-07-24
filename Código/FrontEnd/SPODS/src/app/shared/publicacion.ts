@@ -3,6 +3,7 @@ import { Servicio } from "./servicio";
 import { Cliente } from "./cliente";
 import { Respuesta } from "./respuesta";
 import { Error } from "./error";
+import { Contacto } from "./contacto";
 
 export class Publicacion {
     Id: number;
@@ -13,14 +14,13 @@ export class Publicacion {
     FechaVencimiento: Date;
     Tipo: string;
     Imagenes: string[] = [];
-    Servicio: Servicio;
-    Cliente: Cliente;
+    Servicio: Servicio=new Servicio();
+    Cliente: Cliente=new Cliente();
     Respuestas: Respuesta[] = [];
+    ContactoConComentarioPendiente: Contacto= new Contacto();
     
 
     constructor() {      
-        this.Cliente=new Cliente();
-        this.Servicio=new Servicio();
     }
     
     public validarDatos1() : Error[]{
