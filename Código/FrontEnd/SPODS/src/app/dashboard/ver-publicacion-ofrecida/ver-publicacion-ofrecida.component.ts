@@ -11,6 +11,7 @@ import { Respuesta } from "../../shared/respuesta";
 import { ActivatedRoute } from '@angular/router';  
 import { Settings } from "../../shared/settings"; 
 import { Contacto } from "../../shared/contacto"; 
+import { ComentarioPuntuacion } from "../../shared/comentarioPuntuacion"; 
 
 @Component({
     selector: 'ver-publicacion-ofrecida',
@@ -25,6 +26,8 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     idPublicacion:number;
     baseURL:string;
     idContacto:number;
+    puntaje:number=0;
+    comentarioPuntuacion: ComentarioPuntuacion= new ComentarioPuntuacion();
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -45,6 +48,48 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+    }
+
+    guardarComentario(){
+        this.comentarioPuntuacion.Puntuacion=this.puntaje;
+        this.comentarioPuntuacion.Publicacion=this.publicacion;
+        this.comentarioPuntuacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario')); 
+        this.comentarioPuntuacion.Contacto=new Contacto();
+        this.comentarioPuntuacion.Contacto.Id=this.idContacto;
+
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
+    
+        this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+            .subscribe(
+                res => this.postIngresarComentarioOk(res),
+                error => this.postIngresarComentarioError(error),
+                () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+            );
+    }
+    postIngresarComentarioOk(response:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
+
+        if(response.Codigo ==  200){
+            
+        }
+        else{
+            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    postIngresarComentarioError(responseError:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    actualizarPuntaje(input:any){
+        this.puntaje=input;
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - actualizarPuntaje | puntaje: " + JSON.stringify(this.puntaje));
     }
 
     obtenerPublicacion(){

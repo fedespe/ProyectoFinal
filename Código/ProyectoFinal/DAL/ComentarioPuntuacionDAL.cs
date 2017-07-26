@@ -12,7 +12,13 @@ namespace DAL
     {
         public void altaComentarioPuntuacion(ComentarioPuntuacion comentarioPuntuacion)
         {
-            string cadenaInsertComentarioPuntuacion = @"INSERT INTO COMENTARIOPUNTUACION VALUES(@comentario, @fecha, @respuesta, @puntuacion,@idPublicacion,@idCliente, @tipo);";
+            
+            string cadenaInsertComentarioPuntuacion = @"INSERT INTO COMENTARIOPUNTUACION VALUES(@comentario, @fecha, @respuesta, @puntuacion,@idPublicacion,@idCliente);
+                                                        SELECT CAST(Scope_Identity() AS INT);";
+            string cadenaUpdateContacto = "UPDATE CONTACTO SET ComentarioPuntuacionId=@idComentarioGenerado WHERE Id=@idContacto;";
+            int idComentarioGenerado = 0;
+
+            SqlTransaction trn = null;
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -25,11 +31,25 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@puntuacion", comentarioPuntuacion.Puntuacion);
                         cmd.Parameters.AddWithValue("@idPublicacion", comentarioPuntuacion.Publicacion.Id);
                         cmd.Parameters.AddWithValue("@idCliente", comentarioPuntuacion.Cliente.Id);
-                        cmd.Parameters.AddWithValue("@tipo", comentarioPuntuacion.Publicacion.Tipo);
 
                         con.Open();
+                        trn = con.BeginTransaction();
+                        cmd.Transaction = trn;
 
+                        idComentarioGenerado = (int)cmd.ExecuteScalar();
+                        cmd.Parameters.Clear();
+
+                        cmd.CommandText = cadenaUpdateContacto;
+
+                        cmd.Parameters.AddWithValue("@idComentarioGenerado", idComentarioGenerado);
+                        cmd.Parameters.AddWithValue("@idContacto", comentarioPuntuacion.Contacto.Id);
+
+                        //Ver que podria estar dando de alta comentarios y que no tenga contacto en null... tema de seguridad
                         cmd.ExecuteNonQuery();
+
+                        trn.Commit();
+                        trn.Dispose();
+
                     }
                 }
             }

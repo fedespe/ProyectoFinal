@@ -19,6 +19,7 @@ var publicacion_1 = require("../../shared/publicacion");
 var router_2 = require("@angular/router");
 var settings_1 = require("../../shared/settings");
 var contacto_1 = require("../../shared/contacto");
+var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
 var VerPublicacionOfrecidaComponent = (function () {
     function VerPublicacionOfrecidaComponent(dataService, router, route) {
         this.dataService = dataService;
@@ -27,6 +28,8 @@ var VerPublicacionOfrecidaComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.servicios = [];
         this.publicacion = new publicacion_1.Publicacion();
+        this.puntaje = 0;
+        this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
     }
     VerPublicacionOfrecidaComponent.prototype.ngOnInit = function () {
@@ -44,6 +47,38 @@ var VerPublicacionOfrecidaComponent = (function () {
     VerPublicacionOfrecidaComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+    };
+    VerPublicacionOfrecidaComponent.prototype.guardarComentario = function () {
+        var _this = this;
+        this.comentarioPuntuacion.Puntuacion = this.puntaje;
+        this.comentarioPuntuacion.Publicacion = this.publicacion;
+        this.comentarioPuntuacion.Cliente.Id = parseInt(localStorage.getItem('id-usuario'));
+        this.comentarioPuntuacion.Contacto = new contacto_1.Contacto();
+        this.comentarioPuntuacion.Contacto.Id = this.idContacto;
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
+        this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+            .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado"); });
+    };
+    VerPublicacionOfrecidaComponent.prototype.postIngresarComentarioOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+        }
+        else {
+            utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPublicacionOfrecidaComponent.prototype.postIngresarComentarioError = function (responseError) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPublicacionOfrecidaComponent.prototype.actualizarPuntaje = function (input) {
+        this.puntaje = input;
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - actualizarPuntaje | puntaje: " + JSON.stringify(this.puntaje));
     };
     VerPublicacionOfrecidaComponent.prototype.obtenerPublicacion = function () {
         var _this = this;

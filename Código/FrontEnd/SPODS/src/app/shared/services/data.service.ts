@@ -11,6 +11,7 @@ import {Contacto} from "../contacto";
 import {Carro} from "../carro";
 import {ActualizarContrasena} from "../actualizarContrasena";
 import {Publicacion} from "../publicacion";
+import {ComentarioPuntuacion} from "../comentarioPuntuacion";
 
 @Injectable()
 export class DataService {
@@ -32,6 +33,19 @@ export class DataService {
         Utilidades.log("[data.service.ts] - postAltaContacto | URL: " + URL);
         Utilidades.log("[data.service.ts] - postAltaContacto | body: " + JSON.stringify(body));
         Utilidades.log("[data.service.ts] - postAltaContacto | this.headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.post(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    public postIngresarComentario(comentarioPuntuacion:ComentarioPuntuacion){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/altaComentarioPuntuacion';
+        let body = JSON.stringify(comentarioPuntuacion);
+
+        Utilidades.log("[data.service.ts] - postIngresarComentario | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postIngresarComentario | body: " + JSON.stringify(body));
+        Utilidades.log("[data.service.ts] - postIngresarComentario | this.headers: " + JSON.stringify({ headers: this.headers }));
 
         return this.http.post(URL, body, { headers: this.headers })
             .map((res: Response) => res.json())

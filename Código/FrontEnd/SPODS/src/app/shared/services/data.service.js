@@ -37,6 +37,16 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.postIngresarComentario = function (comentarioPuntuacion) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/altaComentarioPuntuacion';
+        var body = JSON.stringify(comentarioPuntuacion);
+        utilidades_1.Utilidades.log("[data.service.ts] - postIngresarComentario | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postIngresarComentario | body: " + JSON.stringify(body));
+        utilidades_1.Utilidades.log("[data.service.ts] - postIngresarComentario | this.headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.post(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

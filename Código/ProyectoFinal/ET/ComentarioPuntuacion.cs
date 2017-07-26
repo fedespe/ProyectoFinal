@@ -15,6 +15,8 @@ namespace ET
         public Publicacion Publicacion { get; set; }
         //Cliente que utiliza el servicio y realiza comentario y puntuacion
         public Cliente Cliente { get; set; }
+        //Bidireccionalidad para alta de comentario
+        public Contacto Contacto { get; set; }
 
     }
 }

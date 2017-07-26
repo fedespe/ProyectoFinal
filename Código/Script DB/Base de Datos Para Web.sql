@@ -457,3 +457,5 @@ SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.
 
 SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from dbo.PUBLICACION p left join dbo.SERVICIO s on s.id=p.ServicioId left join dbo.PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join dbo.USUARIO u on u.Id=p.ClienteId Where p.ServicioId=1 AND p.Activa=1 ORDER BY p.Id;
 */
+
+

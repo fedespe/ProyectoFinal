@@ -86,7 +86,7 @@ namespace DAL
         public List<Publicacion> obtenerPublicacionesContratadasPorCliente(int idCliente)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, c.Id as IdContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join CONTACTO c on c.PublicacionId=p.Id Where c.ClienteId= @idCliente ORDER BY c.Fecha desc;";
+            string cadenaSelectPublicacion = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, c.Id as IdContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join CONTACTO c on c.PublicacionId=p.Id Where c.ClienteId= @idCliente ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))

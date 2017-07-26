@@ -30,5 +30,21 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
+        [HttpPost, Route("api/ComentarioPuntuacion/altaComentarioPuntuacion")]
+        public Retorno PostAltaComentarioPuntuacion([FromBody]ComentarioPuntuacion comentarioPuntuacion)
+        {
+            try
+            {
+                comentarioPuntuacionBL.altaComentarioPuntuacion(comentarioPuntuacion);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
     }
 }
