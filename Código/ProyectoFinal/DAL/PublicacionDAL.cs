@@ -86,7 +86,7 @@ namespace DAL
         public List<Publicacion> obtenerPublicacionesContratadasPorCliente(int idCliente)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, c.Id as IdContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join CONTACTO c on c.PublicacionId=p.Id Where c.ClienteId= @idCliente ORDER BY p.Id;";
+            string cadenaSelectPublicacion = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, c.Id as IdContacto, c.ClienteId as IdClienteContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join CONTACTO c on c.PublicacionId=p.Id Where c.ClienteId= @idCliente ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -126,14 +126,14 @@ namespace DAL
                                     ultimoIdPublicacion = Convert.ToInt32(dr["IdPublicacion"]);
                                 }
                                 //Agrego el el primer contacto sin comentario para poder comentar.
-                                if(publicaciones[publicaciones.Count-1].ContactoConComentarioPendiente==null && dr["ComentarioPuntuacionId"] == DBNull.Value)
+                                if(publicaciones[publicaciones.Count-1].ContactoConComentarioPendiente==null && dr["ComentarioPuntuacionId"] == DBNull.Value && dr["IdClienteContacto"] != DBNull.Value)
                                 {
                                     //Proximo comentario a crear
                                     publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente = new Contacto
                                     {
                                         Id= Convert.ToInt32(dr["IdContacto"]),
                                         Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
-                                        Cliente = new Cliente { Id = Convert.ToInt32(dr["ClienteId"]) },
+                                        Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
                                         Fecha = Convert.ToDateTime(dr["Fecha"])
                                     };
                                 }
@@ -383,7 +383,7 @@ namespace DAL
         public List<Publicacion> obtenerPublicacionesServicio(int idServicio)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId Where p.ServicioId=@idServicio AND p.Activa=1 ORDER BY p.Id;";
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario, c.Id as IdContacto, c.ClienteId as IdClienteContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId left join CONTACTO c on c.PublicacionId=p.Id Where p.ServicioId=@idServicio AND p.Activa=1 ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -419,6 +419,18 @@ namespace DAL
                                     publicaciones.Add(publicacion);
                                     ultimoId = Convert.ToInt32(dr["IdPublicacion"]);
                                 }//EN UN ELSE SI QUISIERA TRAIGO EL RESTO DE LAS IMAGENES
+                                //Agrego el el primer contacto sin comentario para poder comentar.
+                                if (publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente == null && dr["ComentarioPuntuacionId"] == DBNull.Value && dr["IdClienteContacto"]!= DBNull.Value)
+                                {
+                                    //Proximo comentario a crear
+                                    publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente = new Contacto
+                                    {
+                                        Id = Convert.ToInt32(dr["IdContacto"]),
+                                        Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
+                                        Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
+                                        Fecha = Convert.ToDateTime(dr["Fecha"])
+                                    };
+                                }
                             }
                         }
                     }

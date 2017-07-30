@@ -65,13 +65,19 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-6">
-                                        <a (click)="contactar()" class="btn btn-primary">Contactar</a>
+                                        <button (click)="contactar()" class="btn btn-primary">Contactar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div>
+                    <h3>Comentarios</h3>
+                    <div *ngFor="let comentario of publicacion.ComentariosPuntuacion;">
+                        {{comentario.Comentario}}
+                    </div>
+                </div>
 
                 <!--MODAL-->
                 <div *ngIf="idContacto > 0">
@@ -79,7 +85,6 @@
                     <button type="button" class="btn btn-primary" id="btnModal" style="display: none" data-toggle="modal" data-target="#exampleModalLong">
                         Comentar
                     </button>
-
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -111,15 +116,15 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary btn-block" (click)="guardarComentario()">Guardar</button>
+                                    <button type="button" class="btn btn-primary btn-block" id="btnGuardarComentario" (click)="guardarComentario()">Guardar</button>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--FIN MODAL-->
- 
-                </div>
+
             </div>
         </div>
 

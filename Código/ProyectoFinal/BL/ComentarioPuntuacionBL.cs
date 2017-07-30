@@ -40,7 +40,7 @@ namespace BL
         //ver validaciones
         private void validarComentarioPuntuacion(ComentarioPuntuacion comentarioPuntuacion)
         {
-            if (comentarioPuntuacion.Comentario.Length < 2)
+            if (comentarioPuntuacion.Comentario==null || comentarioPuntuacion.Comentario.Length < 2)
             {
                 throw new ProyectoException("Error: Comentario");
             }

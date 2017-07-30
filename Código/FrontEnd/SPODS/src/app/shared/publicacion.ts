@@ -4,6 +4,7 @@ import { Cliente } from "./cliente";
 import { Respuesta } from "./respuesta";
 import { Error } from "./error";
 import { Contacto } from "./contacto";
+import { ComentarioPuntuacion } from "./comentarioPuntuacion";
 
 export class Publicacion {
     Id: number;
@@ -18,6 +19,7 @@ export class Publicacion {
     Cliente: Cliente=new Cliente();
     Respuestas: Respuesta[] = [];
     ContactoConComentarioPendiente: Contacto= new Contacto();
+    ComentariosPuntuacion: ComentarioPuntuacion[]=[];
     
 
     constructor() {      

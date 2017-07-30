@@ -12,6 +12,7 @@ var Publicacion = (function () {
         this.Cliente = new cliente_1.Cliente();
         this.Respuestas = [];
         this.ContactoConComentarioPendiente = new contacto_1.Contacto();
+        this.ComentariosPuntuacion = [];
     }
     Publicacion.prototype.validarDatos1 = function () {
         utilidades_1.Utilidades.log("[publicacion.ts] - validarDatos | this: " + JSON.stringify(this));

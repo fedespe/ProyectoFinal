@@ -46,5 +46,25 @@ namespace WebAPI.Controllers
             return retorno;
         }
 
+        [HttpGet, Route("api/ComentarioPuntuacion/obtenerPorPublicacion/{id}")]
+        public Retorno GetComentarioPuntuacionPorPublicacion(int id)
+        {
+            try
+            {
+                List<ComentarioPuntuacion> comentariosPuntuacion = comentarioPuntuacionBL.obtenerPorPublicacion(id);
+                foreach (ComentarioPuntuacion c in comentariosPuntuacion)
+                {
+                    retorno.Objetos.Add(c);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
     }
 }

@@ -52,6 +52,16 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    public getObtenerComentarioPublicacion(id:number){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPorPublicacion/' + id;
+
+        Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

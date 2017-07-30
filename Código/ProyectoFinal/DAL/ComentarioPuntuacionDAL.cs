@@ -172,7 +172,7 @@ namespace DAL
         }
         public List<ComentarioPuntuacion> obtenerPorPublicacion(int idPublicacion)
         {
-            List<ComentarioPuntuacion> comentarios = null;
+            List<ComentarioPuntuacion> comentarios = new List<ComentarioPuntuacion>();
             string cadenaSelectComentario = "SELECT * FROM COMENTARIOPUNTUACION WHERE PublicacionId = @idPublicacion;";
             try
             {

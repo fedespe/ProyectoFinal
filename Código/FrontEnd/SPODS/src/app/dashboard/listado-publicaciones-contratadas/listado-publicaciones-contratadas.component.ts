@@ -58,62 +58,6 @@ export class ListadoPublicacionesContratadasComponent{
         this.mensajes.Errores.push(error);
     }
 
-    // desactivarPublicacion(input:any){
-    //     Utilidades.log("[listado-publicaciones-contratadas.component.ts] - desactivarPublicacion | responseError: " + JSON.stringify(input));
-    //     this.dataService.getDesactivarPublicacion(input)
-    //         .subscribe(
-    //         res => this.getDesactivarPublicacionOk(res),
-    //         error => this.getDesactivarPublicacionError(error),
-    //         () => Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getDesactivarPublicacion: Completado")
-    //     );
-    // }
-
-    // getDesactivarPublicacionOk(response:any){
-    //     Utilidades.log("[[listado-servicios.component.ts] - getDesactivarPublicacionOk | response: " + JSON.stringify(response));      
-    //     if(response.Codigo ==  200){
-    //         this.obtenerPublicacionesCliente(parseInt(localStorage.getItem('id-usuario')));
-    //     }
-    //     else{
-    //         var error = new Error();
-    //         error.Descripcion = response.Mensaje;           
-    //         this.mensajes.Errores.push(error);
-    //     }
-    // }
-
-    // getDesactivarPublicacionError(responseError:any){
-    //     Utilidades.log("[listado-servicios.component.ts] - getDesactivarPublicacionError | responseError: " + JSON.stringify(responseError));
-    //     var error = new Error();
-    //     error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-    //     this.mensajes.Errores.push(error);
-    // }
-
-    // activarPublicacion(input:any){
-    //     Utilidades.log("[listado-servicios.component.ts] - activarPublicacion | responseError: " + JSON.stringify(input));
-    //     this.dataService.getActivarPublicacion(input)
-    //         .subscribe(
-    //         res => this.getActivarPublicacionOk(res),
-    //         error => this.getActivarPublicacionError(error),
-    //         () => Utilidades.log("[listado-servicios.component.ts] - getActivarPublicacion: Completado")
-    //     );
-    // }
-
-    // getActivarPublicacionOk(response:any){
-    //     Utilidades.log("[[listado-servicios.component.ts] - getActivarPublicacionOk | response: " + JSON.stringify(response));      
-    //     if(response.Codigo ==  200){
-    //         this.obtenerPublicacionesCliente(parseInt(localStorage.getItem('id-usuario')));
-    //     }
-    //     else{
-    //         var error = new Error();
-    //         error.Descripcion = response.Mensaje;           
-    //         this.mensajes.Errores.push(error);
-    //     }
-    // }
-
-    // getActivarPublicacionError(responseError:any){
-    //     Utilidades.log("[listado-servicios.component.ts] - getActivarPublicacionError | responseError: " + JSON.stringify(responseError));
-    //     var error = new Error();
-    //     error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-    //     this.mensajes.Errores.push(error);
-    // }
+    
     
 }

@@ -21,6 +21,7 @@ namespace ET
         public List<Respuesta> Respuestas { get; set; }
         //Bidireccionalidad
         public Contacto ContactoConComentarioPendiente { get; set; }
+        public ComentarioPuntuacion ComentarioPuntuacion { get; set; }
 
         //public override bool Equals(object obj)
         //{

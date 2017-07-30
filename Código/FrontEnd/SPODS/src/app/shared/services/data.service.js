@@ -47,6 +47,14 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getObtenerComentarioPublicacion = function (id) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPorPublicacion/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

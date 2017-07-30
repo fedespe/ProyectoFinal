@@ -22,7 +22,7 @@
                     <td>
                         <div *ngIf="!publicacion.Activa">No hay acciones disponibles</div>
                         <div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente==null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, 0 ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver</div>
-                        <div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]"><i class="fa fa-eye" aria-hidden="true"></i> <i class="fa fa-comments-o" aria-hidden="true"></i> Ver (Comentario pendiente)</div>
+                        <div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver <i class="fa fa-comments-o" aria-hidden="true"></i>  Comentar</div>
                         <!--<div *ngIf="publicacion.Activa && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left"><i class="fa fa-comments-o" aria-hidden="true"></i></div>-->
                     </td>
                 </tr>

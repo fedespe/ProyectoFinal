@@ -50,18 +50,28 @@ var VerPublicacionOfrecidaComponent = (function () {
     };
     VerPublicacionOfrecidaComponent.prototype.guardarComentario = function () {
         var _this = this;
+        this.borrarMensajes();
         this.comentarioPuntuacion.Puntuacion = this.puntaje;
         this.comentarioPuntuacion.Publicacion = this.publicacion;
         this.comentarioPuntuacion.Cliente.Id = parseInt(localStorage.getItem('id-usuario'));
         this.comentarioPuntuacion.Contacto = new contacto_1.Contacto();
         this.comentarioPuntuacion.Contacto.Id = this.idContacto;
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
-        this.dataService.postIngresarComentario(this.comentarioPuntuacion)
-            .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado"); });
+        if (this.comentarioPuntuacion.Comentario != null && this.comentarioPuntuacion.Comentario != "") {
+            this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+                .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado"); });
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = "El comentario no puede estar vacio.";
+            this.mensajes.Errores.push(error);
+        }
     };
     VerPublicacionOfrecidaComponent.prototype.postIngresarComentarioOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
+            $('#exampleModalLong').modal('hide');
+            this.router.navigate(['/dashboard/ver-publicacion-ofrecida/', this.publicacion.Id, 0]);
         }
         else {
             utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
@@ -92,6 +102,7 @@ var VerPublicacionOfrecidaComponent = (function () {
             this.publicacion = response.Objetos[0];
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
+            this.obtenerComentarios();
             //Terminado la carga de la publicacion, en caso de que haya comentario pendiente, se habre ventana modal
             if (this.idContacto != 0) {
                 document.getElementById('btnModal').click();
@@ -186,7 +197,29 @@ var VerPublicacionOfrecidaComponent = (function () {
         }
     };
     VerPublicacionOfrecidaComponent.prototype.postAltaContactoError = function (responseError) {
-        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - postAltaContactoError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postAltaContactoError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPublicacionOfrecidaComponent.prototype.obtenerComentarios = function () {
+        var _this = this;
+        this.dataService.getObtenerComentarioPublicacion(this.publicacion.Id)
+            .subscribe(function (res) { return _this.getObtenerComentarioPublicacionOk(res); }, function (error) { return _this.getObtenerComentarioPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerComentarioPublicacion: Completado"); });
+    };
+    VerPublicacionOfrecidaComponent.prototype.getObtenerComentarioPublicacionOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerComentarioPublicacionOk | response: " + JSON.stringify(response.Objetos));
+        if (response.Codigo == 200) {
+            this.publicacion.ComentariosPuntuacion = response.Objetos;
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPublicacionOfrecidaComponent.prototype.getObtenerComentarioPublicacionError = function (responseError) {
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerComentarioPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

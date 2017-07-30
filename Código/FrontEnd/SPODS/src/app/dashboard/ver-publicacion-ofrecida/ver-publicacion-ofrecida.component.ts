@@ -51,6 +51,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     }
 
     guardarComentario(){
+        this.borrarMensajes();
         this.comentarioPuntuacion.Puntuacion=this.puntaje;
         this.comentarioPuntuacion.Publicacion=this.publicacion;
         this.comentarioPuntuacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario')); 
@@ -58,19 +59,26 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         this.comentarioPuntuacion.Contacto.Id=this.idContacto;
 
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
-    
-        this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+        if(this.comentarioPuntuacion.Comentario!=null && this.comentarioPuntuacion.Comentario!=""){
+            this.dataService.postIngresarComentario(this.comentarioPuntuacion)
             .subscribe(
                 res => this.postIngresarComentarioOk(res),
                 error => this.postIngresarComentarioError(error),
                 () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
             );
+        }else{
+            var error = new Error();
+            error.Descripcion = "El comentario no puede estar vacio.";           
+            this.mensajes.Errores.push(error);
+        }
+        
     }
     postIngresarComentarioOk(response:any){
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
 
         if(response.Codigo ==  200){
-            
+            $('#exampleModalLong').modal('hide');
+            this.router.navigate(['/dashboard/ver-publicacion-ofrecida/', this.publicacion.Id, 0]);
         }
         else{
             Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
@@ -108,6 +116,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
             this.publicacion = response.Objetos[0];          
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
+            this.obtenerComentarios();
 
             //Terminado la carga de la publicacion, en caso de que haya comentario pendiente, se habre ventana modal
             if(this.idContacto!=0){
@@ -229,9 +238,38 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     }
 
     postAltaContactoError(responseError:any){
-        Utilidades.log("[editar-servicio-cliente.component.ts] - postAltaContactoError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postAltaContactoError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
+
+    obtenerComentarios(){
+        this.dataService.getObtenerComentarioPublicacion(this.publicacion.Id)
+            .subscribe(
+            res => this.getObtenerComentarioPublicacionOk(res),
+            error => this.getObtenerComentarioPublicacionError(error),
+            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerComentarioPublicacion: Completado")
+        );
+    }
+     getObtenerComentarioPublicacionOk(response:any){
+        
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerComentarioPublicacionOk | response: " + JSON.stringify(response.Objetos));
+        if(response.Codigo ==  200){
+            this.publicacion.ComentariosPuntuacion=response.Objetos;
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObtenerComentarioPublicacionError(responseError:any){
+        Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerComentarioPublicacionError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
 }
