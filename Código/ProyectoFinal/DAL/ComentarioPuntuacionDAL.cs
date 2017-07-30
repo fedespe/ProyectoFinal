@@ -173,7 +173,7 @@ namespace DAL
         public List<ComentarioPuntuacion> obtenerPorPublicacion(int idPublicacion)
         {
             List<ComentarioPuntuacion> comentarios = new List<ComentarioPuntuacion>();
-            string cadenaSelectComentario = "SELECT * FROM COMENTARIOPUNTUACION WHERE PublicacionId = @idPublicacion;";
+            string cadenaSelectComentario = "SELECT * FROM COMENTARIOPUNTUACION c, USUARIO u WHERE PublicacionId = @idPublicacion AND c.ClienteId=u.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -198,9 +198,14 @@ namespace DAL
                                     },
                                     Cliente = new Cliente
                                     {
-                                        Id = Convert.ToInt32(dr["ClienteId"])
+                                        Id = Convert.ToInt32(dr["ClienteId"]),
+                                        NombreUsuario= dr["NombreUsuario"].ToString(),
                                     }
                                 };
+                                if (dr["Respuesta"] != DBNull.Value)
+                                {
+                                    comentarioPuntuacion.Respuesta = dr["Respuesta"].ToString();
+                                }
                                 comentarios.Add(comentarioPuntuacion);
                             }
                         }

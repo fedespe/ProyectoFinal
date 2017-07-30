@@ -34,3 +34,9 @@ label:hover ~ label {
 input[type="radio"]:checked ~ label {
   color: orange;
 }
+.comentario{
+  margin-bottom: 20px;
+}
+.respuesta{
+  margin-left: 40px;
+}

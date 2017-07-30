@@ -66,5 +66,38 @@ namespace WebAPI.Controllers
             return retorno;
         }
 
+        [HttpGet, Route("api/ComentarioPuntuacion/obtenerPromedioPuntajePublicacion/{id}")]
+        public Retorno GetPromedioPuntajePublicacion(int id)
+        {
+            try
+            {
+                double promedio = comentarioPuntuacionBL.obtenerPromedioPuntajePublicacion(id);
+                retorno.Objetos.Add(promedio);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+        [HttpGet, Route("api/ComentarioPuntuacion/obtenerPromedioPuntajeClienteServicio/{idCli}/{idServicio}")]
+        public Retorno GetPromedioPuntajeClienteServicio(int idCli, int idServicio)
+        {
+            try
+            {
+                double promedio = comentarioPuntuacionBL.obtenerPromedioPuntajeClienteServicio(idCli,idServicio);
+                retorno.Objetos.Add(promedio);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
     }
 }

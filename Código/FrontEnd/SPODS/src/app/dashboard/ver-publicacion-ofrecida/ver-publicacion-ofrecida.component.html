@@ -59,7 +59,26 @@
                         <img class="card-img-top align-self-center" src="{{baseURL}}/Imagenes/Clientes/{{publicacion.Cliente.Imagen}}" alt="{{publicacion.Cliente.Imagen}}" height="100" width="100">
                         <div class="card-block">
                             <h4 class="card-title" style="text-align: center">{{publicacion.Cliente.NombreUsuario}}</h4>
-                            <p class="card-text">Puntuación...</p>
+                            <div class="card-text">                                   
+                                <div *ngIf="promedioPublicacion==0">
+                                    Puntaje publicación: ({{promedioPublicacion}})
+                                </div>
+                                <div *ngIf="promedioPublicacion<=1 && promedioPublicacion>0">
+                                    Puntaje publicación: ★({{promedioPublicacion}})
+                                </div>
+                                <div *ngIf="promedioPublicacion<=2 && promedioPublicacion>1">
+                                    Puntaje publicación: ★★({{promedioPublicacion}})
+                                </div>
+                                <div *ngIf="promedioPublicacion<=3 && promedioPublicacion>2">
+                                    Puntaje publicación: ★★★({{promedioPublicacion}})
+                                </div>
+                                <div *ngIf="promedioPublicacion<=4 && promedioPublicacion>3">
+                                    Puntaje publicación: ★★★★({{promedioPublicacion}})
+                                </div>
+                                <div *ngIf="promedioPublicacion==5">
+                                    Puntaje publicación: ★★★★★({{promedioPublicacion}})
+                                </div>
+                            </div>
                             <p class="card-text">Comentarios...</p>
                             <!--<a href="#" class="btn btn-primary">Contactar</a>-->
                             <div class="container">
@@ -73,9 +92,35 @@
                     </div>
                 </div>
                 <div>
-                    <h3>Comentarios</h3>
-                    <div *ngFor="let comentario of publicacion.ComentariosPuntuacion;">
-                        {{comentario.Comentario}}
+                    <h3 style="margin-top: 20px;">Comentarios:</h3>
+                    <div style="margin-left: 40px" *ngFor="let comentario of publicacion.ComentariosPuntuacion;" class="comentario">  
+                        <div>
+                            <i class="fa fa-user-o" aria-hidden="true"></i> {{comentario.Cliente.NombreUsuario}}
+                        </div>
+                        <div>
+                             <i class="fa fa-commenting-o" aria-hidden="true"></i> {{comentario.Comentario}}
+                        </div>     
+                        <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
+                            <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
+                        </div>                                       
+                        <div *ngIf="comentario.Puntuacion==0">
+                            Puntaje: ({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==1">
+                            Puntaje: ★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==2">
+                            Puntaje: ★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==3">
+                            Puntaje: ★★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==4">
+                            Puntaje: ★★★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==5">
+                            Puntaje: ★★★★★({{comentario.Puntuacion}})
+                        </div>                           
                     </div>
                 </div>
 

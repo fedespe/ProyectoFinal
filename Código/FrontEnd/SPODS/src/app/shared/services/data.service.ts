@@ -62,6 +62,16 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+    public getObetenerPromedioPublicacion(id:number){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPromedioPuntajePublicacion/' + id;
+
+        Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

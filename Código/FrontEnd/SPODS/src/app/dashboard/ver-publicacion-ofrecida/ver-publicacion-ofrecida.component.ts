@@ -28,6 +28,8 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     idContacto:number;
     puntaje:number=0;
     comentarioPuntuacion: ComentarioPuntuacion= new ComentarioPuntuacion();
+    promedioPublicacion:number;
+    promedioServicio:number;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -49,6 +51,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     }
+
 
     guardarComentario(){
         this.borrarMensajes();
@@ -152,6 +155,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         if(response.Codigo ==  200){
             this.publicacion.Servicio = response.Objetos[0];
             this.obtenerPreguntas();//metodo que completa en alngular las respuestas a las preguntas
+            this.obetenerPromedioPublicacion();
         }
         else{
             var error = new Error();
@@ -267,6 +271,35 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
 
     getObtenerComentarioPublicacionError(responseError:any){
         Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerComentarioPublicacionError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    obetenerPromedioPublicacion(){
+        this.dataService.getObetenerPromedioPublicacion(this.publicacion.Id)
+            .subscribe(
+            res => this.getObetenerPromedioPublicacionOk(res),
+            error => this.getObetenerPromedioPublicacionError(error),
+            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obetenerPromedioPublicacion: Completado")
+        );
+    }
+
+    getObetenerPromedioPublicacionOk(response:any){
+        
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioPublicacionOk | response: " + JSON.stringify(response.Objetos[0]));
+        if(response.Codigo ==  200){
+           this.promedioPublicacion=response.Objetos[0];
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObetenerPromedioPublicacionError(responseError:any){
+        Utilidades.log("[editar-servicio-cliente.component.ts] - getObetenerPromedioPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

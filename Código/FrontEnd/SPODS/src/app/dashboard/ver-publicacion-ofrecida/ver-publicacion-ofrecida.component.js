@@ -130,6 +130,7 @@ var VerPublicacionOfrecidaComponent = (function () {
         if (response.Codigo == 200) {
             this.publicacion.Servicio = response.Objetos[0];
             this.obtenerPreguntas(); //metodo que completa en alngular las respuestas a las preguntas
+            this.obetenerPromedioPublicacion();
         }
         else {
             var error = new error_1.Error();
@@ -220,6 +221,28 @@ var VerPublicacionOfrecidaComponent = (function () {
     };
     VerPublicacionOfrecidaComponent.prototype.getObtenerComentarioPublicacionError = function (responseError) {
         utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerComentarioPublicacionError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPublicacionOfrecidaComponent.prototype.obetenerPromedioPublicacion = function () {
+        var _this = this;
+        this.dataService.getObetenerPromedioPublicacion(this.publicacion.Id)
+            .subscribe(function (res) { return _this.getObetenerPromedioPublicacionOk(res); }, function (error) { return _this.getObetenerPromedioPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obetenerPromedioPublicacion: Completado"); });
+    };
+    VerPublicacionOfrecidaComponent.prototype.getObetenerPromedioPublicacionOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioPublicacionOk | response: " + JSON.stringify(response.Objetos[0]));
+        if (response.Codigo == 200) {
+            this.promedioPublicacion = response.Objetos[0];
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPublicacionOfrecidaComponent.prototype.getObetenerPromedioPublicacionError = function (responseError) {
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getObetenerPromedioPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

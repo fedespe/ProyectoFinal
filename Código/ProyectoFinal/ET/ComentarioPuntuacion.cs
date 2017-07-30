@@ -17,6 +17,7 @@ namespace ET
         public Cliente Cliente { get; set; }
         //Bidireccionalidad para alta de comentario
         public Contacto Contacto { get; set; }
+        public string Respuesta { get; set; }
 
     }
 }
