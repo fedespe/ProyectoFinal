@@ -18,6 +18,11 @@ namespace BL
             validarComentarioPuntuacion(comentarioPuntuacion);
             comentarioPuntuacionDAL.altaComentarioPuntuacion(comentarioPuntuacion);
         }
+        public void altaRespuestaComentario(ComentarioPuntuacion comentarioPuntuacion)
+        {
+            validarRespuesta(comentarioPuntuacion);
+            comentarioPuntuacionDAL.altaRespuestaComentario(comentarioPuntuacion);
+        }
         //Solo para administradores
         public void borrarComentarioPuntuacion(ComentarioPuntuacion comentarioPuntuacion)
         {         
@@ -37,6 +42,17 @@ namespace BL
             return comentarioPuntuacionDAL.obtenerPromedioPuntajeClienteServicio(idCliente, idServicio);
         }
 
+        private void validarRespuesta(ComentarioPuntuacion comentarioPuntuacion)
+        {
+            if (comentarioPuntuacion.Respuesta == null || comentarioPuntuacion.Respuesta == "")
+            {
+                throw new ProyectoException("Error: Respuesta");
+            }
+            if (comentarioPuntuacion.Id == 0)
+            {
+                throw new ProyectoException("Error: Id Comentario");
+            }
+        }
         //ver validaciones
         private void validarComentarioPuntuacion(ComentarioPuntuacion comentarioPuntuacion)
         {

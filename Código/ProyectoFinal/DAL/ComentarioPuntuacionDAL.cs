@@ -59,6 +59,30 @@ namespace DAL
             }
         }
 
+        public void altaRespuestaComentario(ComentarioPuntuacion comentarioPuntuacion)
+        {
+            string cadenaUpdateRespuesta = @"UPDATE COMENTARIOPUNTUACION SET Respuesta=@respuesta WHERE Id=@idComentario;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    using (SqlCommand cmd = new SqlCommand(cadenaUpdateRespuesta, con))
+                    {
+                        cmd.Parameters.AddWithValue("@respuesta", comentarioPuntuacion.Respuesta);
+                        cmd.Parameters.AddWithValue("@idComentario", comentarioPuntuacion.Id);
+
+                        con.Open();
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+        }
+
         public double obtenerPromedioPuntajeClienteServicio(int idCliente, int idServicio)
         {
             //Oferta

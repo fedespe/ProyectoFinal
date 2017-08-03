@@ -63,6 +63,24 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getObetenerPromedioClienteServicio = function (idCli, idServicio) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPromedioPuntajeClienteServicio/' + idCli + "/" + idServicio;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObetenerPromedioClienteServicio | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObetenerPromedioClienteServicio | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.postAltaRespuestaComentario = function (comentarioPuntuacion) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/altaRespuestaComentario';
+        var body = JSON.stringify(comentarioPuntuacion);
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | body: " + JSON.stringify(body));
+        utilidades_1.Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | this.headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.post(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

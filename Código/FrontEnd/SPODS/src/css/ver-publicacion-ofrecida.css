@@ -40,3 +40,7 @@ input[type="radio"]:checked ~ label {
 .respuesta{
   margin-left: 40px;
 }
+.promedio{
+  font-size: 25px; 
+  color: orange;
+}

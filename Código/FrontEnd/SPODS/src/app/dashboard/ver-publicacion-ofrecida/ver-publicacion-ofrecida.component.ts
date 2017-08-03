@@ -30,6 +30,8 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     comentarioPuntuacion: ComentarioPuntuacion= new ComentarioPuntuacion();
     promedioPublicacion:number;
     promedioServicio:number;
+    idUsuario:number;
+    responder:boolean=false;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -44,7 +46,8 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
             Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));
             Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | idContacto: " + JSON.stringify(this.idContacto));   
         });
-        this.obtenerPublicacion();           
+        this.obtenerPublicacion();  
+        this.idUsuario= parseInt(localStorage.getItem('id-usuario'));       
     }
 
     borrarMensajes(){
@@ -156,6 +159,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
             this.publicacion.Servicio = response.Objetos[0];
             this.obtenerPreguntas();//metodo que completa en alngular las respuestas a las preguntas
             this.obetenerPromedioPublicacion();
+            this.obetenerPromedioClienteServicio();
         }
         else{
             var error = new Error();
@@ -300,6 +304,86 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
 
     getObetenerPromedioPublicacionError(responseError:any){
         Utilidades.log("[editar-servicio-cliente.component.ts] - getObetenerPromedioPublicacionError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    obetenerPromedioClienteServicio(){
+         this.dataService.getObetenerPromedioClienteServicio(this.publicacion.Cliente.Id,this.publicacion.Servicio.Id)
+            .subscribe(
+            res => this.getObetenerPromedioClienteServicioOk(res),
+            error => this.getObetenerPromedioClienteServicioError(error),
+            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicio: Completado")
+        );
+    }
+
+    getObetenerPromedioClienteServicioOk(response:any){
+        
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicioOk | response: " + JSON.stringify(response.Objetos[0]));
+        if(response.Codigo ==  200){
+           this.promedioServicio=response.Objetos[0];
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObetenerPromedioClienteServicioError(responseError:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    responderComentario(input:any){
+        var s='respuesta'+input;
+        if(this.responder==true){
+            document.getElementById(s).hidden = true;
+            this.responder=false;
+        }else{
+            document.getElementById(s).hidden = false;
+            this.responder=true;
+        }
+        
+    }
+
+    guardarRespuesta(input:any){
+        var respuesta = <HTMLInputElement>document.getElementById('txtRespuesta'+input);
+        if(respuesta.value!=null && respuesta.value!=''){
+            this.comentarioPuntuacion.Id=parseInt(input);
+            this.comentarioPuntuacion.Respuesta=respuesta.value;
+
+            this.dataService.postAltaRespuestaComentario(this.comentarioPuntuacion)
+                .subscribe(
+                res => this.postAltaRespuestaComentarioOk(res,input),
+                error => this.postAltaRespuestaComentarioError(error),
+                () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postAltaRespuestaComentario: Completado")
+            );
+        }else{
+            alert('Debe ingresar un comentario.');
+        }
+        
+    }
+
+    postAltaRespuestaComentarioOk(response:any,idComentario:any){
+        
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
+        if(response.Codigo ==  200){
+            document.getElementById('btnGuardarRespuesta'+idComentario).hidden = true;
+            document.getElementById('txtRespuesta'+idComentario).setAttribute('disabled','disabled');
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    postAltaRespuestaComentarioError(responseError:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

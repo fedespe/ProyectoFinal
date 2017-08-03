@@ -59,32 +59,49 @@
                         <img class="card-img-top align-self-center" src="{{baseURL}}/Imagenes/Clientes/{{publicacion.Cliente.Imagen}}" alt="{{publicacion.Cliente.Imagen}}" height="100" width="100">
                         <div class="card-block">
                             <h4 class="card-title" style="text-align: center">{{publicacion.Cliente.NombreUsuario}}</h4>
-                            <div class="card-text">                                   
+                            <div class="card-text" >                                   
                                 <div *ngIf="promedioPublicacion==0">
-                                    Puntaje publicación: ({{promedioPublicacion}})
+                                    Puntaje publicación: <span class="promedio">({{promedioPublicacion}})</span>
                                 </div>
                                 <div *ngIf="promedioPublicacion<=1 && promedioPublicacion>0">
-                                    Puntaje publicación: ★({{promedioPublicacion}})
+                                    Puntaje publicación: <span class="promedio">★({{promedioPublicacion}})</span>
                                 </div>
                                 <div *ngIf="promedioPublicacion<=2 && promedioPublicacion>1">
-                                    Puntaje publicación: ★★({{promedioPublicacion}})
+                                    Puntaje publicación: <span class="promedio">★★({{promedioPublicacion}})</span>
                                 </div>
                                 <div *ngIf="promedioPublicacion<=3 && promedioPublicacion>2">
-                                    Puntaje publicación: ★★★({{promedioPublicacion}})
+                                    Puntaje publicación: <span class="promedio">★★★({{promedioPublicacion}})</span>
                                 </div>
                                 <div *ngIf="promedioPublicacion<=4 && promedioPublicacion>3">
-                                    Puntaje publicación: ★★★★({{promedioPublicacion}})
+                                    Puntaje publicación: <span class="promedio">★★★★({{promedioPublicacion}})</span>
                                 </div>
                                 <div *ngIf="promedioPublicacion==5">
-                                    Puntaje publicación: ★★★★★({{promedioPublicacion}})
+                                    Puntaje publicación: <span class="promedio">★★★★★({{promedioPublicacion}})</span>
+                                </div>
+                                                            
+                                <div *ngIf="promedioServicio==0">
+                                    Puntaje servicio: <span class="promedio">({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio<=1 && promedioServicio>0">
+                                    Puntaje servicio: <span class="promedio">★({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio<=2 && promedioServicio>1">
+                                    Puntaje servicio: <span class="promedio">★★({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio<=3 && promedioServicio>2">
+                                    Puntaje servicio: <span class="promedio">★★★({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio<=4 && promedioServicio>3">
+                                    Puntaje servicio: <span class="promedio">★★★★({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio==5">
+                                    Puntaje servicio: <span class="promedio">★★★★★({{promedioServicio}})</span>
                                 </div>
                             </div>
-                            <p class="card-text">Comentarios...</p>
-                            <!--<a href="#" class="btn btn-primary">Contactar</a>-->
-                            <div class="container">
+                            <div class="container" *ngIf="publicacion.Cliente.Id != idUsuario">
                                 <div class="row justify-content-center">
-                                    <div class="col-6">
-                                        <button (click)="contactar()" class="btn btn-primary">Contactar</button>
+                                    <div class="align-self-center">
+                                        <button (click)="contactar()" class="btn btn-primary" style="margin-top: 10px;">Contactar</button>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +119,16 @@
                         </div>     
                         <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
                             <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
-                        </div>                                       
+                        </div>
+                        <div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && idUsuario==publicacion.Cliente.Id" class="respuesta">
+                            <div class="linkManual" (click)="responderComentario(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
+                        </div>   
+                        <!--<div *ngIf="responder && (comentario.Respuesta==null || comentario.Respuesta=='')" class="respuesta">-->
+                        <div id="respuesta{{comentario.Id}}" hidden="hidden" class="respuesta"> 
+                            <label for="inputRespuesta" class="sr-only">Respuesta:</label>
+                            <textarea rows="5" class="form-control" id="txtRespuesta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                            <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuesta{{comentario.Id}}" (click)="guardarRespuesta(comentario.Id)">Responder</button>
+                        </div>                                    
                         <div *ngIf="comentario.Puntuacion==0">
                             Puntaje: ({{comentario.Puntuacion}})
                         </div>

@@ -72,6 +72,29 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+    public getObetenerPromedioClienteServicio(idCli:number,idServicio:number){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPromedioPuntajeClienteServicio/' + idCli + "/" + idServicio;
+
+        Utilidades.log("[data.service.ts] - getObetenerPromedioClienteServicio | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObetenerPromedioClienteServicio | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    public postAltaRespuestaComentario(comentarioPuntuacion:ComentarioPuntuacion){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/altaRespuestaComentario';
+        let body = JSON.stringify(comentarioPuntuacion);
+
+        Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | body: " + JSON.stringify(body));
+        Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | this.headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.post(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */
