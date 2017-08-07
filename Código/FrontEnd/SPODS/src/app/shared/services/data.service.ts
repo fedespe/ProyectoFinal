@@ -12,6 +12,7 @@ import {Carro} from "../carro";
 import {ActualizarContrasena} from "../actualizarContrasena";
 import {Publicacion} from "../publicacion";
 import {ComentarioPuntuacion} from "../comentarioPuntuacion";
+import {Presupuesto} from "../presupuesto";
 
 @Injectable()
 export class DataService {
@@ -341,6 +342,28 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - getPublicacionesServicioSolicitud | URL: " + URL);
         Utilidades.log("[data.service.ts] - getPublicacionesServicioSolicitud | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+    public postIngresarPresupuesto(presupuesto:Presupuesto){
+        var URL : string = this.baseUrl + '/api/Publicacion/altaPresupuesto';
+        let body = JSON.stringify(presupuesto);
+
+        Utilidades.log("[data.service.ts] - postIngresarPresupuesto | URL: " + URL);
+        Utilidades.log("[data.service.ts] - postIngresarPresupuesto | body: " + JSON.stringify(body));
+        Utilidades.log("[data.service.ts] - postIngresarPresupuesto | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.post(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+    public getObtenerPresupuestos(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerPresupuestos/' + id;
+
+        Utilidades.log("[data.service.ts] - getObtenerPresupuestos | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerPresupuestos | headers: " + JSON.stringify({ headers: this.headers }));
 
         return this.http.get(URL, { headers: this.headers })
             .map((res: Response) => res.json())

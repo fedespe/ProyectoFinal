@@ -13,6 +13,7 @@ namespace WebAPI.Controllers
     public class PublicacionController : ApiController
     {
         private PublicacionBL publicacionBL = new PublicacionBL();
+        private SolicitudBL solicitudBL = new SolicitudBL();
         private Retorno retorno = new Retorno();
 
         //Servicio por Get sin parámetros (Retorna todos)
@@ -238,6 +239,42 @@ namespace WebAPI.Controllers
             return retorno;
         }
 
+        //Servicio por Post para alta
+        [HttpPost, Route("api/Publicacion/altaPresupuesto")]
+        public Retorno PostAltaPresupuesto([FromBody]Presupuesto presupuesto)
+        {
+            try
+            {
+                solicitudBL.altaPresupuesto(presupuesto);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+        //Servicio por Get sin parámetros (Retorna todos)
+        [HttpGet, Route("api/Publicacion/obtenerPresupuestos/{idPub}")]
+        public Retorno GetAllPresupuestos(int idPub)
+        {
+            try
+            {
+                List<Presupuesto> presupuestos = solicitudBL.obtenerPresupuestos(idPub);
+                foreach (Presupuesto p in presupuestos)
+                {
+                    retorno.Objetos.Add(p);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
 
     }
 }

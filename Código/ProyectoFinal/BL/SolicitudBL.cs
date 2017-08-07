@@ -35,22 +35,7 @@ namespace BL
         {
             return solicitudDAL.obtenerSolicitudesServicio(idServicio);
         }
-        //public void habilitarSolicitud(int id)
-        //{
-        //    solicitudDAL.habilitarSolicitud(id);
-        //}
-        //public void deshabilitarSolicitud(int id)
-        //{
-        //    solicitudDAL.deshabilitarSolicitud(id);
-        //}
-        //public int obtenerUltimoIdSolicitudCliente(int idCliente)
-        //{
-        //    return publicacionDAL.obtenerUltimoIdSolicitudCliente(idCliente);
-        //}
-        //public void guardarImagenesSolicitud(Solicitud solicitud)
-        //{
-        //    publicacionDAL.guardarImagenePublicacion(publicacion);
-        //}
+
 
         //VER VALIDACIONES
         private void validarSolicitud(Solicitud solicitud)
@@ -64,5 +49,29 @@ namespace BL
                 throw new ProyectoException("Error: La publicación debe tener al menos una imagen");
             }
         }
+
+        //PRESUPUESTO
+        public void altaPresupuesto(Presupuesto presupuesto)
+        {
+            validarPresupuesto(presupuesto);
+            solicitudDAL.altaPresupuesto(presupuesto);
+        }
+        public List<Presupuesto> obtenerPresupuestos(int idPublicacion)
+        {
+            return solicitudDAL.obtenerPresupuestos(idPublicacion);
+        }
+        private void validarPresupuesto(Presupuesto presupuesto)
+        {
+            if (presupuesto.Cliente==null || presupuesto.Cliente.Id==0)
+            {
+               throw new ProyectoException("Error: Cliente");
+            }
+            if (presupuesto.Solicitud==null || presupuesto.Solicitud.Id == 0)
+            {
+                throw new ProyectoException("Error: Solicitud");
+            }
+        }
+
+
     }
 }

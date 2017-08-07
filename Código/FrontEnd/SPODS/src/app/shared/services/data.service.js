@@ -270,6 +270,24 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.postIngresarPresupuesto = function (presupuesto) {
+        var URL = this.baseUrl + '/api/Publicacion/altaPresupuesto';
+        var body = JSON.stringify(presupuesto);
+        utilidades_1.Utilidades.log("[data.service.ts] - postIngresarPresupuesto | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - postIngresarPresupuesto | body: " + JSON.stringify(body));
+        utilidades_1.Utilidades.log("[data.service.ts] - postIngresarPresupuesto | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.post(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getObtenerPresupuestos = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/obtenerPresupuestos/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerPresupuestos | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerPresupuestos | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS PUBLICACION
     //*************************** */

@@ -256,12 +256,14 @@ GO
 
 CREATE TABLE dbo.PRESUPUESTO
 (
+	Id	INT  NOT NULL IDENTITY(1,1),
 	ClienteId INT NOT NULL,
 	PublicacionId INT NOT NULL,
 	Comentario NVARCHAR(150) NOT NULL,
 	Aceptado BIT NOT NULL,
+	Fecha DATETIME NOT NULL,
 
-	CONSTRAINT PK_PRESUPUESTO PRIMARY KEY(ClienteId, PublicacionId), 
+	CONSTRAINT PK_PRESUPUESTO PRIMARY KEY(Id), 
 	CONSTRAINT FK_ClienteId_PRESUPUESTO FOREIGN KEY (ClienteId) REFERENCES dbo.CLIENTE (UsuarioId),
 	CONSTRAINT FK_PublicacionId_PRESUPUESTO FOREIGN KEY (PublicacionId) REFERENCES dbo.PUBLICACION (Id),
 );
@@ -445,6 +447,7 @@ SELECT * FROM dbo.PUBLICACIONIMAGEN;
 SELECT * FROM dbo.PUBLICACIONRESPUESTA;
 SELECT * FROM dbo.CONTACTO;
 SELECT * FROM dbo.COMENTARIOPUNTUACION;
+SELECT * FROM dbo.PRESUPUESTO;
 
 SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, * from dbo.PUBLICACION p, dbo.PUBLICACIONIMAGEN i, dbo.SERVICIO s WHERE i.PublicacionId=p.Id AND s.id=p.ServicioId ORDER BY p.Id;
 
@@ -454,5 +457,3 @@ SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.
 
 SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario,* from dbo.PUBLICACION p left join dbo.SERVICIO s on s.id=p.ServicioId left join dbo.PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join dbo.USUARIO u on u.Id=p.ClienteId Where p.ServicioId=1 AND p.Activa=1 ORDER BY p.Id;
 */
-
-

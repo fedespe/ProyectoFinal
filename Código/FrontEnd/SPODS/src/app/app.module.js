@@ -34,6 +34,7 @@ var listado_solicitudes_cliente_component_1 = require("./dashboard/listado-solic
 var editar_solicitud_cliente_component_1 = require("./dashboard/editar-solicitud-cliente/editar-solicitud-cliente.component");
 var listado_solicitudes_component_1 = require("./dashboard/listado-solicitudes/listado-solicitudes.component");
 var listado_solicitudes_ofrecidas_component_1 = require("./dashboard/listado-solicitudes-ofrecidas/listado-solicitudes-ofrecidas.component");
+var ver_publicacion_solicitada_component_1 = require("./dashboard/ver-publicacion-solicitada/ver-publicacion-solicitada.component");
 var appRoutes = [
     { path: '', component: landing_component_1.LandingComponent,
         children: [
@@ -61,6 +62,7 @@ var appRoutes = [
             { path: 'editar-solicitud-cliente/:id', component: editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent },
             { path: 'listado-solicitudes', component: listado_solicitudes_component_1.ListadoSolicitudesComponent },
             { path: 'listado-solicitudes-ofrecidas/:id', component: listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent },
+            { path: 'ver-publicacion-solicitada/:id/:idContacto', component: ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent },
         ]
     },
     { path: '**', component: not_found_component_1.NotFoundComponent }
@@ -83,7 +85,7 @@ AppModule = __decorate([
             editar_servicio_cliente_component_1.EditarServicioClienteComponent, listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent, ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent,
             ver_perfil_usuario_component_1.VerPerfilUsuarioComponent, listado_publicaciones_contratadas_component_1.ListadoPublicacionesContratadasComponent, solicitar_servicio_component_1.SolicitarServicioComponent,
             listado_solicitudes_cliente_component_1.ListadoSolicitudesClienteComponent, editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent, listado_solicitudes_component_1.ListadoSolicitudesComponent,
-            listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent
+            listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent, ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

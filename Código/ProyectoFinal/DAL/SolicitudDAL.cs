@@ -4,11 +4,81 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ET;
+using System.Data.SqlClient;
 
 namespace DAL
 {
     public class SolicitudDAL
     {
+        public void altaPresupuesto(Presupuesto presupuesto)
+        {
+            string cadenaInsertPresupuesto = @"INSERT INTO PRESUPUESTO VALUES(@clienteId, @publicacionId,@comentario,@aceptado, @fecha);";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    using (SqlCommand cmd = new SqlCommand(cadenaInsertPresupuesto, con))
+                    {
+                        cmd.Parameters.AddWithValue("@clienteId", presupuesto.Cliente.Id);
+                        cmd.Parameters.AddWithValue("@publicacionId", presupuesto.Solicitud.Id);
+                        cmd.Parameters.AddWithValue("@comentario", presupuesto.Comentario);
+                        cmd.Parameters.AddWithValue("@aceptado", presupuesto.Aceptado);
+                        cmd.Parameters.AddWithValue("@fecha", DateTime.Now);
+
+                        con.Open();
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+        }
+
+        public List<Presupuesto> obtenerPresupuestos(int idPublicacion)
+        {
+            List<Presupuesto> presupuestos = new List<Presupuesto>();
+            string cadenaSelectPresupuesto = "SELECT p.Id as IdPresupuesto, * FROM PRESUPUESTO p, USUARIO u WHERE p.PublicacionId=@idPub AND p.ClienteId=u.Id;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectPresupuesto, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idPub", idPublicacion);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                Presupuesto unPresupuesto = new Presupuesto
+                                {
+                                    Id = Convert.ToInt32(dr["IdPresupuesto"]),
+                                    Cliente = new Cliente { Id= Convert.ToInt32(dr["ClienteId"]), NombreUsuario= dr["NombreUsuario"].ToString() },
+                                    Solicitud= new Solicitud { Id= Convert.ToInt32(dr["PublicacionId"]) },
+                                    Comentario= dr["Comentario"].ToString(),
+                                    Aceptado=Convert.ToBoolean(dr["Aceptado"]),
+                                    Fecha=Convert.ToDateTime(dr["Fecha"])
+                                };
+                                presupuestos.Add(unPresupuesto);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return presupuestos;
+        }
+
+
+
         public void altaSolicitud(Solicitud solicitud)
         {
             throw new NotImplementedException();
@@ -34,6 +104,8 @@ namespace DAL
             throw new NotImplementedException();
         }
 
+        
+
         public List<Solicitud> obtenerSolicitudesContratadasPorCliente(int idCliente)
         {
             throw new NotImplementedException();
@@ -43,5 +115,7 @@ namespace DAL
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

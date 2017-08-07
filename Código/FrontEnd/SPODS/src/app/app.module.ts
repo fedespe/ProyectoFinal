@@ -27,6 +27,7 @@ import { ListadoSolicitudesClienteComponent } from "./dashboard/listado-solicitu
 import { EditarSolicitudClienteComponent } from "./dashboard/editar-solicitud-cliente/editar-solicitud-cliente.component";
 import { ListadoSolicitudesComponent } from "./dashboard/listado-solicitudes/listado-solicitudes.component";
 import { ListadoSolicitudesOfrecidasComponent } from "./dashboard/listado-solicitudes-ofrecidas/listado-solicitudes-ofrecidas.component";
+import { VerPublicacionSolicitadaComponent } from "./dashboard/ver-publicacion-solicitada/ver-publicacion-solicitada.component";
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent, 
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
       { path: 'editar-solicitud-cliente/:id', component: EditarSolicitudClienteComponent },
       { path: 'listado-solicitudes', component: ListadoSolicitudesComponent },
       { path: 'listado-solicitudes-ofrecidas/:id', component: ListadoSolicitudesOfrecidasComponent },
+      { path: 'ver-publicacion-solicitada/:id/:idContacto', component: VerPublicacionSolicitadaComponent },
     ]
   },
   {path: '**', component: NotFoundComponent }
@@ -72,7 +74,7 @@ const appRoutes: Routes = [
     EditarServicioClienteComponent, ListadoServiciosOfrecidosComponent, VerPublicacionOfrecidaComponent,
     VerPerfilUsuarioComponent, ListadoPublicacionesContratadasComponent, SolicitarServicioComponent,
     ListadoSolicitudesClienteComponent, EditarSolicitudClienteComponent, ListadoSolicitudesComponent,
-    ListadoSolicitudesOfrecidasComponent
+    ListadoSolicitudesOfrecidasComponent, VerPublicacionSolicitadaComponent
   ],
   bootstrap:    [ AppComponent ]
 })
