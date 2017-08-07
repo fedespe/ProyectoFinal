@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicacionDAL.cs" />
     <Compile Include="ServicioDAL.cs" />
+    <Compile Include="SolicitudDAL.cs" />
     <Compile Include="UsuarioDAL.cs" />
   </ItemGroup>
   <ItemGroup>

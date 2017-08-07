@@ -13,12 +13,12 @@ import { Settings } from "../../shared/settings";
 
 
 @Component({
-    selector: 'listado-servicios-ofrecidos',
-    templateUrl: 'app/dashboard/listado-servicios-ofrecidos/listado-servicios-ofrecidos.component.html',
-    styleUrls:  ['css/listado-servicios-ofrecidos.css']
+    selector: 'listado-solicitudes-ofrecidas',
+    templateUrl: 'app/dashboard/listado-solicitudes-ofrecidas/listado-solicitudes-ofrecidas.component.html',
+    styleUrls:  ['css/listado-solicitudes-ofrecidas.css']
 })
 
-export class ListadoServiciosOfrecidosComponent implements OnInit{
+export class ListadoSolicitudesOfrecidasComponent implements OnInit{
     mensajes: Mensaje = new Mensaje();
     nombreServicio:string;
     publicaciones: Publicacion[] = [];
@@ -34,9 +34,9 @@ export class ListadoServiciosOfrecidosComponent implements OnInit{
         this.route.params
         .subscribe(params => {
             this.idServicio = parseInt(params['id']);
-            Utilidades.log("[listado-servicios-ofrecidos.component.ts] - ngOnInit | id: " + JSON.stringify(this.idServicio));   
+            Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - ngOnInit | id: " + JSON.stringify(this.idServicio));   
         });
-        this.obtenerServicio();       
+        this.obtenerSolicitudesServicio();       
     }
 
     borrarMensajes(){
@@ -44,18 +44,18 @@ export class ListadoServiciosOfrecidosComponent implements OnInit{
         this.mensajes.Exitos = [];
     }
 
-    obtenerServicio(){
-         Utilidades.log("[listado-servicios-ofrecidos.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idServicio));
-        this.dataService.getPublicacionesServicioOferta(this.idServicio)
+    obtenerSolicitudesServicio(){
+         Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio | id: " + JSON.stringify(this.idServicio));
+        this.dataService.getPublicacionesServicioSolicitud(this.idServicio)
             .subscribe(
-            res => this.getPublicacionesServicioOk(res),
-            error => this.getPublicacionesServicioError(error),
-            () => Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicios: Completado")
+            res => this.getPublicacionesServicioSolicitudOk(res),
+            error => this.getPublicacionesServicioSolicitudError(error),
+            () => Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio: Completado")
         );
     }
 
-    getPublicacionesServicioOk(response:any){
-        Utilidades.log("[listado-servicios-ofrecidos.component.ts] - getPublicacionesServicioOk | response: " + JSON.stringify(response));       
+    getPublicacionesServicioSolicitudOk(response:any){
+        Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - getPublicacionesServicioSolicitudOk | response: " + JSON.stringify(response));       
         if(response.Codigo ==  200){
             this.publicaciones = response.Objetos;     
             if(this.publicaciones.length>0){
@@ -71,8 +71,8 @@ export class ListadoServiciosOfrecidosComponent implements OnInit{
         }
     }
 
-    getPublicacionesServicioError(responseError:any){
-        Utilidades.log("[listado-servicios-ofrecidos.component.ts] - getPublicacionesServicioError | responseError: " + JSON.stringify(responseError));
+    getPublicacionesServicioSolicitudError(responseError:any){
+        Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - getPublicacionesServicioSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

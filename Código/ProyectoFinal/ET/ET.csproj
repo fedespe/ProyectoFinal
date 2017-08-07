@@ -49,11 +49,13 @@
     <Compile Include="Contacto.cs" />
     <Compile Include="Departamento.cs" />
     <Compile Include="Pregunta.cs" />
+    <Compile Include="Presupuesto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProyectoException.cs" />
     <Compile Include="Publicacion.cs" />
     <Compile Include="Respuesta.cs" />
     <Compile Include="Servicio.cs" />
+    <Compile Include="Solicitud.cs" />
     <Compile Include="SuperAdministrador.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Utilidades.cs" />

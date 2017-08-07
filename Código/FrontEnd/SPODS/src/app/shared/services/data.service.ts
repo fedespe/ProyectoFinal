@@ -303,11 +303,22 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
-    public getPublicacionesServicio(id:number){
-        var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesServicio/' + id;
+    public getPublicacionesServicioOferta(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesServicioOferta/' + id;
 
-        Utilidades.log("[data.service.ts] - getPublicacionesServicio | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getPublicacionesServicio | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getPublicacionesServicioOferta | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getPublicacionesServicioOferta | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+     public getObtenerPublicacionesClienteSolicitud(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesClienteSolicitud/' + id;
+
+        Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.headers }));
 
         return this.http.get(URL, { headers: this.headers })
             .map((res: Response) => res.json())
@@ -319,6 +330,17 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | URL: " + URL);
         Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    public getPublicacionesServicioSolicitud(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesServicioSolicitud/' + id;
+
+        Utilidades.log("[data.service.ts] - getPublicacionesServicioSolicitud | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getPublicacionesServicioSolicitud | headers: " + JSON.stringify({ headers: this.headers }));
 
         return this.http.get(URL, { headers: this.headers })
             .map((res: Response) => res.json())

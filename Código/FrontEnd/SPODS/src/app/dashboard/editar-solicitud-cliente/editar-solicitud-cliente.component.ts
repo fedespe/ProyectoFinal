@@ -13,12 +13,12 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-    selector: 'editar-servicio-cliente',
-    templateUrl: 'app/dashboard/editar-servicio-cliente/editar-servicio-cliente.component.html',
-    styleUrls:  ['css/editar-servicio-cliente.css']
+    selector: 'editar-solicitud-cliente',
+    templateUrl: 'app/dashboard/editar-solicitud-cliente/editar-solicitud-cliente.component.html',
+    styleUrls:  ['css/editar-solicitud-cliente.css']
 })
 
-export class EditarServicioClienteComponent implements OnInit{
+export class EditarSolicitudClienteComponent implements OnInit{
     mensajes: Mensaje = new Mensaje();
     servicios: Servicio[] = [];
     publicacion: Publicacion = new Publicacion();
@@ -38,7 +38,7 @@ export class EditarServicioClienteComponent implements OnInit{
         this.route.params
         .subscribe(params => {
             this.idPublicacion = parseInt(params['id']);
-            Utilidades.log("[[editar-servicio-cliente.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));   
+            Utilidades.log("[editar-solicitud-cliente.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));   
         });
         this.obtenerPublicacion();       
     }
@@ -72,17 +72,17 @@ export class EditarServicioClienteComponent implements OnInit{
     }
 
     obtenerPublicacion(){
-         Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
+         Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
         this.dataService.getPublicacion(this.idPublicacion)
             .subscribe(
             res => this.getPublicacionOk(res),
             error => this.getPublicacionError(error),
-            () => Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicios: Completado")
+            () => Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicios: Completado")
         );
     }
 
     getPublicacionOk(response:any){
-        Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
+        Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
         if(response.Codigo ==  200){
             this.publicacion = response.Objetos[0]; 
             document.getElementById('inputIdPublicacion').setAttribute('value',this.publicacion.Id.toString());
@@ -97,7 +97,7 @@ export class EditarServicioClienteComponent implements OnInit{
     }
 
     getPublicacionError(responseError:any){
-        Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -108,13 +108,13 @@ export class EditarServicioClienteComponent implements OnInit{
             .subscribe(
             res => this.getObtenerServicioOk(res),
             error => this.getObtenerServicioError(error),
-            () => Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicio: Completado")
+            () => Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicio: Completado")
         );
     }
 
     getObtenerServicioOk(response:any){
         
-        Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if(response.Codigo ==  200){
             this.publicacion.Servicio = response.Objetos[0];
             this.responderPreguntas();//metodo que completa en alngular las respuestas a las preguntas
@@ -127,7 +127,7 @@ export class EditarServicioClienteComponent implements OnInit{
     }
 
     getObtenerServicioError(responseError:any){
-        Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -144,7 +144,7 @@ export class EditarServicioClienteComponent implements OnInit{
     }
 
     putActualizarPublicacion(){
-        Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.respuestas));
+        Utilidades.log("[editar-solicitud-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.respuestas));
         this.borrarMensajes();
         //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
         //Se crea una nueva publicacion para hacer la validacion
@@ -165,7 +165,7 @@ export class EditarServicioClienteComponent implements OnInit{
                     this.publicacion.Respuestas.push(r);
                 }              
             } 
-            Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.publicacion));
+            Utilidades.log("[editar-solicitud-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.publicacion));
             this.dataService.putActualizarPublicacion(this.publicacion)
                 .subscribe(
                 res => this.putActualizarPublicacionOk(res),
@@ -175,7 +175,7 @@ export class EditarServicioClienteComponent implements OnInit{
         }
     }
     putActualizarPublicacionOk(response:any){       
-        Utilidades.log("[[editar-servicio-cliente.component.ts] - putActualizarPublicacionOK | response: " + JSON.stringify(this.servicioSeleccionado));
+        Utilidades.log("[editar-solicitud-cliente.component.ts] - putActualizarPublicacionOK | response: " + JSON.stringify(this.servicioSeleccionado));
         if(response.Codigo ==  200){
             this.step=3;
         }
@@ -187,7 +187,7 @@ export class EditarServicioClienteComponent implements OnInit{
     }
 
     putActualizarPublicacionError(responseError:any){
-        Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacionError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[editar-solicitud-cliente.component.ts] - putActualizarPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

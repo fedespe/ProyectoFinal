@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicacionBL.cs" />
     <Compile Include="ServicioBL.cs" />
+    <Compile Include="SolicitudBL.cs" />
     <Compile Include="UsuarioBL.cs" />
   </ItemGroup>
   <ItemGroup>

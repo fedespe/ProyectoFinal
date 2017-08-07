@@ -17,8 +17,8 @@ var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
 var router_2 = require("@angular/router");
 var settings_1 = require("../../shared/settings");
-var ListadoServiciosOfrecidosComponent = (function () {
-    function ListadoServiciosOfrecidosComponent(dataService, router, route) {
+var ListadoSolicitudesOfrecidasComponent = (function () {
+    function ListadoSolicitudesOfrecidasComponent(dataService, router, route) {
         this.dataService = dataService;
         this.router = router;
         this.route = route;
@@ -26,28 +26,28 @@ var ListadoServiciosOfrecidosComponent = (function () {
         this.publicaciones = [];
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
     }
-    ListadoServiciosOfrecidosComponent.prototype.ngOnInit = function () {
+    ListadoSolicitudesOfrecidasComponent.prototype.ngOnInit = function () {
         var _this = this;
         // subscripción al observable params
         this.route.params
             .subscribe(function (params) {
             _this.idServicio = parseInt(params['id']);
-            utilidades_1.Utilidades.log("[listado-servicios-ofrecidos.component.ts] - ngOnInit | id: " + JSON.stringify(_this.idServicio));
+            utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - ngOnInit | id: " + JSON.stringify(_this.idServicio));
         });
-        this.obtenerServicio();
+        this.obtenerSolicitudesServicio();
     };
-    ListadoServiciosOfrecidosComponent.prototype.borrarMensajes = function () {
+    ListadoSolicitudesOfrecidasComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     };
-    ListadoServiciosOfrecidosComponent.prototype.obtenerServicio = function () {
+    ListadoSolicitudesOfrecidasComponent.prototype.obtenerSolicitudesServicio = function () {
         var _this = this;
-        utilidades_1.Utilidades.log("[listado-servicios-ofrecidos.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idServicio));
-        this.dataService.getPublicacionesServicioOferta(this.idServicio)
-            .subscribe(function (res) { return _this.getPublicacionesServicioOk(res); }, function (error) { return _this.getPublicacionesServicioError(error); }, function () { return utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicios: Completado"); });
+        utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio | id: " + JSON.stringify(this.idServicio));
+        this.dataService.getPublicacionesServicioSolicitud(this.idServicio)
+            .subscribe(function (res) { return _this.getPublicacionesServicioSolicitudOk(res); }, function (error) { return _this.getPublicacionesServicioSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio: Completado"); });
     };
-    ListadoServiciosOfrecidosComponent.prototype.getPublicacionesServicioOk = function (response) {
-        utilidades_1.Utilidades.log("[listado-servicios-ofrecidos.component.ts] - getPublicacionesServicioOk | response: " + JSON.stringify(response));
+    ListadoSolicitudesOfrecidasComponent.prototype.getPublicacionesServicioSolicitudOk = function (response) {
+        utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - getPublicacionesServicioSolicitudOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicaciones = response.Objetos;
             if (this.publicaciones.length > 0) {
@@ -63,21 +63,21 @@ var ListadoServiciosOfrecidosComponent = (function () {
             this.mensajes.Errores.push(error);
         }
     };
-    ListadoServiciosOfrecidosComponent.prototype.getPublicacionesServicioError = function (responseError) {
-        utilidades_1.Utilidades.log("[listado-servicios-ofrecidos.component.ts] - getPublicacionesServicioError | responseError: " + JSON.stringify(responseError));
+    ListadoSolicitudesOfrecidasComponent.prototype.getPublicacionesServicioSolicitudError = function (responseError) {
+        utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - getPublicacionesServicioSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     };
-    return ListadoServiciosOfrecidosComponent;
+    return ListadoSolicitudesOfrecidasComponent;
 }());
-ListadoServiciosOfrecidosComponent = __decorate([
+ListadoSolicitudesOfrecidasComponent = __decorate([
     core_1.Component({
-        selector: 'listado-servicios-ofrecidos',
-        templateUrl: 'app/dashboard/listado-servicios-ofrecidos/listado-servicios-ofrecidos.component.html',
-        styleUrls: ['css/listado-servicios-ofrecidos.css']
+        selector: 'listado-solicitudes-ofrecidas',
+        templateUrl: 'app/dashboard/listado-solicitudes-ofrecidas/listado-solicitudes-ofrecidas.component.html',
+        styleUrls: ['css/listado-solicitudes-ofrecidas.css']
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router, router_2.ActivatedRoute])
-], ListadoServiciosOfrecidosComponent);
-exports.ListadoServiciosOfrecidosComponent = ListadoServiciosOfrecidosComponent;
-//# sourceMappingURL=listado-servicios-ofrecidos.component.js.map
+], ListadoSolicitudesOfrecidasComponent);
+exports.ListadoSolicitudesOfrecidasComponent = ListadoSolicitudesOfrecidasComponent;
+//# sourceMappingURL=listado-solicitudes-ofrecidas.component.js.map

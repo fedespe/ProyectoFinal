@@ -22,6 +22,11 @@ import { ListadoServiciosOfrecidosComponent } from "./dashboard/listado-servicio
 import { VerPublicacionOfrecidaComponent } from "./dashboard/ver-publicacion-ofrecida/ver-publicacion-ofrecida.component";
 import { VerPerfilUsuarioComponent } from "./dashboard/ver-perfil-usuario/ver-perfil-usuario.component";
 import { ListadoPublicacionesContratadasComponent } from "./dashboard/listado-publicaciones-contratadas/listado-publicaciones-contratadas.component";
+import { SolicitarServicioComponent } from "./dashboard/solicitar-servicio/solicitar-servicio.component";
+import { ListadoSolicitudesClienteComponent } from "./dashboard/listado-solicitudes-cliente/listado-solicitudes-cliente.component";
+import { EditarSolicitudClienteComponent } from "./dashboard/editar-solicitud-cliente/editar-solicitud-cliente.component";
+import { ListadoSolicitudesComponent } from "./dashboard/listado-solicitudes/listado-solicitudes.component";
+import { ListadoSolicitudesOfrecidasComponent } from "./dashboard/listado-solicitudes-ofrecidas/listado-solicitudes-ofrecidas.component";
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent, 
@@ -44,7 +49,12 @@ const appRoutes: Routes = [
       { path: 'listado-servicios-ofrecidos/:id', component: ListadoServiciosOfrecidosComponent },
       { path: 'ver-publicacion-ofrecida/:id/:idContacto', component: VerPublicacionOfrecidaComponent },
       { path: 'ver-perfil-usuario/:id', component: VerPerfilUsuarioComponent },
-      { path: 'listado-publicaciones-contratadas', component: ListadoPublicacionesContratadasComponent }
+      { path: 'listado-publicaciones-contratadas', component: ListadoPublicacionesContratadasComponent },
+      { path: 'solicitar-servicio', component: SolicitarServicioComponent },
+      { path: 'listado-solicitudes-cliente', component: ListadoSolicitudesClienteComponent },
+      { path: 'editar-solicitud-cliente/:id', component: EditarSolicitudClienteComponent },
+      { path: 'listado-solicitudes', component: ListadoSolicitudesComponent },
+      { path: 'listado-solicitudes-ofrecidas/:id', component: ListadoSolicitudesOfrecidasComponent },
     ]
   },
   {path: '**', component: NotFoundComponent }
@@ -60,7 +70,9 @@ const appRoutes: Routes = [
     PerfilUsuarioComponent, CambiarContrasenaUsuarioComponent, 
     ListadoServiciosComponent, OfrecerServicioComponent, ListadoServiciosClienteComponent,
     EditarServicioClienteComponent, ListadoServiciosOfrecidosComponent, VerPublicacionOfrecidaComponent,
-    VerPerfilUsuarioComponent, ListadoPublicacionesContratadasComponent
+    VerPerfilUsuarioComponent, ListadoPublicacionesContratadasComponent, SolicitarServicioComponent,
+    ListadoSolicitudesClienteComponent, EditarSolicitudClienteComponent, ListadoSolicitudesComponent,
+    ListadoSolicitudesOfrecidasComponent
   ],
   bootstrap:    [ AppComponent ]
 })

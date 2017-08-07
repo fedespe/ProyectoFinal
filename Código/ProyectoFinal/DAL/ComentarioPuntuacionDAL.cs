@@ -109,7 +109,11 @@ namespace DAL
                     {
                         cmd.Parameters.AddWithValue("@idCliente", idCliente);
                         cmd.Parameters.AddWithValue("@idServicio", idServicio);
-                        promedio = Convert.ToDouble(cmd.ExecuteScalar());
+                        var q = cmd.ExecuteScalar();
+                        if (q != DBNull.Value)
+                        {
+                            promedio = Convert.ToDouble(cmd.ExecuteScalar());
+                        }
                     }
                 }
             }
@@ -160,7 +164,11 @@ namespace DAL
                     using (SqlCommand cmd = new SqlCommand(cadenaSelectComentario, con))
                     {
                         cmd.Parameters.AddWithValue("@idPublicacion", idPublicacion);
-                        promedio = Convert.ToDouble(cmd.ExecuteScalar());
+                        var q = cmd.ExecuteScalar();
+                        if (q != DBNull.Value)
+                        {
+                            promedio = Convert.ToDouble(cmd.ExecuteScalar());
+                        }
                     }
                 }
             }

@@ -93,7 +93,6 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
-
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesClienteSolicitud/{id}")]
         public Retorno GetPublicacionesClienteSolicitud(int id)
@@ -114,13 +113,35 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
+
+        
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
-        [HttpGet, Route("api/Publicacion/obtenerPublicacionesServicio/{id}")]
-        public Retorno GetPublicacionesServicio(int id)
+        [HttpGet, Route("api/Publicacion/obtenerPublicacionesServicioOferta/{id}")]
+        public Retorno GetPublicacionesServicioOferta(int id)
         {
             try
             {
-                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesServicio(id);
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesServicio(id).Where(p => p.Tipo.Equals("OFERTA")).ToList();
+                foreach (Publicacion p in publicaciones)
+                {
+                    retorno.Objetos.Add(p);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [HttpGet, Route("api/Publicacion/obtenerPublicacionesServicioSolicitud/{id}")]
+        public Retorno GetPublicacionesServicioSolicitud(int id)
+        {
+            try
+            {
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesServicio(id).Where(p => p.Tipo.Equals("SOLICITUD")).ToList();
                 foreach (Publicacion p in publicaciones)
                 {
                     retorno.Objetos.Add(p);

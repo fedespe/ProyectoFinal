@@ -29,6 +29,11 @@ var listado_servicios_ofrecidos_component_1 = require("./dashboard/listado-servi
 var ver_publicacion_ofrecida_component_1 = require("./dashboard/ver-publicacion-ofrecida/ver-publicacion-ofrecida.component");
 var ver_perfil_usuario_component_1 = require("./dashboard/ver-perfil-usuario/ver-perfil-usuario.component");
 var listado_publicaciones_contratadas_component_1 = require("./dashboard/listado-publicaciones-contratadas/listado-publicaciones-contratadas.component");
+var solicitar_servicio_component_1 = require("./dashboard/solicitar-servicio/solicitar-servicio.component");
+var listado_solicitudes_cliente_component_1 = require("./dashboard/listado-solicitudes-cliente/listado-solicitudes-cliente.component");
+var editar_solicitud_cliente_component_1 = require("./dashboard/editar-solicitud-cliente/editar-solicitud-cliente.component");
+var listado_solicitudes_component_1 = require("./dashboard/listado-solicitudes/listado-solicitudes.component");
+var listado_solicitudes_ofrecidas_component_1 = require("./dashboard/listado-solicitudes-ofrecidas/listado-solicitudes-ofrecidas.component");
 var appRoutes = [
     { path: '', component: landing_component_1.LandingComponent,
         children: [
@@ -50,7 +55,12 @@ var appRoutes = [
             { path: 'listado-servicios-ofrecidos/:id', component: listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent },
             { path: 'ver-publicacion-ofrecida/:id/:idContacto', component: ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent },
             { path: 'ver-perfil-usuario/:id', component: ver_perfil_usuario_component_1.VerPerfilUsuarioComponent },
-            { path: 'listado-publicaciones-contratadas', component: listado_publicaciones_contratadas_component_1.ListadoPublicacionesContratadasComponent }
+            { path: 'listado-publicaciones-contratadas', component: listado_publicaciones_contratadas_component_1.ListadoPublicacionesContratadasComponent },
+            { path: 'solicitar-servicio', component: solicitar_servicio_component_1.SolicitarServicioComponent },
+            { path: 'listado-solicitudes-cliente', component: listado_solicitudes_cliente_component_1.ListadoSolicitudesClienteComponent },
+            { path: 'editar-solicitud-cliente/:id', component: editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent },
+            { path: 'listado-solicitudes', component: listado_solicitudes_component_1.ListadoSolicitudesComponent },
+            { path: 'listado-solicitudes-ofrecidas/:id', component: listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent },
         ]
     },
     { path: '**', component: not_found_component_1.NotFoundComponent }
@@ -71,7 +81,9 @@ AppModule = __decorate([
             perfil_usuario_component_1.PerfilUsuarioComponent, cambiar_contrasena_usuario_component_1.CambiarContrasenaUsuarioComponent,
             listado_servicios_component_1.ListadoServiciosComponent, ofrecer_servicio_component_1.OfrecerServicioComponent, listado_servicios_cliente_component_1.ListadoServiciosClienteComponent,
             editar_servicio_cliente_component_1.EditarServicioClienteComponent, listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent, ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent,
-            ver_perfil_usuario_component_1.VerPerfilUsuarioComponent, listado_publicaciones_contratadas_component_1.ListadoPublicacionesContratadasComponent
+            ver_perfil_usuario_component_1.VerPerfilUsuarioComponent, listado_publicaciones_contratadas_component_1.ListadoPublicacionesContratadasComponent, solicitar_servicio_component_1.SolicitarServicioComponent,
+            listado_solicitudes_cliente_component_1.ListadoSolicitudesClienteComponent, editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent, listado_solicitudes_component_1.ListadoSolicitudesComponent,
+            listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })
