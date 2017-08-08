@@ -34,6 +34,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         this.responder = false;
         this.postulacion = false;
         this.presupuestos = [];
+        this.mostrarPropuestas = true;
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
     }
     VerPublicacionSolicitadaComponent.prototype.ngOnInit = function () {
@@ -61,14 +62,22 @@ var VerPublicacionSolicitadaComponent = (function () {
             this.postulacion = false;
         }
     };
+    VerPublicacionSolicitadaComponent.prototype.mostrarPropuesta = function () {
+        if (!this.mostrarPropuestas) {
+            this.mostrarPropuestas = true;
+        }
+        else {
+            this.mostrarPropuestas = false;
+        }
+    };
     VerPublicacionSolicitadaComponent.prototype.guardarPropuesta = function () {
         var _this = this;
         this.presupuesto = new presupuesto_1.Presupuesto();
         this.presupuesto.Solicitud.Id = this.publicacion.Id;
-        this.presupuesto.Cliente.Id = this.publicacion.Cliente.Id;
+        this.presupuesto.Cliente.Id = this.idUsuario;
         var comentario = document.getElementById('txtPropuesta');
         this.presupuesto.Comentario = comentario.value;
-        this.presupuesto.Aceptado = true;
+        this.presupuesto.Aceptado = false;
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] GuardarPropuesta - presupuesto: " + JSON.stringify(this.presupuesto));
         this.dataService.postIngresarPresupuesto(this.presupuesto)
             .subscribe(function (res) { return _this.postIngresarPresupuestoOk(res); }, function (error) { return _this.postIngresarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarComentario: Completado"); });
@@ -375,6 +384,30 @@ var VerPublicacionSolicitadaComponent = (function () {
     };
     VerPublicacionSolicitadaComponent.prototype.postAltaRespuestaComentarioError = function (responseError) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPublicacionSolicitadaComponent.prototype.aceptarPresupuesto = function (input) {
+        var _this = this;
+        alert(input.Id);
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto | responseError: " + JSON.stringify(this.publicacion));
+        this.dataService.putAceptarPresupuesto(input)
+            .subscribe(function (res) { return _this.putAceptarPresupuestoOk(res); }, function (error) { return _this.putAceptarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado"); });
+    };
+    VerPublicacionSolicitadaComponent.prototype.putAceptarPresupuestoOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        if (response.Codigo == 200) {
+            alert('Ok');
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPublicacionSolicitadaComponent.prototype.putAceptarPresupuestoError = function (responseError) {
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

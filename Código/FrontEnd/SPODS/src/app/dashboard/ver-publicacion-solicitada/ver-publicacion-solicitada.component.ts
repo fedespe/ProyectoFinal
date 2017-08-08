@@ -36,6 +36,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     postulacion:boolean=false;
     presupuesto:Presupuesto;
     presupuestos:Presupuesto[]=[];
+    mostrarPropuestas=true;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -66,14 +67,21 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             this.postulacion=false;
         }
     }
+    mostrarPropuesta(){
+        if(!this.mostrarPropuestas){
+            this.mostrarPropuestas=true;
+        }else{
+            this.mostrarPropuestas=false;
+        }
+    }
 
     guardarPropuesta(){
         this.presupuesto=new Presupuesto();
         this.presupuesto.Solicitud.Id=this.publicacion.Id;
-        this.presupuesto.Cliente.Id=this.publicacion.Cliente.Id;
+        this.presupuesto.Cliente.Id=this.idUsuario;
         var comentario = <HTMLInputElement>document.getElementById('txtPropuesta');
         this.presupuesto.Comentario=comentario.value;
-        this.presupuesto.Aceptado=true;
+        this.presupuesto.Aceptado=false;
         Utilidades.log("[ver-publicacion-solicitada.component.ts] GuardarPropuesta - presupuesto: " + JSON.stringify(this.presupuesto));   
         this.dataService.postIngresarPresupuesto(this.presupuesto)
             .subscribe(
@@ -463,6 +471,36 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
 
     postAltaRespuestaComentarioError(responseError:any){
         Utilidades.log("[ver-publicacion-solicitada.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    aceptarPresupuesto(input:any){
+        alert(input.Id);
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto | responseError: " + JSON.stringify(this.publicacion));
+        this.dataService.putAceptarPresupuesto(input)
+            .subscribe(
+            res => this.putAceptarPresupuestoOk(res),
+            error => this.putAceptarPresupuestoError(error),
+            () => Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado")
+        );
+    }
+
+    putAceptarPresupuestoOk(response:any){       
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        if(response.Codigo ==  200){
+           alert('Ok');
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    putAceptarPresupuestoError(responseError:any){
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

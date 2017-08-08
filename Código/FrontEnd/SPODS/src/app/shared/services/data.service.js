@@ -288,6 +288,16 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.putAceptarPresupuesto = function (presupuesto) {
+        var URL = this.baseUrl + '/api/Publicacion/aceptarPresupuesto';
+        var body = JSON.stringify(presupuesto);
+        utilidades_1.Utilidades.log("[data.service.ts] - putAceptarPresupuesto | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - putAceptarPresupuesto | body: " + body);
+        utilidades_1.Utilidades.log("[data.service.ts] - putAceptarPresupuesto | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.put(URL, body, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS PUBLICACION
     //*************************** */

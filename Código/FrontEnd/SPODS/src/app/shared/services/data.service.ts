@@ -369,6 +369,18 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+    public putAceptarPresupuesto(presupuesto:Presupuesto){
+        var URL : string = this.baseUrl + '/api/Publicacion/aceptarPresupuesto';
+        let body = JSON.stringify(presupuesto);
+        
+        Utilidades.log("[data.service.ts] - putAceptarPresupuesto | URL: " + URL);
+        Utilidades.log("[data.service.ts] - putAceptarPresupuesto | body: " + body);
+        Utilidades.log("[data.service.ts] - putAceptarPresupuesto | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.put(URL, body, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
 
     //*************************** */
     // FIN SERVICIOS PUBLICACION

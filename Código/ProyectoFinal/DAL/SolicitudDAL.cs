@@ -57,7 +57,7 @@ namespace DAL
                                 Presupuesto unPresupuesto = new Presupuesto
                                 {
                                     Id = Convert.ToInt32(dr["IdPresupuesto"]),
-                                    Cliente = new Cliente { Id= Convert.ToInt32(dr["ClienteId"]), NombreUsuario= dr["NombreUsuario"].ToString() },
+                                    Cliente = new Cliente { Id= Convert.ToInt32(dr["ClienteId"]), NombreUsuario= dr["NombreUsuario"].ToString(), Imagen= dr["Imagen"].ToString() },
                                     Solicitud= new Solicitud { Id= Convert.ToInt32(dr["PublicacionId"]) },
                                     Comentario= dr["Comentario"].ToString(),
                                     Aceptado=Convert.ToBoolean(dr["Aceptado"]),
@@ -75,6 +75,49 @@ namespace DAL
             }
 
             return presupuestos;
+        }
+
+        public void aceptarPresupuesto(Presupuesto presupuesto)
+        {
+            string cadenaUpdatePresupuesto = "Update PRESUPUESTO SET Aceptado = 1 WHERE id = @idPresupuesto;";
+            string cadenaUpdatePublicacion = "Update PUBLICACION SET Activa = 0 WHERE id = @idPublicacion;";
+
+            SqlTransaction trn = null;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    using (SqlCommand cmd = new SqlCommand(cadenaUpdatePresupuesto, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idPresupuesto", presupuesto.Id);
+                        
+                        con.Open();
+                        trn = con.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                        cmd.Transaction = trn;
+
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = cadenaUpdatePublicacion;
+                        cmd.Parameters.AddWithValue("@idPublicacion", presupuesto.Solicitud.Id);
+
+                        cmd.ExecuteNonQuery();
+
+                        trn.Commit();
+                        trn.Dispose();
+                        //trn = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //if (trn != null)
+                //{
+                //    trn.Rollback();
+                //}
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+
         }
 
 

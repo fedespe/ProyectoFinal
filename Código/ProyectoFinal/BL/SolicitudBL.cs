@@ -60,6 +60,12 @@ namespace BL
         {
             return solicitudDAL.obtenerPresupuestos(idPublicacion);
         }
+        //Acepta presupuesto, da por terminada la publicacion!
+        public void aceptarPresupuesto(Presupuesto presupuesto)
+        {
+            validarAceptarPresupuesto(presupuesto);
+            solicitudDAL.aceptarPresupuesto(presupuesto);
+        }
         private void validarPresupuesto(Presupuesto presupuesto)
         {
             if (presupuesto.Cliente==null || presupuesto.Cliente.Id==0)
@@ -67,6 +73,17 @@ namespace BL
                throw new ProyectoException("Error: Cliente");
             }
             if (presupuesto.Solicitud==null || presupuesto.Solicitud.Id == 0)
+            {
+                throw new ProyectoException("Error: Solicitud");
+            }
+        }
+        private void validarAceptarPresupuesto(Presupuesto presupuesto)
+        {
+            if (presupuesto == null || presupuesto.Id == 0)
+            {
+                throw new ProyectoException("Error: Presupuesto");
+            }
+            if (presupuesto.Solicitud == null || presupuesto.Solicitud.Id == 0)
             {
                 throw new ProyectoException("Error: Solicitud");
             }

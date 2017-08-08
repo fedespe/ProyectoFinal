@@ -276,5 +276,21 @@ namespace WebAPI.Controllers
             return retorno;
         }
 
+        [HttpPut, Route("api/Publicacion/aceptarPresupuesto")]
+        public Retorno PutAceptarPresupuesto([FromBody]Presupuesto presupuesto)
+        {
+            try
+            {
+                solicitudBL.aceptarPresupuesto(presupuesto);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
     }
 }
