@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Settings } from "../../shared/settings"; 
 import { Contacto } from "../../shared/contacto"; 
 import { ComentarioPuntuacion } from "../../shared/comentarioPuntuacion"; 
+declare var $:JQueryStatic;
 
 @Component({
     selector: 'ver-publicacion-ofrecida',
@@ -25,7 +26,9 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     publicacion: Publicacion = new Publicacion();
     idPublicacion:number;
     baseURL:string;
-    idContacto:number;
+
+    contacto:Contacto=new Contacto();
+
     puntaje:number=0;
     comentarioPuntuacion: ComentarioPuntuacion= new ComentarioPuntuacion();
     promedioPublicacion:number;
@@ -42,9 +45,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         this.route.params
         .subscribe(params => {
             this.idPublicacion = parseInt(params['id']);
-            this.idContacto = parseInt(params['idContacto']);
-            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));
-            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | idContacto: " + JSON.stringify(this.idContacto));   
+            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));   
         });
         this.obtenerPublicacion();  
         this.idUsuario= parseInt(localStorage.getItem('id-usuario'));       
@@ -53,52 +54,6 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
-    }
-
-
-    guardarComentario(){
-        this.borrarMensajes();
-        this.comentarioPuntuacion.Puntuacion=this.puntaje;
-        this.comentarioPuntuacion.Publicacion=this.publicacion;
-        this.comentarioPuntuacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario')); 
-        this.comentarioPuntuacion.Contacto=new Contacto();
-        this.comentarioPuntuacion.Contacto.Id=this.idContacto;
-
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
-        if(this.comentarioPuntuacion.Comentario!=null && this.comentarioPuntuacion.Comentario!=""){
-            this.dataService.postIngresarComentario(this.comentarioPuntuacion)
-            .subscribe(
-                res => this.postIngresarComentarioOk(res),
-                error => this.postIngresarComentarioError(error),
-                () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
-            );
-        }else{
-            var error = new Error();
-            error.Descripcion = "El comentario no puede estar vacio.";           
-            this.mensajes.Errores.push(error);
-        }
-        
-    }
-    postIngresarComentarioOk(response:any){
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
-
-        if(response.Codigo ==  200){
-            $('#exampleModalLong').modal('hide');
-            this.router.navigate(['/dashboard/ver-publicacion-ofrecida/', this.publicacion.Id, 0]);
-        }
-        else{
-            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
-            var error = new Error();
-            error.Descripcion = response.Mensaje;           
-            this.mensajes.Errores.push(error);
-        }
-    }
-
-    postIngresarComentarioError(responseError:any){
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
-        var error = new Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(error);
     }
 
     actualizarPuntaje(input:any){
@@ -119,15 +74,14 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     getPublicacionOk(response:any){
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
         if(response.Codigo ==  200){
-            this.publicacion = response.Objetos[0];          
+            this.publicacion = response.Objetos[0];   
+            this.obtenerContactoPendiente();       
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
             this.obtenerComentarios();
+            
 
-            //Terminado la carga de la publicacion, en caso de que haya comentario pendiente, se habre ventana modal
-            if(this.idContacto!=0){
-                document.getElementById('btnModal').click();
-            }  
+            
         }
         else{
             var error = new Error();
@@ -138,6 +92,38 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
 
     getPublicacionError(responseError:any){
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+    
+    obtenerContactoPendiente(){
+        this.dataService.getObtenerContactoPendienteCliente(this.idPublicacion, this.idUsuario)
+            .subscribe(
+            res => this.getObtenerContactoPendienteOk(res),
+            error => this.getObtenerContactoPendienteError(error),
+            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerContactoPendiente: Completado")
+        );
+    }
+    getObtenerContactoPendienteOk(response:any){
+        
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerContactoPendienteOk | response: " + JSON.stringify(response.Objetos[0]));
+        if(response.Codigo ==  200){
+            this.contacto=response.Objetos[0];
+            //Terminado la carga de la publicacion, en caso de que haya comentario pendiente, se habre ventana modal
+            if(this.contacto!=null && this.contacto.Id!=0){
+                document.getElementById('btnModal').click();
+            }  
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObtenerContactoPendienteError(responseError:any){
+        Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerContactoPendienteError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -384,6 +370,51 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
 
     postAltaRespuestaComentarioError(responseError:any){
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    guardarComentario(){
+        this.borrarMensajes();
+        this.comentarioPuntuacion.Puntuacion=this.puntaje;
+        this.comentarioPuntuacion.Publicacion=this.publicacion;
+        this.comentarioPuntuacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario')); 
+        this.comentarioPuntuacion.Contacto=new Contacto();
+        this.comentarioPuntuacion.Contacto.Id=this.contacto.Id;
+
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
+        if(this.comentarioPuntuacion.Comentario!=null && this.comentarioPuntuacion.Comentario!=""){
+            this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+            .subscribe(
+                res => this.postIngresarComentarioOk(res),
+                error => this.postIngresarComentarioError(error),
+                () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+            );
+        }else{
+            var error = new Error();
+            error.Descripcion = "El comentario no puede estar vacio.";           
+            this.mensajes.Errores.push(error);
+        }
+        
+    }
+    postIngresarComentarioOk(response:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
+
+        if(response.Codigo ==  200){
+            $('#exampleModalLong').modal('hide');
+            this.router.navigate(['/dashboard/ver-publicacion-ofrecida/', this.publicacion.Id]);
+        }
+        else{
+            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    postIngresarComentarioError(responseError:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

@@ -48,7 +48,7 @@ const appRoutes: Routes = [
       { path: 'listado-servicios-cliente', component: ListadoServiciosClienteComponent },
       { path: 'editar-servicio-cliente/:id', component: EditarServicioClienteComponent },
       { path: 'listado-servicios-ofrecidos/:id', component: ListadoServiciosOfrecidosComponent },
-      { path: 'ver-publicacion-ofrecida/:id/:idContacto', component: VerPublicacionOfrecidaComponent },
+      { path: 'ver-publicacion-ofrecida/:id', component: VerPublicacionOfrecidaComponent },
       { path: 'ver-perfil-usuario/:id', component: VerPerfilUsuarioComponent },
       { path: 'listado-publicaciones-contratadas', component: ListadoPublicacionesContratadasComponent },
       { path: 'solicitar-servicio', component: SolicitarServicioComponent },
@@ -56,7 +56,7 @@ const appRoutes: Routes = [
       { path: 'editar-solicitud-cliente/:id', component: EditarSolicitudClienteComponent },
       { path: 'listado-solicitudes', component: ListadoSolicitudesComponent },
       { path: 'listado-solicitudes-ofrecidas/:id', component: ListadoSolicitudesOfrecidasComponent },
-      { path: 'ver-publicacion-solicitada/:id/:idContacto', component: VerPublicacionSolicitadaComponent },
+      { path: 'ver-publicacion-solicitada/:id', component: VerPublicacionSolicitadaComponent },
     ]
   },
   {path: '**', component: NotFoundComponent }

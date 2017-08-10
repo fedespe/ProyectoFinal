@@ -83,6 +83,11 @@ namespace BL
             validarContacto(contacto);
             comentarioPuntuacionDAL.altaContacto(contacto);
         }
+        //Obtiene si es que tiene concto con comentario pendiente de cliente idCliente en la publicacion idPublicacion
+        public Contacto obtenerContactoConComentarioPendienteCliente(int idPublicacion, int idCliente)
+        {
+            return comentarioPuntuacionDAL.obtenerContactoConComentarioPendienteCliente(idPublicacion, idCliente);
+        }
 
         private void validarContacto(Contacto contacto)
         {
@@ -102,5 +107,6 @@ namespace BL
                 }
             }
         }
+
     }
 }

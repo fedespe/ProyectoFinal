@@ -81,6 +81,14 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getObtenerContactoPendienteCliente = function (idPublicacion, idCliente) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/obtenerContactoConComentarioPendienteCliente/' + idPublicacion + '/' + idCliente;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerContactoPendienteCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerContactoPendienteCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

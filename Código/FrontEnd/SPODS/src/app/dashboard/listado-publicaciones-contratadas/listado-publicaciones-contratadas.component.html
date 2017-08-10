@@ -8,6 +8,7 @@
                     <th>Servicio</th>
                     <th>Título</th>
                     <th>Activa</th>
+                    <th>Finalizada</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -19,10 +20,12 @@
                     <td>{{publicacion.Titulo}}</td>                 
                     <td *ngIf="publicacion.Activa">Si</td>
                     <td *ngIf="!publicacion.Activa">No</td>
+                    <td *ngIf="publicacion.Finalizada">Si</td>
+                    <td *ngIf="!publicacion.Finalizada">No</td>
                     <td>
                         <div *ngIf="!publicacion.Activa">No hay acciones disponibles</div>
-                        <div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente==null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, 0 ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver</div>
-                        <div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver <i class="fa fa-comments-o" aria-hidden="true"></i>  Comentar</div>
+                        <div *ngIf="publicacion.Activa" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]"><i class="fa fa-eye" aria-hidden="true"></i> Ver</div>
+                        <!--<div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver <i class="fa fa-comments-o" aria-hidden="true"></i>  Comentar</div>-->
                         <!--<div *ngIf="publicacion.Activa && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left"><i class="fa fa-comments-o" aria-hidden="true"></i></div>-->
                     </td>
                 </tr>

@@ -18,8 +18,9 @@ export class Publicacion {
     Servicio: Servicio=new Servicio();
     Cliente: Cliente=new Cliente();
     Respuestas: Respuesta[] = [];
-    ContactoConComentarioPendiente: Contacto= new Contacto();
     ComentariosPuntuacion: ComentarioPuntuacion[]=[];
+    Finalizada:boolean=false;
+    Habilitada:boolean=true;
     
 
     constructor() {      

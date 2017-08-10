@@ -122,8 +122,8 @@ CREATE TABLE dbo.PUBLICACION
 	Tipo NVARCHAR(20) NOT NULL,
 	ServicioId INT NOT NULL,
 	ClienteId INT NOT NULL,
-	--Finalizada ESTO ES PARA CUANDO LA PUBLICACION DE NECESIDAD SE DE POR TERMINADA.
-	--Habilitado
+	Finalizada BIT NOT NULL,
+	Habilitada BIT NOT NULL,
 
 	CONSTRAINT PK_PUBLICACION PRIMARY KEY(Id),
 	CONSTRAINT FK_ServicioId_PUBLICACION FOREIGN KEY (ServicioId) REFERENCES dbo.SERVICIO (Id),
@@ -418,10 +418,10 @@ INSERT INTO dbo.SERVICIOPREGUNTA VALUES
 (4,9); --Impresiones 3D - Precio por kilo
 
 INSERT INTO dbo.PUBLICACION VALUES
-('Se cuidan niños','Se cuidan niños de hasta 12 años.',1,getDate(),null,'OFERTA',1,6),
-('Lavandería Otelo','Lavamos su ropa. También trabajamos con empresas!!!',1,getDate(),null,'OFERTA',2,7),
-('Prof. Particular - Varias Materias','Se dictan clases de Matemáticas, Física, Química y Dibujo.',1,getDate(),null,'OFERTA',3,6),
-('Impresiones 3D','Vení a imprimir tu modelo 3D!!! Si tenes las idea y no sabes diseñar, contamos con personal capacitado que puede ayudarte.',1,getDate(),null,'OFERTA',4,6);
+('Se cuidan niños','Se cuidan niños de hasta 12 años.',1,getDate(),null,'OFERTA',1,6,0,1),
+('Lavandería Otelo','Lavamos su ropa. También trabajamos con empresas!!!',1,getDate(),null,'OFERTA',2,7,0,1),
+('Prof. Particular - Varias Materias','Se dictan clases de Matemáticas, Física, Química y Dibujo.',1,getDate(),null,'OFERTA',3,6,0,1),
+('Impresiones 3D','Vení a imprimir tu modelo 3D!!! Si tenes las idea y no sabes diseñar, contamos con personal capacitado que puede ayudarte.',1,getDate(),null,'OFERTA',4,6,0,1);
 
 INSERT INTO dbo.PUBLICACIONIMAGEN VALUES
 (1,'SECUIDANNIÑOS_IMG1.jpg'),

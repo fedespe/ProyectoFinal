@@ -15,7 +15,7 @@ namespace DAL
         {
             string cadenaInsertPublicacion = @"INSERT INTO Publicacion VALUES
                                             (@titulo, @descripcion, @activa,@fechaAlta,@fechaVencimiento,
-                                             @tipo,@idServicio,@idCliente); 
+                                             @tipo,@idServicio,@idCliente,@finalizada,@habilitada); 
                                             SELECT CAST(Scope_Identity() AS INT);";
             string cadenaInsertImagen = "INSERT INTO PublicacionImagen VALUES(@idPublicacion,@imagen);";
             string cadenaInsertRespuesta = "INSERT INTO PUBLICACIONRESPUESTA VALUES(@idPublicacion,@idServicio,@idPregunta,@respuesta);";
@@ -36,6 +36,8 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@tipo", publicacion.Tipo);
                         cmd.Parameters.AddWithValue("@idServicio", publicacion.Servicio.Id);
                         cmd.Parameters.AddWithValue("@idCliente", publicacion.Cliente.Id);
+                        cmd.Parameters.AddWithValue("@finalizada", publicacion.Finalizada);
+                        cmd.Parameters.AddWithValue("@habilitada", publicacion.Habilitada);
 
                         con.Open();
                         trn = con.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
@@ -117,7 +119,9 @@ namespace DAL
                                         //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
                                         Tipo = dr["Tipo"].ToString(),
                                         Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]) },
-                                        Imagenes = new List<string>()
+                                        Imagenes = new List<string>(),
+                                        Finalizada = Convert.ToBoolean(dr["Finalizada"]),
+                                        Habilitada = Convert.ToBoolean(dr["Habilitada"]),
                                     };
                                     if (dr["Imagen"] != DBNull.Value)
                                         publicacion.Imagenes.Add(dr["Imagen"].ToString());
@@ -126,17 +130,17 @@ namespace DAL
                                     ultimoIdPublicacion = Convert.ToInt32(dr["IdPublicacion"]);
                                 }
                                 //Agrego el el primer contacto sin comentario para poder comentar.
-                                if(publicaciones[publicaciones.Count-1].ContactoConComentarioPendiente==null && dr["ComentarioPuntuacionId"] == DBNull.Value && dr["IdClienteContacto"] != DBNull.Value)
-                                {
-                                    //Proximo comentario a crear
-                                    publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente = new Contacto
-                                    {
-                                        Id= Convert.ToInt32(dr["IdContacto"]),
-                                        Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
-                                        Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
-                                        Fecha = Convert.ToDateTime(dr["Fecha"])
-                                    };
-                                }
+                                //if(publicaciones[publicaciones.Count-1].ContactoConComentarioPendiente==null && dr["ComentarioPuntuacionId"] == DBNull.Value && dr["IdClienteContacto"] != DBNull.Value)
+                                //{
+                                //    //Proximo comentario a crear
+                                //    publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente = new Contacto
+                                //    {
+                                //        Id= Convert.ToInt32(dr["IdContacto"]),
+                                //        Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
+                                //        Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
+                                //        Fecha = Convert.ToDateTime(dr["Fecha"])
+                                //    };
+                                //}
                                 //ultimoIdContacto = Convert.ToInt32(dr["IdContacto"]);
                             }
                         }
@@ -309,7 +313,9 @@ namespace DAL
                                         //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
                                         Tipo = dr["Tipo"].ToString(),
                                         Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]) },
-                                        Imagenes = new List<string>()
+                                        Imagenes = new List<string>(),
+                                        Finalizada = Convert.ToBoolean(dr["Finalizada"]),
+                                        Habilitada = Convert.ToBoolean(dr["Habilitada"]),
                                     };
                                     if(dr["Imagen"]!= DBNull.Value)
                                         publicacion.Imagenes.Add(dr["Imagen"].ToString());
@@ -361,7 +367,9 @@ namespace DAL
                                         //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
                                         Tipo = dr["Tipo"].ToString(),
                                         Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]) },
-                                        Imagenes = new List<string>()
+                                        Imagenes = new List<string>(),
+                                        Finalizada = Convert.ToBoolean(dr["Finalizada"]),
+                                        Habilitada = Convert.ToBoolean(dr["Habilitada"]),
                                     };
                                     if (dr["Imagen"] != DBNull.Value)
                                         publicacion.Imagenes.Add(dr["Imagen"].ToString());
@@ -380,10 +388,11 @@ namespace DAL
 
             return publicaciones;
         }
+        //Ver que se le aplica el filtro de que sea activa...
         public List<Publicacion> obtenerPublicacionesServicio(int idServicio)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario, c.Id as IdContacto, c.ClienteId as IdClienteContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId left join CONTACTO c on c.PublicacionId=p.Id Where p.ServicioId=@idServicio AND p.Activa=1 ORDER BY p.Id;";
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario, c.Id as IdContacto, c.ClienteId as IdClienteContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId left join CONTACTO c on c.PublicacionId=p.Id Where p.ServicioId=@idServicio ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -413,24 +422,26 @@ namespace DAL
                                         //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
                                         Tipo = dr["Tipo"].ToString(),
                                         Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]), Imagen= dr["ImgUsuario"].ToString(), NombreUsuario = dr["NombreUsuario"].ToString() },
-                                        Imagenes = new List<string>()
+                                        Imagenes = new List<string>(),
+                                        Finalizada = Convert.ToBoolean(dr["Finalizada"]),
+                                        Habilitada = Convert.ToBoolean(dr["Habilitada"]),
                                     };
                                     publicacion.Imagenes.Add(dr["Imagen"].ToString());
                                     publicaciones.Add(publicacion);
                                     ultimoId = Convert.ToInt32(dr["IdPublicacion"]);
                                 }//EN UN ELSE SI QUISIERA TRAIGO EL RESTO DE LAS IMAGENES
                                 //Agrego el el primer contacto sin comentario para poder comentar.
-                                if (publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente == null && dr["ComentarioPuntuacionId"] == DBNull.Value && dr["IdClienteContacto"]!= DBNull.Value)
-                                {
-                                    //Proximo comentario a crear
-                                    publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente = new Contacto
-                                    {
-                                        Id = Convert.ToInt32(dr["IdContacto"]),
-                                        Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
-                                        Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
-                                        Fecha = Convert.ToDateTime(dr["Fecha"])
-                                    };
-                                }
+                                //if (publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente == null && dr["ComentarioPuntuacionId"] == DBNull.Value && dr["IdClienteContacto"]!= DBNull.Value)
+                                //{
+                                //    //Proximo comentario a crear
+                                //    publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente = new Contacto
+                                //    {
+                                //        Id = Convert.ToInt32(dr["IdContacto"]),
+                                //        Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
+                                //        Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
+                                //        Fecha = Convert.ToDateTime(dr["Fecha"])
+                                //    };
+                                //}
                             }
                         }
                     }
@@ -475,8 +486,11 @@ namespace DAL
                                         Tipo = dr["Tipo"].ToString(),
                                         Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]) },
                                         Imagenes = new List<string>(),
-                                        Respuestas = new List<Respuesta>()
-                                    };                               
+                                        Respuestas = new List<Respuesta>(),
+                                        Finalizada = Convert.ToBoolean(dr["Finalizada"]),
+                                        Habilitada = Convert.ToBoolean(dr["Habilitada"]),
+                                        //ContactosConComentarioPendiente=new List<Contacto>()
+                                };                               
                             }
                         }
                         //AGREGO IMAGENES
@@ -504,6 +518,23 @@ namespace DAL
                                 });
                             }
                         }
+                        //AGREGO Contactos con comentario pendiente
+                        //cmd.Parameters.Clear();
+                        //cmd.CommandText = @"SELECT * FROM CONTACTO WHERE PublicacionId =@id AND ComentarioPuntuacionId IS NULL";
+                        //cmd.Parameters.AddWithValue("@id", id);
+                        //using (SqlDataReader dr = cmd.ExecuteReader())
+                        //{
+                        //    while (dr.Read())
+                        //    {
+                        //        publicacion.ContactosConComentarioPendiente.Add(new Contacto
+                        //        {
+                        //            Id = Convert.ToInt32(dr["IdContacto"]),
+                        //            Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
+                        //            Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
+                        //            Fecha = Convert.ToDateTime(dr["Fecha"])
+                        //        });
+                        //    }                            
+                        //}
                     }
                 }
             }

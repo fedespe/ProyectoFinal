@@ -114,5 +114,22 @@ namespace WebAPI.Controllers
             return retorno;
         }
 
+        [HttpGet, Route("api/ComentarioPuntuacion/obtenerContactoConComentarioPendienteCliente/{idPublicacion}/{idCliente}")]
+        public Retorno GetContactoConComentarioPendienteCliente(int idPublicacion, int idCliente)
+        {
+            try
+            {
+                Contacto contacto = comentarioPuntuacionBL.obtenerContactoConComentarioPendienteCliente(idPublicacion, idCliente);
+                retorno.Objetos.Add(contacto);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
     }
 }

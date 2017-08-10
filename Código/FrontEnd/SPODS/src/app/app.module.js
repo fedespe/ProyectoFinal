@@ -54,7 +54,7 @@ var appRoutes = [
             { path: 'listado-servicios-cliente', component: listado_servicios_cliente_component_1.ListadoServiciosClienteComponent },
             { path: 'editar-servicio-cliente/:id', component: editar_servicio_cliente_component_1.EditarServicioClienteComponent },
             { path: 'listado-servicios-ofrecidos/:id', component: listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent },
-            { path: 'ver-publicacion-ofrecida/:id/:idContacto', component: ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent },
+            { path: 'ver-publicacion-ofrecida/:id', component: ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent },
             { path: 'ver-perfil-usuario/:id', component: ver_perfil_usuario_component_1.VerPerfilUsuarioComponent },
             { path: 'listado-publicaciones-contratadas', component: listado_publicaciones_contratadas_component_1.ListadoPublicacionesContratadasComponent },
             { path: 'solicitar-servicio', component: solicitar_servicio_component_1.SolicitarServicioComponent },
@@ -62,7 +62,7 @@ var appRoutes = [
             { path: 'editar-solicitud-cliente/:id', component: editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent },
             { path: 'listado-solicitudes', component: listado_solicitudes_component_1.ListadoSolicitudesComponent },
             { path: 'listado-solicitudes-ofrecidas/:id', component: listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent },
-            { path: 'ver-publicacion-solicitada/:id/:idContacto', component: ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent },
+            { path: 'ver-publicacion-solicitada/:id', component: ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent },
         ]
     },
     { path: '**', component: not_found_component_1.NotFoundComponent }

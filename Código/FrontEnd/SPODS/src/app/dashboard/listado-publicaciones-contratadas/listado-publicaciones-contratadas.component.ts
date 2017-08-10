@@ -8,6 +8,7 @@ import { Exito } from "../../shared/exito";
 import { Servicio } from "../../shared/servicio";
 import { Settings } from "../../shared/settings";
 import { Publicacion } from "../../shared/publicacion";
+import { Contacto } from "../../shared/contacto";
 
 @Component({
     selector: 'listado-publicaciones-contratadas',
@@ -19,6 +20,8 @@ export class ListadoPublicacionesContratadasComponent{
     mensajes: Mensaje = new Mensaje();
     publicaciones: Publicacion[] = [];
     baseURL:string;
+
+
     constructor(private dataService: DataService, private router: Router) {
         this.obtenerPublicacionesContratadasPorCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -58,6 +61,4 @@ export class ListadoPublicacionesContratadasComponent{
         this.mensajes.Errores.push(error);
     }
 
-    
-    
 }

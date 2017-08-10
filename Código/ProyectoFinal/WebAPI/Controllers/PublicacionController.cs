@@ -122,7 +122,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesServicio(id).Where(p => p.Tipo.Equals("OFERTA")).ToList();
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesServicio(id).Where(p => p.Tipo.Equals("OFERTA")).Where(p => p.Activa).Where(p => !p.Finalizada).ToList();
                 foreach (Publicacion p in publicaciones)
                 {
                     retorno.Objetos.Add(p);
@@ -142,7 +142,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesServicio(id).Where(p => p.Tipo.Equals("SOLICITUD")).ToList();
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesServicio(id).Where(p => p.Tipo.Equals("SOLICITUD")).Where(p => p.Activa).Where(p => !p.Finalizada).ToList();
                 foreach (Publicacion p in publicaciones)
                 {
                     retorno.Objetos.Add(p);

@@ -24,6 +24,7 @@ export class ListadoServiciosOfrecidosComponent implements OnInit{
     publicaciones: Publicacion[] = [];
     idServicio:number;
     baseURL:string;
+    idUsuario:number=parseInt(localStorage.getItem('id-usuario'));
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
          this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes

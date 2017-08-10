@@ -11,7 +11,7 @@
 
         <div class="list-group">
             <div *ngFor="let publicacion of publicaciones;">
-                <a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, 0 ]" class="list-group-item list-group-item-action flex-column align-items-start" *ngIf="publicacion.ContactoConComentarioPendiente==null">
+                <a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="container">
                         <div class="row">
                             <div class="col">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </a>
-                 <a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]" class="list-group-item list-group-item-action flex-column align-items-start" *ngIf="publicacion.ContactoConComentarioPendiente!=null">
+                 <!--<a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]" class="list-group-item list-group-item-action flex-column align-items-start" *ngIf="publicacion.ContactoConComentarioPendiente!=null && publicacion.ContactoConComentarioPendiente.Cliente.Id==idUsuario">
                     <div class="container">
                         <div class="row">
                             <div class="col">
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                     </div>
-                </a> 
+                </a> -->
             </div>       
         </div>
 

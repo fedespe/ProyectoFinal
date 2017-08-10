@@ -96,6 +96,16 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+    public getObtenerContactoPendienteCliente(idPublicacion:number, idCliente:number){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerContactoConComentarioPendienteCliente/' + idPublicacion + '/' + idCliente;
+
+        Utilidades.log("[data.service.ts] - getObtenerContactoPendienteCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerContactoPendienteCliente | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

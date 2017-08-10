@@ -83,6 +83,44 @@ namespace DAL
             }
         }
 
+        public Contacto obtenerContactoConComentarioPendienteCliente(int idPublicacion, int idCliente)
+        {
+            Contacto contacto = null;
+            string cadenaSelectContacto = "SELECT * FROM CONTACTO WHERE PublicacionId =@idPublicacion AND ClienteId=@idCliente AND ComentarioPuntuacionId IS NULL;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectContacto, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idPublicacion", idPublicacion);
+                        cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            dr.Read();
+                            if (dr.HasRows)
+                            {
+                                contacto = new Contacto
+                                {
+                                    Id = Convert.ToInt32(dr["Id"]),
+                                    Publicacion = new Publicacion { Id= Convert.ToInt32(dr["PublicacionId"]), },
+                                    Cliente = new Cliente { Id = Convert.ToInt32(dr["ClienteId"]), },
+                                    Fecha = Convert.ToDateTime(dr["Fecha"])
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return contacto;
+        }
+
         public double obtenerPromedioPuntajeClienteServicio(int idCliente, int idServicio)
         {
             //Oferta
@@ -95,7 +133,7 @@ namespace DAL
                     COMENTARIOPUNTUACION CP,
                     PUBLICACION P 
                 WHERE
-                    CP.ClienteId = @idCliente AND
+                    P.ClienteId = @idCliente AND
                     CP.PublicacionId = P.Id AND
                     P.ServicioId = @idServicio AND
                     P.Tipo = 'OFERTA'

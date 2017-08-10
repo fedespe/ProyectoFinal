@@ -80,7 +80,7 @@ namespace DAL
         public void aceptarPresupuesto(Presupuesto presupuesto)
         {
             string cadenaUpdatePresupuesto = "Update PRESUPUESTO SET Aceptado = 1 WHERE id = @idPresupuesto;";
-            string cadenaUpdatePublicacion = "Update PUBLICACION SET Activa = 0 WHERE id = @idPublicacion;";
+            string cadenaUpdatePublicacion = "Update PUBLICACION SET Activa = 0, Finalizada = 1 WHERE id = @idPublicacion;";
 
             SqlTransaction trn = null;
             try

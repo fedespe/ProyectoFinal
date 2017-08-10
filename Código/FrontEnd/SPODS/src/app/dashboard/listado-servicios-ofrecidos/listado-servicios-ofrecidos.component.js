@@ -24,6 +24,7 @@ var ListadoServiciosOfrecidosComponent = (function () {
         this.route = route;
         this.mensajes = new mensaje_1.Mensaje();
         this.publicaciones = [];
+        this.idUsuario = parseInt(localStorage.getItem('id-usuario'));
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
     }
     ListadoServiciosOfrecidosComponent.prototype.ngOnInit = function () {
