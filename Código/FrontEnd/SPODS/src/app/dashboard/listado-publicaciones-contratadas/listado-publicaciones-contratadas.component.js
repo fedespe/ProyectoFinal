@@ -22,8 +22,10 @@ var ListadoPublicacionesContratadasComponent = (function () {
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
         this.publicaciones = [];
+        this.contactos = [];
         this.obtenerPublicacionesContratadasPorCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
+        this.obtenerTodosContactosConComentariosPendientesOferta(parseInt(localStorage.getItem('id-usuario')));
     }
     ListadoPublicacionesContratadasComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
@@ -47,6 +49,28 @@ var ListadoPublicacionesContratadasComponent = (function () {
     };
     ListadoPublicacionesContratadasComponent.prototype.getobtenerPublicacionesContratadasPorClienteError = function (responseError) {
         utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    ListadoPublicacionesContratadasComponent.prototype.obtenerTodosContactosConComentariosPendientesOferta = function (id) {
+        var _this = this;
+        this.dataService.getobtenerTodosContactosConComentariosPendientesOferta(id)
+            .subscribe(function (res) { return _this.getobtenerTodosContactosConComentariosPendientesOfertaOk(res); }, function (error) { return _this.getobtenerTodosContactosConComentariosPendientesOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOferta: Completado"); });
+    };
+    ListadoPublicacionesContratadasComponent.prototype.getobtenerTodosContactosConComentariosPendientesOfertaOk = function (response) {
+        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+            this.contactos = response.Objetos;
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    ListadoPublicacionesContratadasComponent.prototype.getobtenerTodosContactosConComentariosPendientesOfertaError = function (responseError) {
+        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

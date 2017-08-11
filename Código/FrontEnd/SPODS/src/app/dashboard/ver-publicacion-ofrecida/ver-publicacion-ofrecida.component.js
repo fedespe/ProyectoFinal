@@ -320,7 +320,7 @@ var VerPublicacionOfrecidaComponent = (function () {
     VerPublicacionOfrecidaComponent.prototype.postIngresarComentarioOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
-            $('#exampleModalLong').modal('hide');
+            //$('#exampleModalLong').modal('hide');
             this.router.navigate(['/dashboard/ver-publicacion-ofrecida/', this.publicacion.Id]);
         }
         else {

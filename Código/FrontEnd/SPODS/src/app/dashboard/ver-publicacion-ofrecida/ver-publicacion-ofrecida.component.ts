@@ -402,7 +402,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
 
         if(response.Codigo ==  200){
-            $('#exampleModalLong').modal('hide');
+            //$('#exampleModalLong').modal('hide');
             this.router.navigate(['/dashboard/ver-publicacion-ofrecida/', this.publicacion.Id]);
         }
         else{

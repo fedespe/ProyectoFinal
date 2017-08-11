@@ -89,6 +89,22 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getobtenerTodosContactosConComentariosPendientesOferta = function (id) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/obtenerTodosContactosConComentariosPendientesOferta/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesOferta | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesOferta | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getobtenerTodosContactosConComentariosPendientesSolicitud = function (id) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/obtenerTodosContactosConComentariosPendientesSolicitud/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesSolicitud | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesSolicitud | headers: " + JSON.stringify({ headers: this.headers }));
+        return this.http.get(URL, { headers: this.headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

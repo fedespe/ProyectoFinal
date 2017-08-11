@@ -130,6 +130,44 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
+        [HttpGet, Route("api/ComentarioPuntuacion/obtenerTodosContactosConComentariosPendientesOferta/{idCliente}")]
+        public Retorno GetTodosContactosConComentariosPendientesOferta(int idCliente)
+        {
+            try
+            {
+                List<Contacto> contactos = comentarioPuntuacionBL.obtenerTodosContactosConComentariosPendientesOferta(idCliente);
+                foreach (Contacto c in contactos)
+                {
+                    retorno.Objetos.Add(c);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+        [HttpGet, Route("api/ComentarioPuntuacion/obtenerTodosContactosConComentariosPendientesSolicitud/{idCliente}")]
+        public Retorno GetTodosContactosConComentariosPendientesSolicitud(int idCliente)
+        {
+            try
+            {
+                List<Contacto> contactos = comentarioPuntuacionBL.obtenerTodosContactosConComentariosPendientesSolicitud(idCliente);
+                foreach (Contacto c in contactos)
+                {
+                    retorno.Objetos.Add(c);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
 
     }
 }

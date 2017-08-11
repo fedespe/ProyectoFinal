@@ -8,6 +8,7 @@ import { Exito } from "../../shared/exito";
 import { Servicio } from "../../shared/servicio";
 import { Settings } from "../../shared/settings";
 import { Publicacion } from "../../shared/publicacion";
+import { Contacto } from "../../shared/contacto";
 
 @Component({
     selector: 'listado-solicitudes-cliente',
@@ -19,9 +20,12 @@ export class ListadoSolicitudesClienteComponent{
     mensajes: Mensaje = new Mensaje();
     publicaciones: Publicacion[] = [];
     baseURL:string;
+    contactos:Contacto[]=[]
+
     constructor(private dataService: DataService, private router: Router) {
         this.obtenerSolicitudesCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
+        this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
     }
 
     
@@ -111,6 +115,34 @@ export class ListadoSolicitudesClienteComponent{
 
     getActivarPublicacionError(responseError:any){
         Utilidades.log("[listado-solicitudes-cliente.component.ts] - getActivarPublicacionError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    obtenerTodosContactosConComentariosPendientesSolicitud(id:number){
+        this.dataService.getobtenerTodosContactosConComentariosPendientesSolicitud(id)
+            .subscribe(
+            res => this.getobtenerTodosContactosConComentariosPendientesSolicitudOk(res),
+            error => this.getobtenerTodosContactosConComentariosPendientesSolicitudError(error),
+            () => Utilidades.log("[listado-publicaciones-contratadas.component.ts] - obtenerTodosContactosConComentariosPendientesSolicitud: Completado")
+        );
+    }
+
+    getobtenerTodosContactosConComentariosPendientesSolicitudOk(response:any){
+        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudOk | response: " + JSON.stringify(response));      
+        if(response.Codigo ==  200){
+            this.contactos = response.Objetos;
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getobtenerTodosContactosConComentariosPendientesSolicitudError(responseError:any){
+        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

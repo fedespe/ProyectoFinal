@@ -81,7 +81,8 @@ namespace DAL
         {
             string cadenaUpdatePresupuesto = "Update PRESUPUESTO SET Aceptado = 1 WHERE id = @idPresupuesto;";
             string cadenaUpdatePublicacion = "Update PUBLICACION SET Activa = 0, Finalizada = 1 WHERE id = @idPublicacion;";
-
+            string cadenaInsertContacto = @"INSERT INTO CONTACTO VALUES(@PublicacionId, @ClienteId, @ComentarioId, @Fecha);";
+            //falta crear contacto!!! para poder publicar y puntuar
             SqlTransaction trn = null;
             try
             {
@@ -101,6 +102,16 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@idPublicacion", presupuesto.Solicitud.Id);
 
                         cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = cadenaInsertContacto;
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@PublicacionId", presupuesto.Solicitud.Id);
+                        cmd.Parameters.AddWithValue("@Fecha", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@ComentarioId", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@ClienteId", presupuesto.Cliente.Id);
+
+                        cmd.ExecuteNonQuery();
+
 
                         trn.Commit();
                         trn.Dispose();

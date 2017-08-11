@@ -88,6 +88,14 @@ namespace BL
         {
             return comentarioPuntuacionDAL.obtenerContactoConComentarioPendienteCliente(idPublicacion, idCliente);
         }
+        public List<Contacto> obtenerTodosContactosConComentariosPendientesOferta(int idCliente)
+        {
+            return comentarioPuntuacionDAL.obtenerTodosContactosConComentariosPendientesOferta(idCliente);
+        }
+        public List<Contacto> obtenerTodosContactosConComentariosPendientesSolicitud(int idCliente)
+        {
+            return comentarioPuntuacionDAL.obtenerTodosContactosConComentariosPendientesSolicitud(idCliente);
+        }
 
         private void validarContacto(Contacto contacto)
         {

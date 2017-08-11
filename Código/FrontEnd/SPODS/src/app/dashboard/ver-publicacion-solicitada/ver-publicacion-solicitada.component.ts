@@ -502,7 +502,6 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     // }
 
     aceptarPresupuesto(input:any){
-        alert(input.Id);
         Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto | responseError: " + JSON.stringify(this.publicacion));
         this.dataService.putAceptarPresupuesto(input)
             .subscribe(
@@ -515,7 +514,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     putAceptarPresupuestoOk(response:any){       
         Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoOk | response: " + JSON.stringify(response));
         if(response.Codigo ==  200){
-           alert('Ok');
+           this.router.navigate(['dashboard/listado-solicitudes-cliente']);
         }
         else{
             var error = new Error();

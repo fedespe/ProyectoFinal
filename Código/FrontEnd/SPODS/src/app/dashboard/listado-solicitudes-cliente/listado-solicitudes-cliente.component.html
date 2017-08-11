@@ -31,7 +31,33 @@
                     </td>
                 </tr>
             </tbody>
-        </table>   
+        </table>  
+
+        <h2 class="col-12">Comentarios Pendientes</h2>
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Activa</th>
+                    <th>Finalizada</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="contactos.length > 0">
+                <tr *ngFor="let contacto of contactos;">                     
+                    <td>{{contacto.Publicacion.Titulo}}</td>                 
+                    <td *ngIf="contacto.Publicacion.Activa">Si</td>
+                    <td *ngIf="!contacto.Publicacion.Activa">No</td>
+                    <td *ngIf="contacto.Publicacion.Finalizada">Si</td>
+                    <td *ngIf="!contacto.Publicacion.Finalizada">No</td>
+                    <td>
+                        <div class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', contacto.Publicacion.Id]"><i class="fa fa-comments-o" aria-hidden="true"></i> Comentar "se tendrian que mostrar los datos del tarbajador"</div>
+                        <!--<div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver <i class="fa fa-comments-o" aria-hidden="true"></i>  Comentar</div>-->
+                        <!--<div *ngIf="publicacion.Activa && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left"><i class="fa fa-comments-o" aria-hidden="true"></i></div>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>  
     
         <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
             <div *ngFor="let error of mensajes.Errores;">

@@ -417,7 +417,6 @@ var VerPublicacionSolicitadaComponent = (function () {
     // }
     VerPublicacionSolicitadaComponent.prototype.aceptarPresupuesto = function (input) {
         var _this = this;
-        alert(input.Id);
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto | responseError: " + JSON.stringify(this.publicacion));
         this.dataService.putAceptarPresupuesto(input)
             .subscribe(function (res) { return _this.putAceptarPresupuestoOk(res); }, function (error) { return _this.putAceptarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado"); });
@@ -425,7 +424,7 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.putAceptarPresupuestoOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
-            alert('Ok');
+            this.router.navigate(['dashboard/listado-solicitudes-cliente']);
         }
         else {
             var error = new error_1.Error();
