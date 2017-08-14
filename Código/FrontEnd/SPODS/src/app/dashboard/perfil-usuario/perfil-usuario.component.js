@@ -35,15 +35,15 @@ var PerfilUsuarioComponent = (function () {
     PerfilUsuarioComponent.prototype.actualizarCliente = function () {
         var _this = this;
         this.borrarMensajes();
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
         this.mensajes.Errores = this.cliente.validarActualizacionUsuario();
         if (this.mensajes.Errores.length == 0) {
             this.dataService.putActualizarCliente(this.cliente)
-                .subscribe(function (res) { return _this.putActualizarClienteOk(res); }, function (error) { return _this.putActualizarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postRegistrarCliente: Completado"); });
+                .subscribe(function (res) { return _this.putActualizarClienteOk(res); }, function (error) { return _this.putActualizarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postRegistrarCliente: Completado"); });
         }
     };
     PerfilUsuarioComponent.prototype.putActualizarClienteOk = function (response) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.router.navigate(['/dashboard']);
         }
@@ -54,7 +54,7 @@ var PerfilUsuarioComponent = (function () {
         }
     };
     PerfilUsuarioComponent.prototype.putActualizarClienteError = function (responseError) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -62,10 +62,10 @@ var PerfilUsuarioComponent = (function () {
     PerfilUsuarioComponent.prototype.getObtenerBarrios = function () {
         var _this = this;
         this.dataService.getBarrioObtenerTodos()
-            .subscribe(function (res) { return _this.getBarrioObtenerTodosOk(res); }, function (error) { return _this.getBarrioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado"); });
+            .subscribe(function (res) { return _this.getBarrioObtenerTodosOk(res); }, function (error) { return _this.getBarrioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado"); });
     };
     PerfilUsuarioComponent.prototype.getBarrioObtenerTodosOk = function (response) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
         this.barrios = response.Objetos;
         if (response.Codigo == 200) {
         }
@@ -76,7 +76,7 @@ var PerfilUsuarioComponent = (function () {
         }
     };
     PerfilUsuarioComponent.prototype.getBarrioObtenerTodosError = function (responseError) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -84,10 +84,10 @@ var PerfilUsuarioComponent = (function () {
     PerfilUsuarioComponent.prototype.getObternerCliente = function () {
         var _this = this;
         this.dataService.getObtenerCliente(this.cliente.Id)
-            .subscribe(function (res) { return _this.getObternerClienteOk(res); }, function (error) { return _this.getObternerClienteError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado"); });
+            .subscribe(function (res) { return _this.getObternerClienteOk(res); }, function (error) { return _this.getObternerClienteError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado"); });
     };
     PerfilUsuarioComponent.prototype.getObternerClienteOk = function (response) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.cliente.Nombre = response.Objetos[0].Nombre;
             this.cliente.Apellido = response.Objetos[0].Apellido;
@@ -102,7 +102,7 @@ var PerfilUsuarioComponent = (function () {
         }
     };
     PerfilUsuarioComponent.prototype.getObternerClienteError = function (responseError) {
-        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

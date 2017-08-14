@@ -334,7 +334,7 @@ namespace DAL
         public List<ComentarioPuntuacion> obtenerPorPublicacion(int idPublicacion)
         {
             List<ComentarioPuntuacion> comentarios = new List<ComentarioPuntuacion>();
-            string cadenaSelectComentario = "SELECT * FROM COMENTARIOPUNTUACION c, USUARIO u WHERE PublicacionId = @idPublicacion AND c.ClienteId=u.Id;";
+            string cadenaSelectComentario = "SELECT * FROM COMENTARIOPUNTUACION c, USUARIO u WHERE c.PublicacionId = @idPublicacion AND c.ClienteId=u.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -380,5 +380,118 @@ namespace DAL
 
             return comentarios;
         }
+
+        public List<ComentarioPuntuacion> obtenerComentariosOferta(int idCliente)
+        {
+            List<ComentarioPuntuacion> comentarios = new List<ComentarioPuntuacion>();
+            string cadenaSelectComentario = "SELECT c.Id as ComentarioId, p.Id as PublicacionId, c.ClienteId as ClienteComentarioId, s.Nombre as NombreServicio, * FROM COMENTARIOPUNTUACION c, USUARIO u, PUBLICACION p, SERVICIO s WHERE p.Id=c.PublicacionId AND p.ClienteId = @idCliente AND c.ClienteId=u.Id AND p.Tipo='OFERTA' AND p.ServicioId=s.Id;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectComentario, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                ComentarioPuntuacion comentarioPuntuacion = new ComentarioPuntuacion
+                                {
+                                    Id = Convert.ToInt32(dr["ComentarioId"]),
+                                    Fecha = Convert.ToDateTime(dr["Fecha"]),
+                                    Comentario = dr["Comentario"].ToString(),
+                                    Puntuacion = Convert.ToInt32(dr["Puntuacion"]),
+                                    Publicacion = new Publicacion
+                                    {
+                                        Id = Convert.ToInt32(dr["PublicacionId"]),
+                                        Servicio = new Servicio {
+                                            Id= Convert.ToInt32(dr["ServicioId"]),
+                                            Nombre= dr["NombreServicio"].ToString(),
+                                        }
+                                    },
+                                    Cliente = new Cliente
+                                    {
+                                        Id = Convert.ToInt32(dr["ClienteComentarioId"]),
+                                        NombreUsuario = dr["NombreUsuario"].ToString(),
+                                    }
+                                };
+                                if (dr["Respuesta"] != DBNull.Value)
+                                {
+                                    comentarioPuntuacion.Respuesta = dr["Respuesta"].ToString();
+                                }
+                                comentarios.Add(comentarioPuntuacion);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return comentarios;
+        }
+
+
+        //HAY QUE CAMBIAR LOS ROLES QUIEN ES EL QUE COMENTA... OJOOOOO!!!!!
+        public List<ComentarioPuntuacion> obtenerComentariosSolicitud(int idCliente)
+        {
+            List<ComentarioPuntuacion> comentarios = new List<ComentarioPuntuacion>();
+            string cadenaSelectComentario = "SELECT c.Id as ComentarioId, p.Id as PublicacionId, c.ClienteId as ClienteComentarioId, s.Nombre as NombreServicio, * FROM COMENTARIOPUNTUACION c, USUARIO u, PUBLICACION p, SERVICIO s WHERE p.Id=c.PublicacionId AND p.ClienteId = @idCliente AND c.ClienteId=u.Id AND p.Tipo='SOLICITUD' AND p.ServicioId=s.Id;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectComentario, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                ComentarioPuntuacion comentarioPuntuacion = new ComentarioPuntuacion
+                                {
+                                    Id = Convert.ToInt32(dr["ComentarioId"]),
+                                    Fecha = Convert.ToDateTime(dr["Fecha"]),
+                                    Comentario = dr["Comentario"].ToString(),
+                                    Puntuacion = Convert.ToInt32(dr["Puntuacion"]),
+                                    Publicacion = new Publicacion
+                                    {
+                                        Id = Convert.ToInt32(dr["PublicacionId"]),
+                                        Servicio = new Servicio
+                                        {
+                                            Id = Convert.ToInt32(dr["ServicioId"]),
+                                            Nombre = dr["NombreServicio"].ToString(),
+                                        }
+                                    },
+                                    Cliente = new Cliente
+                                    {
+                                        Id = Convert.ToInt32(dr["ClienteComentarioId"]),
+                                        NombreUsuario = dr["NombreUsuario"].ToString(),
+                                    }
+                                };
+                                if (dr["Respuesta"] != DBNull.Value)
+                                {
+                                    comentarioPuntuacion.Respuesta = dr["Respuesta"].ToString();
+                                }
+                                comentarios.Add(comentarioPuntuacion);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return comentarios;
+        }
+
+
     }
 }

@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesContratadasPorCliente(id);
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesContratadasPorCliente(id).Where(p=>p.Tipo.Equals("OFERTA")).ToList();
                 foreach (Publicacion p in publicaciones)
                 {
                     retorno.Objetos.Add(p);

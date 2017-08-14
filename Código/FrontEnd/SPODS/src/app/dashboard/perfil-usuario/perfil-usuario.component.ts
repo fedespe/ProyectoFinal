@@ -7,7 +7,7 @@ import { Error } from "../../shared/error";
 import { Exito } from "../../shared/exito";
 import { Cliente } from '../../shared/cliente';
 import { Barrio } from '../../shared/barrio';
-import { Marca } from '../../shared/marca';
+
 
 @Component({
     selector: 'perfil-usuario',
@@ -19,12 +19,14 @@ export class PerfilUsuarioComponent{
     mensajes: Mensaje = new Mensaje();
     cliente:Cliente = new Cliente();
     barrios:Barrio[] = [];
+    
 
     constructor(private dataService: DataService, private router: Router) {
         this.cliente.NombreUsuario=localStorage.getItem('nombre-usuario');
         this.cliente.Id = parseInt(localStorage.getItem('id-usuario'));
         this.getObtenerBarrios();
         this.getObternerCliente();
+        
     }
     borrarMensajes(){
         this.mensajes.Errores = [];
@@ -33,7 +35,7 @@ export class PerfilUsuarioComponent{
     
     actualizarCliente(){
         this.borrarMensajes();
-        Utilidades.log("[registro-cliente.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        Utilidades.log("[perfil-usuario.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
         
         this.mensajes.Errores = this.cliente.validarActualizacionUsuario();
 
@@ -42,14 +44,14 @@ export class PerfilUsuarioComponent{
             .subscribe(
                 res => this.putActualizarClienteOk(res),
                 error => this.putActualizarClienteError(error),
-                () => Utilidades.log("[registro-cliente.component.ts] - postRegistrarCliente: Completado")
+                () => Utilidades.log("[perfil-usuario.component.ts] - postRegistrarCliente: Completado")
             );
         }
     }
 
 
     putActualizarClienteOk(response:any){
-        Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
+        Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
 
         if(response.Codigo ==  200){
             this.router.navigate(['/dashboard']);
@@ -62,7 +64,7 @@ export class PerfilUsuarioComponent{
     }
 
     putActualizarClienteError(responseError:any){
-        Utilidades.log("[registro-cliente.component.ts] - putActualizarClienteError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -73,12 +75,12 @@ export class PerfilUsuarioComponent{
             .subscribe(
             res => this.getBarrioObtenerTodosOk(res),
             error => this.getBarrioObtenerTodosError(error),
-            () => Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado")
+            () => Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado")
         );
     }
 
     getBarrioObtenerTodosOk(response:any){
-        Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
+        Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
         this.barrios = response.Objetos;
         if(response.Codigo ==  200){
             
@@ -91,7 +93,7 @@ export class PerfilUsuarioComponent{
     }
 
     getBarrioObtenerTodosError(responseError:any){
-        Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -102,12 +104,12 @@ export class PerfilUsuarioComponent{
             .subscribe(
             res => this.getObternerClienteOk(res),
             error => this.getObternerClienteError(error),
-            () => Utilidades.log("[registro-cliente.component.ts] - getBarrioObtenerTodos: Completado")
+            () => Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado")
         );
     }
 
     getObternerClienteOk(response:any){
-        Utilidades.log("[registro-cliente.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
+        Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
         if(response.Codigo ==  200){
             this.cliente.Nombre = response.Objetos[0].Nombre;
             this.cliente.Apellido = response.Objetos[0].Apellido;
@@ -123,11 +125,12 @@ export class PerfilUsuarioComponent{
     }
 
     getObternerClienteError(responseError:any){
-        Utilidades.log("[registro-cliente.component.ts] - getObternerClienteError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
 
+    
     
 }

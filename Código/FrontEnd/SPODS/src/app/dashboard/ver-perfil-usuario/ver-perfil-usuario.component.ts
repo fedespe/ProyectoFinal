@@ -7,6 +7,7 @@ import { Error } from "../../shared/error";
 import { Exito } from "../../shared/exito";
 import { Cliente } from '../../shared/cliente';
 import { Barrio } from '../../shared/barrio';
+import { ComentarioPuntuacion } from '../../shared/comentarioPuntuacion';
 
 @Component({
     selector: 'ver-perfil-usuario',
@@ -18,6 +19,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
     mensajes: Mensaje = new Mensaje();
     cliente:Cliente = new Cliente();
     loading = true;
+    comentariosPuntuacion:ComentarioPuntuacion[]=[];
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         
@@ -31,7 +33,8 @@ export class VerPerfilUsuarioComponent implements OnInit{
             this.cliente.Id = parseInt(params['id']);
             Utilidades.log("[ver-perfil-usuario.component.ts] - ngOnInit | id: " + JSON.stringify(this.cliente.Id));   
         });
-        this.getObternerCliente();     
+        this.getObternerCliente();  
+        this.getComentariosOferta();   
     }
 
     borrarMensajes(){
@@ -72,4 +75,33 @@ export class VerPerfilUsuarioComponent implements OnInit{
         this.mensajes.Errores.push(error);
         this.loading = false;
     }  
+
+    getComentariosOferta(){
+        this.dataService.getComentariosOferta(this.cliente.Id)
+            .subscribe(
+            res => this.getComentariosOfertaOk(res),
+            error => this.getComentariosOfertaError(error),
+            () => Utilidades.log("[perfil-usuario.component.ts] - getComentariosOferta: Completado")
+        );
+    }
+
+    getComentariosOfertaOk(response:any){
+        Utilidades.log("[perfil-usuario.component.ts] - getComentariosOfertaOk | response: " + JSON.stringify(response));
+        if(response.Codigo ==  200){
+            this.comentariosPuntuacion=response.Objetos;
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getComentariosOfertaError(responseError:any){
+        Utilidades.log("[perfil-usuario.component.ts] - getComentariosOfertaError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
 }

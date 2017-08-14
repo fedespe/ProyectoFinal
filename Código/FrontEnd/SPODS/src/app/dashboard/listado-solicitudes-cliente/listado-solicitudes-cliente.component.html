@@ -51,13 +51,58 @@
                     <td *ngIf="contacto.Publicacion.Finalizada">Si</td>
                     <td *ngIf="!contacto.Publicacion.Finalizada">No</td>
                     <td>
-                        <div class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', contacto.Publicacion.Id]"><i class="fa fa-comments-o" aria-hidden="true"></i> Comentar "se tendrian que mostrar los datos del tarbajador"</div>
+                        <div class="linkManual float-left" (click)="activarModal(contacto)"><i class="fa fa-comments-o" aria-hidden="true"></i> Comentar "se tendrian que mostrar los datos del tarbajador"</div>
                         <!--<div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver <i class="fa fa-comments-o" aria-hidden="true"></i>  Comentar</div>-->
                         <!--<div *ngIf="publicacion.Activa && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left"><i class="fa fa-comments-o" aria-hidden="true"></i></div>-->
                     </td>
                 </tr>
             </tbody>
         </table>  
+
+        <!--MODAL-->
+        <div>
+            <button type="button" class="btn btn-primary" id="btnModal" style="display: none" data-toggle="modal" data-target="#exampleModalLong">
+                Comentar
+            </button>
+
+            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Comentario y Puntuación</h5>
+                            <button type="button" id="btnModalClose" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <label for="inputComentario" class="sr-only">Comentario</label>
+                            <textarea rows="5" class="form-control" [(ngModel)]="comentarioPuntuacion.Comentario" id="inputComentario" name="Comentario" placeholder="Comentario"></textarea>
+
+                            <form>
+                                <p class="clasificacion">
+                                    <input id="radio1" type="radio" name="estrellas" (click)="actualizarPuntaje(5)">
+                                    <label for="radio1">({{puntaje}})★</label>
+                                    <input id="radio2" type="radio" name="estrellas" (click)="actualizarPuntaje(4)">
+                                    <label for="radio2">★</label>
+                                    <input id="radio3" type="radio" name="estrellas" (click)="actualizarPuntaje(3)">
+                                    <label for="radio3">★</label>
+                                    <input id="radio4" type="radio" name="estrellas" (click)="actualizarPuntaje(2)">
+                                    <label for="radio4">★</label>
+                                    <input id="radio5" type="radio" name="estrellas" (click)="actualizarPuntaje(1)">
+                                    <label for="radio5">★</label>
+                                </p>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-block" id="btnGuardarComentario" (click)="guardarComentario()">Guardar</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN MODAL-->
     
         <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
             <div *ngFor="let error of mensajes.Errores;">

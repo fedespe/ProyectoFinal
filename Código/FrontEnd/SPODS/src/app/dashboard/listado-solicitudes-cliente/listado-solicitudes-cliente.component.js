@@ -16,6 +16,8 @@ var utilidades_1 = require("../../shared/utilidades");
 var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
 var settings_1 = require("../../shared/settings");
+var contacto_1 = require("../../shared/contacto");
+var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
 var ListadoSolicitudesClienteComponent = (function () {
     function ListadoSolicitudesClienteComponent(dataService, router) {
         this.dataService = dataService;
@@ -23,6 +25,8 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.publicaciones = [];
         this.contactos = [];
+        this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
+        this.puntaje = 0;
         this.obtenerSolicitudesCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
         this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
@@ -117,6 +121,52 @@ var ListadoSolicitudesClienteComponent = (function () {
     };
     ListadoSolicitudesClienteComponent.prototype.getobtenerTodosContactosConComentariosPendientesSolicitudError = function (responseError) {
         utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    ListadoSolicitudesClienteComponent.prototype.activarModal = function (input) {
+        document.getElementById('btnModal').click();
+        this.comentarioPuntuacion.Publicacion = input.Publicacion; //al contrario de la oferta quien realiza el comentario es el due'o de la publicacion
+        this.comentarioPuntuacion.Cliente.Id = input.Cliente.Id; //al contrario de la oferta quien recibe el comentario es el que realiza el trabajo
+        this.comentarioPuntuacion.Contacto = new contacto_1.Contacto();
+        this.comentarioPuntuacion.Contacto.Id = input.Id;
+        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(input));
+    };
+    ListadoSolicitudesClienteComponent.prototype.actualizarPuntaje = function (input) {
+        this.puntaje = input;
+        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - actualizarPuntaje | puntaje: " + JSON.stringify(this.puntaje));
+    };
+    ListadoSolicitudesClienteComponent.prototype.guardarComentario = function () {
+        var _this = this;
+        this.borrarMensajes();
+        this.comentarioPuntuacion.Puntuacion = this.puntaje;
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
+        if (this.comentarioPuntuacion.Comentario != null && this.comentarioPuntuacion.Comentario != "") {
+            this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+                .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado"); });
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = "El comentario no puede estar vacio.";
+            this.mensajes.Errores.push(error);
+        }
+    };
+    ListadoSolicitudesClienteComponent.prototype.postIngresarComentarioOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+            document.getElementById('btnModalClose').click();
+            this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
+        }
+        else {
+            utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    ListadoSolicitudesClienteComponent.prototype.postIngresarComentarioError = function (responseError) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

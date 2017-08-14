@@ -321,6 +321,7 @@ var VerPublicacionOfrecidaComponent = (function () {
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             //$('#exampleModalLong').modal('hide');
+            document.getElementById('btnModalClose').click();
             this.router.navigate(['/dashboard/ver-publicacion-ofrecida/', this.publicacion.Id]);
         }
         else {
