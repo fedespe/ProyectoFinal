@@ -136,6 +136,16 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+    public getComentariosSolicitud(id:number){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerComentariosSolicitud/' + id;
+
+        Utilidades.log("[data.service.ts] - getComentariosSolicitud | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getComentariosSolicitud | headers: " + JSON.stringify({ headers: this.headers }));
+
+        return this.http.get(URL, { headers: this.headers })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
     //*************************** */
     // FIN SERVICIOS COMENTARIOPUNTUACION
     //*************************** */

@@ -36,8 +36,8 @@ var ListadoServiciosComponent = (function () {
     };
     ListadoServiciosComponent.prototype.getServicioObtenerTodosOk = function (response) {
         utilidades_1.Utilidades.log("[[listado-servicios.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
-        this.servicios = response.Objetos;
         if (response.Codigo == 200) {
+            this.servicios = response.Objetos;
         }
         else {
             var error = new error_1.Error();

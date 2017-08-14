@@ -24,7 +24,9 @@ var VerPerfilUsuarioComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.cliente = new cliente_1.Cliente();
         this.loading = true;
-        this.comentariosPuntuacion = [];
+        this.comentariosPuntuacionOferta = [];
+        this.comentariosPuntuacionSolicitud = [];
+        this.servicios = [];
     }
     VerPerfilUsuarioComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -36,7 +38,7 @@ var VerPerfilUsuarioComponent = (function () {
             utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - ngOnInit | id: " + JSON.stringify(_this.cliente.Id));
         });
         this.getObternerCliente();
-        this.getComentariosOferta();
+        this.obtenerServicios();
     };
     VerPerfilUsuarioComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
@@ -70,15 +72,39 @@ var VerPerfilUsuarioComponent = (function () {
         this.mensajes.Errores.push(error);
         this.loading = false;
     };
+    VerPerfilUsuarioComponent.prototype.obtenerServicios = function () {
+        var _this = this;
+        this.dataService.getServicioObtenerTodos()
+            .subscribe(function (res) { return _this.getServicioObtenerTodosOk(res); }, function (error) { return _this.getServicioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServicios: Completado"); });
+    };
+    VerPerfilUsuarioComponent.prototype.getServicioObtenerTodosOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+            this.servicios = response.Objetos;
+            this.getComentariosOferta();
+            this.getComentariosSolicitud();
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.getServicioObtenerTodosError = function (responseError) {
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
     VerPerfilUsuarioComponent.prototype.getComentariosOferta = function () {
         var _this = this;
         this.dataService.getComentariosOferta(this.cliente.Id)
-            .subscribe(function (res) { return _this.getComentariosOfertaOk(res); }, function (error) { return _this.getComentariosOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getComentariosOferta: Completado"); });
+            .subscribe(function (res) { return _this.getComentariosOfertaOk(res); }, function (error) { return _this.getComentariosOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosOferta: Completado"); });
     };
     VerPerfilUsuarioComponent.prototype.getComentariosOfertaOk = function (response) {
-        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getComentariosOfertaOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosOfertaOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
-            this.comentariosPuntuacion = response.Objetos;
+            this.comentariosPuntuacionOferta = response.Objetos;
         }
         else {
             var error = new error_1.Error();
@@ -88,6 +114,28 @@ var VerPerfilUsuarioComponent = (function () {
     };
     VerPerfilUsuarioComponent.prototype.getComentariosOfertaError = function (responseError) {
         utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getComentariosOfertaError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPerfilUsuarioComponent.prototype.getComentariosSolicitud = function () {
+        var _this = this;
+        this.dataService.getComentariosSolicitud(this.cliente.Id)
+            .subscribe(function (res) { return _this.getComentariosSolicitudOk(res); }, function (error) { return _this.getComentariosSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosSolicitud: Completado"); });
+    };
+    VerPerfilUsuarioComponent.prototype.getComentariosSolicitudOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosSolicitudOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+            this.comentariosPuntuacionSolicitud = response.Objetos;
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.getComentariosSolicitudError = function (responseError) {
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getComentariosSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

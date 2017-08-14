@@ -8,6 +8,7 @@ import { Exito } from "../../shared/exito";
 import { Cliente } from '../../shared/cliente';
 import { Barrio } from '../../shared/barrio';
 import { ComentarioPuntuacion } from '../../shared/comentarioPuntuacion';
+import { Servicio } from '../../shared/servicio';
 
 @Component({
     selector: 'ver-perfil-usuario',
@@ -19,7 +20,9 @@ export class VerPerfilUsuarioComponent implements OnInit{
     mensajes: Mensaje = new Mensaje();
     cliente:Cliente = new Cliente();
     loading = true;
-    comentariosPuntuacion:ComentarioPuntuacion[]=[];
+    comentariosPuntuacionOferta:ComentarioPuntuacion[]=[];
+    comentariosPuntuacionSolicitud:ComentarioPuntuacion[]=[];
+    servicios: Servicio[] = [];
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         
@@ -33,8 +36,9 @@ export class VerPerfilUsuarioComponent implements OnInit{
             this.cliente.Id = parseInt(params['id']);
             Utilidades.log("[ver-perfil-usuario.component.ts] - ngOnInit | id: " + JSON.stringify(this.cliente.Id));   
         });
-        this.getObternerCliente();  
-        this.getComentariosOferta();   
+        this.getObternerCliente(); 
+        this.obtenerServicios(); 
+        
     }
 
     borrarMensajes(){
@@ -75,20 +79,49 @@ export class VerPerfilUsuarioComponent implements OnInit{
         this.mensajes.Errores.push(error);
         this.loading = false;
     }  
+    obtenerServicios(){
+        this.dataService.getServicioObtenerTodos()
+            .subscribe(
+            res => this.getServicioObtenerTodosOk(res),
+            error => this.getServicioObtenerTodosError(error),
+            () => Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServicios: Completado")
+        );
+    }
+
+    getServicioObtenerTodosOk(response:any){
+        Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));      
+        if(response.Codigo ==  200){
+            this.servicios = response.Objetos;
+            this.getComentariosOferta();
+            this.getComentariosSolicitud();   
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getServicioObtenerTodosError(responseError:any){
+        Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
 
     getComentariosOferta(){
         this.dataService.getComentariosOferta(this.cliente.Id)
             .subscribe(
             res => this.getComentariosOfertaOk(res),
             error => this.getComentariosOfertaError(error),
-            () => Utilidades.log("[perfil-usuario.component.ts] - getComentariosOferta: Completado")
+            () => Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosOferta: Completado")
         );
     }
 
     getComentariosOfertaOk(response:any){
-        Utilidades.log("[perfil-usuario.component.ts] - getComentariosOfertaOk | response: " + JSON.stringify(response));
+        Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosOfertaOk | response: " + JSON.stringify(response));
         if(response.Codigo ==  200){
-            this.comentariosPuntuacion=response.Objetos;
+            this.comentariosPuntuacionOferta=response.Objetos;
         }
         else{
             var error = new Error();
@@ -99,6 +132,34 @@ export class VerPerfilUsuarioComponent implements OnInit{
 
     getComentariosOfertaError(responseError:any){
         Utilidades.log("[perfil-usuario.component.ts] - getComentariosOfertaError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    getComentariosSolicitud(){
+        this.dataService.getComentariosSolicitud(this.cliente.Id)
+            .subscribe(
+            res => this.getComentariosSolicitudOk(res),
+            error => this.getComentariosSolicitudError(error),
+            () => Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosSolicitud: Completado")
+        );
+    }
+
+    getComentariosSolicitudOk(response:any){
+        Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosSolicitudOk | response: " + JSON.stringify(response));
+        if(response.Codigo ==  200){
+            this.comentariosPuntuacionSolicitud=response.Objetos;
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getComentariosSolicitudError(responseError:any){
+        Utilidades.log("[perfil-usuario.component.ts] - getComentariosSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
