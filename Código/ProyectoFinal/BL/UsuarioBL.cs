@@ -70,5 +70,17 @@ namespace BL
         {
             return usuarioDAL.existeCorreoElectronico(correo);
         }
+
+        public Usuario obtenerPorToken(string token)
+        {
+            if (token != null && token != "")
+            {
+                return usuarioDAL.obtenerPorToken(token);
+            }
+            else
+            {
+                throw new ProyectoException("Error: Token");
+            }
+        }
     }
 }

@@ -1,6 +1,11 @@
-USE SPODS;
+USE MASTER;
+
+CREATE DATABASE SPODS;
 GO
 
+USE SPODS;
+GO
+/*
 DROP TABLE dbo.PRESUPUESTO;
 DROP TABLE dbo.PROVEE;
 DROP TABLE dbo.DENUNCIA;
@@ -19,6 +24,7 @@ DROP TABLE dbo.CLIENTE;
 DROP TABLE dbo.USUARIO;
 DROP TABLE dbo.BARRIO;
 DROP TABLE dbo.DEPARTAMENTO;
+*/
 
 CREATE TABLE dbo.DEPARTAMENTO
 (
@@ -59,10 +65,13 @@ CREATE TABLE dbo.USUARIO
 	Tipo NVARCHAR(20) NOT NULL,
 	BarrioId INT NOT NULL,
 	Imagen NVARCHAR(300) NOT NULL,
+	Token NVARCHAR(MAX),
+	TokenExpiration DATE NOT NULL
 
 	CONSTRAINT PK_USUARIO PRIMARY KEY(Id),
 	CONSTRAINT UK_NombreUsuario_USUARIO UNIQUE(NombreUsuario),
 	CONSTRAINT UK_Email_USUARIO UNIQUE(Email),
+	--CONSTRAINT UK_Token_USUARIO UNIQUE(Token), --Hay que agregar esta restricción de alguna otra manera
 	CONSTRAINT FK_BarrioId_USUARIO FOREIGN KEY (BarrioId) REFERENCES dbo.BARRIO (Id),
 	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_USUARIO CHECK (FechaAlta <= GetDate()),  --Ver: Ojo con la hora!!! SOLUCIONADO LA HORA
 	CONSTRAINT CK_COL_Tipo_InValores_TAB_USUARIO CHECK (Tipo in('CLIENTE', 'ADMINISTRADOR', 'SUPERADMINISTRADOR'))
@@ -355,13 +364,13 @@ INSERT INTO dbo.BARRIO VALUES
 
 --contrasena 123456789
 INSERT INTO dbo.USUARIO VALUES
-/*1 - SupAdmin*/('TutorSupAdmin', 'TutorSupAdmin', 'TutorSupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorSupAdmin@mailinator.com', '099999999', 'TutorSupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1,'TUTORSUPADMIN.jpg'),
-/*2 - SupAdmin*/('SupAdmin', 'SupAdmin', 'SupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'SupAdmin@hotmail.com', '099845498', 'SupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1,'SUPADMIN.jpg'),
-/*3 - Admin*/('TutorAdmin', 'TutorAdmin', 'TutorAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorAdmin@mailinator.com', '099999999', 'TutorAdmin dir', getdate(), 'ADMINISTRADOR', 1, 'TUTORADMIN.jpg'),
-/*4 - Admin*/('Admin', 'Admin', 'Admin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Admin@hotmail.com', '099845498', 'Admin dir', getdate(), 'ADMINISTRADOR', 1, 'ADMIN.jpg'),
-/*5 - Cliente*/('TutorCliente', 'TutorCliente', 'TutorCliente','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorCliente@mailinator.com', '099999999', 'TutorCliente dir', getdate(), 'CLIENTE', 1,'TUTORCLIENTE.jpg'),
-/*6 - Cliente*/('Cliente1', 'Cliente1', 'Cliente1','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente1@hotmail.com', '099845498', 'Cliente1 dir', getdate(), 'CLIENTE', 1,'CLIENTE1.jpg'),
-/*7 - Cliente*/('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1, 'CLIENTE2.jpg');
+/*1 - SupAdmin*/('TutorSupAdmin', 'TutorSupAdmin', 'TutorSupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorSupAdmin@mailinator.com', '099999999', 'TutorSupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1,'TUTORSUPADMIN.jpg', 'TokenTutorSupAdmin', '1900-01-01'),
+/*2 - SupAdmin*/('SupAdmin', 'SupAdmin', 'SupAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'SupAdmin@hotmail.com', '099845498', 'SupAdmin dir', getdate(), 'SUPERADMINISTRADOR', 1,'SUPADMIN.jpg', 'TokenSupAdmin', '1900-01-01'),
+/*3 - Admin*/('TutorAdmin', 'TutorAdmin', 'TutorAdmin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorAdmin@mailinator.com', '099999999', 'TutorAdmin dir', getdate(), 'ADMINISTRADOR', 1, 'TUTORADMIN.jpg', 'TokenTutorAdmin', '1900-01-01'),
+/*4 - Admin*/('Admin', 'Admin', 'Admin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Admin@hotmail.com', '099845498', 'Admin dir', getdate(), 'ADMINISTRADOR', 1, 'ADMIN.jpg', 'TokenAdmin', '1900-01-01'),
+/*5 - Cliente*/('TutorCliente', 'TutorCliente', 'TutorCliente','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorCliente@mailinator.com', '099999999', 'TutorCliente dir', getdate(), 'CLIENTE', 1,'TUTORCLIENTE.jpg', 'TokenTutorCliente', '1900-01-01'),
+/*6 - Cliente*/('Cliente1', 'Cliente1', 'Cliente1','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente1@hotmail.com', '099845498', 'Cliente1 dir', getdate(), 'CLIENTE', 1,'CLIENTE1.jpg', 'TonekCliente1', '1900-01-01'),
+/*7 - Cliente*/('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1, 'CLIENTE2.jpg', 'TokenCliente2', '1900-01-01');
 
 INSERT INTO dbo.SUPERADMINISTRADOR VALUES
 (1),

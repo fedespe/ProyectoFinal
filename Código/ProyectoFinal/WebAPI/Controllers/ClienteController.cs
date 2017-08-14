@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 using WebAPI.Models;
 using WebAPI.Models.Cliente;
 
@@ -13,8 +15,10 @@ namespace WebAPI.Controllers
 {
     public class ClienteController : ApiController
     {
+        private UsuarioBL usuarioBL = new UsuarioBL();
         private ClienteBL clienteBL = new ClienteBL();
         private Retorno retorno = new Retorno();
+        private HttpContext httpContext = HttpContext.Current;
 
         //Servicio por Get sin parámetros (Retorna todos)
         [HttpGet, Route("api/Cliente/obtenerTodos")]
@@ -22,17 +26,45 @@ namespace WebAPI.Controllers
         {
             try
             {
-                List<Cliente> clientes = clienteBL.obtenerTodos();
-                foreach (Cliente c in clientes)
+                string authHeader = this.httpContext.Request.Headers["Authorization"];
+                if (authHeader != null)
                 {
-                    retorno.Objetos.Add(c);
+                    Usuario usuario = usuarioBL.obtenerPorToken(authHeader);
+
+                    if(usuario != null && (usuario.Tipo == "ADMINISTRADOR" || usuario.Tipo == "SUPERADMINISTRADOR"))
+                    {
+                        List<Cliente> clientes = clienteBL.obtenerTodos();
+                        foreach (Cliente c in clientes)
+                        {
+                            retorno.Objetos.Add(c);
+                        }
+
+                        retorno.Codigo = 200;
+                    }
+                    else
+                    {
+                        throw new ProyectoException("No Autorizado");
+                    }
+                    //string encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
+                    //Encoding encoding = Encoding.GetEncoding("iso-8859-1");
+                    //string usernamePassword = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
+                    //int seperatorIndex = usernamePassword.IndexOf(':');
+
+                    //var username = usernamePassword.Substring(0, seperatorIndex);
+                    //var password = usernamePassword.Substring(seperatorIndex + 1);
+                    //retorno.Objetos.Add(new { Token = encodedUsernamePassword });
                 }
-                retorno.Codigo = 200;
+                else {
+                    //Handle what happens if that isn't the case
+                    throw new ProyectoException("No Autorizado");
+                }
+
             }
             catch (ProyectoException ex)
             {
                 retorno.Codigo = 1;
                 retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }

@@ -111,5 +111,47 @@ namespace DAL
             }
         }
 
+        public Usuario obtenerPorToken(string token)
+        {
+            try
+            {
+                Usuario usuario = null;
+
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Usuario WHERE Token = @token AND Habilitado = 1", con);
+                    cmd.Parameters.AddWithValue("@token", token);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read()){
+                            usuario = new Usuario
+                            {
+                                Id = Convert.ToInt32(dr["Id"]),
+                                Nombre = dr["Nombre"].ToString(),
+                                Apellido = dr["Apellido"].ToString(),
+                                NombreUsuario = dr["NombreUsuario"].ToString(),
+                                UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
+                                Habilitado = Convert.ToBoolean(dr["Habilitado"]),
+                                CorreoElectronico = dr["Email"].ToString(),
+                                Telefono = dr["Telefono"].ToString(),
+                                Direccion = dr["Direccion"].ToString(),
+                                FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
+                                Tipo = dr["Tipo"].ToString(),
+                                Barrio = new Barrio { Id = Convert.ToInt32(dr["BarrioId"]) },
+                                Imagen = dr["Imagen"].ToString(),
+                                Token = dr["Token"].ToString(),
+                                TokenExpiration = Convert.ToDateTime(dr["TokenExpiration"]),
+                            };
+                        }
+                    }
+                }
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+        }
     }
 }

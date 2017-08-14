@@ -22,5 +22,7 @@ namespace ET
         public Barrio Barrio { get; set; }
         public string Tipo { get; set; }
         public string Imagen { get; set; }
+        public string Token { get; set; }
+        public DateTime TokenExpiration { get; set; }
     }
 }
