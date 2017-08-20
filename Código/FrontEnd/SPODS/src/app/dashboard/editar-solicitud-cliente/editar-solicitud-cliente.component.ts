@@ -65,7 +65,7 @@ export class EditarSolicitudClienteComponent implements OnInit{
         this.putActualizarPublicacion();       
     }
     editarServicioPaso3(){
-        this.router.navigate(['dashboard/listado-servicios']);
+        this.router.navigate(['dashboard/listado-solicitudes-cliente']);
     }
     volverPaso1(){
         this.step=1;

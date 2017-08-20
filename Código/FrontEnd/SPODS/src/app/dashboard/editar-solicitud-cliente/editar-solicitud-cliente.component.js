@@ -65,7 +65,7 @@ var EditarSolicitudClienteComponent = (function () {
         this.putActualizarPublicacion();
     };
     EditarSolicitudClienteComponent.prototype.editarServicioPaso3 = function () {
-        this.router.navigate(['dashboard/listado-servicios']);
+        this.router.navigate(['dashboard/listado-solicitudes-cliente']);
     };
     EditarSolicitudClienteComponent.prototype.volverPaso1 = function () {
         this.step = 1;

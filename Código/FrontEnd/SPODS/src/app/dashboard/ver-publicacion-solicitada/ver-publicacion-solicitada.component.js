@@ -86,6 +86,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         if (response.Codigo == 200) {
             document.getElementById('btnPropuesta').hidden = true;
             document.getElementById('txtPropuesta').setAttribute('disabled', 'disabled');
+            this.obtenerPresupuestos();
         }
         else {
             utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarPresupuestoOk | response.Mensaje: " + JSON.stringify(response.Mensaje));

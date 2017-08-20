@@ -37,15 +37,15 @@
                                 <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
                                     <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
                                 </div>
-                                <!--<div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && idUsuario==publicacion.Cliente.Id" class="respuesta">
-                                    <div class="linkManual" (click)="responderComentario(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
-                                </div>   -->
+                                <div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && cliente.Id==idUsuario" class="respuesta">
+                                    <div class="linkManual" (click)="responderComentarioOferta(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
+                                </div>   
                                 <!--<div *ngIf="responder && (comentario.Respuesta==null || comentario.Respuesta=='')" class="respuesta">-->
-                                <!--<div id="respuesta{{comentario.Id}}" hidden="hidden" class="respuesta"> 
+                                <div id="respuestaOferta{{comentario.Id}}" hidden="hidden" class="respuesta"> 
                                     <label for="inputRespuesta" class="sr-only">Respuesta:</label>
-                                    <textarea rows="5" class="form-control" id="txtRespuesta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
-                                    <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuesta{{comentario.Id}}" (click)="guardarRespuesta(comentario.Id)">Responder</button>
-                                </div>                                    -->
+                                    <textarea rows="5" class="form-control" id="txtRespuestaOferta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                                    <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuestaOferta{{comentario.Id}}" (click)="guardarRespuestaOferta(comentario.Id)">Responder</button>
+                                </div>                                     
                                 <div *ngIf="comentario.Puntuacion==0">
                                     Puntaje: ({{comentario.Puntuacion}})
                                 </div>
@@ -81,15 +81,15 @@
                                 <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
                                     <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
                                 </div>
-                                <!--<div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && idUsuario==publicacion.Cliente.Id" class="respuesta">
-                                    <div class="linkManual" (click)="responderComentario(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
-                                </div>   -->
+                                <div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && cliente.Id==idUsuario" class="respuesta">
+                                    <div class="linkManual" (click)="responderComentarioSolicitud(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
+                                </div>   
                                 <!--<div *ngIf="responder && (comentario.Respuesta==null || comentario.Respuesta=='')" class="respuesta">-->
-                                <!--<div id="respuesta{{comentario.Id}}" hidden="hidden" class="respuesta"> 
+                                <div id="respuestaSolicitud{{comentario.Id}}" hidden="hidden" class="respuesta"> 
                                     <label for="inputRespuesta" class="sr-only">Respuesta:</label>
-                                    <textarea rows="5" class="form-control" id="txtRespuesta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
-                                    <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuesta{{comentario.Id}}" (click)="guardarRespuesta(comentario.Id)">Responder</button>
-                                </div>                                    -->
+                                    <textarea rows="5" class="form-control" id="txtRespuestaSolicitud{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                                    <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuestaSolicitud{{comentario.Id}}" (click)="guardarRespuestaSolicitud(comentario.Id)">Responder</button>
+                                </div>                                    
                                 <div *ngIf="comentario.Puntuacion==0">
                                     Puntaje: ({{comentario.Puntuacion}})
                                 </div>

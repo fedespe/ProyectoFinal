@@ -16,6 +16,7 @@ var utilidades_1 = require("../../shared/utilidades");
 var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
 var cliente_1 = require("../../shared/cliente");
+var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
 var VerPerfilUsuarioComponent = (function () {
     function VerPerfilUsuarioComponent(dataService, router, route) {
         this.dataService = dataService;
@@ -27,6 +28,9 @@ var VerPerfilUsuarioComponent = (function () {
         this.comentariosPuntuacionOferta = [];
         this.comentariosPuntuacionSolicitud = [];
         this.servicios = [];
+        this.responderSolicitud = false;
+        this.responderOferta = false;
+        this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
     }
     VerPerfilUsuarioComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -37,6 +41,7 @@ var VerPerfilUsuarioComponent = (function () {
             _this.cliente.Id = parseInt(params['id']);
             utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - ngOnInit | id: " + JSON.stringify(_this.cliente.Id));
         });
+        this.idUsuario = parseInt(localStorage.getItem('id-usuario'));
         this.getObternerCliente();
         this.obtenerServicios();
     };
@@ -136,6 +141,90 @@ var VerPerfilUsuarioComponent = (function () {
     };
     VerPerfilUsuarioComponent.prototype.getComentariosSolicitudError = function (responseError) {
         utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getComentariosSolicitudError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPerfilUsuarioComponent.prototype.responderComentarioSolicitud = function (input) {
+        var s = 'respuestaSolicitud' + input;
+        if (this.responderSolicitud == true) {
+            document.getElementById(s).hidden = true;
+            this.responderSolicitud = false;
+        }
+        else {
+            document.getElementById(s).hidden = false;
+            this.responderSolicitud = true;
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.responderComentarioOferta = function (input) {
+        var s = 'respuestaOferta' + input;
+        if (this.responderOferta == true) {
+            document.getElementById(s).hidden = true;
+            this.responderOferta = false;
+        }
+        else {
+            document.getElementById(s).hidden = false;
+            this.responderOferta = true;
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.guardarRespuestaOferta = function (input) {
+        var _this = this;
+        var respuesta = document.getElementById('txtRespuestaOferta' + input);
+        if (respuesta.value != null && respuesta.value != '') {
+            this.comentarioPuntuacion.Id = parseInt(input);
+            this.comentarioPuntuacion.Respuesta = respuesta.value;
+            this.dataService.postAltaRespuestaComentario(this.comentarioPuntuacion)
+                .subscribe(function (res) { return _this.postAltaRespuestaComentarioOfertaOk(res, input); }, function (error) { return _this.postAltaRespuestaComentarioOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado"); });
+        }
+        else {
+            alert('Debe ingresar un comentario.');
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioOfertaOk = function (response, idComentario) {
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
+        if (response.Codigo == 200) {
+            document.getElementById('btnGuardarRespuestaOferta' + idComentario).hidden = true;
+            document.getElementById('txtRespuestaOferta' + idComentario).setAttribute('disabled', 'disabled');
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioOfertaError = function (responseError) {
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPerfilUsuarioComponent.prototype.guardarRespuestaSolicitud = function (input) {
+        var _this = this;
+        var respuesta = document.getElementById('txtRespuestaSolicitud' + input);
+        if (respuesta.value != null && respuesta.value != '') {
+            this.comentarioPuntuacion.Id = parseInt(input);
+            this.comentarioPuntuacion.Respuesta = respuesta.value;
+            this.dataService.postAltaRespuestaComentario(this.comentarioPuntuacion)
+                .subscribe(function (res) { return _this.postAltaRespuestaComentarioSolicitudOk(res, input); }, function (error) { return _this.postAltaRespuestaComentarioSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado"); });
+        }
+        else {
+            alert('Debe ingresar un comentario.');
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioSolicitudOk = function (response, idComentario) {
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
+        if (response.Codigo == 200) {
+            document.getElementById('btnGuardarRespuestaSolicitud' + idComentario).hidden = true;
+            document.getElementById('txtRespuestaSolicitud' + idComentario).setAttribute('disabled', 'disabled');
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioSolicitudError = function (responseError) {
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

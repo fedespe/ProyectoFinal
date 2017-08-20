@@ -10,9 +10,11 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
     private tipoUsuario: string;
     nombreUsuario: string;
+    idUsuario:number;
 
     constructor(private dataService: DataService, private router: Router) {
         this.nombreUsuario=localStorage.getItem('nombre-usuario');
+        this.idUsuario=parseInt(localStorage.getItem('id-usuario'));
     }
 
     cerrarSesion(){

@@ -17,6 +17,7 @@ var DashboardComponent = (function () {
         this.dataService = dataService;
         this.router = router;
         this.nombreUsuario = localStorage.getItem('nombre-usuario');
+        this.idUsuario = parseInt(localStorage.getItem('id-usuario'));
     }
     DashboardComponent.prototype.cerrarSesion = function () {
         //limpiar local storage

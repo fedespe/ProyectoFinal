@@ -130,7 +130,5 @@ export class PerfilUsuarioComponent{
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
-
-    
     
 }

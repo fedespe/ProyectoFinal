@@ -4,30 +4,34 @@
 
         <div *ngIf="cliente" class="col-md-6 col-lg-5 col-xl-4">
             <h2>{{cliente.NombreUsuario}}</h2>
+            <!--<div style="margin-bottom: 20px">
+                <a routerLink="/dashboard/ver-perfil-usuario/{{cliente.Id}}"><i class="fa fa-eye" aria-hidden="true"></i> Ver mi perfil</a>
+            </div>-->
 
-                <label for="inputNombre" class="sr-only">Nombre:</label>
-                <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
+            <label for="inputNombre" class="sr-only">Nombre:</label>
+            <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
 
-                <label for="inputApellido" class="sr-only">Apellido:</label>
-                <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
-                
-                <label for="inputTelefono" class="sr-only">Teléfono:</label>
-                <input type="text" class="form-control" [(ngModel)]="cliente.Telefono" id="inputTelefono" name="Telefono" placeholder="Teléfono">
-                
-                <label for="inputDireccion" class="sr-only">Dirección:</label>
-                <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
+            <label for="inputApellido" class="sr-only">Apellido:</label>
+            <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
+            
+            <label for="inputTelefono" class="sr-only">Teléfono:</label>
+            <input type="text" class="form-control" [(ngModel)]="cliente.Telefono" id="inputTelefono" name="Telefono" placeholder="Teléfono">
+            
+            <label for="inputDireccion" class="sr-only">Dirección:</label>
+            <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
 
-                <!--Combo desplegable para barrio-->
-                <label for="selectBarrio" class="sr-only">Barrio:</label>
-                <select id="selectBarrio" class="form-control" [(ngModel)]="cliente.Barrio.Id" name="Barrio">
-                    <option value="0">Seleccione un Barrio</option>
-                    <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
-                </select>
-                
-                <button class="btn btn-lg btn-primary btn-block" (click)="actualizarCliente()">Guardar</button>
-            <div>
+            <!--Combo desplegable para barrio-->
+            <label for="selectBarrio" class="sr-only">Barrio:</label>
+            <select id="selectBarrio" class="form-control" [(ngModel)]="cliente.Barrio.Id" name="Barrio">
+                <option value="0">Seleccione un Barrio</option>
+                <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
+            </select>
+
+            <div style="margin-bottom: 20px">
                 <a routerLink="/dashboard/cambiar-contrasena-usuario"><i class="fa fa-lock" aria-hidden="true"></i> Cambiar contraseña</a>
             </div>
+            
+            <button class="btn btn-lg btn-primary btn-block" (click)="actualizarCliente()">Guardar</button>   
         </div>    
         
         <div class="col-12">
