@@ -54,6 +54,15 @@ var Cliente = (function () {
             error.Descripcion = "Debe ingresar un correo electrónico.";
             errores.push(error);
         }
+        else {
+            var regExp = new RegExp("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+            var test = regExp.test(this.CorreoElectronico);
+            if (!test) {
+                error = new error_1.Error();
+                error.Descripcion = "Correo electrónico no valido. El correo electrónico debe tener una arroba y un punto.";
+                errores.push(error);
+            }
+        }
         if (this.Telefono == null) {
             error = new error_1.Error();
             error.Descripcion = "Debe ingresar un teléfono.";
