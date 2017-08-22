@@ -43,7 +43,7 @@
                                 <!--<div *ngIf="responder && (comentario.Respuesta==null || comentario.Respuesta=='')" class="respuesta">-->
                                 <div id="respuestaOferta{{comentario.Id}}" hidden="hidden" class="respuesta"> 
                                     <label for="inputRespuesta" class="sr-only">Respuesta:</label>
-                                    <textarea rows="5" class="form-control" id="txtRespuestaOferta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                                    <textarea maxlength="300" rows="5" class="form-control" id="txtRespuestaOferta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
                                     <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuestaOferta{{comentario.Id}}" (click)="guardarRespuestaOferta(comentario.Id)">Responder</button>
                                 </div>                                     
                                 <div *ngIf="comentario.Puntuacion==0">
@@ -87,7 +87,7 @@
                                 <!--<div *ngIf="responder && (comentario.Respuesta==null || comentario.Respuesta=='')" class="respuesta">-->
                                 <div id="respuestaSolicitud{{comentario.Id}}" hidden="hidden" class="respuesta"> 
                                     <label for="inputRespuesta" class="sr-only">Respuesta:</label>
-                                    <textarea rows="5" class="form-control" id="txtRespuestaSolicitud{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                                    <textarea maxlength="300" rows="5" class="form-control" id="txtRespuestaSolicitud{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
                                     <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuestaSolicitud{{comentario.Id}}" (click)="guardarRespuestaSolicitud(comentario.Id)">Responder</button>
                                 </div>                                    
                                 <div *ngIf="comentario.Puntuacion==0">

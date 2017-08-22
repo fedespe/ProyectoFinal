@@ -22,6 +22,7 @@ declare var $:JQueryStatic;
 
 export class VerPublicacionOfrecidaComponent implements OnInit{
     mensajes: Mensaje = new Mensaje();
+    mensajesComentario: Mensaje = new Mensaje();
     servicios: Servicio[] = [];
     publicacion: Publicacion = new Publicacion();
     idPublicacion:number;
@@ -54,6 +55,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+        this.mensajesComentario.Errores = [];
     }
 
     actualizarPuntaje(input:any){
@@ -384,18 +386,28 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         this.comentarioPuntuacion.Contacto.Id=this.contacto.Id;
 
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
-        if(this.comentarioPuntuacion.Comentario!=null && this.comentarioPuntuacion.Comentario!=""){
+        this.mensajesComentario.Errores=this.comentarioPuntuacion.validarDatos();
+        if(this.mensajesComentario.Errores.length==0){
             this.dataService.postIngresarComentario(this.comentarioPuntuacion)
-            .subscribe(
-                res => this.postIngresarComentarioOk(res),
-                error => this.postIngresarComentarioError(error),
-                () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
-            );
-        }else{
-            var error = new Error();
-            error.Descripcion = "El comentario no puede estar vacio.";           
-            this.mensajes.Errores.push(error);
-        }
+                .subscribe(
+                    res => this.postIngresarComentarioOk(res),
+                    error => this.postIngresarComentarioError(error),
+                    () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+                );
+        }   
+        
+        // if(this.comentarioPuntuacion.Comentario!=null && this.comentarioPuntuacion.Comentario!=""){
+        //     this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+        //     .subscribe(
+        //         res => this.postIngresarComentarioOk(res),
+        //         error => this.postIngresarComentarioError(error),
+        //         () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+        //     );
+        // }else{
+        //     var error = new Error();
+        //     error.Descripcion = "El comentario no puede estar vacio.";           
+        //     this.mensajes.Errores.push(error);
+        // }
         
     }
     postIngresarComentarioOk(response:any){

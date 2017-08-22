@@ -21,18 +21,18 @@
             <input type="password" class="form-control" id="inputConfirmacionContrasena" [(ngModel)]="actualizarContrasena.ConfirmacionContrasenaNueva" name="ConfirmacionContrasena" placeholder="Repetir Contraseña Nueva">
             
             <button class="btn btn-lg btn-primary btn-block" (click)="putActualizarContrasena()">Guardar</button>
-        </div>
+            <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+                <div *ngFor="let error of mensajes.Errores;">
+                    {{error.Descripcion}}
+                </div>
+            </div>
 
-        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
-            <div *ngFor="let error of mensajes.Errores;">
-                {{error.Descripcion}}
+            <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+                <div *ngFor="let exito of mensajes.Exitos;">
+                    {{exito.Descripcion}}
+                </div>
             </div>
         </div>
 
-        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
-            <div *ngFor="let exito of mensajes.Exitos;">
-                {{exito.Descripcion}}
-            </div>
-        </div>
   </div>
 </div>

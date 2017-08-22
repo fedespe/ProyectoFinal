@@ -168,7 +168,7 @@
                                 <div class="modal-body">
                                     
                                     <label for="inputComentario" class="sr-only">Comentario</label>
-                                    <textarea rows="5" class="form-control" [(ngModel)]="comentarioPuntuacion.Comentario" id="inputComentario" name="Comentario" placeholder="Comentario"></textarea>
+                                    <textarea maxlength="300" rows="5" class="form-control" [(ngModel)]="comentarioPuntuacion.Comentario" id="inputComentario" name="Comentario" placeholder="Comentario"></textarea>
 
                                     <form>
                                         <p class="clasificacion">
@@ -188,7 +188,11 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary btn-block" id="btnGuardarComentario" (click)="guardarComentario()">Guardar</button>
                                 </div>
-                                
+                                <div *ngIf="mensajesComentario.Errores.length > 0" class="alert alert-danger errores">
+                                    <div *ngFor="let error of mensajesComentario.Errores;">
+                                        {{error.Descripcion}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

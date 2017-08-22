@@ -52,9 +52,12 @@ export class PerfilUsuarioComponent{
 
     putActualizarClienteOk(response:any){
         Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
-
+        this.borrarMensajes();
         if(response.Codigo ==  200){
-            this.router.navigate(['/dashboard']);
+            //this.router.navigate(['/dashboard']);
+            var exito = new Exito();
+            exito.Descripcion = "Cambios realizados con éxito.";
+            this.mensajes.Exitos.push(exito);
         }
         else{
             var error = new Error();

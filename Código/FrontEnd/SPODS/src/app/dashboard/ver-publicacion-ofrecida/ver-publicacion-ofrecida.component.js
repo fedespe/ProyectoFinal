@@ -26,6 +26,7 @@ var VerPublicacionOfrecidaComponent = (function () {
         this.router = router;
         this.route = route;
         this.mensajes = new mensaje_1.Mensaje();
+        this.mensajesComentario = new mensaje_1.Mensaje();
         this.servicios = [];
         this.publicacion = new publicacion_1.Publicacion();
         this.contacto = new contacto_1.Contacto();
@@ -48,6 +49,7 @@ var VerPublicacionOfrecidaComponent = (function () {
     VerPublicacionOfrecidaComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+        this.mensajesComentario.Errores = [];
     };
     VerPublicacionOfrecidaComponent.prototype.actualizarPuntaje = function (input) {
         this.puntaje = input;
@@ -307,15 +309,23 @@ var VerPublicacionOfrecidaComponent = (function () {
         this.comentarioPuntuacion.Contacto = new contacto_1.Contacto();
         this.comentarioPuntuacion.Contacto.Id = this.contacto.Id;
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
-        if (this.comentarioPuntuacion.Comentario != null && this.comentarioPuntuacion.Comentario != "") {
+        this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
+        if (this.mensajesComentario.Errores.length == 0) {
             this.dataService.postIngresarComentario(this.comentarioPuntuacion)
                 .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado"); });
         }
-        else {
-            var error = new error_1.Error();
-            error.Descripcion = "El comentario no puede estar vacio.";
-            this.mensajes.Errores.push(error);
-        }
+        // if(this.comentarioPuntuacion.Comentario!=null && this.comentarioPuntuacion.Comentario!=""){
+        //     this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+        //     .subscribe(
+        //         res => this.postIngresarComentarioOk(res),
+        //         error => this.postIngresarComentarioError(error),
+        //         () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+        //     );
+        // }else{
+        //     var error = new Error();
+        //     error.Descripcion = "El comentario no puede estar vacio.";           
+        //     this.mensajes.Errores.push(error);
+        // }
     };
     VerPublicacionOfrecidaComponent.prototype.postIngresarComentarioOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));

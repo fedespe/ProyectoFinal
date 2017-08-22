@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         //Servicio por Get sin parámetros (Retorna todos)
         //[AllowAnonymous]
         //[Authorize]
-        [Authorize(Roles = "SUPERADMINISTRADOR,ADMINISTRADOR")]
+        //[Authorize(Roles = "SUPERADMINISTRADOR,ADMINISTRADOR")]
         [HttpGet, Route("api/Cliente/obtenerTodos")]
         public Retorno GetAllClientes()
         {
@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
         }
 
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
-        [Authorize]
+        //[Authorize]
         [HttpGet, Route("api/Cliente/obtener/{id}")]
         public Retorno GetCliente(int id)
         {

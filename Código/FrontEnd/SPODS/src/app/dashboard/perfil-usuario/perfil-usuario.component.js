@@ -15,6 +15,7 @@ var data_service_1 = require("../../shared/services/data.service");
 var utilidades_1 = require("../../shared/utilidades");
 var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
+var exito_1 = require("../../shared/exito");
 var cliente_1 = require("../../shared/cliente");
 var PerfilUsuarioComponent = (function () {
     function PerfilUsuarioComponent(dataService, router) {
@@ -44,8 +45,12 @@ var PerfilUsuarioComponent = (function () {
     };
     PerfilUsuarioComponent.prototype.putActualizarClienteOk = function (response) {
         utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
+        this.borrarMensajes();
         if (response.Codigo == 200) {
-            this.router.navigate(['/dashboard']);
+            //this.router.navigate(['/dashboard']);
+            var exito = new exito_1.Exito();
+            exito.Descripcion = "Cambios realizados con éxito.";
+            this.mensajes.Exitos.push(exito);
         }
         else {
             var error = new error_1.Error();
