@@ -15,4 +15,18 @@ export class Presupuesto {
 
     constructor() {      
     }
+    public validarDatos(): Error[]{
+        Utilidades.log("[presupuesto.ts] - validarDatos | this: " + JSON.stringify(this));
+
+        var error : Error;
+        var errores : Error[] = [];
+
+        if(this.Comentario==null || this.Comentario==""){
+            error = new Error();
+            error.Descripcion = "El comentario no puede estar vacio.";
+            errores.push(error);
+        }
+        
+        return errores
+    }
 }

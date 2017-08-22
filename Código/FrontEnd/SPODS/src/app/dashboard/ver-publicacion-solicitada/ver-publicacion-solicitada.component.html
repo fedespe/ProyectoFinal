@@ -62,6 +62,11 @@
                         <label for="inputPropuesta" class="sr-only">Propuesta:</label>
                         <textarea rows="5" maxlength="500" class="form-control" id="txtPropuesta" name="Propuesta" placeholder="Escriba aquí todos los detalles que considere necesarios..."></textarea>
                         <button type="button" class="btn btn-primary btn-block" id="btnPropuesta" (click)="guardarPropuesta()">Postularme</button>
+                        <div *ngIf="mensajesPostulacion.Errores.length > 0" class="alert alert-danger errores">
+                            <div *ngFor="let error of mensajesPostulacion.Errores;">
+                                {{error.Descripcion}}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">                      

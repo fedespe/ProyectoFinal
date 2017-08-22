@@ -22,6 +22,7 @@ import { Presupuesto } from "../../shared/presupuesto";
 
 export class VerPublicacionSolicitadaComponent implements OnInit{
     mensajes: Mensaje = new Mensaje();
+    mensajesPostulacion: Mensaje = new Mensaje();
     servicios: Servicio[] = [];
     publicacion: Publicacion = new Publicacion();
     idPublicacion:number;
@@ -58,6 +59,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+        this.mensajesPostulacion.Errores = [];
     }
 
     postularme(){
@@ -83,12 +85,15 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
         this.presupuesto.Comentario=comentario.value;
         this.presupuesto.Aceptado=false;
         Utilidades.log("[ver-publicacion-solicitada.component.ts] GuardarPropuesta - presupuesto: " + JSON.stringify(this.presupuesto));   
-        this.dataService.postIngresarPresupuesto(this.presupuesto)
+        this.mensajesPostulacion.Errores=this.presupuesto.validarDatos();
+        if(this.mensajesPostulacion.Errores.length==0){
+            this.dataService.postIngresarPresupuesto(this.presupuesto)
             .subscribe(
                 res => this.postIngresarPresupuestoOk(res),
                 error => this.postIngresarPresupuestoError(error),
                 () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarComentario: Completado")
             );
+        }
     }
 
     postIngresarPresupuestoOk(response:any){

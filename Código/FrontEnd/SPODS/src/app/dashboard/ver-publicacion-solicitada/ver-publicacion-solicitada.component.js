@@ -27,6 +27,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         this.router = router;
         this.route = route;
         this.mensajes = new mensaje_1.Mensaje();
+        this.mensajesPostulacion = new mensaje_1.Mensaje();
         this.servicios = [];
         this.publicacion = new publicacion_1.Publicacion();
         this.contacto = new contacto_1.Contacto();
@@ -52,6 +53,7 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+        this.mensajesPostulacion.Errores = [];
     };
     VerPublicacionSolicitadaComponent.prototype.postularme = function () {
         if (!this.postulacion) {
@@ -78,8 +80,11 @@ var VerPublicacionSolicitadaComponent = (function () {
         this.presupuesto.Comentario = comentario.value;
         this.presupuesto.Aceptado = false;
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] GuardarPropuesta - presupuesto: " + JSON.stringify(this.presupuesto));
-        this.dataService.postIngresarPresupuesto(this.presupuesto)
-            .subscribe(function (res) { return _this.postIngresarPresupuestoOk(res); }, function (error) { return _this.postIngresarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarComentario: Completado"); });
+        this.mensajesPostulacion.Errores = this.presupuesto.validarDatos();
+        if (this.mensajesPostulacion.Errores.length == 0) {
+            this.dataService.postIngresarPresupuesto(this.presupuesto)
+                .subscribe(function (res) { return _this.postIngresarPresupuestoOk(res); }, function (error) { return _this.postIngresarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarComentario: Completado"); });
+        }
     };
     VerPublicacionSolicitadaComponent.prototype.postIngresarPresupuestoOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarPresupuestoOk | response: " + JSON.stringify(response));
