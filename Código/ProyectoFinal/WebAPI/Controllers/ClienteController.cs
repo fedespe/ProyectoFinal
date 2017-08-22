@@ -15,49 +15,31 @@ namespace WebAPI.Controllers
 {
     public class ClienteController : ApiController
     {
-        private UsuarioBL usuarioBL = new UsuarioBL();
         private ClienteBL clienteBL = new ClienteBL();
         private Retorno retorno = new Retorno();
         private HttpContext httpContext = HttpContext.Current;
 
         //Servicio por Get sin parámetros (Retorna todos)
+        //[AllowAnonymous]
+        //[Authorize]
+        [Authorize(Roles = "SUPERADMINISTRADOR,ADMINISTRADOR")]
         [HttpGet, Route("api/Cliente/obtenerTodos")]
         public Retorno GetAllClientes()
         {
+
+            //var identity = (ClaimsIdentity)User.Identity;
+            //var roles = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+            //return Ok("Hello " + identity.Name + " Role: " + string.Join(",", roles.ToList()));
+
             try
             {
-                string authHeader = this.httpContext.Request.Headers["Authorization"];
-                if (authHeader != null)
+                List<Cliente> clientes = clienteBL.obtenerTodos();
+                foreach (Cliente c in clientes)
                 {
-                    Usuario usuario = usuarioBL.obtenerPorToken(authHeader);
-
-                    if(usuario != null && (usuario.Tipo == "ADMINISTRADOR" || usuario.Tipo == "SUPERADMINISTRADOR"))
-                    {
-                        List<Cliente> clientes = clienteBL.obtenerTodos();
-                        foreach (Cliente c in clientes)
-                        {
-                            retorno.Objetos.Add(c);
-                        }
-
-                        retorno.Codigo = 200;
-                    }
-                    else
-                    {
-                        throw new ProyectoException("No Autorizado");
-                    }
-                    //string encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
-                    //Encoding encoding = Encoding.GetEncoding("iso-8859-1");
-                    //string usernamePassword = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
-                    //int seperatorIndex = usernamePassword.IndexOf(':');
-
-                    //var username = usernamePassword.Substring(0, seperatorIndex);
-                    //var password = usernamePassword.Substring(seperatorIndex + 1);
-                    //retorno.Objetos.Add(new { Token = encodedUsernamePassword });
+                    retorno.Objetos.Add(c);
                 }
-                else {
-                    //Handle what happens if that isn't the case
-                    throw new ProyectoException("No Autorizado");
-                }
+
+                retorno.Codigo = 200;
 
             }
             catch (ProyectoException ex)
@@ -70,6 +52,7 @@ namespace WebAPI.Controllers
         }
 
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [Authorize]
         [HttpGet, Route("api/Cliente/obtener/{id}")]
         public Retorno GetCliente(int id)
         {
