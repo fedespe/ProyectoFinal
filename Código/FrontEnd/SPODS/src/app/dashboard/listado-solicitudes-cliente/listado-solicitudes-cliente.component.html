@@ -97,7 +97,11 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary btn-block" id="btnGuardarComentario" (click)="guardarComentario()">Guardar</button>
                         </div>
-                        
+                        <div *ngIf="mensajesComentario.Errores.length > 0" class="alert alert-danger errores">
+                            <div *ngFor="let error of mensajesComentario.Errores;">
+                                {{error.Descripcion}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

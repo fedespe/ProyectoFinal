@@ -19,6 +19,7 @@ import { ComentarioPuntuacion } from "../../shared/comentarioPuntuacion";
 
 export class ListadoSolicitudesClienteComponent{
     mensajes: Mensaje = new Mensaje();
+    mensajesComentario: Mensaje = new Mensaje();
     publicaciones: Publicacion[] = [];
     baseURL:string;
     contactos:Contacto[]=[]
@@ -37,6 +38,7 @@ export class ListadoSolicitudesClienteComponent{
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+        this.mensajesComentario.Errores = [];
     }
     
     obtenerSolicitudesCliente(id:number){
@@ -172,19 +174,15 @@ export class ListadoSolicitudesClienteComponent{
         this.comentarioPuntuacion.Puntuacion=this.puntaje;
 
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
-        if(this.comentarioPuntuacion.Comentario!=null && this.comentarioPuntuacion.Comentario!=""){
+        this.mensajesComentario.Errores=this.comentarioPuntuacion.validarDatos();
+        if(this.mensajesComentario.Errores.length==0){
             this.dataService.postIngresarComentario(this.comentarioPuntuacion)
-            .subscribe(
-                res => this.postIngresarComentarioOk(res),
-                error => this.postIngresarComentarioError(error),
-                () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
-            );
-        }else{
-            var error = new Error();
-            error.Descripcion = "El comentario no puede estar vacio.";           
-            this.mensajes.Errores.push(error);
-        }
-        
+                .subscribe(
+                    res => this.postIngresarComentarioOk(res),
+                    error => this.postIngresarComentarioError(error),
+                    () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+                );
+        }   
     }
     postIngresarComentarioOk(response:any){
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
@@ -197,7 +195,7 @@ export class ListadoSolicitudesClienteComponent{
             Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new Error();
             error.Descripcion = response.Mensaje;           
-            this.mensajes.Errores.push(error);
+            this.mensajesComentario.Errores.push(error);
         }
     }
 

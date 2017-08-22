@@ -23,6 +23,7 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.dataService = dataService;
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
+        this.mensajesComentario = new mensaje_1.Mensaje();
         this.publicaciones = [];
         this.contactos = [];
         this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
@@ -34,6 +35,7 @@ var ListadoSolicitudesClienteComponent = (function () {
     ListadoSolicitudesClienteComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+        this.mensajesComentario.Errores = [];
     };
     ListadoSolicitudesClienteComponent.prototype.obtenerSolicitudesCliente = function (id) {
         var _this = this;
@@ -142,14 +144,10 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.borrarMensajes();
         this.comentarioPuntuacion.Puntuacion = this.puntaje;
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
-        if (this.comentarioPuntuacion.Comentario != null && this.comentarioPuntuacion.Comentario != "") {
+        this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
+        if (this.mensajesComentario.Errores.length == 0) {
             this.dataService.postIngresarComentario(this.comentarioPuntuacion)
                 .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado"); });
-        }
-        else {
-            var error = new error_1.Error();
-            error.Descripcion = "El comentario no puede estar vacio.";
-            this.mensajes.Errores.push(error);
         }
     };
     ListadoSolicitudesClienteComponent.prototype.postIngresarComentarioOk = function (response) {
@@ -162,7 +160,7 @@ var ListadoSolicitudesClienteComponent = (function () {
             utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
-            this.mensajes.Errores.push(error);
+            this.mensajesComentario.Errores.push(error);
         }
     };
     ListadoSolicitudesClienteComponent.prototype.postIngresarComentarioError = function (responseError) {
