@@ -24,13 +24,15 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
         this.mensajesComentario = new mensaje_1.Mensaje();
-        this.publicaciones = [];
+        this.solicitudes = [];
+        this.solicitudesAceptadas = [];
         this.contactos = [];
         this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
         this.puntaje = 0;
         this.obtenerSolicitudesCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
         this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
+        this.obtenerSolicitudesAceptadas(parseInt(localStorage.getItem('id-usuario')));
     }
     ListadoSolicitudesClienteComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
@@ -39,13 +41,13 @@ var ListadoSolicitudesClienteComponent = (function () {
     };
     ListadoSolicitudesClienteComponent.prototype.obtenerSolicitudesCliente = function (id) {
         var _this = this;
-        this.dataService.getObtenerPublicacionesClienteSolicitud(id)
-            .subscribe(function (res) { return _this.getObtenerPublicacionesClienteSolicitudOk(res); }, function (error) { return _this.getObtenerPublicacionesClienteSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerPublicacionesClienteSolicitud: Completado"); });
+        this.dataService.getObtenerSolicitudesCliente(id)
+            .subscribe(function (res) { return _this.getObtenerSolicitudesClienteOk(res); }, function (error) { return _this.getObtenerSolicitudesClienteError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesCliente: Completado"); });
     };
-    ListadoSolicitudesClienteComponent.prototype.getObtenerPublicacionesClienteSolicitudOk = function (response) {
-        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerPublicacionesClienteSolicitudOk | response: " + JSON.stringify(response));
+    ListadoSolicitudesClienteComponent.prototype.getObtenerSolicitudesClienteOk = function (response) {
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
-            this.publicaciones = response.Objetos;
+            this.solicitudes = response.Objetos;
         }
         else {
             var error = new error_1.Error();
@@ -53,8 +55,30 @@ var ListadoSolicitudesClienteComponent = (function () {
             this.mensajes.Errores.push(error);
         }
     };
-    ListadoSolicitudesClienteComponent.prototype.getObtenerPublicacionesClienteSolicitudError = function (responseError) {
-        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerPublicacionesClienteSolicitudError | responseError: " + JSON.stringify(responseError));
+    ListadoSolicitudesClienteComponent.prototype.getObtenerSolicitudesClienteError = function (responseError) {
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    ListadoSolicitudesClienteComponent.prototype.obtenerSolicitudesAceptadas = function (id) {
+        var _this = this;
+        this.dataService.getObtenerSolicitudesAceptadas(id)
+            .subscribe(function (res) { return _this.getObtenerSolicitudesAceptadasOk(res); }, function (error) { return _this.getObtenerSolicitudesAceptadasError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - obtenerSolicitudesAceptadas: Completado"); });
+    };
+    ListadoSolicitudesClienteComponent.prototype.getObtenerSolicitudesAceptadasOk = function (response) {
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+            this.solicitudesAceptadas = response.Objetos;
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    ListadoSolicitudesClienteComponent.prototype.getObtenerSolicitudesAceptadasError = function (responseError) {
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

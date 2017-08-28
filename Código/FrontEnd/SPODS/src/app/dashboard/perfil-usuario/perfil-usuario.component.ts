@@ -7,6 +7,7 @@ import { Error } from "../../shared/error";
 import { Exito } from "../../shared/exito";
 import { Cliente } from '../../shared/cliente';
 import { Barrio } from '../../shared/barrio';
+import { Settings } from '../../shared/settings';
 
 
 @Component({
@@ -19,6 +20,9 @@ export class PerfilUsuarioComponent{
     mensajes: Mensaje = new Mensaje();
     cliente:Cliente = new Cliente();
     barrios:Barrio[] = [];
+    baseURL:string=Settings.srcImg;
+    editarImagen:boolean=false;
+    urlImagen:string= Settings.srcImg +"/Cliente/IngresarImagen";
     
 
     constructor(private dataService: DataService, private router: Router) {
@@ -31,6 +35,14 @@ export class PerfilUsuarioComponent{
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+    }
+    cambiarEditarImagen(){
+        if(this.editarImagen){
+            this.editarImagen=false;
+        }else{
+            this.editarImagen=true;
+        }
+        Utilidades.log("[perfil-usuario.component.ts] - cambiarEditarImagen | this.editarImagen: " + JSON.stringify(this.editarImagen));
     }
     
     actualizarCliente(){
@@ -114,11 +126,13 @@ export class PerfilUsuarioComponent{
     getObternerClienteOk(response:any){
         Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
         if(response.Codigo ==  200){
+            //this.cliente=response.Objetos[0];
             this.cliente.Nombre = response.Objetos[0].Nombre;
             this.cliente.Apellido = response.Objetos[0].Apellido;
             this.cliente.Telefono = response.Objetos[0].Telefono;
             this.cliente.Direccion = response.Objetos[0].Direccion;
             this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
+            this.cliente.Imagen=response.Objetos[0].Imagen;
         }
         else{
             var error = new Error();

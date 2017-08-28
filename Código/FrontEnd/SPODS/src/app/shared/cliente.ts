@@ -120,7 +120,7 @@ export class Cliente {
     }
 
     public validarDatos2(contrasenaConfirmacion:string): Error[]{
-        Utilidades.log("[cliente.ts] - validarDatos1 | this: " + JSON.stringify(this));
+        Utilidades.log("[cliente.ts] - validarDatos2 | this: " + JSON.stringify(this));
 
         var error : Error;
         var errores : Error[] = [];

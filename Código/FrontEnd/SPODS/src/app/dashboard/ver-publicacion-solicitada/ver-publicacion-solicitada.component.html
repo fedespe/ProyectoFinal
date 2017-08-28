@@ -57,7 +57,7 @@
                         </div>-->
                     </div>
                     <!--<button (click)="postularme()" class="btn btn-primary btn-block" style="margin-top: 10px;">Postularme</button>-->
-                    <div *ngIf="publicacion.Cliente.Id != idUsuario" class="linkManual" (click)="postularme()" style="font-size: 20px;"><i class="fa fa-sign-in" aria-hidden="true"></i> Postularme</div> 
+                    <div *ngIf="publicacion.Cliente.Id != idUsuario && !publicacion.Finalizada" class="linkManual" (click)="postularme()" style="font-size: 20px;"><i class="fa fa-sign-in" aria-hidden="true"></i> Postularme</div> 
                     <div *ngIf="postulacion"> 
                         <label for="inputPropuesta" class="sr-only">Propuesta:</label>
                         <textarea rows="5" maxlength="500" class="form-control" id="txtPropuesta" name="Propuesta" placeholder="Escriba aquí todos los detalles que considere necesarios..."></textarea>
@@ -125,7 +125,7 @@
                 </div>
 
                 
-                <div class="container">
+                <div class="container" *ngIf="!publicacion.Finalizada">
                     <div class="row">                        
                         <div class="col-8" >
                             <h3 style="margin-top: 20px; margin-bottom: 0px;">Propuestas:</h3>  

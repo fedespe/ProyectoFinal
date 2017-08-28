@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
+        <div *ngIf="publicaciones.length > 0" class="col-12">
         <h1 class="col-12">Servicios Contratados</h1>
-         <table class="table table-striped">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Imagen</th>                                       
@@ -12,7 +13,7 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody *ngIf="publicaciones.length > 0">
+            <tbody>
                 <tr *ngFor="let publicacion of publicaciones;">
                     <td *ngIf="publicacion.Imagenes[0]!=null && publicacion.Imagenes[0]!=''"><img src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
                     <td *ngIf="publicacion.Imagenes[0]==null || publicacion.Imagenes[0]==''"><img src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>                   
@@ -31,33 +32,34 @@
                 </tr>
             </tbody>
         </table> 
-
-         <h2 class="col-12">Comentarios Pendientes</h2>
-         <table class="table table-striped">
+        </div>
+        <div *ngIf="contactos.length > 0" class="col-12">
+            <h2 class="col-12">Comentarios Pendientes</h2>
+            <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Servicio</th>
                     <th>Título</th>
-                    <th>Activa</th>
-                    <th>Finalizada</th>
+                    <th>Nombre de Usuario</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody *ngIf="contactos.length > 0">
-                <tr *ngFor="let contacto of contactos;">                     
+            <tbody>
+                <tr *ngFor="let contacto of contactos;">  
+                    <td>{{contacto.Publicacion.Servicio.Nombre}}</td>                    
                     <td>{{contacto.Publicacion.Titulo}}</td>                 
-                    <td *ngIf="contacto.Publicacion.Activa">Si</td>
-                    <td *ngIf="!contacto.Publicacion.Activa">No</td>
-                    <td *ngIf="contacto.Publicacion.Finalizada">Si</td>
-                    <td *ngIf="!contacto.Publicacion.Finalizada">No</td>
-                    <td>
-                        <div class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', contacto.Publicacion.Id]"><i class="fa fa-comments-o" aria-hidden="true"></i> Comentar y Puntuar</div>
-                        <!--<div *ngIf="publicacion.Activa  && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id, publicacion.ContactoConComentarioPendiente.Id ]"><i class="fa fa-eye" aria-hidden="true"></i> Ver <i class="fa fa-comments-o" aria-hidden="true"></i>  Comentar</div>-->
-                        <!--<div *ngIf="publicacion.Activa && publicacion.ContactoConComentarioPendiente!=null" class="linkManual float-left"><i class="fa fa-comments-o" aria-hidden="true"></i></div>-->
-                    </td>
+                    <td>{{contacto.Publicacion.Cliente.NombreUsuario}}</td>                   
+                    <td>                       
+                        <div class="linkManual float-left" [routerLink]="['/dashboard/ver-perfil-usuario/', contacto.Publicacion.Cliente.Id]"><i class="fa fa-user" aria-hidden="true"></i> Contacto</div>
+                        <div class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', contacto.Publicacion.Id]"><i class="fa fa-comments-o" aria-hidden="true"></i> Comentar</div>
+                    </td>                                      
                 </tr>
             </tbody>
-        </table>  
-    
+            </table>  
+        </div>
+        <div *ngIf="publicaciones.length == 0 && contactos.length == 0" class="col-12">
+            <h1>No hay datos disponibles.</h1>
+        </div>
         <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
             <div *ngFor="let error of mensajes.Errores;">
                 {{error.Descripcion}}

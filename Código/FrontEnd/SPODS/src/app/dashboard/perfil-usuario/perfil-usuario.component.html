@@ -2,37 +2,46 @@
     <div class="row justify-content-center">
         <h1 class="col-12 text-center">Datos Personales</h1>
 
-        <div *ngIf="cliente" class="col-md-6 col-lg-5 col-xl-4">
-            <h2>{{cliente.NombreUsuario}}</h2>
+        <div *ngIf="cliente" class="col-md-6 col-lg-5 col-xl-4">      
             <!--<div style="margin-bottom: 20px">
                 <a routerLink="/dashboard/ver-perfil-usuario/{{cliente.Id}}"><i class="fa fa-eye" aria-hidden="true"></i> Ver mi perfil</a>
             </div>-->
-
-            <label for="inputNombre" class="sr-only">Nombre:</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
-
-            <label for="inputApellido" class="sr-only">Apellido:</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
-            
-            <label for="inputTelefono" class="sr-only">Teléfono:</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Telefono" id="inputTelefono" name="Telefono" placeholder="Teléfono">
-            
-            <label for="inputDireccion" class="sr-only">Dirección:</label>
-            <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
-
-            <!--Combo desplegable para barrio-->
-            <label for="selectBarrio" class="sr-only">Barrio:</label>
-            <select id="selectBarrio" class="form-control" [(ngModel)]="cliente.Barrio.Id" name="Barrio">
-                <option value="0">Seleccione un Barrio</option>
-                <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
-            </select>
-
-            <div style="margin-bottom: 20px">
-                <a routerLink="/dashboard/cambiar-contrasena-usuario"><i class="fa fa-lock" aria-hidden="true"></i> Cambiar contraseña</a>
+            <div class="media"  style="margin-bottom: 20px"  *ngIf="!editarImagen">
+                <img class="d-flex mr-3" src="{{baseURL}}/Imagenes/Clientes/{{cliente.Imagen}}" alt="{{cliente.Imagen}}" height="100" width="100">
+                <div class="media-body">
+                    <h3 class="mt-0">{{cliente.NombreUsuario}}</h3>
+                    <div style="margin-bottom: 20px">
+                        <div class="linkManual" onclick="document.getElementById('moodleform').submit();" (click)="cambiarEditarImagen()"><i class="fa fa-pencil" aria-hidden="true"></i> Editar imagen</div>
+                    </div>
+                </div>
             </div>
             
-            <button class="btn btn-lg btn-primary btn-block" (click)="actualizarCliente()">Guardar</button> 
+            <div  *ngIf="!editarImagen">
+                <label for="inputNombre" class="sr-only">Nombre:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
 
+                <label for="inputApellido" class="sr-only">Apellido:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
+                
+                <label for="inputTelefono" class="sr-only">Teléfono:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Telefono" id="inputTelefono" name="Telefono" placeholder="Teléfono">
+                
+                <label for="inputDireccion" class="sr-only">Dirección:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
+
+                <!--Combo desplegable para barrio-->
+                <label for="selectBarrio" class="sr-only">Barrio:</label>
+                <select id="selectBarrio" class="form-control" [(ngModel)]="cliente.Barrio.Id" name="Barrio">
+                    <option value="0">Seleccione un Barrio</option>
+                    <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
+                </select>
+
+                <div style="margin-bottom: 20px">
+                    <a routerLink="/dashboard/cambiar-contrasena-usuario"><i class="fa fa-lock" aria-hidden="true"></i> Cambiar contraseña</a>
+                </div>
+                
+                <button class="btn btn-lg btn-primary btn-block" (click)="actualizarCliente()">Guardar</button> 
+            </div>
             <div class="col-12">
                 <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
                     <div *ngFor="let error of mensajes.Errores;">
@@ -46,6 +55,17 @@
                     </div>
                 </div>
             </div>  
+            <div [hidden]="!editarImagen">
+                <form id="moodleform" target="iframe" method="get" action="{{urlImagen}}">
+                <!--NO SE POR QUE EN LA CONTRASE;A ANDA BIEN ANGULAR PERO EN EL IDCLIENTE NO... LO SETEE A MANO DESDE TYPESCRIPT-->
+                <!--VER QUE NO SE CONTROLA EL CLIENTE -->
+                <input type="hidden" name="idCliente" id="inputIdCliente" value="{{cliente.Id}}" />
+                <input type="hidden" name="contrasena" value="11111111"/>
+                </form>
+                <iframe name="iframe" width=100% height=350 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
+                <!--<button class="btn btn-lg btn-primary btn-block" (click)="registrarClientePaso3()">Finalizar</button>-->
+            </div>
+            
         </div>    
 
   </div>

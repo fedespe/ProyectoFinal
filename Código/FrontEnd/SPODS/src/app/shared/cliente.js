@@ -105,7 +105,7 @@ var Cliente = (function () {
         return errores;
     };
     Cliente.prototype.validarDatos2 = function (contrasenaConfirmacion) {
-        utilidades_1.Utilidades.log("[cliente.ts] - validarDatos1 | this: " + JSON.stringify(this));
+        utilidades_1.Utilidades.log("[cliente.ts] - validarDatos2 | this: " + JSON.stringify(this));
         var error;
         var errores = [];
         if (this.NombreUsuario == null) {

@@ -124,7 +124,7 @@ namespace DAL
         public List<Contacto> obtenerTodosContactosConComentariosPendientesOferta(int idCliente)
         {
             List<Contacto> contactos = new List<Contacto>();
-            string cadenaSelectContacto = "SELECT c.Id as IdContacto, c.ClienteId as IdClienteContacto, p.ClienteId as IdClientePublicacion, * FROM CONTACTO c, PUBLICACION p WHERE p.Id=c.PublicacionId AND c.ClienteId=@idCliente AND c.ComentarioPuntuacionId IS NULL AND p.Tipo='OFERTA';";
+            string cadenaSelectContacto = "SELECT c.Id as IdContacto, c.ClienteId as IdClienteContacto, p.ClienteId as IdClientePublicacion, u.NombreUsuario as NombreUsuarioContacto,s.Nombre as NombreServicio, * FROM CONTACTO c, PUBLICACION p, USUARIO u, SERVICIO s WHERE p.ServicioId=s.Id AND u.Id=p.ClienteId AND p.Id=c.PublicacionId AND c.ClienteId=@idCliente AND c.ComentarioPuntuacionId IS NULL AND p.Tipo='OFERTA';";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -142,14 +142,15 @@ namespace DAL
                                     Id = Convert.ToInt32(dr["IdContacto"]),
                                     Publicacion = new Publicacion {
                                         Id = Convert.ToInt32(dr["PublicacionId"]),
-                                        Cliente= new Cliente { Id = Convert.ToInt32(dr["IdClientePublicacion"]), },
+                                        Cliente= new Cliente { Id = Convert.ToInt32(dr["IdClientePublicacion"]),NombreUsuario = Convert.ToString(dr["NombreUsuarioContacto"]) },
                                         Titulo= Convert.ToString(dr["Titulo"]),
                                         Activa=Convert.ToBoolean(dr["Activa"]),
                                         Habilitada= Convert.ToBoolean(dr["Habilitada"]),
                                         Finalizada= Convert.ToBoolean(dr["Finalizada"]),
                                         Tipo= Convert.ToString(dr["Tipo"]),
+                                        Servicio = new Servicio { Nombre = Convert.ToString(dr["NombreServicio"]) }
                                     },
-                                    Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]), },
+                                    Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
                                     Fecha = Convert.ToDateTime(dr["Fecha"])
                                 };
                                 contactos.Add(contacto);
@@ -169,7 +170,7 @@ namespace DAL
         public List<Contacto> obtenerTodosContactosConComentariosPendientesSolicitud(int idCliente)
         {
             List<Contacto> contactos = new List<Contacto>();
-            string cadenaSelectContacto = "SELECT c.Id as IdContacto, c.ClienteId as IdClienteContacto, p.ClienteId as IdClientePublicacion, * FROM CONTACTO c, PUBLICACION p WHERE p.Id=c.PublicacionId AND p.ClienteId=@idCliente AND c.ComentarioPuntuacionId IS NULL AND p.Tipo='SOLICITUD';";
+            string cadenaSelectContacto = "SELECT c.Id as IdContacto, c.ClienteId as IdClienteContacto, u.NombreUsuario as NombreUsuarioContacto, p.ClienteId as IdClientePublicacion,s.Nombre as NombreServicio, * FROM CONTACTO c, PUBLICACION p, USUARIO u, SERVICIO s WHERE s.Id=p.ServicioId AND u.Id=c.ClienteId AND p.Id=c.PublicacionId AND p.ClienteId=@idCliente AND c.ComentarioPuntuacionId IS NULL AND p.Tipo='SOLICITUD';";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -194,8 +195,9 @@ namespace DAL
                                         Habilitada = Convert.ToBoolean(dr["Habilitada"]),
                                         Finalizada = Convert.ToBoolean(dr["Finalizada"]),
                                         Tipo = Convert.ToString(dr["Tipo"]),
+                                        Servicio= new Servicio { Nombre=Convert.ToString(dr["NombreServicio"])}
                                     },
-                                    Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]), },
+                                    Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]), NombreUsuario=Convert.ToString(dr["NombreUsuarioContacto"])},
                                     Fecha = Convert.ToDateTime(dr["Fecha"])
                                 };
                                 contactos.Add(contacto);

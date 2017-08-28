@@ -75,6 +75,26 @@ namespace WebAPI.Controllers
             return retorno;
         }
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [HttpGet, Route("api/Publicacion/obtenerSolicitudesAceptadas/{idClienteAceptado}")]
+        public Retorno GetSolicitudesAceptadas(int idClienteAceptado)
+        {
+            try
+            {
+                List<Solicitud> solicitudes = solicitudBL.obtenerSolicitudesAceptadas(idClienteAceptado);
+                foreach (Solicitud s in solicitudes)
+                {
+                    retorno.Objetos.Add(s);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesClienteOferta/{id}")]
         public Retorno GetPublicacionesClienteOferta(int id)
         {
@@ -114,8 +134,27 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
+        [HttpGet, Route("api/Publicacion/obtenerSolicitudesCliente/{id}")]
+        public Retorno GetSolicitudesCliente(int id)
+        {
+            try
+            {
+                List<Solicitud> solicitudes = solicitudBL.obtenerSolicitudesCliente(id);
+                foreach (Solicitud s in solicitudes)
+                {
+                    retorno.Objetos.Add(s);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
 
-        
+
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesServicioOferta/{id}")]
         public Retorno GetPublicacionesServicioOferta(int id)

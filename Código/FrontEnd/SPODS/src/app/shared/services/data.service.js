@@ -257,6 +257,14 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getObtenerSolicitudesAceptadas = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/obtenerSolicitudesAceptadas/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerSolicitudesAceptadas | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerSolicitudesAceptadas | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+        return this.http.get(URL, { headers: this.contentHeadersJson })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     DataService.prototype.getobtenerPublicacionesContratadasPorCliente = function (id) {
         var URL = this.baseUrl + '/api/Publicacion/obtenerPublicacionesContratadasPorCliente/' + id;
         utilidades_1.Utilidades.log("[data.service.ts] - getobtenerPublicacionesContratadasPorCliente | URL: " + URL);
@@ -307,10 +315,19 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    //Usar el siguiente metodo (getObtenerSolicitudesCliente)
     DataService.prototype.getObtenerPublicacionesClienteSolicitud = function (id) {
         var URL = this.baseUrl + '/api/Publicacion/obtenerPublicacionesClienteSolicitud/' + id;
         utilidades_1.Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | URL: " + URL);
         utilidades_1.Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+        return this.http.get(URL, { headers: this.contentHeadersJson })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    DataService.prototype.getObtenerSolicitudesCliente = function (id) {
+        var URL = this.baseUrl + '/api/Publicacion/obtenerSolicitudesCliente/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerSolicitudesCliente | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObtenerSolicitudesCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
         return this.http.get(URL, { headers: this.contentHeadersJson })
             .map(function (res) { return res.json(); })
             .catch(this.handleError);

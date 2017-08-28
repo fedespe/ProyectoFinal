@@ -326,6 +326,16 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+    public getObtenerSolicitudesAceptadas(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerSolicitudesAceptadas/' + id;
+
+        Utilidades.log("[data.service.ts] - getObtenerSolicitudesAceptadas | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerSolicitudesAceptadas | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+
+        return this.http.get(URL, { headers: this.contentHeadersJson })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
 
     public getobtenerPublicacionesContratadasPorCliente(id:number){
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesContratadasPorCliente/' + id;
@@ -393,11 +403,22 @@ export class DataService {
             .catch(this.handleError);
     }
 
-     public getObtenerPublicacionesClienteSolicitud(id:number){
+    //Usar el siguiente metodo (getObtenerSolicitudesCliente)
+    public getObtenerPublicacionesClienteSolicitud(id:number){
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesClienteSolicitud/' + id;
 
         Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | URL: " + URL);
         Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+
+        return this.http.get(URL, { headers: this.contentHeadersJson })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+    public getObtenerSolicitudesCliente(id:number){
+        var URL : string = this.baseUrl + '/api/Publicacion/obtenerSolicitudesCliente/' + id;
+
+        Utilidades.log("[data.service.ts] - getObtenerSolicitudesCliente | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerSolicitudesCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
         return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())

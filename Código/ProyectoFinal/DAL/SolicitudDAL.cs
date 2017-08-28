@@ -37,6 +37,62 @@ namespace DAL
             }
         }
 
+        public List<Solicitud> obtenerSolicitudesAceptadas(int idClienteAceptado)
+        {
+            List<Solicitud> solicitudes = new List<Solicitud>();
+            string cadenaSelectSolicitudesAceptadas = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Id as IdClientePublicacion, u.NombreUsuario as NombreClientePublicacion, * from PRESUPUESTO pr left join PUBLICACION p on p.Id=pr.PublicacionId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId left join SERVICIO s on s.Id=p.ServicioId Where pr.ClienteId= @idClienteAceptado AND pr.Aceptado=1 ORDER BY p.Id;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectSolicitudesAceptadas, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idClienteAceptado", idClienteAceptado);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            int ultimoIdPublicacion = 0;
+                            while (dr.Read())
+                            {
+                                if (ultimoIdPublicacion != Convert.ToInt32(dr["IdPublicacion"]))
+                                {
+                                    //VER CUANDO CAMBIAR A UNA NUEVA PUBLICACION
+                                    Solicitud solicitud = new Solicitud
+                                    {
+                                        Id = Convert.ToInt32(dr["IdPublicacion"]),
+                                        Titulo = dr["Titulo"].ToString(),
+                                        Descripcion = dr["Descripcion"].ToString(),
+                                        Activa = Convert.ToBoolean(dr["Activa"]),
+                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]), Nombre = dr["ServicioNombre"].ToString() },
+                                        FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
+                                        //ver que es null por el momento la fecha de vencimiento
+                                        //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
+                                        Tipo = dr["Tipo"].ToString(),
+                                        Cliente = new Cliente() { Id = Convert.ToInt32(dr["IdClientePublicacion"]), NombreUsuario= Convert.ToString(dr["NombreClientePublicacion"]) },
+                                        Imagenes = new List<string>(),
+                                        Finalizada = Convert.ToBoolean(dr["Finalizada"]),
+                                        Habilitada = Convert.ToBoolean(dr["Habilitada"]),
+                                    };
+                                    if (dr["Imagen"] != DBNull.Value)
+                                        solicitud.Imagenes.Add(dr["Imagen"].ToString());
+                                    //if (!publicaciones.Contains(publicacion))
+                                    solicitudes.Add(solicitud);
+                                    ultimoIdPublicacion = Convert.ToInt32(dr["IdPublicacion"]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return solicitudes;
+        }
+
         public List<Presupuesto> obtenerPresupuestos(int idPublicacion)
         {
             List<Presupuesto> presupuestos = new List<Presupuesto>();
@@ -155,7 +211,68 @@ namespace DAL
 
         public List<Solicitud> obtenerSolicitudesCliente(int idCliente)
         {
-            throw new NotImplementedException();
+            List<Solicitud> solicitudes = new List<Solicitud>();
+            string cadenaSelectSolicitudesAceptadas = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Id as IdClienteContacto, u.NombreUsuario as NombreClienteContacto, p.ClienteId as ClienteIdPublicacion,* from PUBLICACION p left join PRESUPUESTO pr on p.Id=pr.PublicacionId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=pr.ClienteId left join SERVICIO s on s.Id=p.ServicioId Where p.ClienteId= @idCliente AND p.Tipo='SOLICITUD' ORDER BY p.Id desc;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectSolicitudesAceptadas, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            int ultimoIdPublicacion = 0;
+                            while (dr.Read())
+                            {
+                                if (ultimoIdPublicacion != Convert.ToInt32(dr["IdPublicacion"]))
+                                {
+                                    //VER CUANDO CAMBIAR A UNA NUEVA PUBLICACION
+                                    Solicitud solicitud = new Solicitud
+                                    {
+                                        Id = Convert.ToInt32(dr["IdPublicacion"]),
+                                        Titulo = dr["Titulo"].ToString(),
+                                        Descripcion = dr["Descripcion"].ToString(),
+                                        Activa = Convert.ToBoolean(dr["Activa"]),
+                                        Servicio = new Servicio() { Id = Convert.ToInt32(dr["ServicioId"]), Nombre = dr["ServicioNombre"].ToString() },
+                                        FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
+                                        //ver que es null por el momento la fecha de vencimiento
+                                        //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
+                                        Tipo = dr["Tipo"].ToString(),
+                                        Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteIdPublicacion"])},
+                                        Imagenes = new List<string>(),
+                                        Finalizada = Convert.ToBoolean(dr["Finalizada"]),
+                                        Habilitada = Convert.ToBoolean(dr["Habilitada"]),
+                                        Presupuestos= new List<Presupuesto>()
+                                    };
+                                    if (dr["Imagen"] != DBNull.Value)
+                                        solicitud.Imagenes.Add(dr["Imagen"].ToString());
+                                    //Solamente cargo el presupuesto aceptado.
+                                    if(solicitud.Finalizada && dr["IdClienteContacto"] != DBNull.Value)
+                                    {
+                                        Presupuesto presupuesto = new Presupuesto
+                                        { 
+                                            Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]), NombreUsuario = Convert.ToString(dr["NombreClienteContacto"]) },
+                                            Aceptado= Convert.ToBoolean(dr["Aceptado"])
+                                        };
+                                        solicitud.Presupuestos.Add(presupuesto);
+                                    }
+                                    solicitudes.Add(solicitud);
+                                    ultimoIdPublicacion = Convert.ToInt32(dr["IdPublicacion"]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return solicitudes;
         }
 
         

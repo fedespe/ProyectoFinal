@@ -17,6 +17,7 @@ var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
 var exito_1 = require("../../shared/exito");
 var cliente_1 = require("../../shared/cliente");
+var settings_1 = require("../../shared/settings");
 var PerfilUsuarioComponent = (function () {
     function PerfilUsuarioComponent(dataService, router) {
         this.dataService = dataService;
@@ -24,6 +25,9 @@ var PerfilUsuarioComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.cliente = new cliente_1.Cliente();
         this.barrios = [];
+        this.baseURL = settings_1.Settings.srcImg;
+        this.editarImagen = false;
+        this.urlImagen = settings_1.Settings.srcImg + "/Cliente/IngresarImagen";
         this.cliente.NombreUsuario = localStorage.getItem('nombre-usuario');
         this.cliente.Id = parseInt(localStorage.getItem('id-usuario'));
         this.getObtenerBarrios();
@@ -32,6 +36,15 @@ var PerfilUsuarioComponent = (function () {
     PerfilUsuarioComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+    };
+    PerfilUsuarioComponent.prototype.cambiarEditarImagen = function () {
+        if (this.editarImagen) {
+            this.editarImagen = false;
+        }
+        else {
+            this.editarImagen = true;
+        }
+        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - cambiarEditarImagen | this.editarImagen: " + JSON.stringify(this.editarImagen));
     };
     PerfilUsuarioComponent.prototype.actualizarCliente = function () {
         var _this = this;
@@ -94,11 +107,13 @@ var PerfilUsuarioComponent = (function () {
     PerfilUsuarioComponent.prototype.getObternerClienteOk = function (response) {
         utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
+            //this.cliente=response.Objetos[0];
             this.cliente.Nombre = response.Objetos[0].Nombre;
             this.cliente.Apellido = response.Objetos[0].Apellido;
             this.cliente.Telefono = response.Objetos[0].Telefono;
             this.cliente.Direccion = response.Objetos[0].Direccion;
             this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
+            this.cliente.Imagen = response.Objetos[0].Imagen;
         }
         else {
             var error = new error_1.Error();

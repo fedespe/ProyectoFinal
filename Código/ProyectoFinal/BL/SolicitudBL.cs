@@ -27,6 +27,10 @@ namespace BL
         {
             return solicitudDAL.obtenerSolicitudesCliente(idCliente);
         }
+        public List<Solicitud> obtenerSolicitudesAceptadas(int idClienteAceptado)
+        {
+            return solicitudDAL.obtenerSolicitudesAceptadas(idClienteAceptado);
+        }
         public List<Solicitud> obtenerSolicitudesContratadasPorCliente(int idCliente)
         {
             return solicitudDAL.obtenerSolicitudesContratadasPorCliente(idCliente);
