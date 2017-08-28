@@ -32,6 +32,7 @@ namespace WebAPI
                 identity.AddClaim(new Claim(ClaimTypes.Role, "CLIENTE"));
                 identity.AddClaim(new Claim("username", cli.NombreUsuario));
                 identity.AddClaim(new Claim(ClaimTypes.Name, cli.Nombre));
+                identity.AddClaim(new Claim("id", cli.Id.ToString()));
                 context.Validated(identity);
             }
             else{
@@ -40,10 +41,11 @@ namespace WebAPI
                     identity.AddClaim(new Claim(ClaimTypes.Role, "ADMINISTRADOR"));
                     identity.AddClaim(new Claim("username", admin.NombreUsuario));
                     identity.AddClaim(new Claim(ClaimTypes.Name, admin.Nombre));
+                    identity.AddClaim(new Claim("id", admin.Id.ToString()));
                     context.Validated(identity);
                 }
                 else{
-                    context.SetError("invalid grant", "Procided username and password is incorrect");
+                    context.SetError("invalid grant", "Usuario o Contraseña incorrectos.");
                     return;
                 }
             }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -19,17 +20,41 @@ namespace WebAPI.Controllers
         private Retorno retorno = new Retorno();
         private HttpContext httpContext = HttpContext.Current;
 
+        [Authorize(Roles = "CLIENTE")]
+        [HttpGet, Route("api/Cliente/obtenerClienteLogueado")]
+        public Retorno GetClienteLogueado()
+        {
+            //De esta forma puedo obtener el id del usuario logueado
+            //Ver el tema del Lambda que seguro se puede mejorar, tiré ese que se que anda...
+            var identity = (ClaimsIdentity)User.Identity;
+            var id = identity.Claims.Where(c => c.Type == "id").Select(c => c.Value);
+            string idString = string.Join(",", id.ToList());
+            int idInt = Int32.Parse(idString);
+            try
+            {
+                Cliente cliente = clienteBL.obtener(idInt);
+                retorno.Objetos.Add(cliente);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
+            }
+            return retorno;
+        }
+
         //Servicio por Get sin parámetros (Retorna todos)
-        //[AllowAnonymous]
-        //[Authorize]
-        //[Authorize(Roles = "SUPERADMINISTRADOR,ADMINISTRADOR")]
+        [Authorize(Roles = "SUPERADMINISTRADOR,ADMINISTRADOR")]
         [HttpGet, Route("api/Cliente/obtenerTodos")]
         public Retorno GetAllClientes()
         {
-
+            //De esta forma puedo obtener el id del usuario logueado
+            //Ver el tema del Lambda que seguro se puede mejorar, tiré ese que se que anda...
             //var identity = (ClaimsIdentity)User.Identity;
-            //var roles = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
-            //return Ok("Hello " + identity.Name + " Role: " + string.Join(",", roles.ToList()));
+            //var id = identity.Claims.Where(c => c.Type == "id").Select(c => c.Value);
+            //retorno.Objetos.Add(new { Id = string.Join(",", id.ToList())});
 
             try
             {
@@ -52,7 +77,7 @@ namespace WebAPI.Controllers
         }
 
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
-        //[Authorize]
+        [Authorize]
         [HttpGet, Route("api/Cliente/obtener/{id}")]
         public Retorno GetCliente(int id)
         {
@@ -71,6 +96,7 @@ namespace WebAPI.Controllers
         }
 
         //Servicio por Post para alta
+        [AllowAnonymous]
         [HttpPost, Route("api/Cliente/altaCliente")]
         public Retorno PostAltaCliente([FromBody]Cliente cliente)
         {

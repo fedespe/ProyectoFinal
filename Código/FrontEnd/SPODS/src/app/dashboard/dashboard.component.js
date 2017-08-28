@@ -11,16 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var data_service_1 = require("../shared/services/data.service");
+var utilidades_1 = require("../shared/utilidades");
 var router_1 = require("@angular/router");
 var DashboardComponent = (function () {
     function DashboardComponent(dataService, router) {
         this.dataService = dataService;
         this.router = router;
+        utilidades_1.Utilidades.log("[dashboard.component.ts] - constructor | localStorage.getItem('nombre-usuario'): " + localStorage.getItem('nombre-usuario'));
+        utilidades_1.Utilidades.log("[dashboard.component.ts] - constructor | localStorage.getItem('id-usuario'): " + localStorage.getItem('id-usuario'));
         this.nombreUsuario = localStorage.getItem('nombre-usuario');
         this.idUsuario = parseInt(localStorage.getItem('id-usuario'));
     }
     DashboardComponent.prototype.cerrarSesion = function () {
-        //limpiar local storage
+        localStorage.clear();
+        this.dataService.ini();
         this.router.navigate(['/']);
     };
     return DashboardComponent;

@@ -29,6 +29,7 @@ export class InicioSesionComponent{
         this.mensajes.Exitos = [];
     }
 
+    /*
     ingresarCliente() {
         this.borrarMensajes();
         Utilidades.log("[inicio-sesion.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
@@ -64,6 +65,75 @@ export class InicioSesionComponent{
 
     postIngresarClienteError(responseError:any){
         Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+    */
+    ingresarCliente() {
+        this.borrarMensajes();
+        Utilidades.log("[inicio-sesion.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
+
+        if(this.mensajes.Errores.length == 0){
+            this.dataService.postAccessToken(this.cliente.NombreUsuario, this.cliente.Contrasena)
+            .subscribe(
+                res => this.postAccessTokenOk(res),
+                error => this.postAccessTokenError(error),
+                () => Utilidades.log("[inicio-sesion.component.ts] - postAccessToken: Completado")
+            );
+        }
+    }
+
+    postAccessTokenOk(response:any){
+        Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response: " + JSON.stringify(response));
+
+        //if(response.Codigo ==  200){
+            Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response.access_token: " + response.access_token);
+            localStorage.setItem('access_token', response.access_token);
+            this.dataService.ini();
+            this.dataService.getObtenerClienteLogueado()
+            .subscribe(
+                res => this.getObtenerClienteLogueadoOk(res),
+                error => this.getObtenerClienteLogueadoError(error),
+                () => Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueado: Completado")
+            );
+        /*}
+        else{
+            Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }*/
+    }
+
+    postAccessTokenError(responseError:any){
+        Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+    getObtenerClienteLogueadoOk(response:any){
+        Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response: " + JSON.stringify(response));
+
+        if(response.Codigo ==  200){
+            Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response.Objetos[0]: " + JSON.stringify(response.Objetos[0]));
+            localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario);
+            localStorage.setItem('id-usuario', response.Objetos[0].Id);
+            Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('nombre-usuario'): " + localStorage.getItem('nombre-usuario'));
+            Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('id-usuario'): " + localStorage.getItem('id-usuario'));
+            this.router.navigate(['/dashboard']);
+        }
+        else{
+            Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObtenerClienteLogueadoError(responseError:any){
+        Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

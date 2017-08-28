@@ -16,13 +16,41 @@ import {Presupuesto} from "../presupuesto";
 
 @Injectable()
 export class DataService {
+    contentHeadersUrlEncoded: Headers;
+    contentHeadersJson: Headers;
     baseUrl : string;
-    private headers : Headers;
+
+    public ini(){
+        this.contentHeadersJson = new Headers({'Authorization': 'bearer ' + localStorage.getItem('access_token'), 'Content-Type': 'application/json'});
+    }
 
     constructor(private http:Http, private router: Router) {
-        this.headers = new Headers({ 'Accept': 'application/json', 'Content-Type' : 'application/json' });
+        this.contentHeadersUrlEncoded = new Headers({'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'});
         this.baseUrl = Settings.baseUrl;
+        this.ini();
     }
+
+    //Servicios del BackEnd
+    public postAccessToken(username:string, password:string) {
+        console.log("[data.service.ts] - postAccessToken: " + username + " / " + password);
+        let body = "grant_type=password&username="+username+"&password="+password;
+        //let body = "client_id=8b56c11c15734bd780d4adc6dc5c6b04&client_secret=41dca83e9e204d7eb91bc31cb408c1c5&grant_type=local&username=" + username + "&password=" + password + "&scope=FullControl";
+        return this.http.post(this.baseUrl + '/api/access_token', body, { headers: this.contentHeadersUrlEncoded })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    public getObtenerClienteLogueado(){
+        var URL : string = this.baseUrl + '/api/Cliente/obtenerClienteLogueado/';
+
+        Utilidades.log("[data.service.ts] - getObtenerClienteLogueado | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObtenerClienteLogueado | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+
+        return this.http.get(URL, { headers: this.contentHeadersJson })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
     //*************************** */
     // SERVICIOS COMENTARIOPUNTUACION
     //*************************** */
@@ -33,9 +61,9 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - postAltaContacto | URL: " + URL);
         Utilidades.log("[data.service.ts] - postAltaContacto | body: " + JSON.stringify(body));
-        Utilidades.log("[data.service.ts] - postAltaContacto | this.headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - postAltaContacto | this.contentHeadersJson: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.post(URL, body, { headers: this.headers })
+        return this.http.post(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -46,9 +74,9 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - postIngresarComentario | URL: " + URL);
         Utilidades.log("[data.service.ts] - postIngresarComentario | body: " + JSON.stringify(body));
-        Utilidades.log("[data.service.ts] - postIngresarComentario | this.headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - postIngresarComentario | this.contentHeadersJson: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.post(URL, body, { headers: this.headers })
+        return this.http.post(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -57,9 +85,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPorPublicacion/' + id;
 
         Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -67,9 +95,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPromedioPuntajePublicacion/' + id;
 
         Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getObtenerComentarioPublicacion | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -77,9 +105,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPromedioPuntajeClienteServicio/' + idCli + "/" + idServicio;
 
         Utilidades.log("[data.service.ts] - getObetenerPromedioClienteServicio | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getObetenerPromedioClienteServicio | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getObetenerPromedioClienteServicio | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -90,9 +118,9 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | URL: " + URL);
         Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | body: " + JSON.stringify(body));
-        Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | this.headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - postAltaRespuestaComentario | this.contentHeadersJson: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.post(URL, body, { headers: this.headers })
+        return this.http.post(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -100,9 +128,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerContactoConComentarioPendienteCliente/' + idPublicacion + '/' + idCliente;
 
         Utilidades.log("[data.service.ts] - getObtenerContactoPendienteCliente | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getObtenerContactoPendienteCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getObtenerContactoPendienteCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -110,9 +138,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerTodosContactosConComentariosPendientesOferta/' + id;
 
         Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesOferta | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesOferta | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesOferta | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -120,9 +148,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerTodosContactosConComentariosPendientesSolicitud/' + id;
 
         Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesSolicitud | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesSolicitud | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getobtenerTodosContactosConComentariosPendientesSolicitud | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -130,9 +158,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerComentariosOferta/' + id;
 
         Utilidades.log("[data.service.ts] - getComentariosOferta | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getComentariosOferta | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getComentariosOferta | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -140,9 +168,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerComentariosSolicitud/' + id;
 
         Utilidades.log("[data.service.ts] - getComentariosSolicitud | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getComentariosSolicitud | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getComentariosSolicitud | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -160,9 +188,9 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
         Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
-        Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.post(URL, body, { headers: this.headers })
+        return this.http.post(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -173,9 +201,9 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - postRegistroCliente | URL: " + URL);
         Utilidades.log("[data.service.ts] - postRegistroCliente | body: " + JSON.stringify(body));
-        Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - postRegistroCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.post(URL, body, { headers: this.headers })
+        return this.http.post(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -186,9 +214,9 @@ export class DataService {
         
         Utilidades.log("[data.service.ts] - putActualizarCliente | URL: " + URL);
         Utilidades.log("[data.service.ts] - putActualizarCliente | body: " + body);
-        Utilidades.log("[data.service.ts] - putActualizarCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - putActualizarCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.put(URL, body, { headers: this.headers })
+        return this.http.put(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -197,9 +225,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Cliente/obtener/' + id;
 
         Utilidades.log("[data.service.ts] - getCarroObtenerPorId | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getCarroObtenerPorId | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getCarroObtenerPorId | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -210,9 +238,9 @@ export class DataService {
         
         Utilidades.log("[data.service.ts] - putActualizarContrasena | URL: " + URL);
         Utilidades.log("[data.service.ts] - putActualizarContrasena | body: " + body);
-        Utilidades.log("[data.service.ts] - putActualizarContrasena | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - putActualizarContrasena | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.put(URL, body, { headers: this.headers })
+        return this.http.put(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -229,9 +257,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Barrio/obtenerTodos';
 
         Utilidades.log("[data.service.ts] - getCarroObtenerTodos | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getCarroObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getCarroObtenerTodos | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -248,9 +276,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Servicio/obtenerTodosHabilitados';
 
         Utilidades.log("[data.service.ts] - getServicioObtenerTodos | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getServicioObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getServicioObtenerTodos | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -259,9 +287,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Servicio/obtener/' + id;
 
         Utilidades.log("[data.service.ts] - getObtenerServicio | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getObtenerServicio | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getObtenerServicio | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -281,9 +309,9 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - postAltaPublicacion | URL: " + URL);
         Utilidades.log("[data.service.ts] - postAltaPublicacion | body: " + JSON.stringify(body));
-        Utilidades.log("[data.service.ts] - postAltaPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - postAltaPublicacion | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.post(URL, body, { headers: this.headers })
+        return this.http.post(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -292,9 +320,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesClienteOferta/' + id;
 
         Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -303,9 +331,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesContratadasPorCliente/' + id;
 
         Utilidades.log("[data.service.ts] - getobtenerPublicacionesContratadasPorCliente | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getobtenerPublicacionesContratadasPorCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getobtenerPublicacionesContratadasPorCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -314,9 +342,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/deshabilitarPublicacion/' + id;
 
         Utilidades.log("[data.service.ts] - getDesactivarPublicacion | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getDesactivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getDesactivarPublicacion | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -325,9 +353,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/habilitarPublicacion/' + id;
 
         Utilidades.log("[data.service.ts] - getActivarPublicacion | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getActivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getActivarPublicacion | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -336,9 +364,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/obtener/' + id;
 
         Utilidades.log("[data.service.ts] - getActivarPublicacion | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getActivarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getActivarPublicacion | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -348,9 +376,9 @@ export class DataService {
         
         Utilidades.log("[data.service.ts] - putActualizarPublicacion | URL: " + URL);
         Utilidades.log("[data.service.ts] - putActualizarPublicacion | body: " + body);
-        Utilidades.log("[data.service.ts] - putActualizarPublicacion | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - putActualizarPublicacion | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.put(URL, body, { headers: this.headers })
+        return this.http.put(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -358,9 +386,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesServicioOferta/' + id;
 
         Utilidades.log("[data.service.ts] - getPublicacionesServicioOferta | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getPublicacionesServicioOferta | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getPublicacionesServicioOferta | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -369,9 +397,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesClienteSolicitud/' + id;
 
         Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getObtenerPublicacionesCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -380,9 +408,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerUltimoIdPublicacionCliente/' + id;
 
         Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getUltimoIdPublicacionCliente | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -391,9 +419,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerPublicacionesServicioSolicitud/' + id;
 
         Utilidades.log("[data.service.ts] - getPublicacionesServicioSolicitud | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getPublicacionesServicioSolicitud | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getPublicacionesServicioSolicitud | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -403,9 +431,9 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - postIngresarPresupuesto | URL: " + URL);
         Utilidades.log("[data.service.ts] - postIngresarPresupuesto | body: " + JSON.stringify(body));
-        Utilidades.log("[data.service.ts] - postIngresarPresupuesto | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - postIngresarPresupuesto | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.post(URL, body, { headers: this.headers })
+        return this.http.post(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -413,9 +441,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Publicacion/obtenerPresupuestos/' + id;
 
         Utilidades.log("[data.service.ts] - getObtenerPresupuestos | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getObtenerPresupuestos | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getObtenerPresupuestos | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -425,9 +453,9 @@ export class DataService {
         
         Utilidades.log("[data.service.ts] - putAceptarPresupuesto | URL: " + URL);
         Utilidades.log("[data.service.ts] - putAceptarPresupuesto | body: " + body);
-        Utilidades.log("[data.service.ts] - putAceptarPresupuesto | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - putAceptarPresupuesto | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.put(URL, body, { headers: this.headers })
+        return this.http.put(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -447,9 +475,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Carro/obtenerTodos';
 
         Utilidades.log("[data.service.ts] - getCarroObtenerTodos | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getCarroObtenerTodos | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getCarroObtenerTodos | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -460,9 +488,9 @@ export class DataService {
         var URL : string = this.baseUrl + '/api/Carro/obtener/' + id;
 
         Utilidades.log("[data.service.ts] - getCarroObtenerPorId | URL: " + URL);
-        Utilidades.log("[data.service.ts] - getCarroObtenerPorId | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - getCarroObtenerPorId | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.get(URL, { headers: this.headers })
+        return this.http.get(URL, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -475,9 +503,9 @@ export class DataService {
 
         Utilidades.log("[data.service.ts] - postCarroAlta | URL: " + URL);
         Utilidades.log("[data.service.ts] - postCarroAlta | body: " + body);
-        Utilidades.log("[data.service.ts] - postCarroAlta | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - postCarroAlta | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.post(URL, body, { headers: this.headers })
+        return this.http.post(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -490,9 +518,9 @@ export class DataService {
         
         Utilidades.log("[data.service.ts] - putCarroActualizar | URL: " + URL);
         Utilidades.log("[data.service.ts] - putCarroActualizar | body: " + body);
-        Utilidades.log("[data.service.ts] - putCarroActualizar | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - putCarroActualizar | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.put(URL, body, { headers: this.headers })
+        return this.http.put(URL, body, { headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
@@ -505,9 +533,9 @@ export class DataService {
         
         Utilidades.log("[data.service.ts] - deleteCarroEliminar | URL: " + URL);
         Utilidades.log("[data.service.ts] - deleteCarroEliminar | body: " + body);
-        Utilidades.log("[data.service.ts] - deleteCarroEliminar | headers: " + JSON.stringify({ headers: this.headers }));
+        Utilidades.log("[data.service.ts] - deleteCarroEliminar | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
 
-        return this.http.delete(URL, { body: body, headers: this.headers })
+        return this.http.delete(URL, { body: body, headers: this.contentHeadersJson })
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }

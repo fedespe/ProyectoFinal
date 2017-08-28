@@ -20,8 +20,8 @@ namespace WebAPI
             OAuthAuthorizationServerOptions options = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                TokenEndpointPath = new PathString("/api/access_token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(12),
                 Provider = myProvider
             };
 

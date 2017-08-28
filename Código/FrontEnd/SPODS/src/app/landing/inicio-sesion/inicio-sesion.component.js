@@ -30,34 +30,98 @@ var InicioSesionComponent = (function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     };
+    /*
+    ingresarCliente() {
+        this.borrarMensajes();
+        Utilidades.log("[inicio-sesion.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
+
+        if(this.mensajes.Errores.length == 0){
+            this.dataService.postIngresarCliente(this.cliente)
+            .subscribe(
+                res => this.postIngresarClienteOk(res),
+                error => this.postIngresarClienteError(error),
+                () => Utilidades.log("[inicio-sesion.component.ts] - postIngresarCliente: Completado")
+            );
+        }
+    }
+
+    postIngresarClienteOk(response:any){
+        Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response: " + JSON.stringify(response));
+
+        if(response.Codigo ==  200){
+            Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response.Objetos[0]: " + JSON.stringify(response.Objetos[0]));
+            //Guardar el response.Objetos[0] en local storage
+            Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response.Objetos[0].NombreUsuario: " + JSON.stringify(response.Objetos[0].NombreUsuario));
+            localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
+            localStorage.setItem('id-usuario', response.Objetos[0].Id);
+            this.router.navigate(['/dashboard']);
+        }
+        else{
+            Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    postIngresarClienteError(responseError:any){
+        Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+    */
     InicioSesionComponent.prototype.ingresarCliente = function () {
         var _this = this;
         this.borrarMensajes();
         utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
         if (this.mensajes.Errores.length == 0) {
-            this.dataService.postIngresarCliente(this.cliente)
-                .subscribe(function (res) { return _this.postIngresarClienteOk(res); }, function (error) { return _this.postIngresarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarCliente: Completado"); });
+            this.dataService.postAccessToken(this.cliente.NombreUsuario, this.cliente.Contrasena)
+                .subscribe(function (res) { return _this.postAccessTokenOk(res); }, function (error) { return _this.postAccessTokenError(error); }, function () { return utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessToken: Completado"); });
         }
     };
-    InicioSesionComponent.prototype.postIngresarClienteOk = function (response) {
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response: " + JSON.stringify(response));
+    InicioSesionComponent.prototype.postAccessTokenOk = function (response) {
+        var _this = this;
+        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response: " + JSON.stringify(response));
+        //if(response.Codigo ==  200){
+        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response.access_token: " + response.access_token);
+        localStorage.setItem('access_token', response.access_token);
+        this.dataService.ini();
+        this.dataService.getObtenerClienteLogueado()
+            .subscribe(function (res) { return _this.getObtenerClienteLogueadoOk(res); }, function (error) { return _this.getObtenerClienteLogueadoError(error); }, function () { return utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueado: Completado"); });
+        /*}
+        else{
+            Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }*/
+    };
+    InicioSesionComponent.prototype.postAccessTokenError = function (responseError) {
+        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    InicioSesionComponent.prototype.getObtenerClienteLogueadoOk = function (response) {
+        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
-            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response.Objetos[0]: " + JSON.stringify(response.Objetos[0]));
-            //Guardar el response.Objetos[0] en local storage
-            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response.Objetos[0].NombreUsuario: " + JSON.stringify(response.Objetos[0].NombreUsuario));
-            localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario); //como ejemplo
+            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response.Objetos[0]: " + JSON.stringify(response.Objetos[0]));
+            localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario);
             localStorage.setItem('id-usuario', response.Objetos[0].Id);
+            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('nombre-usuario'): " + localStorage.getItem('nombre-usuario'));
+            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('id-usuario'): " + localStorage.getItem('id-usuario'));
             this.router.navigate(['/dashboard']);
         }
         else {
-            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
     };
-    InicioSesionComponent.prototype.postIngresarClienteError = function (responseError) {
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postIngresarClienteError | responseError: " + JSON.stringify(responseError));
+    InicioSesionComponent.prototype.getObtenerClienteLogueadoError = function (responseError) {
+        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
