@@ -16,6 +16,7 @@ namespace WebAPI.Controllers
         private Retorno retorno = new Retorno();
 
         [HttpPost, Route("api/ComentarioPuntuacion/altaContacto")]
+        //Qué sería? Cuando solicito ver los datos de alguien?
         public Retorno PostAltaContacto([FromBody]Contacto contacto)
         {
             try
@@ -31,6 +32,7 @@ namespace WebAPI.Controllers
             return retorno;
         }
         [HttpPost, Route("api/ComentarioPuntuacion/altaRespuestaComentario")]
+        //Sería cuando se responde una puntuación? Qué cliente lo utilizaría exactamente?
         public Retorno PostAltaRespuestaComentario([FromBody]ComentarioPuntuacion comentarioPuntuacion)
         {
             try
@@ -46,6 +48,7 @@ namespace WebAPI.Controllers
             return retorno;
         }
         [HttpPost, Route("api/ComentarioPuntuacion/altaComentarioPuntuacion")]
+        //Sería al puntuar a un cliente? Qué cliente lo utilizaría exactamente?
         public Retorno PostAltaComentarioPuntuacion([FromBody]ComentarioPuntuacion comentarioPuntuacion)
         {
             try
@@ -62,6 +65,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerPorPublicacion/{id}")]
+        //Para qué se usa con exactitud?
         public Retorno GetComentarioPuntuacionPorPublicacion(int id)
         {
             try
@@ -82,6 +86,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerPromedioPuntajePublicacion/{id}")]
+        //Para qué se usa con exactitud?
         public Retorno GetPromedioPuntajePublicacion(int id)
         {
             try
@@ -98,6 +103,7 @@ namespace WebAPI.Controllers
             return retorno;
         }
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerPromedioPuntajeClienteServicio/{idCli}/{idServicio}")]
+        //Para qué se usa con exactitud?
         public Retorno GetPromedioPuntajeClienteServicio(int idCli, int idServicio)
         {
             try
@@ -115,6 +121,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerContactoConComentarioPendienteCliente/{idPublicacion}/{idCliente}")]
+        //Qué cliente tendría acceso?
         public Retorno GetContactoConComentarioPendienteCliente(int idPublicacion, int idCliente)
         {
             try
@@ -131,6 +138,7 @@ namespace WebAPI.Controllers
             return retorno;
         }
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerTodosContactosConComentariosPendientesOferta/{idCliente}")]
+        //Qué cliente tendría acceso?
         public Retorno GetTodosContactosConComentariosPendientesOferta(int idCliente)
         {
             try
@@ -150,6 +158,7 @@ namespace WebAPI.Controllers
             return retorno;
         }
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerTodosContactosConComentariosPendientesSolicitud/{idCliente}")]
+        //Qué cliente tendría acceso?
         public Retorno GetTodosContactosConComentariosPendientesSolicitud(int idCliente)
         {
             try
@@ -170,6 +179,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerComentariosOferta/{idCliente}")]
+        //Que sería exactamente?
         public Retorno GetComentariosOferta(int idCliente)
         {
             try
@@ -189,6 +199,7 @@ namespace WebAPI.Controllers
             return retorno;
         }
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerComentariosSolicitud/{idCliente}")]
+        //Qué sería exactamente?
         public Retorno GetComentariosSolicitud(int idCliente)
         {
             try

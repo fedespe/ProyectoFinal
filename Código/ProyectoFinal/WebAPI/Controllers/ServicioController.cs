@@ -17,6 +17,7 @@ namespace WebAPI.Controllers
 
         //Servicio por Get sin parámetros (Retorna todos)
         [HttpGet, Route("api/Servicio/obtenerTodosHabilitados")]
+        [Authorize]
         public Retorno GetAllServiciosHabilitados()
         {
             try
@@ -38,6 +39,7 @@ namespace WebAPI.Controllers
 
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Servicio/obtener/{id}")]
+        [Authorize]
         public Retorno GetServicio(int id)
         {
             try
@@ -53,7 +55,5 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
-
-
     }
 }

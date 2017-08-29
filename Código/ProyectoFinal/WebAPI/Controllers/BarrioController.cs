@@ -15,6 +15,7 @@ namespace WebAPI.Controllers
         private BarrioBL barrioBL = new BarrioBL();
         private Retorno retorno = new Retorno();
 
+        [AllowAnonymous]
         [HttpGet, Route("api/Barrio/obtenerTodos")]
         public Retorno GetAllBarrios()
         {

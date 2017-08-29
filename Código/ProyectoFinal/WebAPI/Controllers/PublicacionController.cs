@@ -18,6 +18,8 @@ namespace WebAPI.Controllers
 
         //Servicio por Get sin parámetros (Retorna todos)
         [HttpGet, Route("api/Publicacion/obtenerTodas")]
+        [Authorize]
+        //Confirmar con Federico que todos puedan acceder a esto
         public Retorno GetAllPublicaciones()
         {
             try
@@ -39,6 +41,9 @@ namespace WebAPI.Controllers
 
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtener/{id}")]
+        [Authorize]
+        //Confirmar con Federico que todos puedan acceder a esto
+        //En caso se estar deshabilitada? Si es cliente solo podría el dueño? Otro que la haya contratado antes? Se puede dar el caso?
         public Retorno GetPublicacion(int id)
         {
             try
@@ -56,11 +61,14 @@ namespace WebAPI.Controllers
         }
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesContratadasPorCliente/{id}")]
+        [Authorize]
+        //El Id que llega es el del cliente no?
+        //En caso de ser cliente, sólo podría ver las suyas?
         public Retorno GetPublicacionesContratadasPorCliente(int id)
         {
             try
             {
-                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesContratadasPorCliente(id).Where(p=>p.Tipo.Equals("OFERTA")).ToList();
+                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesContratadasPorCliente(id).Where(p => p.Tipo.Equals("OFERTA")).ToList();
                 foreach (Publicacion p in publicaciones)
                 {
                     retorno.Objetos.Add(p);
@@ -74,32 +82,16 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
-        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
-        [HttpGet, Route("api/Publicacion/obtenerSolicitudesAceptadas/{idClienteAceptado}")]
-        public Retorno GetSolicitudesAceptadas(int idClienteAceptado)
-        {
-            try
-            {
-                List<Solicitud> solicitudes = solicitudBL.obtenerSolicitudesAceptadas(idClienteAceptado);
-                foreach (Solicitud s in solicitudes)
-                {
-                    retorno.Objetos.Add(s);
-                }
-                retorno.Codigo = 200;
-            }
-            catch (ProyectoException ex)
-            {
-                retorno.Codigo = 1;
-                retorno.Mensaje = ex.Message;
-            }
-            return retorno;
-        }
+
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesClienteOferta/{id}")]
+        [Authorize]
+        //El Id que llega es el del cliente no?
+        //En caso de ser cliente, sólo podría ver las suyas?
         public Retorno GetPublicacionesClienteOferta(int id)
         {
             try
-            {               
+            {
                 List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesCliente(id).Where(p => p.Tipo.Equals("OFERTA")).OrderBy(p => p.Servicio.Nombre).ToList();
                 foreach (Publicacion p in publicaciones)
                 {
@@ -116,6 +108,9 @@ namespace WebAPI.Controllers
         }
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesClienteSolicitud/{id}")]
+        [Authorize]
+        //El Id que llega es el del cliente no?
+        //En caso de ser cliente, sólo podría ver las suyas?
         public Retorno GetPublicacionesClienteSolicitud(int id)
         {
             try
@@ -134,29 +129,13 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
-        [HttpGet, Route("api/Publicacion/obtenerSolicitudesCliente/{id}")]
-        public Retorno GetSolicitudesCliente(int id)
-        {
-            try
-            {
-                List<Solicitud> solicitudes = solicitudBL.obtenerSolicitudesCliente(id);
-                foreach (Solicitud s in solicitudes)
-                {
-                    retorno.Objetos.Add(s);
-                }
-                retorno.Codigo = 200;
-            }
-            catch (ProyectoException ex)
-            {
-                retorno.Codigo = 1;
-                retorno.Mensaje = ex.Message;
-            }
-            return retorno;
-        }
 
 
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesServicioOferta/{id}")]
+        [Authorize]
+        //El Id que llega es el del servicio no?
+        //En caso de ser cliente, sólo podría ver las suyas?
         public Retorno GetPublicacionesServicioOferta(int id)
         {
             try
@@ -177,6 +156,9 @@ namespace WebAPI.Controllers
         }
         //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
         [HttpGet, Route("api/Publicacion/obtenerPublicacionesServicioSolicitud/{id}")]
+        [Authorize]
+        //El Id que llega es el del servicio no?
+        //En caso de ser cliente, sólo podría ver las suyas?
         public Retorno GetPublicacionesServicioSolicitud(int id)
         {
             try
@@ -198,6 +180,7 @@ namespace WebAPI.Controllers
 
         //Servicio por Post para alta
         [HttpPost, Route("api/Publicacion/altaPublicacion")]
+        [Authorize(Roles = "CLIENTE")]
         public Retorno PostAltaPublicacion([FromBody]Publicacion publicacion)
         {
             try
@@ -214,6 +197,9 @@ namespace WebAPI.Controllers
         }
         //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
         [HttpPut, Route("api/Publicacion/actualizarPublicacion")]
+        [Authorize]
+        //Administradores pueden editarlas? Lo necesitan?
+        //Si es cliente sólo debería poder editarla si es suya
         public Retorno PutActualizarPublicacion([FromBody]Publicacion publicacion)
         {
             try
@@ -230,6 +216,9 @@ namespace WebAPI.Controllers
         }
         //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
         [HttpGet, Route("api/Publicacion/habilitarPublicacion/{id}")]
+        [Authorize]
+        //Administradores pueden habilitarlas? Lo necesitan?
+        //Si es cliente solo puede habilitar alguna suya
         public Retorno GetHabilitarPublicacion(int id)
         {
             try
@@ -247,6 +236,9 @@ namespace WebAPI.Controllers
 
         //Servicio por Put para modificación (Recibe el objeto a modificar en el Body)
         [HttpGet, Route("api/Publicacion/deshabilitarPublicacion/{id}")]
+        [Authorize]
+        //Administradores pueden deshabilitarlas? Lo necesitan?
+        //Si es cliente solo puede deshabilitar alguna suya
         public Retorno GetDeshabilitarPublicacion(int id)
         {
             try
@@ -263,6 +255,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet, Route("api/Publicacion/obtenerUltimoIdPublicacionCliente/{id}")]
+        //Ver con Federico a ver qué es exactamente
         public Retorno obtenerUltimoIdPublicacionCliente(int id)
         {
             try
@@ -280,6 +273,7 @@ namespace WebAPI.Controllers
 
         //Servicio por Post para alta
         [HttpPost, Route("api/Publicacion/altaPresupuesto")]
+        [Authorize(Roles = "CLIENTE")]
         public Retorno PostAltaPresupuesto([FromBody]Presupuesto presupuesto)
         {
             try
@@ -296,6 +290,9 @@ namespace WebAPI.Controllers
         }
         //Servicio por Get sin parámetros (Retorna todos)
         [HttpGet, Route("api/Publicacion/obtenerPresupuestos/{idPub}")]
+        [Authorize(Roles = "CLIENTE")]
+        //El Administrador lo necesitaría?
+        //Sólo lo podría ver el cliente dueño de la publicación, no? O quedó visible de forma pública esto al final?
         public Retorno GetAllPresupuestos(int idPub)
         {
             try
@@ -315,12 +312,57 @@ namespace WebAPI.Controllers
             return retorno;
         }
 
+        [Authorize(Roles = "CLIENTE")]
+        //Corroborar que sea el cliente dueño de la publicación
         [HttpPut, Route("api/Publicacion/aceptarPresupuesto")]
         public Retorno PutAceptarPresupuesto([FromBody]Presupuesto presupuesto)
         {
             try
             {
                 solicitudBL.aceptarPresupuesto(presupuesto);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+
+
+        [HttpGet, Route("api/Publicacion/obtenerSolicitudesCliente/{id}")]
+        //Qué cliente podría verlo?
+        public Retorno GetSolicitudesCliente(int id)
+        {
+            try
+            {
+                List<Solicitud> solicitudes = solicitudBL.obtenerSolicitudesCliente(id);
+                foreach (Solicitud s in solicitudes)
+                {
+                    retorno.Objetos.Add(s);
+                }
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
+        //Servicio por Get con parámetro (Retorna el que tiene el id que llega por parámetro)
+        [HttpGet, Route("api/Publicacion/obtenerSolicitudesAceptadas/{idClienteAceptado}")]
+        //Qué cliente podría verlo?
+        public Retorno GetSolicitudesAceptadas(int idClienteAceptado)
+        {
+            try
+            {
+                List<Solicitud> solicitudes = solicitudBL.obtenerSolicitudesAceptadas(idClienteAceptado);
+                foreach (Solicitud s in solicitudes)
+                {
+                    retorno.Objetos.Add(s);
+                }
                 retorno.Codigo = 200;
             }
             catch (ProyectoException ex)
