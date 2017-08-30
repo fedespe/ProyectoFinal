@@ -26,6 +26,9 @@ var InicioSesionComponent = (function () {
     InicioSesionComponent.prototype.navegarRegistroCliente = function () {
         this.router.navigateByUrl('/registro-cliente');
     };
+    InicioSesionComponent.prototype.navegarOlvidoPassword = function () {
+        this.router.navigateByUrl('/olvido-password');
+    };
     InicioSesionComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];

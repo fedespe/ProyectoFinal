@@ -23,6 +23,9 @@ export class InicioSesionComponent{
     navegarRegistroCliente(){
         this.router.navigateByUrl('/registro-cliente');
     }
+    navegarOlvidoPassword(){
+        this.router.navigateByUrl('/olvido-password');
+    }
 
     borrarMensajes(){
         this.mensajes.Errores = [];

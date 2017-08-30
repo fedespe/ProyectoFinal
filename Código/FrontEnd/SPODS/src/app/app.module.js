@@ -17,6 +17,7 @@ var landing_component_1 = require("./landing/landing.component");
 var welcome_component_1 = require("./landing/welcome/welcome.component");
 var registro_cliente_component_1 = require("./landing/registro-cliente/registro-cliente.component");
 var inicio_sesion_component_1 = require("./landing/inicio-sesion/inicio-sesion.component");
+var olvido_password_component_1 = require("./landing/olvido-password/olvido-password.component");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var overview_component_1 = require("./dashboard/overview/overview.component");
 var perfil_usuario_component_1 = require("./dashboard/perfil-usuario/perfil-usuario.component");
@@ -41,7 +42,8 @@ var appRoutes = [
             { path: '', component: welcome_component_1.WelcomeComponent },
             { path: 'welcome', component: welcome_component_1.WelcomeComponent },
             { path: 'registro-cliente', component: registro_cliente_component_1.RegistroClienteComponent },
-            { path: 'inicio-sesion', component: inicio_sesion_component_1.InicioSesionComponent }
+            { path: 'inicio-sesion', component: inicio_sesion_component_1.InicioSesionComponent },
+            { path: 'olvido-password', component: olvido_password_component_1.OlvidoPasswordComponent }
         ]
     },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent,
@@ -85,7 +87,7 @@ AppModule = __decorate([
             editar_servicio_cliente_component_1.EditarServicioClienteComponent, listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent, ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent,
             ver_perfil_usuario_component_1.VerPerfilUsuarioComponent, listado_publicaciones_contratadas_component_1.ListadoPublicacionesContratadasComponent, solicitar_servicio_component_1.SolicitarServicioComponent,
             listado_solicitudes_cliente_component_1.ListadoSolicitudesClienteComponent, editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent, listado_solicitudes_component_1.ListadoSolicitudesComponent,
-            listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent, ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent
+            listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent, ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent, olvido_password_component_1.OlvidoPasswordComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

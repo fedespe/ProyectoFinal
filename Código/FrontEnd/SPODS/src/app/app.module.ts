@@ -10,6 +10,7 @@ import { LandingComponent } from "./landing/landing.component";
 import { WelcomeComponent } from "./landing/welcome/welcome.component";
 import { RegistroClienteComponent } from "./landing/registro-cliente/registro-cliente.component";
 import { InicioSesionComponent } from "./landing/inicio-sesion/inicio-sesion.component";
+import { OlvidoPasswordComponent } from "./landing/olvido-password/olvido-password.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { OverviewComponent } from "./dashboard/overview/overview.component";
 import { PerfilUsuarioComponent } from "./dashboard/perfil-usuario/perfil-usuario.component";
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
       { path: '', component: WelcomeComponent },
       { path: 'welcome', component: WelcomeComponent },
       { path: 'registro-cliente', component: RegistroClienteComponent },
-      { path: 'inicio-sesion', component: InicioSesionComponent }
+      { path: 'inicio-sesion', component: InicioSesionComponent },
+      { path: 'olvido-password', component: OlvidoPasswordComponent }
     ]
   },
   { path: 'dashboard', component: DashboardComponent,
@@ -74,7 +76,7 @@ const appRoutes: Routes = [
     EditarServicioClienteComponent, ListadoServiciosOfrecidosComponent, VerPublicacionOfrecidaComponent,
     VerPerfilUsuarioComponent, ListadoPublicacionesContratadasComponent, SolicitarServicioComponent,
     ListadoSolicitudesClienteComponent, EditarSolicitudClienteComponent, ListadoSolicitudesComponent,
-    ListadoSolicitudesOfrecidasComponent, VerPublicacionSolicitadaComponent
+    ListadoSolicitudesOfrecidasComponent, VerPublicacionSolicitadaComponent, OlvidoPasswordComponent
   ],
   bootstrap:    [ AppComponent ]
 })
