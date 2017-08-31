@@ -32,6 +32,7 @@ var OlvidoPasswordComponent = (function () {
         this.mensajes.Exitos = [];
     };
     OlvidoPasswordComponent.prototype.recuperarPassword = function () {
+        var _this = this;
         this.loading = true;
         this.borrarMensajes();
         if (this.correoElectronico.trim() == "") {
@@ -50,34 +51,28 @@ var OlvidoPasswordComponent = (function () {
                 this.loading = false;
             }
             else {
-                //Una vez implementado el servicio, todo lo que está sin comentar se debe comentar y viceversa
-                this.loading = false;
-                var exito = new exito_1.Exito();
-                exito.Descripcion = "Llamar al servicio de recuperación de password.";
-                this.mensajes.Exitos.push(exito);
-                /*this.dataService.postRecuperarPassword(this.correoElectronico)
-                .subscribe(
-                    res => this.postRecuperarPasswordOk(res),
-                    error => this.postRecuperarPasswordError(error),
-                    () => Utilidades.log("[olvido-password.component.ts] - postRecuperarPassword: Completado")
-                );*/
+                this.dataService.putRecuperarPassword(this.correoElectronico)
+                    .subscribe(function (res) { return _this.putRecuperarPasswordOk(res); }, function (error) { return _this.putRecuperarPasswordError(error); }, function () { return utilidades_1.Utilidades.log("[olvido-password.component.ts] - putRecuperarPassword: Completado"); });
             }
         }
     };
-    OlvidoPasswordComponent.prototype.postRecuperarPasswordOk = function (response) {
-        utilidades_1.Utilidades.log("[olvido-password.component.ts] - postRecuperarPasswordOk | response: " + JSON.stringify(response));
+    OlvidoPasswordComponent.prototype.putRecuperarPasswordOk = function (response) {
+        utilidades_1.Utilidades.log("[olvido-password.component.ts] - putRecuperarPasswordOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
+            var exito = new exito_1.Exito();
+            exito.Descripcion = "Se le ha enviado un correo con la nueva contraseña. Sugerimos cambiarla una vez que haya iniciado sesión.";
+            this.mensajes.Exitos.push(exito);
         }
         else {
-            utilidades_1.Utilidades.log("[olvido-password.component.ts] - postRecuperarPasswordOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            utilidades_1.Utilidades.log("[olvido-password.component.ts] - putRecuperarPasswordOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
         this.loading = false;
     };
-    OlvidoPasswordComponent.prototype.postRecuperarPasswordError = function (responseError) {
-        utilidades_1.Utilidades.log("[olvido-password.component.ts] - postRecuperarPasswordError | responseError: " + JSON.stringify(responseError));
+    OlvidoPasswordComponent.prototype.putRecuperarPasswordError = function (responseError) {
+        utilidades_1.Utilidades.log("[olvido-password.component.ts] - putRecuperarPasswordError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

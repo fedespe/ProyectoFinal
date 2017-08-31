@@ -48,29 +48,26 @@ export class OlvidoPasswordComponent{
                 this.loading = false;
             }
             else{
-                //Una vez implementado el servicio, todo lo que está sin comentar se debe comentar y viceversa
-                this.loading = false;
-                var exito = new Exito();
-                exito.Descripcion = "Llamar al servicio de recuperación de password.";
-                this.mensajes.Exitos.push(exito);
-                /*this.dataService.postRecuperarPassword(this.correoElectronico)
+                this.dataService.putRecuperarPassword(this.correoElectronico)
                 .subscribe(
-                    res => this.postRecuperarPasswordOk(res),
-                    error => this.postRecuperarPasswordError(error),
-                    () => Utilidades.log("[olvido-password.component.ts] - postRecuperarPassword: Completado")
-                );*/
+                    res => this.putRecuperarPasswordOk(res),
+                    error => this.putRecuperarPasswordError(error),
+                    () => Utilidades.log("[olvido-password.component.ts] - putRecuperarPassword: Completado")
+                );
             }
         }
     }
 
-    postRecuperarPasswordOk(response:any){
-        Utilidades.log("[olvido-password.component.ts] - postRecuperarPasswordOk | response: " + JSON.stringify(response));
+    putRecuperarPasswordOk(response:any){
+        Utilidades.log("[olvido-password.component.ts] - putRecuperarPasswordOk | response: " + JSON.stringify(response));
 
         if(response.Codigo ==  200){
-            
+            var exito = new Exito();
+            exito.Descripcion = "Se le ha enviado un correo con la nueva contraseña. Sugerimos cambiarla una vez que haya iniciado sesión.";
+            this.mensajes.Exitos.push(exito);
         }
         else{
-            Utilidades.log("[olvido-password.component.ts] - postRecuperarPasswordOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            Utilidades.log("[olvido-password.component.ts] - putRecuperarPasswordOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
@@ -78,8 +75,8 @@ export class OlvidoPasswordComponent{
         this.loading = false;
     }
 
-    postRecuperarPasswordError(responseError:any){
-        Utilidades.log("[olvido-password.component.ts] - postRecuperarPasswordError | responseError: " + JSON.stringify(responseError));
+    putRecuperarPasswordError(responseError:any){
+        Utilidades.log("[olvido-password.component.ts] - putRecuperarPasswordError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

@@ -194,9 +194,17 @@ namespace WebAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPut, Route("api/Cliente/pruebaEmail")]
+        [HttpPut, Route("api/Cliente/recuperarPassword")]
         public Retorno sendEmail()
         {
+            //Corroborar que exista un usuario con el el mismo correo que manda por el servicio
+            //Generar contraseña
+            //Cambiar contraseña
+            //Leer contraseña de la base
+            //Enviar por correo la nueva contraseña
+
+            //Prueba de cómo se manda el correo
+
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
             //A quién/es se manda
             mail.To.Add("brunoediaz18@gmail.com");

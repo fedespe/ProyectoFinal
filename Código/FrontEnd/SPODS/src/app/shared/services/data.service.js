@@ -159,6 +159,16 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.putRecuperarPassword = function (correoElectronico) {
+        var URL = this.baseUrl + '/api/Cliente/recuperarPassword';
+        var body = JSON.stringify(correoElectronico);
+        utilidades_1.Utilidades.log("[data.service.ts] - putRecuperarPassword | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - putRecuperarPassword | body: " + body);
+        utilidades_1.Utilidades.log("[data.service.ts] - putRecuperarPassword | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+        return this.http.put(URL, body, { headers: this.contentHeadersJson })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     DataService.prototype.postIngresarCliente = function (cliente) {
         var URL = this.baseUrl + '/api/Cliente/ingresarCliente';
         var body = JSON.stringify(cliente);

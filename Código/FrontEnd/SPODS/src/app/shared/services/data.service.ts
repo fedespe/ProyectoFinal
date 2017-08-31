@@ -195,6 +195,19 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    public putRecuperarPassword(correoElectronico:string){
+        var URL : string = this.baseUrl + '/api/Cliente/recuperarPassword';
+        let body = JSON.stringify(correoElectronico);
+        
+        Utilidades.log("[data.service.ts] - putRecuperarPassword | URL: " + URL);
+        Utilidades.log("[data.service.ts] - putRecuperarPassword | body: " + body);
+        Utilidades.log("[data.service.ts] - putRecuperarPassword | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+
+        return this.http.put(URL, body, { headers: this.contentHeadersJson })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
      public postIngresarCliente(cliente:Cliente){
         var URL : string = this.baseUrl + '/api/Cliente/ingresarCliente';
         let body = JSON.stringify(cliente);
