@@ -189,25 +189,7 @@ namespace DAL
 
 
 
-        public void altaSolicitud(Solicitud solicitud)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void actualizarSolicitud(Solicitud solicitud)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Solicitud> obtenerTodos()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Solicitud obtener(int id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public List<Solicitud> obtenerSolicitudesCliente(int idCliente)
         {
@@ -277,15 +259,7 @@ namespace DAL
 
         
 
-        public List<Solicitud> obtenerSolicitudesContratadasPorCliente(int idCliente)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Solicitud> obtenerSolicitudesServicio(int idServicio)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         
     }

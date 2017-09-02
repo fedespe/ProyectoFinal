@@ -429,22 +429,10 @@ namespace DAL
                                     publicacion.Imagenes.Add(dr["Imagen"].ToString());
                                     publicaciones.Add(publicacion);
                                     ultimoId = Convert.ToInt32(dr["IdPublicacion"]);
-                                }//EN UN ELSE SI QUISIERA TRAIGO EL RESTO DE LAS IMAGENES
-                                //Agrego el el primer contacto sin comentario para poder comentar.
-                                //if (publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente == null && dr["ComentarioPuntuacionId"] == DBNull.Value && dr["IdClienteContacto"]!= DBNull.Value)
-                                //{
-                                //    //Proximo comentario a crear
-                                //    publicaciones[publicaciones.Count - 1].ContactoConComentarioPendiente = new Contacto
-                                //    {
-                                //        Id = Convert.ToInt32(dr["IdContacto"]),
-                                //        Publicacion = new Publicacion { Id = Convert.ToInt32(dr["IdPublicacion"]) },
-                                //        Cliente = new Cliente { Id = Convert.ToInt32(dr["IdClienteContacto"]) },
-                                //        Fecha = Convert.ToDateTime(dr["Fecha"])
-                                //    };
-                                //}
+                                }
                             }
                         }
-                    }
+                    }                   
                 }
             }
             catch (Exception ex)

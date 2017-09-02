@@ -48,6 +48,7 @@
     <Compile Include="ComentarioPuntuacion.cs" />
     <Compile Include="Contacto.cs" />
     <Compile Include="Departamento.cs" />
+    <Compile Include="Oferta.cs" />
     <Compile Include="Pregunta.cs" />
     <Compile Include="Presupuesto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

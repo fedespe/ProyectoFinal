@@ -286,13 +286,13 @@ namespace DAL
         {
             double promedio = 0;
 
-            string cadenaSelectComentario = "SELECT AVG(Puntuacion) FROM COMENTARIOPUNTUACION WHERE PublicacionId = @idPublicacion;";
+            string cadenaSelectPromedio = "SELECT AVG(Puntuacion) FROM COMENTARIOPUNTUACION WHERE PublicacionId = @idPublicacion;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
                 {
                     con.Open();
-                    using (SqlCommand cmd = new SqlCommand(cadenaSelectComentario, con))
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectPromedio, con))
                     {
                         cmd.Parameters.AddWithValue("@idPublicacion", idPublicacion);
                         var q = cmd.ExecuteScalar();

@@ -26,7 +26,29 @@
                                     <small class="hidden-sm-down">{{publicacion.FechaAlta}}</small>
                                 </div>
                                 <p class="mb-1">{{publicacion.Descripcion}}</p>
-                                <small>Calificación...</small>                               
+                                <div>
+                                    <div *ngIf="publicacion.PuntajePromedio==0">
+                                        Puntaje publicación: <span class="promedio">({{publicacion.PuntajePromedio}})</span>
+                                    </div>
+                                    <div *ngIf="publicacion.PuntajePromedio<=1 && publicacion.PuntajePromedio>0">
+                                        Puntaje publicación: <span class="promedio">★({{publicacion.PuntajePromedio}})</span>
+                                    </div>
+                                    <div *ngIf="publicacion.PuntajePromedio<=2 && publicacion.PuntajePromedio>1">
+                                        Puntaje publicación: <span class="promedio">★★({{publicacion.PuntajePromedio}})</span>
+                                    </div>
+                                    <div *ngIf="publicacion.PuntajePromedio<=3 && publicacion.PuntajePromedio>2">
+                                        Puntaje publicación: <span class="promedio">★★★({{publicacion.PuntajePromedio}})</span>
+                                    </div>
+                                    <div *ngIf="publicacion.PuntajePromedio<=4 && publicacion.PuntajePromedio>3">
+                                        Puntaje publicación: <span class="promedio">★★★★({{publicacion.PuntajePromedio}})</span>
+                                    </div>
+                                    <div *ngIf="publicacion.PuntajePromedio==5">
+                                        Puntaje publicación: <span class="promedio">★★★★★({{publicacion.PuntajePromedio}})</span>
+                                    </div>   
+                                    <div>
+                                        Comentarios: {{publicacion.CantidadComentarios}}
+                                    </div>
+                                </div>                            
                             </div>
                         </div>
                     </div>

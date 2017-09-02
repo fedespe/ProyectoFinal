@@ -45,6 +45,7 @@
     <Compile Include="ClienteDAL.cs" />
     <Compile Include="ComentarioPuntuacionDAL.cs" />
     <Compile Include="DepartamentoDAL.cs" />
+    <Compile Include="OfertaDAL.cs" />
     <Compile Include="PreguntaDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicacionDAL.cs" />

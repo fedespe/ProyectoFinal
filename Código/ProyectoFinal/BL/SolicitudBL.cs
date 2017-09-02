@@ -15,14 +15,7 @@ namespace BL
         //Alta solicitud es realizada por altaPublicacion en PublicacionBL.
         //Actualizar solicitud es realizada por actualizarPublicacion en PublicacionBL
 
-        public List<Solicitud> obtenerTodos()
-        {
-            return solicitudDAL.obtenerTodos();
-        }
-        public Solicitud obtener(int id)
-        {
-            return solicitudDAL.obtener(id);
-        }
+        
         public List<Solicitud> obtenerSolicitudesCliente(int idCliente)
         {
             return solicitudDAL.obtenerSolicitudesCliente(idCliente);
@@ -31,14 +24,7 @@ namespace BL
         {
             return solicitudDAL.obtenerSolicitudesAceptadas(idClienteAceptado);
         }
-        public List<Solicitud> obtenerSolicitudesContratadasPorCliente(int idCliente)
-        {
-            return solicitudDAL.obtenerSolicitudesContratadasPorCliente(idCliente);
-        }
-        public List<Solicitud> obtenerSolicitudesServicio(int idServicio)
-        {
-            return solicitudDAL.obtenerSolicitudesServicio(idServicio);
-        }
+        
 
 
         //VER VALIDACIONES

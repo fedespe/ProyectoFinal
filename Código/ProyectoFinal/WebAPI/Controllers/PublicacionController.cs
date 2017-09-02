@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     {
         private PublicacionBL publicacionBL = new PublicacionBL();
         private SolicitudBL solicitudBL = new SolicitudBL();
+        private OfertaBL ofertaBL = new OfertaBL();
         private Retorno retorno = new Retorno();
 
         //Servicio por Get sin parámetros (Retorna todos)
@@ -140,8 +141,8 @@ namespace WebAPI.Controllers
         {
             try
             {
-                List<Publicacion> publicaciones = publicacionBL.obtenerPublicacionesServicio(id).Where(p => p.Tipo.Equals("OFERTA")).Where(p => p.Activa).Where(p => !p.Finalizada).ToList();
-                foreach (Publicacion p in publicaciones)
+                List<Oferta> publicaciones = ofertaBL.obtenerPublicacionesOfertaServicio(id).Where(p => p.Activa).Where(p => !p.Finalizada).ToList();
+                foreach (Oferta p in publicaciones)
                 {
                     retorno.Objetos.Add(p);
                 }

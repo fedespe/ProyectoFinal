@@ -35,13 +35,13 @@ var ListadoServiciosOfrecidosComponent = (function () {
             _this.idServicio = parseInt(params['id']);
             utilidades_1.Utilidades.log("[listado-servicios-ofrecidos.component.ts] - ngOnInit | id: " + JSON.stringify(_this.idServicio));
         });
-        this.obtenerServicio();
+        this.obtenerPublicaciones();
     };
     ListadoServiciosOfrecidosComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     };
-    ListadoServiciosOfrecidosComponent.prototype.obtenerServicio = function () {
+    ListadoServiciosOfrecidosComponent.prototype.obtenerPublicaciones = function () {
         var _this = this;
         utilidades_1.Utilidades.log("[listado-servicios-ofrecidos.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idServicio));
         this.dataService.getPublicacionesServicioOferta(this.idServicio)

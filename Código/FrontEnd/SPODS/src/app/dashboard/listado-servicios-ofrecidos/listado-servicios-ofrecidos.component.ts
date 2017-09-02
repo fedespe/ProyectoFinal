@@ -10,6 +10,7 @@ import { Publicacion } from "../../shared/publicacion";
 import { Respuesta } from "../../shared/respuesta";
 import { ActivatedRoute } from '@angular/router'; 
 import { Settings } from "../../shared/settings"; 
+import { Oferta } from "../../shared/oferta"; 
 
 
 @Component({
@@ -21,7 +22,7 @@ import { Settings } from "../../shared/settings";
 export class ListadoServiciosOfrecidosComponent implements OnInit{
     mensajes: Mensaje = new Mensaje();
     nombreServicio:string;
-    publicaciones: Publicacion[] = [];
+    publicaciones: Oferta[] = [];
     idServicio:number;
     baseURL:string;
     idUsuario:number=parseInt(localStorage.getItem('id-usuario'));
@@ -37,7 +38,7 @@ export class ListadoServiciosOfrecidosComponent implements OnInit{
             this.idServicio = parseInt(params['id']);
             Utilidades.log("[listado-servicios-ofrecidos.component.ts] - ngOnInit | id: " + JSON.stringify(this.idServicio));   
         });
-        this.obtenerServicio();       
+        this.obtenerPublicaciones();       
     }
 
     borrarMensajes(){
@@ -45,7 +46,7 @@ export class ListadoServiciosOfrecidosComponent implements OnInit{
         this.mensajes.Exitos = [];
     }
 
-    obtenerServicio(){
+    obtenerPublicaciones(){
          Utilidades.log("[listado-servicios-ofrecidos.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idServicio));
         this.dataService.getPublicacionesServicioOferta(this.idServicio)
             .subscribe(
