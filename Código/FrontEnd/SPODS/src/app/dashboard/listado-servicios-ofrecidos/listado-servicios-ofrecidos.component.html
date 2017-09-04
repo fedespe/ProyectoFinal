@@ -26,6 +26,8 @@
                                     <small class="hidden-sm-down">{{publicacion.FechaAlta}}</small>
                                 </div>
                                 <p class="mb-1">{{publicacion.Descripcion}}</p>
+                                <div>Barrio: {{publicacion.Cliente.Barrio.Nombre}}</div>
+                                <div>Departamento: {{publicacion.Cliente.Barrio.Departamento.Nombre}}</div>
                                 <div>
                                     <div *ngIf="publicacion.PuntajePromedio==0">
                                         Puntaje publicación: <span class="promedio">({{publicacion.PuntajePromedio}})</span>

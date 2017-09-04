@@ -13,7 +13,7 @@ namespace DAL
         public List<Oferta> obtenerPublicacionesOfertaServicio(int idServicio)
         {
             List<Oferta> publicaciones = new List<Oferta>();
-            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario, c.Id as IdContacto, c.ClienteId as IdClienteContacto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId left join CONTACTO c on c.PublicacionId=p.Id Where p.ServicioId=@idServicio AND p.Tipo='OFERTA' ORDER BY p.Id;";
+            string cadenaSelectPublicacion = "SELECT p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Imagen as ImgUsuario, u.NombreUsuario as NombreUsuario, c.Id as IdContacto, c.ClienteId as IdClienteContacto, b.Nombre as NombreBarrio, dep.Nombre as NombreDepto, * from PUBLICACION p left join SERVICIO s on s.id=p.ServicioId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=p.ClienteId left join BARRIO b on b.Id=u.BarrioId left join DEPARTAMENTO dep on dep.Id=b.DepartamentoId left join CONTACTO c on c.PublicacionId=p.Id Where p.ServicioId=@idServicio AND p.Tipo='OFERTA' ORDER BY p.Id;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -42,7 +42,12 @@ namespace DAL
                                         //ver que es null por el momento la fecha de vencimiento
                                         //FechaVencimiento = Convert.ToDateTime(dr["FechaVencimiento"]),
                                         Tipo = dr["Tipo"].ToString(),
-                                        Cliente = new Cliente() { Id = Convert.ToInt32(dr["ClienteId"]), Imagen = dr["ImgUsuario"].ToString(), NombreUsuario = dr["NombreUsuario"].ToString() },
+                                        Cliente = new Cliente() {
+                                            Id = Convert.ToInt32(dr["ClienteId"]),
+                                            Imagen = dr["ImgUsuario"].ToString(),
+                                            NombreUsuario = dr["NombreUsuario"].ToString(),
+                                            Barrio = new Barrio { Nombre = dr["NombreBarrio"].ToString(), Departamento = new Departamento { Nombre = dr["NombreDepto"].ToString() } }
+                                        },
                                         Imagenes = new List<string>(),
                                         Finalizada = Convert.ToBoolean(dr["Finalizada"]),
                                         Habilitada = Convert.ToBoolean(dr["Habilitada"]),
