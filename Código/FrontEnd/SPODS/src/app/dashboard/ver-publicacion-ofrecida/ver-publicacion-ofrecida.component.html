@@ -59,7 +59,27 @@
                         <img class="card-img-top align-self-center" src="{{baseURL}}/Imagenes/Clientes/{{publicacion.Cliente.Imagen}}" alt="{{publicacion.Cliente.Imagen}}" height="100" width="100">
                         <div class="card-block">
                             <h4 class="card-title" style="text-align: center">{{publicacion.Cliente.NombreUsuario}}</h4>
-                            <div class="card-text" >                                   
+                            <div class="card-text" >   
+
+                                <div *ngIf="promedioCliente==0">
+                                    Puntaje cliente: <span class="promedio">({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente<=1 && promedioCliente>0">
+                                    Puntaje cliente: <span class="promedio">★({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente<=2 && promedioCliente>1">
+                                    Puntaje cliente: <span class="promedio">★★({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente<=3 && promedioCliente>2">
+                                    Puntaje cliente: <span class="promedio">★★★({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente<=4 && promedioCliente>3">
+                                    Puntaje cliente: <span class="promedio">★★★★({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente==5">
+                                    Puntaje cliente: <span class="promedio">★★★★★({{promedioCliente}})</span>
+                                </div>
+
                                 <div *ngIf="promedioPublicacion==0">
                                     Puntaje publicación: <span class="promedio">({{promedioPublicacion}})</span>
                                 </div>

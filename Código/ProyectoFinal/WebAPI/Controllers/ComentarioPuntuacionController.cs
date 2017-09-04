@@ -119,7 +119,23 @@ namespace WebAPI.Controllers
             }
             return retorno;
         }
-
+        [HttpGet, Route("api/ComentarioPuntuacion/obtenerPromedioPuntajeClienteOfertas/{id}")]
+        //Para qué se usa con exactitud?
+        public Retorno GetPromedioPuntajeClienteOfertas(int id)
+        {
+            try
+            {
+                double promedio = comentarioPuntuacionBL.obtenerPromedioPuntajeClienteOfertas(id);
+                retorno.Objetos.Add(promedio);
+                retorno.Codigo = 200;
+            }
+            catch (ProyectoException ex)
+            {
+                retorno.Codigo = 1;
+                retorno.Mensaje = ex.Message;
+            }
+            return retorno;
+        }
         [HttpGet, Route("api/ComentarioPuntuacion/obtenerContactoConComentarioPendienteCliente/{idPublicacion}/{idCliente}")]
         //Qué cliente tendría acceso?
         public Retorno GetContactoConComentarioPendienteCliente(int idPublicacion, int idCliente)

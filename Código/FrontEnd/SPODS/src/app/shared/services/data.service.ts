@@ -111,6 +111,16 @@ export class DataService {
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
+    public getObetenerPromedioClienteOferta(id:number){
+        var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPromedioPuntajeClienteOfertas/' + id;
+
+        Utilidades.log("[data.service.ts] - getObetenerPromedioClienteOferta | URL: " + URL);
+        Utilidades.log("[data.service.ts] - getObetenerPromedioClienteOferta | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+
+        return this.http.get(URL, { headers: this.contentHeadersJson })
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
 
     public postAltaRespuestaComentario(comentarioPuntuacion:ComentarioPuntuacion){
         var URL : string = this.baseUrl + '/api/ComentarioPuntuacion/altaRespuestaComentario';

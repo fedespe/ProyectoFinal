@@ -7,7 +7,7 @@
 
         <div *ngIf="!loading && cliente">
             <h1>Perfil de Usuario</h1>
-            <!--<h2>{{cliente.NombreUsuario}}</h2>-->
+            <h2>{{cliente.NombreUsuario}}</h2>
 
             <label for="inputNombre">Nombre: {{cliente.Nombre}}</label>
             <br>
@@ -15,14 +15,36 @@
             <br>
             <label for="inputTelefono">Teléfono: {{cliente.Telefono}}</label>
             <br>
-            <label for="inputDireccion">Dirección: {{cliente.Direccion}}</label>              
+            <label for="inputDireccion">Dirección: {{cliente.Direccion}}</label>    
+            <div>
+                <div *ngIf="promedioCliente==0">
+                    Puntaje: <span class="promedio">({{promedioCliente}})</span>
+                </div>
+                <div *ngIf="promedioCliente<=1 && promedioCliente>0">
+                    Puntaje: <span class="promedio">★({{promedioCliente}})</span>
+                </div>
+                <div *ngIf="promedioCliente<=2 && promedioCliente>1">
+                    Puntaje: <span class="promedio">★★({{promedioCliente}})</span>
+                </div>
+                <div *ngIf="promedioCliente<=3 && promedioCliente>2">
+                    Puntaje: <span class="promedio">★★★({{promedioCliente}})</span>
+                </div>
+                <div *ngIf="promedioCliente<=4 && promedioCliente>3">
+                    Puntaje: <span class="promedio">★★★★({{promedioCliente}})</span>
+                </div>
+                <div *ngIf="promedioCliente==5">
+                    Puntaje: <span class="promedio">★★★★★({{promedioCliente}})</span>
+                </div>
+            </div>          
         </div>
 
         <div class="container">
             <div class="row">
                 <div>
+                    <!--<h3 style="margin-top: 20px;">Puntaje cliente:</h3>
+                    
                     <h3 style="margin-top: 20px;">Puntaje por servicios:</h3>
-                    puntaje por servicio
+                    puntaje por servicio-->
                     <h3 style="margin-top: 20px;">Comentarios de servicios ofrecidos:</h3>
                     <div *ngFor="let servicio of servicios;">     
                         <h6 style="margin-top: 20px;">{{servicio.Nombre}}</h6>                 

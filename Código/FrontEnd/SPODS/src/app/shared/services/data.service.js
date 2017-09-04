@@ -92,6 +92,14 @@ var DataService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
+    DataService.prototype.getObetenerPromedioClienteOferta = function (id) {
+        var URL = this.baseUrl + '/api/ComentarioPuntuacion/obtenerPromedioPuntajeClienteOfertas/' + id;
+        utilidades_1.Utilidades.log("[data.service.ts] - getObetenerPromedioClienteOferta | URL: " + URL);
+        utilidades_1.Utilidades.log("[data.service.ts] - getObetenerPromedioClienteOferta | headers: " + JSON.stringify({ headers: this.contentHeadersJson }));
+        return this.http.get(URL, { headers: this.contentHeadersJson })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     DataService.prototype.postAltaRespuestaComentario = function (comentarioPuntuacion) {
         var URL = this.baseUrl + '/api/ComentarioPuntuacion/altaRespuestaComentario';
         var body = JSON.stringify(comentarioPuntuacion);

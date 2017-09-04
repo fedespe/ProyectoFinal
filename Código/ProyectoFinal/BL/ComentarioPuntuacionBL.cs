@@ -41,6 +41,10 @@ namespace BL
         {
             return comentarioPuntuacionDAL.obtenerPromedioPuntajeClienteServicio(idCliente, idServicio);
         }
+        public double obtenerPromedioPuntajeClienteOfertas(int idCliente)
+        {
+            return comentarioPuntuacionDAL.obtenerPromedioPuntajeClienteOfertas(idCliente);
+        }
         public List<ComentarioPuntuacion> obtenerComentariosOferta(int idCliente)
         {
             return comentarioPuntuacionDAL.obtenerComentariosOferta(idCliente);

@@ -44,6 +44,7 @@ var VerPerfilUsuarioComponent = (function () {
         this.idUsuario = parseInt(localStorage.getItem('id-usuario'));
         this.getObternerCliente();
         this.obtenerServicios();
+        this.obetenerPromedioClienteOferta();
     };
     VerPerfilUsuarioComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
@@ -57,6 +58,7 @@ var VerPerfilUsuarioComponent = (function () {
     VerPerfilUsuarioComponent.prototype.getObternerClienteOk = function (response) {
         utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
+            this.cliente.NombreUsuario = response.Objetos[0].NombreUsuario;
             this.cliente.Nombre = response.Objetos[0].Nombre;
             this.cliente.Apellido = response.Objetos[0].Apellido;
             this.cliente.Telefono = response.Objetos[0].Telefono;
@@ -225,6 +227,28 @@ var VerPerfilUsuarioComponent = (function () {
     };
     VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioSolicitudError = function (responseError) {
         utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPerfilUsuarioComponent.prototype.obetenerPromedioClienteOferta = function () {
+        var _this = this;
+        this.dataService.getObetenerPromedioClienteOferta(this.idUsuario)
+            .subscribe(function (res) { return _this.getObetenerPromedioClienteOfertaOk(res); }, function (error) { return _this.getObetenerPromedioClienteOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obetenerPromedioClienteOferta: Completado"); });
+    };
+    VerPerfilUsuarioComponent.prototype.getObetenerPromedioClienteOfertaOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
+        if (response.Codigo == 200) {
+            this.promedioCliente = response.Objetos[0];
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPerfilUsuarioComponent.prototype.getObetenerPromedioClienteOfertaError = function (responseError) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

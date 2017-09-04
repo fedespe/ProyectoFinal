@@ -27,6 +27,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
     responderSolicitud:boolean=false;
     responderOferta:boolean=false;
     comentarioPuntuacion: ComentarioPuntuacion= new ComentarioPuntuacion();
+    promedioCliente:number;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         
@@ -43,7 +44,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         this.idUsuario=parseInt(localStorage.getItem('id-usuario'));
         this.getObternerCliente(); 
         this.obtenerServicios(); 
-        
+        this.obetenerPromedioClienteOferta();
     }
 
     borrarMensajes(){
@@ -63,6 +64,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
     getObternerClienteOk(response:any){
         Utilidades.log("[ver-perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
         if(response.Codigo ==  200){
+            this.cliente.NombreUsuario = response.Objetos[0].NombreUsuario;
             this.cliente.Nombre = response.Objetos[0].Nombre;
             this.cliente.Apellido = response.Objetos[0].Apellido;
             this.cliente.Telefono = response.Objetos[0].Telefono;
@@ -267,4 +269,35 @@ export class VerPerfilUsuarioComponent implements OnInit{
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
+
+    obetenerPromedioClienteOferta(){
+         this.dataService.getObetenerPromedioClienteOferta(this.idUsuario)
+            .subscribe(
+            res => this.getObetenerPromedioClienteOfertaOk(res),
+            error => this.getObetenerPromedioClienteOfertaError(error),
+            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obetenerPromedioClienteOferta: Completado")
+        );
+    }
+
+    getObetenerPromedioClienteOfertaOk(response:any){
+        
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
+        if(response.Codigo ==  200){
+           this.promedioCliente=response.Objetos[0];
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObetenerPromedioClienteOfertaError(responseError:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+
+
 }

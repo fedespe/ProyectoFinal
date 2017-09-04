@@ -59,6 +59,46 @@ namespace DAL
             }
         }
 
+        public double obtenerPromedioPuntajeClienteOfertas(int idCliente)
+        {
+            //Oferta
+            double promedio = 0;
+
+            string cadenaSelectComentario = @"
+                SELECT
+                    AVG(CP.Puntuacion) 
+                FROM
+                    COMENTARIOPUNTUACION CP,
+                    PUBLICACION P 
+                WHERE
+                    P.ClienteId = @idCliente AND
+                    CP.PublicacionId = P.Id AND
+                    P.Tipo = 'OFERTA'
+                ;";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectComentario, con))
+                    {
+                        cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                        var q = cmd.ExecuteScalar();
+                        if (q != DBNull.Value)
+                        {
+                            promedio = Convert.ToDouble(cmd.ExecuteScalar());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return promedio;
+        }
+
         public void altaRespuestaComentario(ComentarioPuntuacion comentarioPuntuacion)
         {
             string cadenaUpdateRespuesta = @"UPDATE COMENTARIOPUNTUACION SET Respuesta=@respuesta WHERE Id=@idComentario;";
@@ -214,6 +254,7 @@ namespace DAL
             return contactos;
         }
 
+        //VER QUE EL PUNTAJE DEL CLIENTE POR SERVICIO ES SOLO CALCULADO EN BASE A LAS OFERTAS
         public double obtenerPromedioPuntajeClienteServicio(int idCliente, int idServicio)
         {
             //Oferta
