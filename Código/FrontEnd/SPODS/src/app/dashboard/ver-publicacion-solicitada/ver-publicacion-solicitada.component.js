@@ -21,6 +21,7 @@ var settings_1 = require("../../shared/settings");
 var contacto_1 = require("../../shared/contacto");
 var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
 var presupuesto_1 = require("../../shared/presupuesto");
+var cliente_1 = require("../../shared/cliente");
 var VerPublicacionSolicitadaComponent = (function () {
     function VerPublicacionSolicitadaComponent(dataService, router, route) {
         this.dataService = dataService;
@@ -37,6 +38,10 @@ var VerPublicacionSolicitadaComponent = (function () {
         this.postulacion = false;
         this.presupuestos = [];
         this.mostrarPropuestas = true;
+        this.cliente = new cliente_1.Cliente();
+        this.clienteInfoModal = new cliente_1.Cliente();
+        this.promedioClienteInfoModal = 0;
+        this.sinImagenes = false;
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
     }
     VerPublicacionSolicitadaComponent.prototype.ngOnInit = function () {
@@ -160,6 +165,9 @@ var VerPublicacionSolicitadaComponent = (function () {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicacion = response.Objetos[0];
+            if (this.publicacion.Imagenes == null || this.publicacion.Imagenes.length == 0) {
+                this.sinImagenes = true;
+            }
             this.obtenerContactoPendiente();
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
@@ -243,6 +251,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteOk | response: " + JSON.stringify(response.Objetos[0]));
         if (response.Codigo == 200) {
             this.publicacion.Cliente = response.Objetos[0];
+            this.cliente = response.Objetos[0];
         }
         else {
             var error = new error_1.Error();
@@ -440,6 +449,56 @@ var VerPublicacionSolicitadaComponent = (function () {
     };
     VerPublicacionSolicitadaComponent.prototype.putAceptarPresupuestoError = function (responseError) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPublicacionSolicitadaComponent.prototype.verDatosUsuario = function (input) {
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - verDatosUsuario | responseError: " + JSON.stringify(input));
+        this.obtenerClienteInfoModal(parseInt(input));
+    };
+    VerPublicacionSolicitadaComponent.prototype.obtenerClienteInfoModal = function (id) {
+        var _this = this;
+        this.dataService.getObtenerCliente(id)
+            .subscribe(function (res) { return _this.getObtenerClienteInfoModalOk(res); }, function (error) { return _this.getObtenerClienteInfoModalError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteInfoModal: Completado"); });
+    };
+    VerPublicacionSolicitadaComponent.prototype.getObtenerClienteInfoModalOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteInfoModalOk | response: " + JSON.stringify(response.Objetos[0]));
+        if (response.Codigo == 200) {
+            this.clienteInfoModal = response.Objetos[0];
+            this.obetenerPromedioClienteOferta(this.clienteInfoModal.Id);
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPublicacionSolicitadaComponent.prototype.getObtenerClienteInfoModalError = function (responseError) {
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteInfoModalError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    };
+    VerPublicacionSolicitadaComponent.prototype.obetenerPromedioClienteOferta = function (id) {
+        var _this = this;
+        this.dataService.getObetenerPromedioClienteOferta(id)
+            .subscribe(function (res) { return _this.getObetenerPromedioClienteOfertaOk(res); }, function (error) { return _this.getObetenerPromedioClienteOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obetenerPromedioClienteOferta: Completado"); });
+    };
+    VerPublicacionSolicitadaComponent.prototype.getObetenerPromedioClienteOfertaOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
+        if (response.Codigo == 200) {
+            this.promedioClienteInfoModal = response.Objetos[0];
+            document.getElementById('btnModal').click();
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    };
+    VerPublicacionSolicitadaComponent.prototype.getObetenerPromedioClienteOfertaError = function (responseError) {
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Settings } from "../../shared/settings"; 
 import { Contacto } from "../../shared/contacto"; 
 import { ComentarioPuntuacion } from "../../shared/comentarioPuntuacion"; 
+import { Cliente } from "../../shared/cliente";
 declare var $:JQueryStatic;
 
 @Component({
@@ -37,6 +38,9 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     promedioCliente:number;
     idUsuario:number;
     responder:boolean=false;
+
+    cliente:Cliente=new Cliente();
+    sinImagenes:boolean=false;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -70,14 +74,17 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
             .subscribe(
             res => this.getPublicacionOk(res),
             error => this.getPublicacionError(error),
-            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerServicios: Completado")
+            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerPublicacion: Completado")
         );
     }
 
     getPublicacionOk(response:any){
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getPublicacionOk | response: " + JSON.stringify(response));       
         if(response.Codigo ==  200){
-            this.publicacion = response.Objetos[0];   
+            this.publicacion = response.Objetos[0];  
+            if(this.publicacion.Imagenes==null || this.publicacion.Imagenes.length==0) {
+                this.sinImagenes=true;
+            } 
             this.obtenerContactoPendiente();       
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
@@ -190,6 +197,8 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerClienteOk | response: " + JSON.stringify(response.Objetos[0]));
         if(response.Codigo ==  200){
             this.publicacion.Cliente = response.Objetos[0];
+            this.cliente= response.Objetos[0];
+            
         }
         else{
             var error = new Error();

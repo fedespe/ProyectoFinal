@@ -13,7 +13,7 @@ namespace DAL
         public Cliente obtener(int id)
         {
             Cliente cli = null;
-            string cadenaSelectUsuario= "SELECT * FROM Usuario WHERE Tipo='CLIENTE' AND Id = @id";
+            string cadenaSelectUsuario= "SELECT b.Nombre as NombreBarrio, d.Nombre as NombreDepto, * FROM Usuario u, Barrio b, Departamento d WHERE u.BarrioId=b.Id AND b.DepartamentoId=d.Id AND u.Tipo='CLIENTE' AND u.Id = @id";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))
@@ -40,7 +40,11 @@ namespace DAL
                                     Telefono = dr["Telefono"].ToString(),
                                     Direccion = dr["Direccion"].ToString(),
                                     FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
-                                    Barrio= new Barrio { Id= Convert.ToInt32(dr["BarrioId"])},
+                                    Barrio= new Barrio {
+                                        Id = Convert.ToInt32(dr["BarrioId"]),
+                                        Nombre= dr["NombreBarrio"].ToString(),
+                                        Departamento=new Departamento { Nombre= dr["NombreDepto"].ToString() }
+                                    },
                                     Tipo = dr["Tipo"].ToString(),
                                     Imagen= dr["Imagen"].ToString()
                                 };

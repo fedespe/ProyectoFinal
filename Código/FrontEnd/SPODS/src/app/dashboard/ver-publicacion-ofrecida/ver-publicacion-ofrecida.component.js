@@ -20,6 +20,7 @@ var router_2 = require("@angular/router");
 var settings_1 = require("../../shared/settings");
 var contacto_1 = require("../../shared/contacto");
 var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
+var cliente_1 = require("../../shared/cliente");
 var VerPublicacionOfrecidaComponent = (function () {
     function VerPublicacionOfrecidaComponent(dataService, router, route) {
         this.dataService = dataService;
@@ -33,6 +34,8 @@ var VerPublicacionOfrecidaComponent = (function () {
         this.puntaje = 0;
         this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
         this.responder = false;
+        this.cliente = new cliente_1.Cliente();
+        this.sinImagenes = false;
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
     }
     VerPublicacionOfrecidaComponent.prototype.ngOnInit = function () {
@@ -59,12 +62,15 @@ var VerPublicacionOfrecidaComponent = (function () {
         var _this = this;
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
         this.dataService.getPublicacion(this.idPublicacion)
-            .subscribe(function (res) { return _this.getPublicacionOk(res); }, function (error) { return _this.getPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerServicios: Completado"); });
+            .subscribe(function (res) { return _this.getPublicacionOk(res); }, function (error) { return _this.getPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerPublicacion: Completado"); });
     };
     VerPublicacionOfrecidaComponent.prototype.getPublicacionOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getPublicacionOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicacion = response.Objetos[0];
+            if (this.publicacion.Imagenes == null || this.publicacion.Imagenes.length == 0) {
+                this.sinImagenes = true;
+            }
             this.obtenerContactoPendiente();
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
@@ -152,6 +158,7 @@ var VerPublicacionOfrecidaComponent = (function () {
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obtenerClienteOk | response: " + JSON.stringify(response.Objetos[0]));
         if (response.Codigo == 200) {
             this.publicacion.Cliente = response.Objetos[0];
+            this.cliente = response.Objetos[0];
         }
         else {
             var error = new error_1.Error();

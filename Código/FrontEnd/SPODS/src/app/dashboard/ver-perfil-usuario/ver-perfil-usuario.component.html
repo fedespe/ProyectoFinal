@@ -8,14 +8,25 @@
         <div *ngIf="!loading && cliente">
             <h1>Perfil de Usuario</h1>
             <h2>{{cliente.NombreUsuario}}</h2>
-
-            <label for="inputNombre">Nombre: {{cliente.Nombre}}</label>
+            <div class="media"  style="margin-bottom: 20px">
+                <img class="d-flex mr-3" src="{{baseURL}}/Imagenes/Clientes/{{cliente.Imagen}}" alt="{{cliente.Imagen}}" height="100" width="100">
+                <div class="media-body">
+                    <div style="margin-bottom: 20px">
+                        <label for="inputNombre">Nombre: {{cliente.Nombre}}</label>
+                        <br>
+                        <label for="inputApellido">Apellido: {{cliente.Apellido}}</label>                
+                        <br>
+                        <label for="inputTelefono">Teléfono: {{cliente.Telefono}}</label>
+                         
+                    </div>
+                </div>
+            </div>
+            <label for="inputDireccion">Dirección: {{cliente.Direccion}}</label>  
             <br>
-            <label for="inputApellido">Apellido: {{cliente.Apellido}}</label>                
+            <label for="inputBarrio">Barrio: {{cliente.Barrio.Nombre}}</label>  
             <br>
-            <label for="inputTelefono">Teléfono: {{cliente.Telefono}}</label>
-            <br>
-            <label for="inputDireccion">Dirección: {{cliente.Direccion}}</label>    
+            <label for="inputDepto">Departamento: {{cliente.Barrio.Departamento.Nombre}}</label>  
+            
             <div>
                 <div *ngIf="promedioCliente==0">
                     Puntaje: <span class="promedio">({{promedioCliente}})</span>
@@ -35,7 +46,9 @@
                 <div *ngIf="promedioCliente==5">
                     Puntaje: <span class="promedio">★★★★★({{promedioCliente}})</span>
                 </div>
-            </div>          
+            </div>    
+
+                 
         </div>
 
         <div class="container">

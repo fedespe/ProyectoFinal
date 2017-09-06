@@ -13,6 +13,7 @@ import { Settings } from "../../shared/settings";
 import { Contacto } from "../../shared/contacto"; 
 import { ComentarioPuntuacion } from "../../shared/comentarioPuntuacion"; 
 import { Presupuesto } from "../../shared/presupuesto"; 
+import { Cliente } from "../../shared/cliente"; 
 
 @Component({
     selector: 'ver-publicacion-solicitada',
@@ -40,6 +41,11 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     presupuesto:Presupuesto;
     presupuestos:Presupuesto[]=[];
     mostrarPropuestas=true;
+
+    cliente:Cliente=new Cliente();
+    clienteInfoModal:Cliente=new Cliente();
+    promedioClienteInfoModal:number=0;
+    sinImagenes:boolean=false;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -183,7 +189,10 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     getPublicacionOk(response:any){
         Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
         if(response.Codigo ==  200){
-            this.publicacion = response.Objetos[0]; 
+            this.publicacion = response.Objetos[0];
+            if(this.publicacion.Imagenes==null || this.publicacion.Imagenes.length==0) {
+                this.sinImagenes=true;
+            }
             this.obtenerContactoPendiente();         
             this.obtenerServicio(this.publicacion.Servicio.Id);
             this.obtenerCliente(this.publicacion.Cliente.Id);
@@ -290,6 +299,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
         Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteOk | response: " + JSON.stringify(response.Objetos[0]));
         if(response.Codigo ==  200){
             this.publicacion.Cliente = response.Objetos[0];
+            this.cliente= response.Objetos[0];
         }
         else{
             var error = new Error();
@@ -536,4 +546,67 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
         this.mensajes.Errores.push(error);
     }
 
+    verDatosUsuario(input:any){
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - verDatosUsuario | responseError: " + JSON.stringify(input));
+        this.obtenerClienteInfoModal(parseInt(input));
+    }
+
+    obtenerClienteInfoModal(id:number){
+        this.dataService.getObtenerCliente(id)
+            .subscribe(
+            res => this.getObtenerClienteInfoModalOk(res),
+            error => this.getObtenerClienteInfoModalError(error),
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteInfoModal: Completado")
+        );
+    }
+
+    getObtenerClienteInfoModalOk(response:any){
+        
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteInfoModalOk | response: " + JSON.stringify(response.Objetos[0]));
+        if(response.Codigo ==  200){          
+            this.clienteInfoModal= response.Objetos[0];
+            this.obetenerPromedioClienteOferta(this.clienteInfoModal.Id);        
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObtenerClienteInfoModalError(responseError:any){
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteInfoModalError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+    obetenerPromedioClienteOferta(id:number){
+         this.dataService.getObetenerPromedioClienteOferta(id)
+            .subscribe(
+            res => this.getObetenerPromedioClienteOfertaOk(res),
+            error => this.getObetenerPromedioClienteOfertaError(error),
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - obetenerPromedioClienteOferta: Completado")
+        );
+    }
+
+    getObetenerPromedioClienteOfertaOk(response:any){
+        
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
+        if(response.Codigo ==  200){
+           this.promedioClienteInfoModal=response.Objetos[0];
+           document.getElementById('btnModal').click();
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajes.Errores.push(error);
+        }
+    }
+
+    getObetenerPromedioClienteOfertaError(responseError:any){
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
 }

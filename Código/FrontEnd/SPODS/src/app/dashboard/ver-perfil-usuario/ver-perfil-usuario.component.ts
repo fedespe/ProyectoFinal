@@ -9,6 +9,7 @@ import { Cliente } from '../../shared/cliente';
 import { Barrio } from '../../shared/barrio';
 import { ComentarioPuntuacion } from '../../shared/comentarioPuntuacion';
 import { Servicio } from '../../shared/servicio';
+import { Settings } from '../../shared/settings';
 
 @Component({
     selector: 'ver-perfil-usuario',
@@ -28,6 +29,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
     responderOferta:boolean=false;
     comentarioPuntuacion: ComentarioPuntuacion= new ComentarioPuntuacion();
     promedioCliente:number;
+    baseURL:string=Settings.srcImg;
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
         
@@ -70,6 +72,9 @@ export class VerPerfilUsuarioComponent implements OnInit{
             this.cliente.Telefono = response.Objetos[0].Telefono;
             this.cliente.Direccion = response.Objetos[0].Direccion;
             this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
+            this.cliente.Barrio.Nombre = response.Objetos[0].Barrio.Nombre;
+            this.cliente.Barrio.Departamento.Nombre = response.Objetos[0].Barrio.Departamento.Nombre;
+            this.cliente.Imagen=response.Objetos[0].Imagen;
         }
         else{
             var error = new Error();

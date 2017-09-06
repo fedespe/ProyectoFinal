@@ -17,6 +17,7 @@ var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
 var cliente_1 = require("../../shared/cliente");
 var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
+var settings_1 = require("../../shared/settings");
 var VerPerfilUsuarioComponent = (function () {
     function VerPerfilUsuarioComponent(dataService, router, route) {
         this.dataService = dataService;
@@ -31,6 +32,7 @@ var VerPerfilUsuarioComponent = (function () {
         this.responderSolicitud = false;
         this.responderOferta = false;
         this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
+        this.baseURL = settings_1.Settings.srcImg;
     }
     VerPerfilUsuarioComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -64,6 +66,9 @@ var VerPerfilUsuarioComponent = (function () {
             this.cliente.Telefono = response.Objetos[0].Telefono;
             this.cliente.Direccion = response.Objetos[0].Direccion;
             this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
+            this.cliente.Barrio.Nombre = response.Objetos[0].Barrio.Nombre;
+            this.cliente.Barrio.Departamento.Nombre = response.Objetos[0].Barrio.Departamento.Nombre;
+            this.cliente.Imagen = response.Objetos[0].Imagen;
         }
         else {
             var error = new error_1.Error();
