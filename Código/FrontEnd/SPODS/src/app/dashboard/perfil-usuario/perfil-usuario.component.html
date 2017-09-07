@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <h1 class="col-12 text-center">Datos Personales</h1>
 
-        <div *ngIf="cliente" class="col-md-6 col-lg-5 col-xl-4">      
+        <div *ngIf="cliente" class="col-md-6 col-lg-8 col-xl-6">      
             <!--<div style="margin-bottom: 20px">
                 <a routerLink="/dashboard/ver-perfil-usuario/{{cliente.Id}}"><i class="fa fa-eye" aria-hidden="true"></i> Ver mi perfil</a>
             </div>-->
@@ -56,6 +56,9 @@
                 </div>
             </div>  
             <div [hidden]="!editarImagen">
+                <div class="alert alert-info">
+                    <strong>Selección de imagen.</strong> La carga de selección de la imagen puede demorar unos segundos.
+                </div>
                 <form id="moodleform" target="iframe" method="get" action="{{urlImagen}}">
                 <!--NO SE POR QUE EN LA CONTRASE;A ANDA BIEN ANGULAR PERO EN EL IDCLIENTE NO... LO SETEE A MANO DESDE TYPESCRIPT-->
                 <!--VER QUE NO SE CONTROLA EL CLIENTE -->

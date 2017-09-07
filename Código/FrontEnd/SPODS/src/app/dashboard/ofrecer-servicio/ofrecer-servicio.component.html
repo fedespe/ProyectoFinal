@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <h1 class="col-12 text-center">Ofrecer Servicio</h1>
 
-        <div class="col-md-6 col-lg-5 col-xl-4">
+        <div class="col-md-6 col-lg-8 col-xl-6">
             <h2>{{publicacion.Cliente.NombreUsuario}}</h2>
 
             <div [hidden]="step != 1">
@@ -59,6 +59,9 @@
                         <div class="progress-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%"></div>
                     </div>
                 </div>  
+                <div class="alert alert-info">
+                    <strong>Las respuestas no son obligatorias.</strong> Las preguntas no contestadas no se tomaran en cuenta en la publicación.
+                </div>
 
                 <div *ngIf="servicioSeleccionado.Preguntas.length > 0">
                     <div *ngFor="let pregunta of servicioSeleccionado.Preguntas;">           
@@ -90,13 +93,18 @@
                         <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                     </div>
                 </div>
+                <div class="alert alert-info">
+                    <strong>Selección de imágenes.</strong> La carga de selección de imágenes puede demorar unos segundos.
+                </div>
                 <!--<button class="btn btn-lg btn-primary " id="btnFrame" onclick="document.getElementById('moodleform').submit();">Prueba</button>-->
                 <form id="moodleform" target="iframe" method="get" action="{{urlImagen}}">
                     <input type="hidden" name="idPublicacion" id="inputIdPublicacion"/>
                     <input type="hidden" name="idCliente" value="3"/>
                     <input type="hidden" name="contrasena" value="123456789"/>
                 </form>
+                
                 <iframe name="iframe" width=100% height=600 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
+                
                 <button class="btn btn-lg btn-primary btn-block" (click)="ofrecerServicioPaso3()">Finalizar</button>
             </div>
         </div>

@@ -16,6 +16,7 @@ import { Cliente } from '../../shared/cliente';
 export class InicioSesionComponent{
     mensajes : Mensaje = new Mensaje();
     cliente : Cliente = new Cliente();
+    loading : boolean = false;
 
     constructor(private dataService: DataService, private router: Router) {
     }
@@ -76,6 +77,7 @@ export class InicioSesionComponent{
     ingresarCliente() {
         this.borrarMensajes();
         Utilidades.log("[inicio-sesion.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        this.loading = true;
 
         if(this.mensajes.Errores.length == 0){
             this.dataService.postAccessToken(this.cliente.NombreUsuario, this.cliente.Contrasena)
@@ -110,6 +112,7 @@ export class InicioSesionComponent{
     }
 
     postAccessTokenError(responseError:any){
+        this.loading=false;
         Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
@@ -136,6 +139,7 @@ export class InicioSesionComponent{
     }
 
     getObtenerClienteLogueadoError(responseError:any){
+        this.loading=false;
         Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";

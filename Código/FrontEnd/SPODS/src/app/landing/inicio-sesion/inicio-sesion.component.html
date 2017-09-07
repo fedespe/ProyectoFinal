@@ -3,14 +3,18 @@
     <div class="col-md-6 col-lg-4">
         <h1>Iniciar sesión</h1>
 
-        <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
-        <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
+        <div *ngIf="loading" class="row justify-content-center">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+        <div *ngIf="!loading">
+            <label for="inputNombreUsuario" class="sr-only">Nombre de Usuario</label>
+            <input type="text" class="form-control" [(ngModel)]="cliente.NombreUsuario" id="inputNombreUsuario" name="NombreUsuario" placeholder="Nombre de Usuario">
 
-        <label for="inputContrasena" class="sr-only">Contraseña</label>
-        <input type="password" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
+            <label for="inputContrasena" class="sr-only">Contraseña</label>
+            <input type="password" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
 
-        <button class="btn btn-lg btn-primary btn-block" (click)="ingresarCliente()">Iniciar Sesión</button>
-
+            <button class="btn btn-lg btn-primary btn-block" (click)="ingresarCliente()">Iniciar Sesión</button>
+        </div>
         <label class="btn-block">
             <a href="javascript:void(0)" (click)="navegarRegistroCliente()"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a>
         </label>

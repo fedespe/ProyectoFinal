@@ -22,6 +22,7 @@ var InicioSesionComponent = (function () {
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
         this.cliente = new cliente_1.Cliente();
+        this.loading = false;
     }
     InicioSesionComponent.prototype.navegarRegistroCliente = function () {
         this.router.navigateByUrl('/registro-cliente');
@@ -78,6 +79,7 @@ var InicioSesionComponent = (function () {
         var _this = this;
         this.borrarMensajes();
         utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        this.loading = true;
         if (this.mensajes.Errores.length == 0) {
             this.dataService.postAccessToken(this.cliente.NombreUsuario, this.cliente.Contrasena)
                 .subscribe(function (res) { return _this.postAccessTokenOk(res); }, function (error) { return _this.postAccessTokenError(error); }, function () { return utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessToken: Completado"); });
@@ -101,6 +103,7 @@ var InicioSesionComponent = (function () {
         }*/
     };
     InicioSesionComponent.prototype.postAccessTokenError = function (responseError) {
+        this.loading = false;
         utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
@@ -124,6 +127,7 @@ var InicioSesionComponent = (function () {
         }
     };
     InicioSesionComponent.prototype.getObtenerClienteLogueadoError = function (responseError) {
+        this.loading = false;
         utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
