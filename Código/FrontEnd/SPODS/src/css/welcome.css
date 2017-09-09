@@ -2,6 +2,7 @@
   padding-top:45px;
 }
 
+/*COMIENZA EFECTO PARALAX*/
 body, html {
   height: 100%;
   margin: 0;
@@ -57,12 +58,13 @@ h3 {
   color: #111;
 }
 
+/*QUITA EL EFECTO PARA QUE SEA COMPATIBLE EN TODOS LOS DISPOSITIVOS*/
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-device-width: 1024px) {
     .bgimg-1, .bgimg-2, .bgimg-3 {
         background-attachment: scroll;
     }
 }
-
+/*FIN EFECTO PARALAX*/
 
 
