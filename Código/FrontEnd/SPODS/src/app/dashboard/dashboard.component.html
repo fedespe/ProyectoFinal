@@ -14,14 +14,25 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/dashboard/listado-solicitudes">Solicitudes</a>
             </li>
+
+            <li class="nav-item dropdown  hidden-lg-up">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Acciones
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" routerLink="/dashboard/ofrecer-servicio">Ofrecer Servicio</a>
+                    <a class="dropdown-item" routerLink="/dashboard/solicitar-servicio">Solicitar Servicio</a>                   
+                    <a class="dropdown-item" routerLink="/dashboard/listado-servicios-cliente">Mis Servicios</a>
+                    <a class="dropdown-item" routerLink="/dashboard/listado-solicitudes-cliente">Mis Solicitudes</a>
+                    <a class="dropdown-item" routerLink="/dashboard/listado-publicaciones-contratadas">Servicio contratados</a>
+                </div>
+            </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{nombreUsuario}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" routerLink="/dashboard/listado-publicaciones-contratadas">Servicio contratados</a>
-                    <!--<a class="dropdown-item" routerLink="/dashboard/listado-servicios-cliente">Mis servicios</a>
-                    <a class="dropdown-item" routerLink="/dashboard/listado-solicitudes-cliente">Mis solicitudes</a>-->
                     <a class="dropdown-item" routerLink="/dashboard/ver-perfil-usuario/{{idUsuario}}">Mi perfil</a>                   
                     <a class="dropdown-item" routerLink="/dashboard/perfil-usuario">Mi cuenta</a>
                     <a class="dropdown-item" (click)="cerrarSesion()">Salir</a>
@@ -33,7 +44,7 @@
 
 <div class="container-fluid">
     <div class="row">
-    <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <nav class="col-sm-3 col-md-2 hidden-xs-down hidden-sm-down hidden-md-down bg-faded sidebar">
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
                 <!--<a class="nav-link active" routerLink="/dashboard">Ofrecer Servicio<span class="sr-only">(current)</span></a>-->
@@ -50,10 +61,20 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/dashboard/listado-solicitudes-cliente">Mis Solicitudes</a>
-            </li>           
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/dashboard/listado-publicaciones-contratadas">Servicio contratados</a>
+            </li>          
         </ul>
         
     </nav>
+
+    <!--<nav class="nav hidden-sm-down">
+        <a class="nav-link" routerLink="/dashboard/solicitar-servicio">Solicitar Servicio</a>
+        <a class="nav-link" routerLink="/dashboard/solicitar-servicio">Solicitar Servicio</a>
+        <a class="nav-link" routerLink="/dashboard/listado-servicios-cliente">Mis Servicios</a>
+        <a class="nav-link" routerLink="/dashboard/listado-solicitudes-cliente">Mis Solicitudes</a>
+    </nav>-->
 
     <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
         <div>
