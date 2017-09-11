@@ -93,6 +93,7 @@ namespace WebAPI.Controllers
             {
                 retorno.Codigo = 1;
                 retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }
@@ -111,6 +112,7 @@ namespace WebAPI.Controllers
             {
                 retorno.Codigo = 1;
                 retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }
@@ -130,6 +132,7 @@ namespace WebAPI.Controllers
             {
                 retorno.Codigo = 1;
                 retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }
@@ -150,6 +153,7 @@ namespace WebAPI.Controllers
             {
                 retorno.Codigo = 1;
                 retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }
@@ -170,6 +174,7 @@ namespace WebAPI.Controllers
             {
                 retorno.Codigo = 1;
                 retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }
@@ -189,61 +194,27 @@ namespace WebAPI.Controllers
             {
                 retorno.Codigo = 1;
                 retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }
 
         [AllowAnonymous]
         [HttpPut, Route("api/Cliente/recuperarPassword")]
-        public Retorno sendEmail()
+        public Retorno recuperarPassword([FromBody]string email)
         {
-            //Corroborar que exista un usuario con el el mismo correo que manda por el servicio
-            //Generar contraseña
-            //Cambiar contraseña
-            //Leer contraseña de la base
-            //Enviar por correo la nueva contraseña
-
-            //Prueba de cómo se manda el correo
-
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-            //A quién/es se manda
-            mail.To.Add("brunoediaz18@gmail.com");
-            mail.To.Add("fsperonip@gmail.com");
-            //De quién se manda y cabezal
-            mail.From = new MailAddress("bdiaz@bigcheese.com.uy", "SPODS - Recuperación de Contraseña", System.Text.Encoding.UTF8);
-            //Asunto
-            mail.Subject = "SPODS - Su nueva contraseña.";
-            mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            //Cuerpo del correo
-            mail.Body = "Correo automático enviado desde la aplicación! Con esto resolvemos de una forma re prolija el tema del reseteo de contraseñas!!!";
-            mail.BodyEncoding = System.Text.Encoding.UTF8;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
-            SmtpClient client = new SmtpClient();
-            //Usuario y password de la cuenta que se utiliza para enviar el correo
-            client.Credentials = new System.Net.NetworkCredential("bdiaz@bigcheese.com.uy", "Bruno45941722d");
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
-            client.EnableSsl = true;
             try
             {
-                client.Send(mail);
+                this.clienteBL.recuperarPassword(email);
                 retorno.Codigo = 200;
-                retorno.Mensaje = "Correo enviado con éxito.";
-                //Page.RegisterStartupScript("UserMsg", "<script>alert('Successfully Send...');if(alert){ window.location='SendMail.aspx';}</script>");
+                retorno.Mensaje = string.Empty;
+                retorno.Objetos = null;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                Exception ex2 = ex;
-                string errorMessage = string.Empty;
-                while (ex2 != null)
-                {
-                    errorMessage += ex2.ToString();
-                    ex2 = ex2.InnerException;
-                }
                 retorno.Codigo = 1;
-                retorno.Mensaje = "Correo no enviado.";
-                //Page.RegisterStartupScript("UserMsg", "<script>alert('Sending Failed...');if(alert){ window.location='SendMail.aspx';}</script>");
+                retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }
@@ -270,6 +241,7 @@ namespace WebAPI.Controllers
             {
                 retorno.Codigo = 1;
                 retorno.Mensaje = ex.Message;
+                retorno.Objetos = null;
             }
             return retorno;
         }*/

@@ -1,11 +1,11 @@
 USE MASTER;
 
-CREATE DATABASE SPODS;
+/*CREATE DATABASE SPODS;
 GO
-
+*/
 USE SPODS;
 GO
-/*
+
 DROP TABLE dbo.PRESUPUESTO;
 DROP TABLE dbo.PROVEE;
 DROP TABLE dbo.DENUNCIA;
@@ -24,7 +24,7 @@ DROP TABLE dbo.CLIENTE;
 DROP TABLE dbo.USUARIO;
 DROP TABLE dbo.BARRIO;
 DROP TABLE dbo.DEPARTAMENTO;
-*/
+
 
 CREATE TABLE dbo.DEPARTAMENTO
 (
@@ -73,7 +73,7 @@ CREATE TABLE dbo.USUARIO
 	CONSTRAINT UK_Email_USUARIO UNIQUE(Email),
 	--CONSTRAINT UK_Token_USUARIO UNIQUE(Token), --Hay que agregar esta restricción de alguna otra manera
 	CONSTRAINT FK_BarrioId_USUARIO FOREIGN KEY (BarrioId) REFERENCES dbo.BARRIO (Id),
-	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_USUARIO CHECK (FechaAlta <= GetDate()),  --Ver: Ojo con la hora!!! SOLUCIONADO LA HORA
+	--CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_USUARIO CHECK (FechaAlta <= GetDate()),  --Ver: Ojo con la hora!!! SOLUCIONADO LA HORA
 	CONSTRAINT CK_COL_Tipo_InValores_TAB_USUARIO CHECK (Tipo in('CLIENTE', 'ADMINISTRADOR', 'SUPERADMINISTRADOR'))
 );
 GO
@@ -116,7 +116,7 @@ CREATE TABLE dbo.SERVICIO
 	CONSTRAINT PK_SERVICIO PRIMARY KEY(Id),
 	CONSTRAINT UK_Nombre_SERVICIO UNIQUE(Nombre),
 	--CONSTRAINT UK_Imagen_SERVICIO UNIQUE(Imagen),
-	CONSTRAINT CK_COL_FechaCreacion_MenorIgual_Hoy_TAB_SERVICIO CHECK (FechaCreacion <= GetDate()),  --Ver: Ojo con la hora!!!
+	--CONSTRAINT CK_COL_FechaCreacion_MenorIgual_Hoy_TAB_SERVICIO CHECK (FechaCreacion <= GetDate()),  --Ver: Ojo con la hora!!!
 );
 GO
 
@@ -137,7 +137,7 @@ CREATE TABLE dbo.PUBLICACION
 	CONSTRAINT PK_PUBLICACION PRIMARY KEY(Id),
 	CONSTRAINT FK_ServicioId_PUBLICACION FOREIGN KEY (ServicioId) REFERENCES dbo.SERVICIO (Id),
 	CONSTRAINT FK_ClienteId_PUBLICACION FOREIGN KEY (ClienteId) REFERENCES dbo.CLIENTE (UsuarioId),
-	CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_PUBLICACION CHECK (FechaAlta <= GetDate()), --Ver: Ojo con la hora!!!
+	--CONSTRAINT CK_COL_FechaAlta_MenorIgual_Hoy_TAB_PUBLICACION CHECK (FechaAlta <= GetDate()), --Ver: Ojo con la hora!!!
 	CONSTRAINT CK_COL_FechaVencimiento_Mayor_FechaAlta_TAB_PUBLICACION CHECK (FechaVencimiento > FechaAlta),
 	CONSTRAINT CK_COL_Tipo_InValores_TAB_PUBLICACION CHECK (Tipo in('OFERTA', 'SOLICITUD'))
 );
@@ -247,8 +247,8 @@ CREATE TABLE dbo.DENUNCIA
 	CONSTRAINT FK_ClienteId_DENUNCIA FOREIGN KEY (ClienteId) REFERENCES dbo.CLIENTE (UsuarioId),
 	CONSTRAINT FK_ClienteDenunciadoId_DENUNCIA FOREIGN KEY (ClienteDenunciadoId) REFERENCES dbo.CLIENTE (UsuarioId),
 	CONSTRAINT FK_PublicacionDenuinciadaId_DENUNCIA FOREIGN KEY (PublicacionDenuinciadaId) REFERENCES dbo.PUBLICACION (Id),
-	CONSTRAINT CK_COL_FechaRealizacion_MenorIgual_Hoy_TAB_DENUNCIA CHECK (FechaRealizacion <= GetDate()), --Ver: Ojo con la hora!!!
-	CONSTRAINT CK_COL_FechaResolucion_Mayor_FechaRealizacion_TAB_DENUNCIA CHECK (FechaResolucion > FechaRealizacion) --Ver: Ojo con el tema de los NULL!!!
+	--CONSTRAINT CK_COL_FechaRealizacion_MenorIgual_Hoy_TAB_DENUNCIA CHECK (FechaRealizacion <= GetDate()), --Ver: Ojo con la hora!!!
+	--CONSTRAINT CK_COL_FechaResolucion_Mayor_FechaRealizacion_TAB_DENUNCIA CHECK (FechaResolucion > FechaRealizacion) --Ver: Ojo con el tema de los NULL!!!
 );
 GO
 
@@ -370,7 +370,8 @@ INSERT INTO dbo.USUARIO VALUES
 /*4 - Admin*/('Admin', 'Admin', 'Admin','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Admin@hotmail.com', '099845498', 'Admin dir', getdate(), 'ADMINISTRADOR', 1, 'ADMIN.jpg', 'TokenAdmin', '1900-01-01'),
 /*5 - Cliente*/('TutorCliente', 'TutorCliente', 'TutorCliente','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'TutorCliente@mailinator.com', '099999999', 'TutorCliente dir', getdate(), 'CLIENTE', 1,'TUTORCLIENTE.jpg', 'TokenTutorCliente', '1900-01-01'),
 /*6 - Cliente*/('Cliente1', 'Cliente1', 'Cliente1','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente1@hotmail.com', '099845498', 'Cliente1 dir', getdate(), 'CLIENTE', 1,'CLIENTE1.jpg', 'TonekCliente1', '1900-01-01'),
-/*7 - Cliente*/('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1, 'CLIENTE2.jpg', 'TokenCliente2', '1900-01-01');
+/*7 - Cliente*/('Cliente2', 'Cliente2', 'Cliente2','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'Cliente2@hotmail.com', '099845498', 'Cliente2 dir', getdate(), 'CLIENTE', 1, 'CLIENTE2.jpg', 'TokenCliente2', '1900-01-01'),
+/*8 - Cliente*/('Bruno', 'Díaz', 'brunoediaz','25f9e794323b453885f5181f1b624d0b', getdate(), 1, 'brunoediaz@hotmail.com', '099552591', 'Luis Moro 4583 Bis', getdate(), 'CLIENTE', 1,'BRUNOEDIAZ.jpg', 'TonekBruno', '1900-01-01');
 
 INSERT INTO dbo.SUPERADMINISTRADOR VALUES
 (1),
@@ -383,7 +384,8 @@ INSERT INTO dbo.ADMINISTRADOR VALUES
 INSERT INTO dbo.CLIENTE Values
 (5),
 (6),
-(7);
+(7),
+(8);
 
 INSERT INTO dbo.CATEGORIAPREGUNTA VALUES
 ('Generales'),

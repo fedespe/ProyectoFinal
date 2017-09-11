@@ -67,7 +67,26 @@ namespace BL
         public Cliente ingresarCliente(string nombreUsu, string pass) {
             return clienteDAL.ingresarCliente(nombreUsu, pass);
         }
-
-
+        public Cliente obtener(string email)
+        {
+            return clienteDAL.obtener(email);
+        }
+        public Cliente recuperarPassword(string email)
+        {
+            Cliente cliente = this.obtener(email);
+            if (cliente != null)
+            {
+                string passwordGenerado = Utilidades.generarPassword(10);
+                this.clienteDAL.actualizarContrasena(cliente.Id, passwordGenerado);
+                List<string> destinatariosCorreo = new List<string>();
+                destinatariosCorreo.Add(cliente.CorreoElectronico);
+                string cuerpoCorreo = "Su nueva constraseña es: <strong>" + passwordGenerado + "</strong><br>Sugerimos cambiarla luego de ingresar al sistema.";
+                Utilidades.enviarCorreo(destinatariosCorreo, "SPODS", "Recuperación de Contraseña", cuerpoCorreo);
+            }
+            else {
+                throw new ProyectoException("Error: No existe un usuario con el correo indicado.");
+            }
+            return cliente;
+        }
     }
 }

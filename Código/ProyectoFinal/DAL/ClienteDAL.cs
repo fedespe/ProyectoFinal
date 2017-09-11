@@ -61,6 +61,58 @@ namespace DAL
 
             return cli;
         }
+        public Cliente obtener(string email)
+        {
+            Cliente cli = null;
+            string cadenaSelectUsuario = "SELECT b.Nombre as NombreBarrio, d.Nombre as NombreDepto, * FROM Usuario u, Barrio b, Departamento d WHERE u.BarrioId=b.Id AND b.DepartamentoId=d.Id AND u.Tipo='CLIENTE' AND u.Email = @email";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Utilidades.conn))
+                {
+                    using (SqlCommand cmd = new SqlCommand(cadenaSelectUsuario, con))
+                    {
+                        cmd.Parameters.AddWithValue("@email", email);
+                        con.Open();
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            dr.Read();
+                            if (dr.HasRows)
+                            {
+                                cli = new Cliente
+                                {
+                                    Id = Convert.ToInt32(dr["Id"]),
+                                    Nombre = dr["Nombre"].ToString(),
+                                    Apellido = dr["Apellido"].ToString(),
+                                    NombreUsuario = dr["NombreUsuario"].ToString(),
+                                    Contrasena = dr["Contrasenia"].ToString(),
+                                    UltimaModificacionContrasena = Convert.ToDateTime(dr["UltimaModificacionContrasenia"]),
+                                    Habilitado = Convert.ToBoolean(dr["Habilitado"]),
+                                    CorreoElectronico = dr["Email"].ToString(),
+                                    Telefono = dr["Telefono"].ToString(),
+                                    Direccion = dr["Direccion"].ToString(),
+                                    FechaAlta = Convert.ToDateTime(dr["FechaAlta"]),
+                                    Barrio = new Barrio
+                                    {
+                                        Id = Convert.ToInt32(dr["BarrioId"]),
+                                        Nombre = dr["NombreBarrio"].ToString(),
+                                        Departamento = new Departamento { Nombre = dr["NombreDepto"].ToString() }
+                                    },
+                                    Tipo = dr["Tipo"].ToString(),
+                                    Imagen = dr["Imagen"].ToString()
+                                };
+                            }
+                        }
+                        //Ver que si el cliente tuviera datos en la tabla cliente habria que hacer otra lectura
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ProyectoException("Error: " + ex.Message);
+            }
+
+            return cli;
+        }
         public List<Cliente> obtenerTodos()
         {
             List<Cliente> clientes = new List<Cliente>();
