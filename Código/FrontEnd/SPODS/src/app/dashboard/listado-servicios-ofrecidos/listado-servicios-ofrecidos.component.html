@@ -1,60 +1,31 @@
 <div class="container">
   <div class="row">
-    <h1 class="col-12 text-center">Servicios Ofrecidos</h1>
+    <h1 class="col-12 text-center">Ofertas de Servicios</h1>
     <h2 class="col-12 text-center">{{nombreServicio}}</h2>
 
     <div class="container">
-        <div class="row">
-            <div class="card-group">
-                <div *ngFor="let publicacion of publicaciones;" class="card text-center">
-                    <div class="card-header">
-                        {{publicacion.Titulo}}
+        <div *ngFor="let publicacion of publicaciones;" class="publicacion">
+                <div class="row">
+                    <div class="col-md-2">
+                        <!--<figure class="figure">-->
+                        <a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]">
+                            <img *ngIf="publicacion.Imagenes.length > 0 && publicacion.Imagenes[0] != ''" src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" alt="{{publicacion.Titulo}} - Img. 1" class="img-thumbnail">
+                            <img *ngIf="publicacion.Imagenes.length == 0 || publicacion.Imagenes[0] == ''" src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" alt="{{publicacion.Titulo}} - Sin Imagen" class="img-thumbnail">
+                        </a>
+                            <!--<figcaption class="figure-caption">A caption for the above image.</figcaption>-->
+                        <!--</figure>-->
                     </div>
-                    <div class="card-block text-center">
-                        <img class="card-img-top" src="{{baseURL}}/Imagenes/Clientes/{{publicacion.Cliente.Imagen}}" alt="{{publicacion.Cliente.Imagen}}" style="width: 50%; margin: auto;">
-                        <p class="card-text">{{publicacion.Descripcion}}</p>
-                        <p>Departamento: {{publicacion.Cliente.Barrio.Departamento.Nombre}}</p>
-                        <p>Barrio: {{publicacion.Cliente.Barrio.Nombre}}</p>
-                        <a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]" class="btn btn-primary">Ver Detalles</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Fecha: {{publicacion.FechaAlta}}
+                    <div class="col-md-10">
+                        <a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]">
+                            <h3>{{publicacion.Titulo}}</h3>
+                        </a>
+                        <!--<p>{{publicacion.Descripcion}}</p>-->
+                        <p>{{publicacion.Cliente.Barrio.Departamento.Nombre}}</p>
+                        <small>{{publicacion.FechaAlta | date :  "dd/MM/yyyy"}}</small>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
-    
-
-    <!--<div class="col-10">
-        <div class="d-flex w-100 justify-content-between">
-            <small class="hidden-sm-down"></small>
-        </div>
-        <p class="mb-1">{{publicacion.Descripcion}}</p>
-        <div>
-            <div *ngIf="publicacion.PuntajePromedio==0">
-                Puntaje publicación: <span class="promedio">({{publicacion.PuntajePromedio}})</span>
-            </div>
-            <div *ngIf="publicacion.PuntajePromedio<=1 && publicacion.PuntajePromedio>0">
-                Puntaje publicación: <span class="promedio">★({{publicacion.PuntajePromedio}})</span>
-            </div>
-            <div *ngIf="publicacion.PuntajePromedio<=2 && publicacion.PuntajePromedio>1">
-                Puntaje publicación: <span class="promedio">★★({{publicacion.PuntajePromedio}})</span>
-            </div>
-            <div *ngIf="publicacion.PuntajePromedio<=3 && publicacion.PuntajePromedio>2">
-                Puntaje publicación: <span class="promedio">★★★({{publicacion.PuntajePromedio}})</span>
-            </div>
-            <div *ngIf="publicacion.PuntajePromedio<=4 && publicacion.PuntajePromedio>3">
-                Puntaje publicación: <span class="promedio">★★★★({{publicacion.PuntajePromedio}})</span>
-            </div>
-            <div *ngIf="publicacion.PuntajePromedio==5">
-                Puntaje publicación: <span class="promedio">★★★★★({{publicacion.PuntajePromedio}})</span>
-            </div>   
-            <div>
-                Comentarios: {{publicacion.CantidadComentarios}}
-            </div>
-        </div>                            
-    </div>-->
 
     <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
         <div *ngFor="let error of mensajes.Errores;">

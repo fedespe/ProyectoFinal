@@ -5,7 +5,8 @@ body {
 
 body{
   overflow: -moz-scrollbars-vertical; 
-    overflow-y: scroll;
+  overflow-y: scroll;
+  font-family: 'Rubik', sans-serif;
 }
 
 .loading {

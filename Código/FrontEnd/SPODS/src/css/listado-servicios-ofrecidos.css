@@ -1,4 +1,34 @@
-.promedio{
-  font-size: 25px; 
-  color: orange;
+.publicacion{
+  margin-top: 20px;
+
+  padding: 10px;
+
+  border-top-width: 1px;
+  border-top-color: black;
+  border-top-style: solid;
+
+  border-bottom-width: 1px;
+  border-bottom-color: black;
+  border-bottom-style: solid;
+}
+
+.publicacion + .publicacion {
+  margin-top: 0;
+  border-top-style: none;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+img{
+  max-height: 160 px;
+  max-width: 160 px;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+a{
+  color: black;
 }
