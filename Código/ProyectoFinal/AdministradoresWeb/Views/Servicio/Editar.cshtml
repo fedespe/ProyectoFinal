@@ -22,7 +22,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="col-xs-5 col-sm-5 col-md-2">
-                <div class="thumbnail">
+                <div class="thumbnail" style="cursor: pointer;">
                     <img src=@("/Imagenes/Servicios/" + Model.Servicio.Imagen) id="ImgArchivo" onclick="$('#Archivo').click()" style="width:100%; height:100%;" />
                 </div>
             </div>

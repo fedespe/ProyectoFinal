@@ -23,5 +23,6 @@ namespace AdministradoresWeb.ViewModel.ClienteViewModel
         [Required]
         public string PasswordConfirmacion { get; set; }
         public string Mensaje { get; set; }
+        public string MensajeOK { get; set; }
     }
 }

@@ -36,6 +36,7 @@
                 @Html.TextBoxFor(model => model.PasswordConfirmacion, new { @id = "passConfirm", @class = "form-control", @placeholder = "Confirmar Contraseña", type = "password" })
                 @Html.ValidationMessageFor(model => model.PasswordConfirmacion, "", new { @class = "text-danger" })
                 <label class="text-danger">@Model.Mensaje</label>
+                <label class="text-success">@Model.MensajeOK</label>
             </div>
 
             <button type="submit" class="btn btn-primary">

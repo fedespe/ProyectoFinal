@@ -98,7 +98,7 @@ namespace AdministradoresWeb.Controllers
                         if (nuevoPassVM.PasswordNuevo.Equals(nuevoPassVM.PasswordConfirmacion))
                         {
                             clienteBL.nuevaContrasena(nuevoPassVM.Id, nuevoPassVM.PasswordNuevo);
-                            nuevoPassVM.Mensaje = "Contraseña modificada correctamente.";
+                            nuevoPassVM.MensajeOK = "Contraseña modificada correctamente.";
                             return View(nuevoPassVM);
 
                         }
