@@ -23,6 +23,7 @@ var InicioSesionComponent = (function () {
         this.mensajes = new mensaje_1.Mensaje();
         this.cliente = new cliente_1.Cliente();
         this.loading = false;
+        this.cerrarSesion();
     }
     InicioSesionComponent.prototype.navegarRegistroCliente = function () {
         this.router.navigateByUrl('/registro-cliente');
@@ -106,7 +107,7 @@ var InicioSesionComponent = (function () {
         this.loading = false;
         utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        error.Descripcion = "Verifique usuario y contraseña e intente nuevamente.";
         this.mensajes.Errores.push(error);
     };
     InicioSesionComponent.prototype.getObtenerClienteLogueadoOk = function (response) {
@@ -132,6 +133,10 @@ var InicioSesionComponent = (function () {
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+    };
+    InicioSesionComponent.prototype.cerrarSesion = function () {
+        localStorage.clear();
+        this.dataService.ini();
     };
     return InicioSesionComponent;
 }());

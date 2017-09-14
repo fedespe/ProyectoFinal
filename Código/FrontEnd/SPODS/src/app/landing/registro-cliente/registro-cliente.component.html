@@ -46,7 +46,7 @@
                 <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
             </select>
 
-            <button class="btn btn-lg btn-primary btn-block" (click)="registrarClientePaso1()">Siguiente</button>
+            <button class="btn btn-primary btn-block" (click)="registrarClientePaso1()">Siguiente</button>
         </div>
 
         <!--PASO 2-->
@@ -81,8 +81,8 @@
             <label for="inputContrasenaConfirmacion" class="sr-only">Repetir Contraseña</label>
             <input type="password" class="form-control" id="inputContrasenaConfirmacion" [(ngModel)]="contrasenaConfirmacion" name="ContrasenaConfirmacion" placeholder="Repetir Contraseña">
 
-            <button class="btn btn-lg btn-primary btn-block" (click)="registrarClientePaso2()">Siguiente</button>          
-            <button class="btn btn-lg btn-secondary btn-block" (click)="volverPaso1()" >Anterior</button>
+            <button class="btn btn-primary btn-block" (click)="registrarClientePaso2()">Siguiente</button>          
+            <button class="btn btn-secondary btn-block" (click)="volverPaso1()" >Anterior</button>
             <button onclick="document.getElementById('moodleform').submit();" id="mostrarImagenes" style="display: none"></button>
         </div>
 
@@ -109,14 +109,14 @@
             <div class="alert alert-info">
                 <strong>Selección de imagen.</strong> La carga de selección de la imagen puede demorar unos segundos.
             </div>
-            <!--<button class="btn btn-lg btn-primary " id="btnFrame" onclick="document.getElementById('moodleform').submit();">Prueba</button>-->
+            <!--<button class="btn btn-primary " id="btnFrame" onclick="document.getElementById('moodleform').submit();">Prueba</button>-->
             <form id="moodleform" target="iframe" method="get" action="{{urlImagen}}">
                 <!--NO SE POR QUE EN LA CONTRASE;A ANDA BIEN ANGULAR PERO EN EL IDCLIENTE NO... LO SETEE A MANO DESDE TYPESCRIPT-->
                 <input type="hidden" name="idCliente" id="inputIdCliente"/>
                 <input type="hidden" name="contrasena" value="{{cliente.Contrasena}}"/>
             </form>
-            <iframe name="iframe" width=100% height=350 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
-            <button class="btn btn-lg btn-primary btn-block" (click)="registrarClientePaso3()">Finalizar</button>
+            <iframe name="iframe" width=100% height=300 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
+            <button class="btn btn-primary btn-block" (click)="registrarClientePaso3()">Finalizar</button>
         </div>
 
         <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">

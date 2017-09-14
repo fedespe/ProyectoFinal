@@ -27,7 +27,8 @@ export class RegistroClienteComponent {
     urlImagen:string= Settings.srcImg +"/Cliente/IngresarImagen";//?idCliente=3&contrasena=123456789";
     
 
-    constructor(private dataService: DataService, private router: Router) {      
+    constructor(private dataService: DataService, private router: Router) {
+        this.cerrarSesion();
         this.obtenerBarrios();
     }
 
@@ -251,6 +252,10 @@ export class RegistroClienteComponent {
         this.mensajes.Errores.push(error);
     }
 
+    cerrarSesion(){
+        localStorage.clear();
+        this.dataService.ini();
+    }
 
 
 

@@ -26,6 +26,7 @@ var RegistroClienteComponent = (function () {
         this.barrios = [];
         this.step = 1;
         this.urlImagen = settings_1.Settings.srcImg + "/Cliente/IngresarImagen"; //?idCliente=3&contrasena=123456789";
+        this.cerrarSesion();
         this.obtenerBarrios();
     }
     RegistroClienteComponent.prototype.borrarMensajes = function () {
@@ -211,6 +212,10 @@ var RegistroClienteComponent = (function () {
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+    };
+    RegistroClienteComponent.prototype.cerrarSesion = function () {
+        localStorage.clear();
+        this.dataService.ini();
     };
     return RegistroClienteComponent;
 }());
