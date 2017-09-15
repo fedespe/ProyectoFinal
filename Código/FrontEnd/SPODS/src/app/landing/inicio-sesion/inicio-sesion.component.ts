@@ -18,7 +18,8 @@ export class InicioSesionComponent{
     cliente : Cliente = new Cliente();
     loading : boolean = false;
 
-    constructor(private dataService: DataService, private router: Router) {
+    constructor(private dataService: DataService, private router: Router){
+        this.cerrarSesion();
     }
     
     navegarRegistroCliente(){
@@ -115,7 +116,7 @@ export class InicioSesionComponent{
         this.loading=false;
         Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        error.Descripcion = "Verifique usuario y contraseña e intente nuevamente.";
         this.mensajes.Errores.push(error);
     }
 
@@ -144,5 +145,10 @@ export class InicioSesionComponent{
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+    }
+
+    cerrarSesion(){
+        localStorage.clear();
+        this.dataService.ini();
     }
 }

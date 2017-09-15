@@ -1,6 +1,6 @@
-<div class="container paddingMenu">
+<div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-6">
+    <div class="col-sm-6 col-xl-4">
         <h1>Iniciar sesión</h1>
 
         <div *ngIf="loading" class="row justify-content-center">
@@ -13,7 +13,7 @@
             <label for="inputContrasena" class="sr-only">Contraseña</label>
             <input type="password" class="form-control" [(ngModel)]="cliente.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
 
-            <button class="btn btn-lg btn-primary btn-block" (click)="ingresarCliente()">Ingresar</button>
+            <button class="btn  btn-primary btn-block" (click)="ingresarCliente()">Ingresar</button>
         </div>
         <label class="btn-block">
             <a href="javascript:void(0)" (click)="navegarRegistroCliente()"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a>

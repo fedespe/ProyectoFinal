@@ -1,8 +1,18 @@
 .paddingMenu{
-  padding-top:45px;
+    padding-top:45px;
+ 
+    /*background-color: #eee;
+    background-image: url("./img/back-registro-cliente.jpg");
+    background-size: cover;
+    display: table;
+    width: 99.99%;
+    height: 96%;
+    min-height: 96%;*/
 }
+
 h1{
   text-align: center;
+  text-shadow: -1px -1px 1px #FFF, 1px 1px 1px #FFF, -1px 1px 1px #FFF, 1px -1px 1px #FFF;
 }
 
 b{
