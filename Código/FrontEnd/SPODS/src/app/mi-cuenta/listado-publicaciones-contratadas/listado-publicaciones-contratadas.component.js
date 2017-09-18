@@ -80,7 +80,7 @@ var ListadoPublicacionesContratadasComponent = (function () {
 ListadoPublicacionesContratadasComponent = __decorate([
     core_1.Component({
         selector: 'listado-publicaciones-contratadas',
-        templateUrl: 'app/dashboard/listado-publicaciones-contratadas/listado-publicaciones-contratadas.component.html',
+        templateUrl: 'app/mi-cuenta/listado-publicaciones-contratadas/listado-publicaciones-contratadas.component.html',
         styleUrls: ['css/listado-publicaciones-contratadas.css']
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])

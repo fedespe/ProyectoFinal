@@ -1,0 +1,48 @@
+
+.comentario{
+  margin-bottom: 20px;
+}
+.respuesta{
+  margin-left: 40px;
+}
+.promedio{
+  font-size: 20px; 
+  color: #fde16d;
+}
+
+h1{
+  margin-bottom: 0;
+}
+
+h2{
+  margin-bottom: 5px;
+}
+
+.numerosPublicacion{
+  padding-top: 10px;
+}
+
+.numerosPublicacion+.numerosPublicacion{
+  margin-top: 10px;
+  /*border-top-style: solid;
+  border-top-color: lightgray;
+  border-top-width: 0.5px;*/
+}
+
+.numeroEnCirculo {
+  width: 50px;
+  text-align: center;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin: 0 10px 0 0;
+  background: #333;
+  color: #fff;
+  float: left;
+  padding: 0;
+  height: 25px;
+  letter-spacing: .07em;
+}
+
+.numeroEnCirculoGris {
+  background: #999;
+}

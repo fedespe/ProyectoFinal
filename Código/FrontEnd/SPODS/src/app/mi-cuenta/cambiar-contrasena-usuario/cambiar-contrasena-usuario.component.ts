@@ -11,7 +11,7 @@ import {ActualizarContrasena}           from "../../shared/actualizarContrasena"
 
 @Component({
     selector: 'cambiar-contrasena-usuario',
-    templateUrl: 'app/dashboard/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component.html',
+    templateUrl: 'app/mi-cuenta/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component.html',
     styleUrls:  ['css/cambiar-contrasena-usuario.css']
 })
 

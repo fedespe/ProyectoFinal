@@ -53,7 +53,7 @@ var SolicitarServicioComponent = (function () {
         this.step = 3;
     };
     SolicitarServicioComponent.prototype.ofrecerServicioPaso3 = function () {
-        this.router.navigate(['dashboard/listado-solicitudes-cliente']);
+        this.router.navigate(['mi-cuenta/listado-solicitudes-cliente']);
     };
     SolicitarServicioComponent.prototype.volverPaso1 = function () {
         this.step = 1;
