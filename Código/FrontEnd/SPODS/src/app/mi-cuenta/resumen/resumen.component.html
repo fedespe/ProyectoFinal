@@ -1,0 +1,161 @@
+<div class="container">
+    <div class="row">
+        <h1 class="col-12">Resumen</h1>
+
+        <div *ngIf="loading">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+
+        <div *ngIf="!loading && cliente" class="col-12">
+            <div *ngIf="promedioCliente != undefined">
+                <div>
+                    <rating
+                        [(ngModel)]="promedioCliente"
+                        [readonly]="true">
+                    </rating>
+                </div>
+                <div *ngIf="promedioCliente > 0">
+                        Reputación Promedio: {{promedioCliente}} Estrella/s
+                        <small style="display:block;">La calificación corresponde al promedio de los puntajes que te han otorgado otros usuarios por tus servicios.</small>
+                </div>
+                <div *ngIf="promedioCliente == 0">
+                    <p>
+                        Aún no has sido calificado como trabajador.
+                    </p>
+                    <p>
+                        Cuanto antes comiences a ofrecer tus servicios, más pronto tendrás la oportunidad de contar con una buena calificación.
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <h2>Tus Ofertas</h2>
+                <div *ngIf="cantidadOfertasActivas > 0 || cantidadOfertasInactivas > 0 || cantidadOfertasFinalizadas > 0">
+                    <div class="numerosPublicacion">
+                        <div class="numeroEnCirculo" [ngClass]="{'numeroEnCirculoGris' : cantidadOfertasActivas==0}">{{cantidadOfertasActivas}}</div>
+                        Activas
+                    </div>
+                    <div class="numerosPublicacion">
+                        <div class="numeroEnCirculo" [ngClass]="{'numeroEnCirculoGris' : cantidadOfertasInactivas==0}">{{cantidadOfertasInactivas}}</div>
+                        Inactivas
+                    </div>
+                    <div class="numerosPublicacion">
+                        <div class="numeroEnCirculo" [ngClass]="{'numeroEnCirculoGris' : cantidadOfertasFinalizadas==0}">{{cantidadOfertasFinalizadas}}</div>
+                        Finalizadas
+                    </div>
+                </div>
+                <div *ngIf="cantidadOfertasActivas == 0 && cantidadOfertasInactivas == 0 && cantidadOfertasFinalizadas == 0">
+                    <p>
+                        Aún no te has postulado como trabajador de ningún rubro.
+                    </p>
+                </div>
+            </div>
+            <hr>
+        </div>
+
+        <div class="col-12">
+            <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+                <div *ngFor="let error of mensajes.Errores;">
+                    {{error.Descripcion}}
+                </div>
+            </div>
+
+            <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+                <div *ngFor="let exito of mensajes.Exitos;">
+                    {{exito.Descripcion}}
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!--<div class="col-12">
+            <h3 style="margin-top: 20px;">Comentarios de servicios ofrecidos:</h3>
+            <div *ngFor="let servicio of servicios;">     
+                <h6 style="margin-top: 20px;">{{servicio.Nombre}}</h6>                 
+                <div style="margin-left: 40px" *ngFor="let comentario of comentariosPuntuacionOferta;" class="comentario">  
+                    <div *ngIf="comentario.Publicacion.Servicio.Id==servicio.Id">
+                        <div>
+                            <i class="fa fa-user-o" aria-hidden="true"></i> {{comentario.Cliente.NombreUsuario}}
+                        </div>
+                        <div>
+                            <i class="fa fa-commenting-o" aria-hidden="true"></i> {{comentario.Comentario}}
+                        </div>     
+                        <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
+                            <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
+                        </div>
+                        <div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && cliente.Id==idUsuario" class="respuesta">
+                            <div class="linkManual" (click)="responderComentarioOferta(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
+                        </div>   
+                        <div id="respuestaOferta{{comentario.Id}}" hidden="hidden" class="respuesta"> 
+                            <label for="inputRespuesta" class="sr-only">Respuesta:</label>
+                            <textarea maxlength="300" rows="5" class="form-control" id="txtRespuestaOferta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                            <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuestaOferta{{comentario.Id}}" (click)="guardarRespuestaOferta(comentario.Id)">Responder</button>
+                        </div>                                     
+                        <div *ngIf="comentario.Puntuacion==0">
+                            Puntaje: ({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==1">
+                            Puntaje: ★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==2">
+                            Puntaje: ★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==3">
+                            Puntaje: ★★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==4">
+                            Puntaje: ★★★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==5">
+                            Puntaje: ★★★★★({{comentario.Puntuacion}})
+                        </div>  
+                    </div>                         
+                </div>
+            </div>
+            <h3 style="margin-top: 20px;">Comentarios de solicitudes realizadas:</h3>
+            <div *ngFor="let servicio of servicios;">     
+                <h6 style="margin-top: 20px;">{{servicio.Nombre}}</h6>                 
+                <div style="margin-left: 40px" *ngFor="let comentario of comentariosPuntuacionSolicitud;" class="comentario">  
+                    <div *ngIf="comentario.Publicacion.Servicio.Id==servicio.Id">
+                        <div>
+                            <i class="fa fa-user-o" aria-hidden="true"></i> {{comentario.Publicacion.Cliente.NombreUsuario}}
+                        </div>
+                        <div>
+                                <i class="fa fa-commenting-o" aria-hidden="true"></i> {{comentario.Comentario}}
+                        </div>     
+                        <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
+                            <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
+                        </div>
+                        <div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && cliente.Id==idUsuario" class="respuesta">
+                            <div class="linkManual" (click)="responderComentarioSolicitud(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
+                        </div>   
+                        <div id="respuestaSolicitud{{comentario.Id}}" hidden="hidden" class="respuesta"> 
+                            <label for="inputRespuesta" class="sr-only">Respuesta:</label>
+                            <textarea maxlength="300" rows="5" class="form-control" id="txtRespuestaSolicitud{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                            <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuestaSolicitud{{comentario.Id}}" (click)="guardarRespuestaSolicitud(comentario.Id)">Responder</button>
+                        </div>                                    
+                        <div *ngIf="comentario.Puntuacion==0">
+                            Puntaje: ({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==1">
+                            Puntaje: ★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==2">
+                            Puntaje: ★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==3">
+                            Puntaje: ★★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==4">
+                            Puntaje: ★★★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==5">
+                            Puntaje: ★★★★★({{comentario.Puntuacion}})
+                        </div>  
+                    </div>                         
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>

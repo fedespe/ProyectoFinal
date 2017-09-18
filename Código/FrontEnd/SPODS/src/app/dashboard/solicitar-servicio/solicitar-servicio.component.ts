@@ -52,7 +52,7 @@ export class SolicitarServicioComponent{
         this.step=3;
     }
     ofrecerServicioPaso3(){
-       this.router.navigate(['dashboard/listado-solicitudes-cliente']);
+       this.router.navigate(['mi-cuenta/listado-solicitudes-cliente']);
     }
     volverPaso1(){
         this.step=1;

@@ -33,6 +33,8 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'ng2-translate': 'npm:ng2-translate/bundles/ng2-translate.umd.js', //Agregado por Bruno 20170420 17:25
+
+      "ng2-rating": "../node_modules/ng2-rating" //Agregado por Bruno 20170917 00:45
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -48,6 +50,7 @@
       rxjs: {
         defaultExtension: 'js'
       }
+      ,"ng2-rating": { "main": "index.js", "defaultExtension": "js" } //Agregado por Bruno 20170917 00:45
     }
   });
 })(this);

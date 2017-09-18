@@ -12,7 +12,7 @@ import { Settings } from '../../shared/settings';
 
 @Component({
     selector: 'perfil-usuario',
-    templateUrl: 'app/dashboard/perfil-usuario/perfil-usuario.component.html',
+    templateUrl: 'app/mi-cuenta/perfil-usuario/perfil-usuario.component.html',
     styleUrls:  ['css/perfil-usuario.css']
 })
 

@@ -6,7 +6,7 @@ body {
 body{
   overflow: -moz-scrollbars-vertical; 
   overflow-y: scroll;
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Rubik', sans-serif !important;
 }
 
 .loading {

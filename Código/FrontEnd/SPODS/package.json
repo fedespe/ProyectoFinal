@@ -6,12 +6,10 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  
   "scripts": {
     "i18n": "ng-xi18n",
     "startProd": "lite-server",
     "buildProd": "webpack",
-
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
     "start": "concurrently \"npm run build:watch\" \"npm run serve\"",
@@ -29,28 +27,27 @@
     "copy-dist-files": "node ./copy-dist-files.js",
     "lint": "tslint ./src/**/*.ts -t verbose"
   },
-  
   "dependencies": {
     "@angular/animations": "~4.0.3",
     "@angular/common": "~4.0.3",
     "@angular/compiler": "~4.0.3",
+    "@angular/compiler-cli": "4.0.1",
     "@angular/core": "~4.0.3",
     "@angular/forms": "~4.0.3",
     "@angular/http": "~4.0.3",
     "@angular/platform-browser": "~4.0.3",
     "@angular/platform-browser-dynamic": "~4.0.3",
-    "@angular/router": "~4.0.3",
-	  "core-js": "^2.4.1",
-	  "ng2-translate": "^5.0.0",
-	  "rxjs": "5.3.0",
-    "zone.js": "^0.8.5",
-
-    "@angular/compiler-cli": "4.0.1",
     "@angular/platform-server": "4.0.1",
+    "@angular/router": "~4.0.3",
     "@angular/tsc-wrapped": "4.0.1",
     "@angular/upgrade": "4.0.1",
     "angular-in-memory-web-api": "~0.3.1",
-    "systemjs": "0.20.12"
+    "core-js": "^2.4.1",
+    "ng2-rating": "^0.0.7",
+    "ng2-translate": "^5.0.0",
+    "rxjs": "5.3.0",
+    "systemjs": "0.20.12",
+    "zone.js": "^0.8.5"
   },
   "devDependencies": {
     "ts-loader": "0.8.2",
@@ -58,7 +55,6 @@
     "typescript": "~2.2.2",
     "webpack": "1.13.0",
     "lite-server": "^2.3.0",
-
     "@types/angular": "^1.6.15",
     "@types/angular-animate": "^1.5.6",
     "@types/angular-cookies": "^1.4.3",

@@ -14,7 +14,7 @@ import { Solicitud } from "../../shared/solicitud";
 
 @Component({
     selector: 'listado-solicitudes-cliente',
-    templateUrl: 'app/dashboard/listado-solicitudes-cliente/listado-solicitudes-cliente.component.html',
+    templateUrl: 'app/mi-cuenta/listado-solicitudes-cliente/listado-solicitudes-cliente.component.html',
     styleUrls:  ['css/listado-solicitudes-cliente.css']
 })
 

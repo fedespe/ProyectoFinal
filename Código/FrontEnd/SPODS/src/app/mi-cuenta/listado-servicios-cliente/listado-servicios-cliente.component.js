@@ -102,7 +102,7 @@ var ListadoServiciosClienteComponent = (function () {
 ListadoServiciosClienteComponent = __decorate([
     core_1.Component({
         selector: 'listado-servicios-cliente',
-        templateUrl: 'app/dashboard/listado-servicios-cliente/listado-servicios-cliente.component.html',
+        templateUrl: 'app/mi-cuenta/listado-servicios-cliente/listado-servicios-cliente.component.html',
         styleUrls: ['css/listado-servicios-cliente.css']
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])

@@ -198,7 +198,7 @@ var ListadoSolicitudesClienteComponent = (function () {
 ListadoSolicitudesClienteComponent = __decorate([
     core_1.Component({
         selector: 'listado-solicitudes-cliente',
-        templateUrl: 'app/dashboard/listado-solicitudes-cliente/listado-solicitudes-cliente.component.html',
+        templateUrl: 'app/mi-cuenta/listado-solicitudes-cliente/listado-solicitudes-cliente.component.html',
         styleUrls: ['css/listado-solicitudes-cliente.css']
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])

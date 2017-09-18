@@ -132,7 +132,7 @@ var PerfilUsuarioComponent = (function () {
 PerfilUsuarioComponent = __decorate([
     core_1.Component({
         selector: 'perfil-usuario',
-        templateUrl: 'app/dashboard/perfil-usuario/perfil-usuario.component.html',
+        templateUrl: 'app/mi-cuenta/perfil-usuario/perfil-usuario.component.html',
         styleUrls: ['css/perfil-usuario.css']
     }),
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])

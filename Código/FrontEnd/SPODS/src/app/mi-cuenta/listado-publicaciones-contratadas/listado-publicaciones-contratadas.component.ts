@@ -12,7 +12,7 @@ import { Contacto } from "../../shared/contacto";
 
 @Component({
     selector: 'listado-publicaciones-contratadas',
-    templateUrl: 'app/dashboard/listado-publicaciones-contratadas/listado-publicaciones-contratadas.component.html',
+    templateUrl: 'app/mi-cuenta/listado-publicaciones-contratadas/listado-publicaciones-contratadas.component.html',
     styleUrls:  ['css/listado-publicaciones-contratadas.css']
 })
 

@@ -21,10 +21,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" routerLink="/dashboard/ofrecer-servicio">Ofrecer Servicio</a>
-                    <a class="dropdown-item" routerLink="/dashboard/solicitar-servicio">Solicitar Servicio</a>                   
-                    <a class="dropdown-item" routerLink="/dashboard/listado-servicios-cliente">Mis Ofertas</a>
-                    <a class="dropdown-item" routerLink="/dashboard/listado-solicitudes-cliente">Mis Solicitudes</a>
-                    <a class="dropdown-item" routerLink="/dashboard/listado-publicaciones-contratadas">Servicio contratados</a>
+                    <a class="dropdown-item" routerLink="/dashboard/solicitar-servicio">Solicitar Servicio</a>
                 </div>
             </li>
         </ul>
@@ -32,11 +29,10 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{nombreUsuario}}
+                    {{nombreUsuario}} <i class="fa fa-user-o" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" routerLink="/dashboard/ver-perfil-usuario/{{idUsuario}}">Mi perfil</a>                   
-                    <a class="dropdown-item" routerLink="/dashboard/perfil-usuario">Mi cuenta</a>
+                    <a class="dropdown-item" routerLink="/mi-cuenta/resumen">Mi Cuenta</a> 
                     <a class="dropdown-item" (click)="cerrarSesion()">Salir</a>
                 </div>
             </li>
@@ -56,27 +52,7 @@
                 <a class="nav-link" routerLink="/dashboard/solicitar-servicio">Solicitar Servicio</a>
             </li>       
         </ul>
-
-        <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/dashboard/listado-servicios-cliente">Mis Ofertas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/dashboard/listado-solicitudes-cliente">Mis Solicitudes</a>
-            </li> 
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/dashboard/listado-publicaciones-contratadas">Servicio contratados</a>
-            </li>          
-        </ul>
-        
     </nav>
-
-    <!--<nav class="nav hidden-sm-down">
-        <a class="nav-link" routerLink="/dashboard/solicitar-servicio">Solicitar Servicio</a>
-        <a class="nav-link" routerLink="/dashboard/solicitar-servicio">Solicitar Servicio</a>
-        <a class="nav-link" routerLink="/dashboard/listado-servicios-cliente">Mis Servicios</a>
-        <a class="nav-link" routerLink="/dashboard/listado-solicitudes-cliente">Mis Solicitudes</a>
-    </nav>-->
 
     <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
         <div>
@@ -85,64 +61,3 @@
     </main>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<div class="container">
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-        <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-        <a class="navbar-brand" href="#">SPODS</a>
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link linkMenuBar" href="#">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link linkMenuBar" [routerLink]="['perfil-usuario']">Perfil Usuario</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-                <ul class="nav nav-pills flex-column">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link linkMenu active" [routerLink]="['overview']">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link linkMenu active" [routerLink]="['overview']">Otro Link</a>
-                        </li>
-                    </ul>
-                </ul>
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link linkMenu" href="javascript:void(0)" (click)="cerrarSesion()">Salir</a>
-                    </li>
-                </ul>
-            </nav>
-            
-            <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-                <div class="ContenedorDashboard">
-                    <router-outlet></router-outlet>
-                </div>
-            </main>
-        </div>
-    </div>
-</div>-->

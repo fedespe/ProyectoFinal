@@ -11,7 +11,7 @@ import { Publicacion } from "../../shared/publicacion";
 
 @Component({
     selector: 'listado-servicios-cliente',
-    templateUrl: 'app/dashboard/listado-servicios-cliente/listado-servicios-cliente.component.html',
+    templateUrl: 'app/mi-cuenta/listado-servicios-cliente/listado-servicios-cliente.component.html',
     styleUrls:  ['css/listado-servicios-cliente.css']
 })
 
