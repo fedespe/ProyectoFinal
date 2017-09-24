@@ -1,0 +1,32 @@
+ANTEPROYECTO
+LISTO *Menciona dos tipops de servicios, simples y complejos. se realizaría un único sefvicio complejo (Mecánica).
+LISTO *Indicar cuales fueron las tareas cumplidas de la lista de necesidades planteada.
+LISTO *Indicar cuales fueron los objetivos concretados y cuales no. Cambios en los objetivos debido a los cambios producidos en el producto (las publicaciones son unicas, ni simpes ni complejas)
+LISTO *Actores involucrados. Cambiaron... el visitante no tendrá acceso a los servicios.
+LISTO *Detalle de los requerimientos no funcionales. 
+LISTO *Detalle de la alternativa utilizada (remarcar bien que se separo el frontend en dos partes administradores y clientes, que se usó angular para una y .NET para la otra)
+LISTO *Indicar como fué el manejo de riesgos (Ver que se dejaron de lado algunos requerimientos planteados FACEBOOK)
+LISTO *Plan de SQA. Verificar que las planillas con requerimientos en cada sprint contengan los datos detallados en el anteproyecto. Verificar planilla de riesgos, ver que los datos sean los mencionados en el anteproyecto.
+LISTO *Plan de testing, ver si indicamos que el testing del back (Nunit o como se llame) se genero al final de cada sprint y que el del front (planilla de excel) se genero al inicio.
+
+*Plan de capacitacion. Hacer manuales para administrador y cliente. Indicar como se van a presentar y si hay cambios en el formato de los mismos (imagenes o videos?)
+*Cronograma de trabajo y criticidad. GANTT ver los cambios por sprint. Arreglar Gantt que se vea todo lo que dice.
+*Menciona 3 tipos de grupos focos. Agregar encuestas online a la documentación.
+*Manuales de usuarios detallados en las alternativas
+*Plan de SCM, menciona que se manejan dos versiones, manejamos en todo momento una version única.
+
+PRODUCTO
+*Ingresar datos prolijos
+*Casos de uso
+*Contraseña MD5, escribir detalle donde se utiliza
+*Aceptar politicas de uso
+*Datos de prueba
+*Manuales
+*Testing
+*Mayor detalle de los requerimientos
+*UML, hacer algun diagrama del proyecto administradores y web api (indicando los metodos que tiene cada uno al menos). 
+*Manejo de errores
+*Analisis y Diseño... al inicio de la documentacion del proyecto. 
+*Abstract
+*Resumen de horas en las conclusiones
+*Notificaciones
