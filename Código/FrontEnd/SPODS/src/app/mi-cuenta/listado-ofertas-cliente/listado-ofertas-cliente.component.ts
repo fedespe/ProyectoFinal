@@ -17,8 +17,10 @@ import { Publicacion } from "../../shared/publicacion";
 
 export class ListadoOfertasClienteComponent{
     mensajes: Mensaje = new Mensaje();
+    loading : boolean = true;
     publicaciones: Publicacion[] = [];
     baseURL:string;
+
     constructor(private dataService: DataService, private router: Router) {
         this.obtenerPublicacionesCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -45,12 +47,14 @@ export class ListadoOfertasClienteComponent{
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     }
     getObtenerPublicacionesClienteOfertaError(responseError:any){
         Utilidades.log("[listado-servicios.component.ts] - getObtenerPublicacionesClienteOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     }
     desactivarPublicacion(input:any){
         Utilidades.log("[listado-servicios.component.ts] - desactivarPublicacion | responseError: " + JSON.stringify(input));

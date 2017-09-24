@@ -23,6 +23,7 @@ namespace WebAPI
                 url: "api/{controller}/{action}/{param}",
                 defaults: new { param = UrlParameter.Optional }
             );
+            
         }
     }
 }

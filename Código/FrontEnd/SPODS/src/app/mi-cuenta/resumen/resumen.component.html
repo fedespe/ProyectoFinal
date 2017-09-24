@@ -4,10 +4,7 @@
 
         <div *ngIf="loading" style="text-align: center; width: 100%;">
             <img src="../../img/loading.gif" class="loading"/>
-            <p>Procesando datos...</p>
-            <p>Por favor, aguarde...</p>
         </div>
-
         <div *ngIf="!loading && cliente" class="col-12">
             <div *ngIf="promedioCliente != undefined">
                 <div>

@@ -21,6 +21,7 @@ var ListadoOfertasClienteComponent = (function () {
         this.dataService = dataService;
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
+        this.loading = true;
         this.publicaciones = [];
         this.obtenerPublicacionesCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
@@ -44,12 +45,14 @@ var ListadoOfertasClienteComponent = (function () {
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     };
     ListadoOfertasClienteComponent.prototype.getObtenerPublicacionesClienteOfertaError = function (responseError) {
         utilidades_1.Utilidades.log("[listado-servicios.component.ts] - getObtenerPublicacionesClienteOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     };
     ListadoOfertasClienteComponent.prototype.desactivarPublicacion = function (input) {
         var _this = this;
