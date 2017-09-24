@@ -16,11 +16,11 @@
             <button class="btn  btn-primary btn-block" (click)="ingresarCliente()">Ingresar</button>
         </div>
         <label class="btn-block">
-            <a href="javascript:void(0)" (click)="navegarRegistroCliente()"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a>
+            <a (click)="navegarRegistroCliente()" class="linkManual"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrarse</a>
         </label>
 
         <label class="btn-block">
-            <a href="javascript:void(0)" (click)="navegarOlvidoPassword()"><i class="fa fa-lock" aria-hidden="true"></i> Olvidó su contraseña?</a>
+            <a (click)="navegarOlvidoPassword()" class="linkManual"><i class="fa fa-lock" aria-hidden="true"></i> Olvidó su contraseña?</a>
         </label>
 
         <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
@@ -28,13 +28,11 @@
                 {{error.Descripcion}}
             </div>
         </div>
-
         <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
             <div *ngFor="let exito of mensajes.Exitos;">
                 {{exito.Descripcion}}
             </div>
         </div>
-
     </div>
   </div>
 </div>

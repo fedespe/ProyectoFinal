@@ -39,20 +39,37 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .linkManual:focus,.linkManual:hover{
-    color: #014c8c;
-    text-decoration: underline;
-    cursor: pointer;
+  color: #014c8c !important;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .linkManual:active,.linkManual:hover{
-    outline-width: 0;
+  outline-width: 0;
 }
 
 .linkManual{
-    color: #0275d8;
-    text-decoration: none;
-    margin-left: 4px;
-    margin-right: 4px;
+  color: #0275d8 !important;
+  text-decoration: none;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.linkManualDesactivado:focus,.linkManualDesactivado:hover{
+  color: grey !important;
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+.linkManualDesactivado:active,.linkManualDesactivado:hover{
+  outline-width: 0;
+}
+
+.linkManualDesactivado{
+  color: grey !important;
+  text-decoration: none;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .dropdown-item{

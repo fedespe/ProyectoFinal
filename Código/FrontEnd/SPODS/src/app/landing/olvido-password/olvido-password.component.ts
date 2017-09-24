@@ -19,10 +19,6 @@ export class OlvidoPasswordComponent{
 
     constructor(private dataService: DataService, private router: Router) {
     }
-    
-    /*navegarRegistroCliente(){
-        this.router.navigateByUrl('/registro-cliente');
-    }*/
 
     borrarMensajes(){
         this.mensajes.Errores = [];

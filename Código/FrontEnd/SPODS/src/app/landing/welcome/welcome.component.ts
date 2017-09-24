@@ -13,13 +13,6 @@ import { Exito } from "../../shared/exito";
 })
 
 export class WelcomeComponent{
-    mensajes: Mensaje = new Mensaje();
-
     constructor(private dataService: DataService, private router: Router) {
-    }
-
-    borrarMensajes(){
-        this.mensajes.Errores = [];
-        this.mensajes.Exitos = [];
     }
 }

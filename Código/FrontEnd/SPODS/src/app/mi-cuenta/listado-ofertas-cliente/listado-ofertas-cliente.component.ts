@@ -11,11 +11,11 @@ import { Publicacion } from "../../shared/publicacion";
 
 @Component({
     selector: 'listado-servicios-cliente',
-    templateUrl: 'app/mi-cuenta/listado-servicios-cliente/listado-servicios-cliente.component.html',
-    styleUrls:  ['css/listado-servicios-cliente.css']
+    templateUrl: 'app/mi-cuenta/listado-ofertas-cliente/listado-ofertas-cliente.component.html',
+    styleUrls:  ['css/listado-ofertas-cliente.css']
 })
 
-export class ListadoServiciosClienteComponent{
+export class ListadoOfertasClienteComponent{
     mensajes: Mensaje = new Mensaje();
     publicaciones: Publicacion[] = [];
     baseURL:string;
@@ -23,13 +23,10 @@ export class ListadoServiciosClienteComponent{
         this.obtenerPublicacionesCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
     }
-
-    
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     }
-    
     obtenerPublicacionesCliente(id:number){
         this.dataService.getObtenerPublicacionesClienteOferta(id)
             .subscribe(
@@ -38,7 +35,6 @@ export class ListadoServiciosClienteComponent{
             () => Utilidades.log("[listado-servicios.component.ts] - getObtenerPublicacionesClienteOferta: Completado")
         );
     }
-
     getObtenerPublicacionesClienteOfertaOk(response:any){
         Utilidades.log("[[listado-servicios.component.ts] - getObtenerPublicacionesClienteOfertaOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
@@ -50,14 +46,12 @@ export class ListadoServiciosClienteComponent{
             this.mensajes.Errores.push(error);
         }
     }
-
     getObtenerPublicacionesClienteOfertaError(responseError:any){
         Utilidades.log("[listado-servicios.component.ts] - getObtenerPublicacionesClienteOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
-
     desactivarPublicacion(input:any){
         Utilidades.log("[listado-servicios.component.ts] - desactivarPublicacion | responseError: " + JSON.stringify(input));
         this.dataService.getDesactivarPublicacion(input)
@@ -67,7 +61,6 @@ export class ListadoServiciosClienteComponent{
             () => Utilidades.log("[listado-servicios.component.ts] - getDesactivarPublicacion: Completado")
         );
     }
-
     getDesactivarPublicacionOk(response:any){
         Utilidades.log("[[listado-servicios.component.ts] - getDesactivarPublicacionOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
@@ -79,14 +72,12 @@ export class ListadoServiciosClienteComponent{
             this.mensajes.Errores.push(error);
         }
     }
-
     getDesactivarPublicacionError(responseError:any){
         Utilidades.log("[listado-servicios.component.ts] - getDesactivarPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
-
     activarPublicacion(input:any){
         Utilidades.log("[listado-servicios.component.ts] - activarPublicacion | responseError: " + JSON.stringify(input));
         this.dataService.getActivarPublicacion(input)
@@ -96,7 +87,6 @@ export class ListadoServiciosClienteComponent{
             () => Utilidades.log("[listado-servicios.component.ts] - getActivarPublicacion: Completado")
         );
     }
-
     getActivarPublicacionOk(response:any){
         Utilidades.log("[[listado-servicios.component.ts] - getActivarPublicacionOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
@@ -108,12 +98,10 @@ export class ListadoServiciosClienteComponent{
             this.mensajes.Errores.push(error);
         }
     }
-
     getActivarPublicacionError(responseError:any){
         Utilidades.log("[listado-servicios.component.ts] - getActivarPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
-    
 }

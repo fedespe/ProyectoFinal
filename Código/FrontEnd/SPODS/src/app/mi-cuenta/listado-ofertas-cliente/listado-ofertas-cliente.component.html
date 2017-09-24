@@ -8,8 +8,8 @@
                         <th>Imagen</th>
                         <th>Servicio</th>
                         <th>Título</th>
-                        <th>Activa</th>
-                        <th>Finalizada</th>
+                        <th class="text-center">Activa</th>
+                        <th class="text-center">Finalizada</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -17,19 +17,18 @@
                     <tr *ngFor="let publicacion of publicaciones;">
                         <td *ngIf="publicacion.Imagenes[0]!=null && publicacion.Imagenes[0]!=''"><img src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
                         <td *ngIf="publicacion.Imagenes[0]==null || publicacion.Imagenes[0]==''"><img src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
-                        <th scope="row">{{publicacion.Servicio.Nombre}}</th>
+                        <th scope="row"><a class="linkManual" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]">{{publicacion.Servicio.Nombre}}</a></th>
                         <td>{{publicacion.Titulo}}</td>
-                        <td *ngIf="publicacion.Activa">Si</td>
-                        <td *ngIf="!publicacion.Activa">No</td>
-                        <td *ngIf="publicacion.Finalizada">Si</td>
-                        <td *ngIf="!publicacion.Finalizada">No</td>
+                        <td *ngIf="publicacion.Activa" class="text-center">Si</td>
+                        <td *ngIf="!publicacion.Activa" class="text-center">No</td>
+                        <td *ngIf="publicacion.Finalizada" class="text-center">Si</td>
+                        <td *ngIf="!publicacion.Finalizada" class="text-center">No</td>
                         <td>
-                            <div *ngIf="!publicacion.Finalizada" class="linkManual float-left" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]"><i class="fa fa-eye" aria-hidden="true"></i> Ver</div>
                             <div *ngIf="!publicacion.Finalizada" class="linkManual float-left" routerLink="/dashboard/editar-servicio-cliente/{{publicacion.Id}}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</div>
-                            <div *ngIf="!publicacion.Activa && !publicacion.Finalizada" class="linkManual float-left" (click)="activarPublicacion(publicacion.Id)"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
-                            <div *ngIf="publicacion.Activa && !publicacion.Finalizada" class="linkManual float-left" (click)="desactivarPublicacion(publicacion.Id)"><i class="fa fa-times" aria-hidden="true"></i> Desactivar</div>
-                            <div *ngIf="publicacion.Finalizada">No hay acciones disponibles</div>
-                        </td>
+                            <div *ngIf="publicacion.Finalizada" class="linkManualDesactivado float-left"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</div>
+                            <div *ngIf="!publicacion.Finalizada && !publicacion.Activa" class="linkManual float-left" (click)="activarPublicacion(publicacion.Id)"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
+                            <div *ngIf="!publicacion.Finalizada && publicacion.Activa" class="linkManual float-left" (click)="desactivarPublicacion(publicacion.Id)"><i class="fa fa-times" aria-hidden="true"></i> Desactivar</div>
+                            <div *ngIf="publicacion.Finalizada" class="linkManualDesactivado float-left"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>                        </td>
                     </tr>
                 </tbody>
             </table>   

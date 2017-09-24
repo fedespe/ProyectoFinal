@@ -13,7 +13,7 @@ import { Settings } from '../../shared/settings';
 
 @Component({
     selector: 'ver-perfil-usuario',
-    templateUrl: 'app/mi-cuenta/ver-perfil-usuario/ver-perfil-usuario.component.html',
+    templateUrl: 'app/dashboard/ver-perfil-usuario/ver-perfil-usuario.component.html',
     styleUrls:  ['css/ver-perfil-usuario.css']
 })
 
