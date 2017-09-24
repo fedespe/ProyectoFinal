@@ -37,10 +37,8 @@ input[type="radio"]:checked ~ label {
 .comentario{
   margin-bottom: 20px;
 }
-.respuesta{
-  margin-left: 40px;
-}
-.promedio{
-  font-size: 25px; 
-  color: orange;
+
+
+.ContenedorLinkCabezal{
+  margin-bottom: 20px;
 }

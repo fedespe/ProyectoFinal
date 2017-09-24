@@ -17,12 +17,13 @@ import { PerfilUsuarioComponent } from "./mi-cuenta/perfil-usuario/perfil-usuari
 import { CambiarContrasenaUsuarioComponent } from "./mi-cuenta/cambiar-contrasena-usuario/cambiar-contrasena-usuario.component";
 import { ListadoServiciosComponent } from "./dashboard/listado-servicios/listado-servicios.component";
 import { OfrecerServicioComponent } from "./dashboard/ofrecer-servicio/ofrecer-servicio.component";
-import { ListadoServiciosClienteComponent } from "./mi-cuenta/listado-servicios-cliente/listado-servicios-cliente.component";
+import { ListadoOfertasClienteComponent } from "./mi-cuenta/listado-ofertas-cliente/listado-ofertas-cliente.component";
 import { ResumenComponent } from "./mi-cuenta/resumen/resumen.component";
 import { EditarServicioClienteComponent } from "./dashboard/editar-servicio-cliente/editar-servicio-cliente.component";
 import { ListadoServiciosOfrecidosComponent } from "./dashboard/listado-servicios-ofrecidos/listado-servicios-ofrecidos.component";
 import { VerPublicacionOfrecidaComponent } from "./dashboard/ver-publicacion-ofrecida/ver-publicacion-ofrecida.component";
 import { ListadoPublicacionesContratadasComponent } from "./mi-cuenta/listado-publicaciones-contratadas/listado-publicaciones-contratadas.component";
+import { VerPerfilUsuarioComponent } from "./dashboard/ver-perfil-usuario/ver-perfil-usuario.component";
 import { SolicitarServicioComponent } from "./dashboard/solicitar-servicio/solicitar-servicio.component";
 import { ListadoSolicitudesClienteComponent } from "./mi-cuenta/listado-solicitudes-cliente/listado-solicitudes-cliente.component";
 import { EditarSolicitudClienteComponent } from "./dashboard/editar-solicitud-cliente/editar-solicitud-cliente.component";
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
       { path: 'ofrecer-servicio', component: OfrecerServicioComponent },
       { path: 'editar-servicio-cliente/:id', component: EditarServicioClienteComponent },
       { path: 'listado-servicios-ofrecidos/:id', component: ListadoServiciosOfrecidosComponent },
+      { path: 'ver-perfil-usuario/:id', component: VerPerfilUsuarioComponent },
       { path: 'ver-publicacion-ofrecida/:id', component: VerPublicacionOfrecidaComponent },
       { path: 'solicitar-servicio', component: SolicitarServicioComponent },
       { path: 'editar-solicitud-cliente/:id', component: EditarSolicitudClienteComponent },
@@ -68,7 +70,7 @@ const appRoutes: Routes = [
       { path: 'cambiar-contrasena-usuario', component: CambiarContrasenaUsuarioComponent },
       { path: 'listado-publicaciones-contratadas', component: ListadoPublicacionesContratadasComponent },
       { path: 'listado-solicitudes-cliente', component: ListadoSolicitudesClienteComponent },
-      { path: 'listado-servicios-cliente', component: ListadoServiciosClienteComponent }
+      { path: 'listado-ofertas-cliente', component: ListadoOfertasClienteComponent }
     ]
   },
   {path: '**', component: NotFoundComponent }
@@ -82,12 +84,12 @@ const appRoutes: Routes = [
     AppComponent, NotFoundComponent, LandingComponent, WelcomeComponent, RegistroClienteComponent, 
     InicioSesionComponent, DashboardComponent, OverviewComponent, 
     PerfilUsuarioComponent, CambiarContrasenaUsuarioComponent, 
-    ListadoServiciosComponent, OfrecerServicioComponent, ListadoServiciosClienteComponent,
+    ListadoServiciosComponent, OfrecerServicioComponent, ListadoOfertasClienteComponent,
     EditarServicioClienteComponent, ListadoServiciosOfrecidosComponent, VerPublicacionOfrecidaComponent,
     ListadoPublicacionesContratadasComponent, SolicitarServicioComponent,
     ListadoSolicitudesClienteComponent, EditarSolicitudClienteComponent, ListadoSolicitudesComponent,
     ListadoSolicitudesOfrecidasComponent, VerPublicacionSolicitadaComponent, OlvidoPasswordComponent,
-    MiCuentaComponent, ResumenComponent, RatingComponent
+    MiCuentaComponent, ResumenComponent, RatingComponent, VerPerfilUsuarioComponent
   ],
   bootstrap:    [ AppComponent ]
 })

@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <h1 class="col-12">Servicios Ofrecidos</h1>
+        <div *ngIf="loading" style="text-align: center; width: 100%;">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+        <div *ngIf="!loading && publicaciones.length == 0" class="col-12">
+            <p>
+                Aún no te has postulado como trabajador de ningún rubro.
+            </p>
+            <p>
+                <a routerLink="/dashboard/ofrecer-servicio">Comienza a ofrecer tus servicios ahora!</a>
+            </p>
+        </div>
+        <div *ngIf="!loading && publicaciones.length > 0" class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Servicio</th>
+                        <th>Título</th>
+                        <th class="text-center">Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let publicacion of publicaciones;">
+                        <td *ngIf="publicacion.Imagenes[0]!=null && publicacion.Imagenes[0]!=''"><img src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
+                        <td *ngIf="publicacion.Imagenes[0]==null || publicacion.Imagenes[0]==''"><img src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
+                        <th scope="row"><a class="linkManual" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]">{{publicacion.Servicio.Nombre}}</a></th>
+                        <td>{{publicacion.Titulo}}</td>
+                        <td *ngIf="publicacion.Finalizada" class="text-center">Finalizada</td>
+                        <td *ngIf="!publicacion.Finalizada && publicacion.Activa" class="text-center">Activa</td>
+                        <td *ngIf="!publicacion.Finalizada && !publicacion.Activa" class="text-center">Inactiva</td>
+                        <td>
+                            <div *ngIf="!publicacion.Finalizada" class="linkManual float-left" routerLink="/dashboard/editar-servicio-cliente/{{publicacion.Id}}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</div>
+                            <div *ngIf="publicacion.Finalizada" class="linkManualDesactivado float-left"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</div>
+                            <div *ngIf="!publicacion.Finalizada && !publicacion.Activa" class="linkManual float-left" (click)="activarPublicacion(publicacion.Id)"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
+                            <div *ngIf="!publicacion.Finalizada && publicacion.Activa" class="linkManual float-left" (click)="desactivarPublicacion(publicacion.Id)"><i class="fa fa-times" aria-hidden="true"></i> Desactivar</div>
+                            <div *ngIf="publicacion.Finalizada" class="linkManualDesactivado float-left"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </div>
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+  </div>
+</div>

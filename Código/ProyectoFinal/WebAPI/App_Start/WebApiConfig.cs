@@ -25,6 +25,12 @@ namespace WebAPI
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            /*routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Help", action = "Index" }
+            );*/
+
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Include;
             config.MessageHandlers.Add(new PreflightRequestsHandler());
         }

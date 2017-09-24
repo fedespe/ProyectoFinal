@@ -2,10 +2,9 @@
     <div class="row">
         <h1 class="col-12">Resumen</h1>
 
-        <div *ngIf="loading">
+        <div *ngIf="loading" style="text-align: center; width: 100%;">
             <img src="../../img/loading.gif" class="loading"/>
         </div>
-
         <div *ngIf="!loading && cliente" class="col-12">
             <div *ngIf="promedioCliente != undefined">
                 <div>
@@ -15,7 +14,7 @@
                     </rating>
                 </div>
                 <div *ngIf="promedioCliente > 0">
-                        Reputación Promedio: {{promedioCliente}} Estrella/s
+                        Reputación Promedio: {{promedioCliente}} <span *ngIf="promedioCliente == 1">Estrellas</span><span *ngIf="promedioCliente > 1">Estrellas</span>
                         <small style="display:block;">La calificación corresponde al promedio de los puntajes que te han otorgado otros usuarios por tus servicios.</small>
                 </div>
                 <div *ngIf="promedioCliente == 0">
@@ -48,11 +47,39 @@
                     <p>
                         Aún no te has postulado como trabajador de ningún rubro.
                     </p>
+                    <p>
+                        <a routerLink="/dashboard/ofrecer-servicio">Comienza a ofrecer tus servicios ahora!</a>
+                    </p>
                 </div>
             </div>
             <hr>
+            <div>
+                <h2>Tus Solicitudes</h2>
+                <div *ngIf="cantidadSolicitudesActivas > 0 || cantidadSolicitudesInactivas > 0 || cantidadSolicitudesFinalizadas > 0">
+                    <div class="numerosPublicacion">
+                        <div class="numeroEnCirculo" [ngClass]="{'numeroEnCirculoGris' : cantidadSolicitudesActivas==0}">{{cantidadSolicitudesActivas}}</div>
+                        Activas
+                    </div>
+                    <div class="numerosPublicacion">
+                        <div class="numeroEnCirculo" [ngClass]="{'numeroEnCirculoGris' : cantidadSolicitudesInactivas==0}">{{cantidadSolicitudesInactivas}}</div>
+                        Inactivas
+                    </div>
+                    <div class="numerosPublicacion">
+                        <div class="numeroEnCirculo" [ngClass]="{'numeroEnCirculoGris' : cantidadSolicitudesFinalizadas==0}">{{cantidadSolicitudesFinalizadas}}</div>
+                        Finalizadas
+                    </div>
+                </div>
+                <div *ngIf="cantidadSolicitudesActivas == 0 && cantidadSolicitudesInactivas == 0 && cantidadSolicitudesFinalizadas == 0">
+                    <p>
+                        Aún no has realizado ninguna solicitud.
+                    </p>
+                    <p>
+                        <a routerLink="/dashboard/solicitar-servicio">Solicita algun servicio ahora!</a>
+                    </p>
+                </div>
+            </div>
         </div>
-
+        <hr>
         <div class="col-12">
             <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
                 <div *ngFor="let error of mensajes.Errores;">

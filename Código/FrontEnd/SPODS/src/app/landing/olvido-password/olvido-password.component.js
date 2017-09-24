@@ -24,9 +24,6 @@ var OlvidoPasswordComponent = (function () {
         this.correoElectronico = "";
         this.loading = false;
     }
-    /*navegarRegistroCliente(){
-        this.router.navigateByUrl('/registro-cliente');
-    }*/
     OlvidoPasswordComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];

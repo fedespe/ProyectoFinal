@@ -23,16 +23,17 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.dataService = dataService;
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
-        this.mensajesComentario = new mensaje_1.Mensaje();
+        this.loading = true;
         this.solicitudes = [];
-        this.solicitudesAceptadas = [];
+        this.viendoTodas = true;
+        this.mensajesComentario = new mensaje_1.Mensaje();
         this.contactos = [];
         this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
         this.puntaje = 0;
-        this.obtenerSolicitudesCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
-        this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
-        this.obtenerSolicitudesAceptadas(parseInt(localStorage.getItem('id-usuario')));
+        var idUsuario = parseInt(localStorage.getItem('id-usuario'));
+        this.obtenerSolicitudesCliente(idUsuario);
+        this.obtenerTodosContactosConComentariosPendientesSolicitud(idUsuario);
     }
     ListadoSolicitudesClienteComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
@@ -54,34 +55,14 @@ var ListadoSolicitudesClienteComponent = (function () {
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     };
     ListadoSolicitudesClienteComponent.prototype.getObtenerSolicitudesClienteError = function (responseError) {
         utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesClienteError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
-    };
-    ListadoSolicitudesClienteComponent.prototype.obtenerSolicitudesAceptadas = function (id) {
-        var _this = this;
-        this.dataService.getObtenerSolicitudesAceptadas(id)
-            .subscribe(function (res) { return _this.getObtenerSolicitudesAceptadasOk(res); }, function (error) { return _this.getObtenerSolicitudesAceptadasError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - obtenerSolicitudesAceptadas: Completado"); });
-    };
-    ListadoSolicitudesClienteComponent.prototype.getObtenerSolicitudesAceptadasOk = function (response) {
-        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));
-        if (response.Codigo == 200) {
-            this.solicitudesAceptadas = response.Objetos;
-        }
-        else {
-            var error = new error_1.Error();
-            error.Descripcion = response.Mensaje;
-            this.mensajes.Errores.push(error);
-        }
-    };
-    ListadoSolicitudesClienteComponent.prototype.getObtenerSolicitudesAceptadasError = function (responseError) {
-        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
-        var error = new error_1.Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(error);
+        this.loading = false;
     };
     ListadoSolicitudesClienteComponent.prototype.desactivarPublicacion = function (input) {
         var _this = this;
@@ -138,6 +119,9 @@ var ListadoSolicitudesClienteComponent = (function () {
         utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.contactos = response.Objetos;
+            if (this.contactos.length == 0) {
+                this.viendoTodas = true;
+            }
         }
         else {
             var error = new error_1.Error();
@@ -151,6 +135,9 @@ var ListadoSolicitudesClienteComponent = (function () {
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     };
+    ListadoSolicitudesClienteComponent.prototype.cambiarVisualizacion = function (todas) {
+        this.viendoTodas = todas;
+    };
     ListadoSolicitudesClienteComponent.prototype.activarModal = function (input) {
         document.getElementById('btnModal').click();
         this.comentarioPuntuacion.Publicacion = input.Publicacion; //al contrario de la oferta quien realiza el comentario es el due'o de la publicacion
@@ -158,10 +145,6 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.comentarioPuntuacion.Contacto = new contacto_1.Contacto();
         this.comentarioPuntuacion.Contacto.Id = input.Id;
         utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(input));
-    };
-    ListadoSolicitudesClienteComponent.prototype.actualizarPuntaje = function (input) {
-        this.puntaje = input;
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - actualizarPuntaje | puntaje: " + JSON.stringify(this.puntaje));
     };
     ListadoSolicitudesClienteComponent.prototype.guardarComentario = function () {
         var _this = this;
@@ -178,6 +161,8 @@ var ListadoSolicitudesClienteComponent = (function () {
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             document.getElementById('btnModalClose').click();
+            this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
+            this.puntaje = 0;
             this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
         }
         else {
@@ -204,4 +189,36 @@ ListadoSolicitudesClienteComponent = __decorate([
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])
 ], ListadoSolicitudesClienteComponent);
 exports.ListadoSolicitudesClienteComponent = ListadoSolicitudesClienteComponent;
+/*
+solicitudesAceptadas: Solicitud[] = [];
+
+//Constructor
+this.obtenerSolicitudesAceptadas(idUsuario);
+
+obtenerSolicitudesAceptadas(id:number){
+    this.dataService.getObtenerSolicitudesAceptadas(id)
+        .subscribe(
+        res => this.getObtenerSolicitudesAceptadasOk(res),
+        error => this.getObtenerSolicitudesAceptadasError(error),
+        () => Utilidades.log("[listado-solicitudes-cliente.component.ts] - obtenerSolicitudesAceptadas: Completado")
+    );
+}
+getObtenerSolicitudesAceptadasOk(response:any){
+    Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));
+    if(response.Codigo ==  200){
+        this.solicitudesAceptadas = response.Objetos;
+    }
+    else{
+        var error = new Error();
+        error.Descripcion = response.Mensaje;
+        this.mensajes.Errores.push(error);
+    }
+}
+getObtenerSolicitudesAceptadasError(responseError:any){
+    Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
+    var error = new Error();
+    error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+    this.mensajes.Errores.push(error);
+}
+*/ 
 //# sourceMappingURL=listado-solicitudes-cliente.component.js.map
