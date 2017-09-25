@@ -47,54 +47,6 @@ namespace ProyectoTesting.Tests
         private ClienteController controllerCliente = new ClienteController();
 
         [TestMethod]
-        public void GetAllClientes_ObtieneClientesConCapaBLOK()
-        {
-            var clientes = clienteBL.obtenerTodos();            
-            var result = controllerCliente.GetAllClientes().Objetos;
-            Assert.AreEqual(clientes.Count, result.Count);
-        }
-        [TestMethod]
-        public void GetAllClientes_ObtieneClientesComparaConBDOK()
-        {
-            int cantClientes = 2;//ver cantidad de clientes en la base
-            var result = controllerCliente.GetAllClientes().Objetos;
-            Assert.AreEqual(cantClientes, result.Count);
-        }
-        [TestMethod]
-        public void GetCliente_ObtieneClientesOK()
-        {
-            Cliente cli = new Cliente
-            {
-                Id=3,
-                Apellido="Cliente1",
-                Nombre= "Cliente1",
-                Contrasena= "25f9e794323b453885f5181f1b624d0b",
-                Direccion= "Cliente1 dir",
-                Habilitado= true,
-                NombreUsuario= "Cliente1",
-                CorreoElectronico= "Cliente1@hotmail.com",
-                Tipo="CLIENTE",
-                Telefono= "099845498",
-                Barrio=new Barrio { Id=1},
-                //FechaAlta= Convert.ToDateTime("2017-06-08 11:50:12.143"),
-                //UltimaModificacionContrasena= Convert.ToDateTime("2017-06-08 11:50:12.143")
-            };
-            Cliente result = (Cliente)controllerCliente.GetCliente(3).Objetos[0];
-            Assert.AreEqual(cli.Id, result.Id);
-            Assert.AreEqual(cli.Apellido, result.Apellido);
-            Assert.AreEqual(cli.Nombre, result.Nombre);
-            Assert.AreEqual(cli.Contrasena, result.Contrasena);
-            Assert.AreEqual(cli.Direccion, result.Direccion);
-            Assert.AreEqual(cli.Habilitado, result.Habilitado);
-            Assert.AreEqual(cli.NombreUsuario, result.NombreUsuario);
-            Assert.AreEqual(cli.CorreoElectronico, result.CorreoElectronico);
-            Assert.AreEqual(cli.Tipo, result.Tipo);
-            Assert.AreEqual(cli.Telefono, result.Telefono);
-            Assert.AreEqual(cli.Barrio.Id, result.Barrio.Id);
-            //Assert.AreEqual(cli.FechaAlta, result.FechaAlta);
-            //Assert.AreEqual(cli.UltimaModificacionContrasena, result.UltimaModificacionContrasena);
-        }
-        [TestMethod]
         public void PostAltaCliente_AltaClienteOK()
         {
             Cliente cli = new Cliente
@@ -249,18 +201,67 @@ namespace ProyectoTesting.Tests
             Assert.AreEqual("Error: CorreoElectronico", result);
         }
         [TestMethod]
+        public void GetAllClientes_ObtieneClientesConCapaBLOK()
+        {
+            var clientes = clienteBL.obtenerTodos();
+            var result = controllerCliente.GetAllClientes().Objetos;
+            Assert.AreEqual(clientes.Count, result.Count);
+        }
+        [TestMethod]
+        public void GetAllClientes_ObtieneClientesComparaConBDOK()
+        {
+            int cantClientes = 2;//ver cantidad de clientes en la base
+            var result = controllerCliente.GetAllClientes().Objetos;
+            Assert.AreEqual(cantClientes, result.Count);
+        }
+        [TestMethod]
+        public void GetCliente_ObtieneClientesOK()
+        {
+            Cliente cli = new Cliente
+            {
+                Id = 3,
+                Apellido = "Cliente1",
+                Nombre = "Cliente1",
+                Contrasena = "25f9e794323b453885f5181f1b624d0b",
+                Direccion = "Cliente1 dir",
+                Habilitado = true,
+                NombreUsuario = "Cliente1",
+                CorreoElectronico = "Cliente1@hotmail.com",
+                Tipo = "CLIENTE",
+                Telefono = "099845498",
+                Barrio = new Barrio { Id = 1 },
+                //FechaAlta= Convert.ToDateTime("2017-06-08 11:50:12.143"),
+                //UltimaModificacionContrasena= Convert.ToDateTime("2017-06-08 11:50:12.143")
+            };
+            Cliente result = (Cliente)controllerCliente.GetCliente(3).Objetos[0];
+            Assert.AreEqual(cli.Id, result.Id);
+            Assert.AreEqual(cli.Apellido, result.Apellido);
+            Assert.AreEqual(cli.Nombre, result.Nombre);
+            Assert.AreEqual(cli.Contrasena, result.Contrasena);
+            Assert.AreEqual(cli.Direccion, result.Direccion);
+            Assert.AreEqual(cli.Habilitado, result.Habilitado);
+            Assert.AreEqual(cli.NombreUsuario, result.NombreUsuario);
+            Assert.AreEqual(cli.CorreoElectronico, result.CorreoElectronico);
+            Assert.AreEqual(cli.Tipo, result.Tipo);
+            Assert.AreEqual(cli.Telefono, result.Telefono);
+            Assert.AreEqual(cli.Barrio.Id, result.Barrio.Id);
+            //Assert.AreEqual(cli.FechaAlta, result.FechaAlta);
+            //Assert.AreEqual(cli.UltimaModificacionContrasena, result.UltimaModificacionContrasena);
+        }
+
+        [TestMethod]
         public void PutActualizarCliente_OK()
         {
             Cliente cli = new Cliente
             {
                 Id = 5,
                 Apellido = "Cliente3Actualizado",
-                Nombre = "Cliente3Actualizado",                
-                Direccion = "Cliente3Actualizado dir",               
+                Nombre = "Cliente3Actualizado",
+                Direccion = "Cliente3Actualizado dir",
                 Telefono = "099845498A",
-                Barrio = new Barrio { Id = 2 },               
+                Barrio = new Barrio { Id = 2 },
             };
-            int result =Convert.ToInt32(controllerCliente.PutActualizarCliente(cli).Codigo);
+            int result = Convert.ToInt32(controllerCliente.PutActualizarCliente(cli).Codigo);
             Assert.AreEqual(200, result);
         }
         [TestMethod]
@@ -364,8 +365,8 @@ namespace ProyectoTesting.Tests
             ActualizarContrasena actCon = new ActualizarContrasena
             {
                 Contrasena = "123456789",
-                ContrasenaNueva= "789456123",
-                IdUsuario=5
+                ContrasenaNueva = "789456123",
+                IdUsuario = 5
             };
             int result = Convert.ToInt32(controllerCliente.PutActualizarContrasenaCliente(actCon).Codigo);
             Assert.AreEqual(200, result);
@@ -473,12 +474,12 @@ namespace ProyectoTesting.Tests
             {
                 Id = 1,
                 Activa = true,
-                Cliente= new Cliente() { Id=3},
-                Descripcion= "Descripción P1",
-                Servicio=new Servicio() { Id=1},
-                Titulo= "Publicación 1",
-                Tipo= "OFERTA",
-                Imagenes=new List<string>()
+                Cliente = new Cliente() { Id = 3 },
+                Descripcion = "Descripción P1",
+                Servicio = new Servicio() { Id = 1 },
+                Titulo = "Publicación 1",
+                Tipo = "OFERTA",
+                Imagenes = new List<string>()
             };
             publicacion.Imagenes.Add("PUBLICACION1IMG1.jpg");
             publicacion.Imagenes.Add("PUBLICACION1IMG2.jpg");
@@ -511,17 +512,18 @@ namespace ProyectoTesting.Tests
                 Titulo = "Publicación Test",
                 Tipo = "OFERTA",
                 Imagenes = new List<string>(),
-                FechaAlta= DateTime.Now,    
-                Respuestas=new List<Respuesta>()            
+                FechaAlta = DateTime.Now,
+                Respuestas = new List<Respuesta>()
             };
             publicacion.Imagenes.Add("PUBLICACIONTESTIMG1.jpg");
             publicacion.Imagenes.Add("PUBLICACIONTESTIMG2.jpg");
             publicacion.Imagenes.Add("PUBLICACIONTESTIMG3.jpg");
 
-            publicacion.Respuestas.Add(new Respuesta() {
+            publicacion.Respuestas.Add(new Respuesta()
+            {
                 Pregunta = new Pregunta() { Id = 1 },
                 UnaRespuesta = "Respuesta pregunta 1."
-                });
+            });
             publicacion.Respuestas.Add(new Respuesta()
             {
                 Pregunta = new Pregunta() { Id = 2 },
@@ -536,7 +538,7 @@ namespace ProyectoTesting.Tests
         {
             Publicacion publicacion = new Publicacion
             {
-                Id=5,
+                Id = 5,
                 Descripcion = "Descripción PTest",
                 Titulo = "Publicación Test",
                 Imagenes = new List<string>(),

@@ -31,3 +31,4 @@ PRODUCTO
 *Manual de deploy
 *Forzar contraseña administrador, ver documentacion.
 *Formato de debug en angular (Estdar de documentacion, agregar)
+*Diseño de interfaz generica
