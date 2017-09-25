@@ -340,6 +340,93 @@ namespace AdministradoresWeb.Controllers
             }
         }
 
+        //GET: Administrador/NuevoPass
+        public ActionResult NuevoPass(int id = 0)
+        {
+            if (Session["TipoUsuario"] != null && Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR"))
+            {
+                try
+                {
+                    NuevoPassViewModel nuevoPassVM = new NuevoPassViewModel();
+                    nuevoPassVM.admin = adminBL.obtener(id);
+                    if (nuevoPassVM.admin != null)
+                    {
+                        nuevoPassVM.NombreUsuario = nuevoPassVM.admin.NombreUsuario;
+                        nuevoPassVM.Id = id;
+                        return View(nuevoPassVM);
+                    }
+                    else {
+                        ViewBag.Mensaje = "No selecciono el usuario correctamente.";
+                        return View("~/Views/Shared/_Mensajes.cshtml");
+                    }
+
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+            else
+            {
+                try
+                {
+                    ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+                catch (ProyectoException ex)
+                {
+                    ViewBag.Mensaje = ex.Message;
+                    return View("~/Views/Shared/_Mensajes.cshtml");
+                }
+            }
+        }
+
+        //POST: Administrador/NuevoPass
+        [HttpPost]
+        public ActionResult NuevoPass(NuevoPassViewModel nuevoPassVM)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Session["TipoUsuario"] != null && Session["TipoUsuario"].ToString().Equals("SUPERADMINISTRADOR"))
+                {
+                    try
+                    {
+                        if (nuevoPassVM.PasswordNuevo.Equals(nuevoPassVM.PasswordConfirmacion))
+                        {
+                            adminBL.nuevaContrasena(nuevoPassVM.Id, nuevoPassVM.PasswordNuevo);
+                            nuevoPassVM.MensajeOK = "Contraseña modificada correctamente.";
+                            return View(nuevoPassVM);
+
+                        }
+                        nuevoPassVM.Mensaje = "La contraseña nueva no coincide con la confirmación de contraseña. Por favor, inténtelo otra vez.";
+                        return View(nuevoPassVM);
+                    }
+                    catch (ProyectoException ex)
+                    {
+                        ViewBag.Mensaje = ex.Message;
+                        return View("~/Views/Shared/_Mensajes.cshtml");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        ViewBag.Mensaje = "No tiene permisos para relalizar esta acción.";
+                        return View("~/Views/Shared/_Mensajes.cshtml");
+                    }
+                    catch (ProyectoException ex)
+                    {
+                        ViewBag.Mensaje = ex.Message;
+                        return View("~/Views/Shared/_Mensajes.cshtml");
+                    }
+                }
+            }
+            else {
+                return View(nuevoPassVM);
+            }
+        }
+
 
 
 

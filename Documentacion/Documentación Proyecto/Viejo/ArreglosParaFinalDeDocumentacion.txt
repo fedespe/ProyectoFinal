@@ -12,7 +12,8 @@ LISTO *Plan de testing, ver si indicamos que el testing del back (Nunit o como s
 *Plan de capacitacion. Hacer manuales para administrador y cliente. Indicar como se van a presentar y si hay cambios en el formato de los mismos (imagenes o videos?)
 *Cronograma de trabajo y criticidad. GANTT ver los cambios por sprint. Arreglar Gantt que se vea todo lo que dice.
 *Menciona 3 tipos de grupos focos. Agregar encuestas online a la documentación.
-*UML capas BL, DAL, ET. Diagrama del visual con Proyecto administradores y Web api. Help page de la Web api. 
+*Manuales de usuarios detallados en las alternativas
+*Plan de SCM, menciona que se manejan dos versiones, manejamos en todo momento una version única.
 
 PRODUCTO
 *Ingresar datos prolijos
@@ -23,11 +24,9 @@ PRODUCTO
 *Manuales
 *Testing
 *Mayor detalle de los requerimientos
+*UML, hacer algun diagrama del proyecto administradores y web api (indicando los metodos que tiene cada uno al menos). 
 *Manejo de errores
 *Analisis y Diseño... al inicio de la documentacion del proyecto. 
 *Abstract
 *Resumen de horas en las conclusiones
 *Notificaciones
-*Manual de deploy
-*Forzar contraseña administrador, ver documentacion.
-*Formato de debug en angular (Estdar de documentacion, agregar)

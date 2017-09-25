@@ -60,5 +60,16 @@ namespace BL
         {
             return adminitsradorDAL.ingresarAdministrador(nombreUsu, pass);
         }
+        //Para uso del super administrador en caso de perdida de la misma por parte del administrador
+        public void nuevaContrasena(int id, string contrasenaNueva)
+        {
+            base.validarContrasena(contrasenaNueva);
+            Administrador admin = adminitsradorDAL.obtener(id);
+            if (admin == null)
+            {
+                throw new ProyectoException("Error: Cliente no encontrado");
+            }
+            adminitsradorDAL.actualizarContrasena(id, contrasenaNueva);
+        }
     }
 }

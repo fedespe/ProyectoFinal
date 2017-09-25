@@ -42,12 +42,14 @@
                 @Html.TextBoxFor(x => x.Direccion, new { @id = "direccion", @class = "form-control", @placeholder = "Dirección" })
                 @Html.ValidationMessageFor(x => x.Direccion, "", new { @class = "text-danger" })
             </div>
-
+            if (Session["TipoUsuario"] != null && Session["TipoUsuario"].ToString().Equals("ADMINISTRADOR"))
+            {
             <div>
                 <a title="CambiarPassword" href="~/Administrador/CambiarPass/@Model.Id">
                     <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cambiar Contraseña
                 </a>
             </div>
+            }
 
             <button type="submit" class="btn btn-primary">
                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Actualizar

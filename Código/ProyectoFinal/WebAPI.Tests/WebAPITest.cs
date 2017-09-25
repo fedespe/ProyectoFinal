@@ -407,40 +407,40 @@ namespace ProyectoTesting.Tests
             Assert.AreEqual("Error: Cliente no encontrado", result);
         }
 
-        [TestMethod]
-        public void PostIngresarCliente_OK()
-        {
-            Cliente cli = new Cliente
-            {
-                NombreUsuario = "Cliente1",
-                Contrasena = "123456789"
-            };
-            Cliente result = (Cliente)controllerCliente.PostIngresarCliente(cli).Objetos[0];
-            Assert.AreEqual(3, result.Id);
-            Assert.AreEqual("Cliente1", result.Nombre);
-        }
-        [TestMethod]
-        public void PostIngresarCliente_NombreIncorrecto()
-        {
-            Cliente cli = new Cliente
-            {
-                NombreUsuario = "Cliente199999999",
-                Contrasena = "123456789"
-            };
-            string result = controllerCliente.PostIngresarCliente(cli).Mensaje;
-            Assert.AreEqual("Datos incorrectos.", result);
-        }
-        [TestMethod]
-        public void PostIngresarCliente_ContrasenaIncorrecta()
-        {
-            Cliente cli = new Cliente
-            {
-                NombreUsuario = "Cliente1",
-                Contrasena = "123456789000"
-            };
-            string result = controllerCliente.PostIngresarCliente(cli).Mensaje;
-            Assert.AreEqual("Datos incorrectos.", result);
-        }
+        //[TestMethod]
+        //public void PostIngresarCliente_OK()
+        //{
+        //    Cliente cli = new Cliente
+        //    {
+        //        NombreUsuario = "Cliente1",
+        //        Contrasena = "123456789"
+        //    };
+        //    Cliente result = (Cliente)controllerCliente.PostIngresarCliente(cli).Objetos[0];
+        //    Assert.AreEqual(3, result.Id);
+        //    Assert.AreEqual("Cliente1", result.Nombre);
+        //}
+        //[TestMethod]
+        //public void PostIngresarCliente_NombreIncorrecto()
+        //{
+        //    Cliente cli = new Cliente
+        //    {
+        //        NombreUsuario = "Cliente199999999",
+        //        Contrasena = "123456789"
+        //    };
+        //    string result = controllerCliente.PostIngresarCliente(cli).Mensaje;
+        //    Assert.AreEqual("Datos incorrectos.", result);
+        //}
+        //[TestMethod]
+        //public void PostIngresarCliente_ContrasenaIncorrecta()
+        //{
+        //    Cliente cli = new Cliente
+        //    {
+        //        NombreUsuario = "Cliente1",
+        //        Contrasena = "123456789000"
+        //    };
+        //    string result = controllerCliente.PostIngresarCliente(cli).Mensaje;
+        //    Assert.AreEqual("Datos incorrectos.", result);
+        //}
 
         //**********************************************************
         //FIN PRUEBAS CLIENTE
