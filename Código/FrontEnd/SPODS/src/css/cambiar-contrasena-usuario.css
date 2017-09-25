@@ -1,3 +1,15 @@
 input{
     margin-bottom: 20px;
 }
+
+#botonGuardar{
+    margin-top: 20px;
+}
+
+#inputConfirmacionContrasena{
+    margin-bottom: 0 !important;
+}
+
+#errorContrasenas{
+    color:red;
+}
