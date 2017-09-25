@@ -29,7 +29,6 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.mensajesComentario = new mensaje_1.Mensaje();
         this.contactos = [];
         this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
-        this.puntaje = 0;
         this.baseURL = settings_1.Settings.srcImg; //ver que acá va la ruta del proyecto que contiene las imagenes
         var idUsuario = parseInt(localStorage.getItem('id-usuario'));
         this.obtenerSolicitudesCliente(idUsuario);
@@ -39,6 +38,7 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
         this.mensajesComentario.Errores = [];
+        this.mensajesComentario.Exitos = [];
     };
     ListadoSolicitudesClienteComponent.prototype.obtenerSolicitudesCliente = function (id) {
         var _this = this;
@@ -138,18 +138,17 @@ var ListadoSolicitudesClienteComponent = (function () {
     ListadoSolicitudesClienteComponent.prototype.cambiarVisualizacion = function (todas) {
         this.viendoTodas = todas;
     };
-    ListadoSolicitudesClienteComponent.prototype.activarModal = function (input) {
-        document.getElementById('btnModal').click();
-        this.comentarioPuntuacion.Publicacion = input.Publicacion; //al contrario de la oferta quien realiza el comentario es el due'o de la publicacion
-        this.comentarioPuntuacion.Cliente.Id = input.Cliente.Id; //al contrario de la oferta quien recibe el comentario es el que realiza el trabajo
+    ListadoSolicitudesClienteComponent.prototype.cargarModal = function (contacto) {
+        this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
+        this.comentarioPuntuacion.Publicacion = contacto.Publicacion; //al contrario de la oferta quien realiza el comentario es el due'o de la publicacion
+        this.comentarioPuntuacion.Cliente.Id = contacto.Cliente.Id; //al contrario de la oferta quien recibe el comentario es el que realiza el trabajo
         this.comentarioPuntuacion.Contacto = new contacto_1.Contacto();
-        this.comentarioPuntuacion.Contacto.Id = input.Id;
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(input));
+        this.comentarioPuntuacion.Contacto.Id = contacto.Id;
+        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(contacto));
     };
     ListadoSolicitudesClienteComponent.prototype.guardarComentario = function () {
         var _this = this;
         this.borrarMensajes();
-        this.comentarioPuntuacion.Puntuacion = this.puntaje;
         utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
         this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
         if (this.mensajesComentario.Errores.length == 0) {
@@ -162,7 +161,6 @@ var ListadoSolicitudesClienteComponent = (function () {
         if (response.Codigo == 200) {
             document.getElementById('btnModalClose').click();
             this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
-            this.puntaje = 0;
             this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
         }
         else {
@@ -189,36 +187,4 @@ ListadoSolicitudesClienteComponent = __decorate([
     __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router])
 ], ListadoSolicitudesClienteComponent);
 exports.ListadoSolicitudesClienteComponent = ListadoSolicitudesClienteComponent;
-/*
-solicitudesAceptadas: Solicitud[] = [];
-
-//Constructor
-this.obtenerSolicitudesAceptadas(idUsuario);
-
-obtenerSolicitudesAceptadas(id:number){
-    this.dataService.getObtenerSolicitudesAceptadas(id)
-        .subscribe(
-        res => this.getObtenerSolicitudesAceptadasOk(res),
-        error => this.getObtenerSolicitudesAceptadasError(error),
-        () => Utilidades.log("[listado-solicitudes-cliente.component.ts] - obtenerSolicitudesAceptadas: Completado")
-    );
-}
-getObtenerSolicitudesAceptadasOk(response:any){
-    Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));
-    if(response.Codigo ==  200){
-        this.solicitudesAceptadas = response.Objetos;
-    }
-    else{
-        var error = new Error();
-        error.Descripcion = response.Mensaje;
-        this.mensajes.Errores.push(error);
-    }
-}
-getObtenerSolicitudesAceptadasError(responseError:any){
-    Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
-    var error = new Error();
-    error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-    this.mensajes.Errores.push(error);
-}
-*/ 
 //# sourceMappingURL=listado-solicitudes-cliente.component.js.map

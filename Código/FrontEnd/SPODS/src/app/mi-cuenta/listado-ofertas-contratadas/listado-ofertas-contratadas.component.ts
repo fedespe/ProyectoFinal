@@ -9,32 +9,36 @@ import { Servicio } from "../../shared/servicio";
 import { Settings } from "../../shared/settings";
 import { Publicacion } from "../../shared/publicacion";
 import { Contacto } from "../../shared/contacto";
+import { ComentarioPuntuacion } from "../../shared/comentarioPuntuacion";
 
 @Component({
-    selector: 'listado-publicaciones-contratadas',
-    templateUrl: 'app/mi-cuenta/listado-publicaciones-contratadas/listado-publicaciones-contratadas.component.html',
-    styleUrls:  ['css/listado-publicaciones-contratadas.css']
+    selector: 'listado-ofertas-contratadas',
+    templateUrl: 'app/mi-cuenta/listado-ofertas-contratadas/listado-ofertas-contratadas.component.html',
+    styleUrls:  ['css/listado-ofertas-contratadas.css']
 })
 
-export class ListadoPublicacionesContratadasComponent{
+export class ListadoOfertasContratadasComponent{
     mensajes: Mensaje = new Mensaje();
+    loading: boolean = true;
+    baseURL: string;
     publicaciones: Publicacion[] = [];
-    baseURL:string;
-    contactos:Contacto[]=[]
-
+    viendoTodas = true;
+    mensajesComentario: Mensaje = new Mensaje();
+    contactos: Contacto[] = [];
+    comentarioPuntuacion: ComentarioPuntuacion = new ComentarioPuntuacion();
 
     constructor(private dataService: DataService, private router: Router) {
-        this.obtenerPublicacionesContratadasPorCliente(parseInt(localStorage.getItem('id-usuario')));
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
-        this.obtenerTodosContactosConComentariosPendientesOferta(parseInt(localStorage.getItem('id-usuario')));
+        let idUsuario:number = parseInt(localStorage.getItem('id-usuario'));
+        this.obtenerPublicacionesContratadasPorCliente(idUsuario);
+        this.obtenerTodosContactosConComentariosPendientesOferta(idUsuario);
     }
-
-    
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+        this.mensajesComentario.Errores = [];
+        this.mensajesComentario.Exitos = [];
     }
-    
     obtenerPublicacionesContratadasPorCliente(id:number){
         this.dataService.getobtenerPublicacionesContratadasPorCliente(id)
             .subscribe(
@@ -43,7 +47,6 @@ export class ListadoPublicacionesContratadasComponent{
             () => Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorCliente: Completado")
         );
     }
-
     getobtenerPublicacionesContratadasPorClienteOk(response:any){
         Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
@@ -54,15 +57,15 @@ export class ListadoPublicacionesContratadasComponent{
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     }
-
     getobtenerPublicacionesContratadasPorClienteError(responseError:any){
         Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     }
-
     obtenerTodosContactosConComentariosPendientesOferta(id:number){
         this.dataService.getobtenerTodosContactosConComentariosPendientesOferta(id)
             .subscribe(
@@ -71,11 +74,13 @@ export class ListadoPublicacionesContratadasComponent{
             () => Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOferta: Completado")
         );
     }
-
     getobtenerTodosContactosConComentariosPendientesOfertaOk(response:any){
         Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
             this.contactos = response.Objetos;
+            if(this.contactos.length == 0){
+                this.viendoTodas = true;
+            }
         }
         else{
             var error = new Error();
@@ -83,12 +88,57 @@ export class ListadoPublicacionesContratadasComponent{
             this.mensajes.Errores.push(error);
         }
     }
-
     getobtenerTodosContactosConComentariosPendientesOfertaError(responseError:any){
         Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
+    cambiarVisualizacion(todas:boolean){
+        this.viendoTodas = todas;
+    }
+    cargarModal(contacto:Contacto){
+        this.comentarioPuntuacion=new ComentarioPuntuacion();
+        this.comentarioPuntuacion.Publicacion=contacto.Publicacion;
+        this.comentarioPuntuacion.Cliente.Id=parseInt(localStorage.getItem("id-usuario"));
+        this.comentarioPuntuacion.Contacto=new Contacto();
+        this.comentarioPuntuacion.Contacto.Id=contacto.Id;
+        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(contacto));
+    }
+    guardarComentario(){
+        this.borrarMensajes();
+        
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
+        this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
+        if(this.mensajesComentario.Errores.length==0){
+            this.dataService.postIngresarComentario(this.comentarioPuntuacion)
+                .subscribe(
+                    res => this.postIngresarComentarioOk(res),
+                    error => this.postIngresarComentarioError(error),
+                    () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+                );
+        }   
+   
+    }
+    postIngresarComentarioOk(response:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
 
+        if(response.Codigo ==  200){
+            document.getElementById('btnModalClose').click();
+            this.comentarioPuntuacion = new ComentarioPuntuacion();
+            this.obtenerTodosContactosConComentariosPendientesOferta(parseInt(localStorage.getItem('id-usuario')));
+        }
+        else{
+            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            var error = new Error();
+            error.Descripcion = response.Mensaje;           
+            this.mensajesComentario.Errores.push(error);
+        }
+    }
+    postIngresarComentarioError(responseError:any){
+        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
 }

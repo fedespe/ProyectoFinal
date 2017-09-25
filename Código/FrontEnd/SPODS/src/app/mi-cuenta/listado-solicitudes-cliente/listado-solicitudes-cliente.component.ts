@@ -27,7 +27,6 @@ export class ListadoSolicitudesClienteComponent{
     mensajesComentario: Mensaje = new Mensaje();
     contactos:Contacto[]=[]
     comentarioPuntuacion: ComentarioPuntuacion= new ComentarioPuntuacion();
-    puntaje:number=0;
 
     constructor(private dataService: DataService, private router: Router) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
@@ -40,6 +39,7 @@ export class ListadoSolicitudesClienteComponent{
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
         this.mensajesComentario.Errores = [];
+        this.mensajesComentario.Exitos = [];
     }
     obtenerSolicitudesCliente(id:number){
         this.dataService.getObtenerSolicitudesCliente(id)
@@ -151,19 +151,18 @@ export class ListadoSolicitudesClienteComponent{
     cambiarVisualizacion(todas:boolean){
         this.viendoTodas = todas;
     }
-    activarModal(input:any){
-        document.getElementById('btnModal').click();
-        this.comentarioPuntuacion.Publicacion=input.Publicacion;//al contrario de la oferta quien realiza el comentario es el due'o de la publicacion
-        this.comentarioPuntuacion.Cliente.Id=input.Cliente.Id;//al contrario de la oferta quien recibe el comentario es el que realiza el trabajo
+    cargarModal(contacto:Contacto){
+        this.comentarioPuntuacion=new ComentarioPuntuacion();
+        this.comentarioPuntuacion.Publicacion=contacto.Publicacion;//al contrario de la oferta quien realiza el comentario es el due'o de la publicacion
+        this.comentarioPuntuacion.Cliente.Id=contacto.Cliente.Id;//al contrario de la oferta quien recibe el comentario es el que realiza el trabajo
         this.comentarioPuntuacion.Contacto=new Contacto();
-        this.comentarioPuntuacion.Contacto.Id=input.Id;
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(input));
+        this.comentarioPuntuacion.Contacto.Id=contacto.Id;
+        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(contacto));
 
     }
     guardarComentario(){
         this.borrarMensajes();
-        this.comentarioPuntuacion.Puntuacion=this.puntaje;
-
+        
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
         this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
         if(this.mensajesComentario.Errores.length==0){
@@ -181,7 +180,6 @@ export class ListadoSolicitudesClienteComponent{
         if(response.Codigo ==  200){
             document.getElementById('btnModalClose').click();
             this.comentarioPuntuacion = new ComentarioPuntuacion();
-            this.puntaje = 0;
             this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
         }
         else{
@@ -198,38 +196,3 @@ export class ListadoSolicitudesClienteComponent{
         this.mensajes.Errores.push(error);
     }
 }
-
-
-
-/*
-solicitudesAceptadas: Solicitud[] = [];
-
-//Constructor
-this.obtenerSolicitudesAceptadas(idUsuario);
-
-obtenerSolicitudesAceptadas(id:number){
-    this.dataService.getObtenerSolicitudesAceptadas(id)
-        .subscribe(
-        res => this.getObtenerSolicitudesAceptadasOk(res),
-        error => this.getObtenerSolicitudesAceptadasError(error),
-        () => Utilidades.log("[listado-solicitudes-cliente.component.ts] - obtenerSolicitudesAceptadas: Completado")
-    );
-}
-getObtenerSolicitudesAceptadasOk(response:any){
-    Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));      
-    if(response.Codigo ==  200){
-        this.solicitudesAceptadas = response.Objetos;
-    }
-    else{
-        var error = new Error();
-        error.Descripcion = response.Mensaje;           
-        this.mensajes.Errores.push(error);
-    }
-}
-getObtenerSolicitudesAceptadasError(responseError:any){
-    Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
-    var error = new Error();
-    error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-    this.mensajes.Errores.push(error);
-}
-*/

@@ -1,20 +1,20 @@
 <div class="container">
     <div class="row">
-        <h1 class="col-12">Solicitudes Ofrecidas</h1>
+        <h1 class="col-12">Ofertas Contratadas</h1>
         <div *ngIf="loading" style="text-align: center; width: 100%;">
             <img src="../../img/loading.gif" class="loading"/>
         </div>
-        <div *ngIf="!loading && solicitudes.length == 0 && contactos.length == 0" class="col-12">
+        <div *ngIf="!loading && publicaciones.length == 0 && contactos.length == 0" class="col-12">
             <p>
-                Aún no has realizado ninguna solicitud.
+                Aún no has contratado ninguna oferta.
             </p>
             <p>
-                <a routerLink="/dashboard/solicitar-servicio">Solicita algun servicio ahora!</a>
+                <a routerLink="/dashboard/listado-servicios">Busca y contrata ahora!</a>
             </p>
         </div>
         <div *ngIf="!loading && contactos.length > 0 && viendoTodas" class="col-12 ContenedorLinkCabezal">
             <p>
-                Tiene {{contactos.length}} <span *ngIf="contactos.length == 1">publicación</span><span *ngIf="contactos.length > 1">publicaciones</span> sin calificar.
+                Tiene {{contactos.length}} <span *ngIf="contactos.length == 1">oferta</span><span *ngIf="contactos.length > 1">ofertas</span> sin calificar.
             </p>
             <a class="linkManual" (click)="cambiarVisualizacion(false)">
                     Visualizar publicaciones sin calificar.
@@ -26,7 +26,7 @@
                     Visualizar todas las publicaciones.
             </a>
         </div>
-        <div  *ngIf="!loading && solicitudes.length > 0 && viendoTodas" class="col-12">
+        <div *ngIf="!loading && publicaciones.length > 0 && viendoTodas" class="col-12">        
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -38,46 +38,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let publicacion of solicitudes;">
+                    <tr *ngFor="let publicacion of publicaciones;">
                         <td *ngIf="publicacion.Imagenes[0]!=null && publicacion.Imagenes[0]!=''"><img src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
-                        <td *ngIf="publicacion.Imagenes[0]==null || publicacion.Imagenes[0]==''"><img src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
-                        <td><a class="linkManual" [routerLink]="['/dashboard/ver-publicacion-solicitada/', publicacion.Id]">{{publicacion.Titulo}}</a></td>
-                        <th scope="row">{{publicacion.Servicio.Nombre}}</th>
+                        <td *ngIf="publicacion.Imagenes[0]==null || publicacion.Imagenes[0]==''"><img src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>                    
+                        <td><a class="linkManual" [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]">{{publicacion.Titulo}}</a></td>
+                        <th scope="row">{{publicacion.Servicio.Nombre}}</th>            
                         <td *ngIf="publicacion.Finalizada" class="text-center">Finalizada</td>
                         <td *ngIf="!publicacion.Finalizada && publicacion.Activa" class="text-center">Activa</td>
                         <td *ngIf="!publicacion.Finalizada && !publicacion.Activa" class="text-center">Inactiva</td>
                         <td>
-                            <div *ngIf="!publicacion.Finalizada" class="linkManual float-left" routerLink="/dashboard/editar-solicitud-cliente/{{publicacion.Id}}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</div>
-                            <div *ngIf="publicacion.Finalizada" class="linkManualDesactivado float-left"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</div>
-                            <div *ngIf="!publicacion.Finalizada && !publicacion.Activa" class="linkManual float-left" (click)="activarPublicacion(publicacion.Id)"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
-                            <div *ngIf="!publicacion.Finalizada && publicacion.Activa" class="linkManual float-left" (click)="desactivarPublicacion(publicacion.Id)"><i class="fa fa-times" aria-hidden="true"></i> Desactivar</div>
-                            <div *ngIf="publicacion.Finalizada" class="linkManualDesactivado float-left"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
-                            <div *ngIf="publicacion.Finalizada && publicacion.Presupuestos.length>0" class="linkManual float-left" [routerLink]="['/dashboard/ver-perfil-usuario/', publicacion.Presupuestos[0].Cliente.Id]"><i class="fa fa-user" aria-hidden="true"></i> Contacto</div>
+                            <div class="linkManual float-left" [routerLink]="['/dashboard/ver-perfil-usuario/', publicacion.Cliente.Id]"><i class="fa fa-user" aria-hidden="true"></i> Contacto</div>
                         </td>
                     </tr>
                 </tbody>
-            </table>  
+            </table> 
         </div>
-
-        <div *ngIf="!loading && contactos.length > 0 && !viendoTodas" class="col-12">
+        <div *ngIf="contactos.length > 0 && !viendoTodas" class="col-12">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Título</th>
                         <th>Servicio</th>
+                        <th>Título</th>
                         <th>Nombre de Usuario</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let contacto of contactos;">                   
-                        <td><a class="linkManual" [routerLink]="['/dashboard/ver-publicacion-solicitada/', contacto.Publicacion.Id]">{{contacto.Publicacion.Titulo}}</a></td>                 
+                    <tr *ngFor="let contacto of contactos;">                      
+                        <td><a class="linkManual" [routerLink]="['/dashboard/ver-publicacion-solicitada/', contacto.Publicacion.Id]">{{contacto.Publicacion.Titulo}}</a></td>
                         <td>{{contacto.Publicacion.Servicio.Nombre}}</td>
-                        <td>{{contacto.Cliente.NombreUsuario}}</td>                   
-                        <td>
-                            <div class="linkManual float-left" [routerLink]="['/dashboard/ver-perfil-usuario/', contacto.Cliente.Id]"><i class="fa fa-user" aria-hidden="true"></i> Contacto</div>
+                        <td>{{contacto.Publicacion.Cliente.NombreUsuario}}</td>                   
+                        <td>                       
+                            <div class="linkManual float-left" [routerLink]="['/dashboard/ver-perfil-usuario/', contacto.Publicacion.Cliente.Id]"><i class="fa fa-user" aria-hidden="true"></i> Contacto</div>
                             <div class="linkManual float-left" (click)="cargarModal(contacto)" data-toggle="modal" data-target="#modalComentarios"><i class="fa fa-comments-o" aria-hidden="true"></i> Calificar</div>
-                        </td>
+                        </td>                                      
                     </tr>
                 </tbody>
             </table>  
@@ -92,6 +86,7 @@
                 {{exito.Descripcion}}
             </div>
         </div>
+
         <!--MODAL-->
         <div class="modal fade" id="modalComentarios" tabindex="-1" role="dialog" aria-labelledby="modalComentariosTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -125,5 +120,5 @@
             </div>
         </div>
         <!--FIN MODAL-->
-    </div>
+  </div>
 </div>
