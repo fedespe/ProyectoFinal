@@ -17,6 +17,7 @@ import { Settings } from '../../shared/settings';
 })
 
 export class PerfilUsuarioComponent{
+    loading: boolean = true;
     mensajes: Mensaje = new Mensaje();
     cliente:Cliente = new Cliente();
     barrios:Barrio[] = [];
@@ -24,28 +25,79 @@ export class PerfilUsuarioComponent{
     editarImagen:boolean=false;
     urlImagen:string= Settings.srcImg +"/Cliente/IngresarImagen";
     
-
     constructor(private dataService: DataService, private router: Router) {
         this.cliente.NombreUsuario=localStorage.getItem('nombre-usuario');
         this.cliente.Id = parseInt(localStorage.getItem('id-usuario'));
-        this.getObtenerBarrios();
         this.getObternerCliente();
-        
+        this.getObtenerBarrios();
     }
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     }
-    cambiarEditarImagen(){
-        if(this.editarImagen){
-            this.editarImagen=false;
-        }else{
-            this.editarImagen=true;
+    getObternerCliente(){
+        this.dataService.getObtenerCliente(this.cliente.Id)
+            .subscribe(
+            res => this.getObternerClienteOk(res),
+            error => this.getObternerClienteError(error),
+            () => Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado")
+        );
+    }
+    getObternerClienteOk(response:any){
+        Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
+        if(response.Codigo ==  200){
+            this.cliente.Nombre = response.Objetos[0].Nombre;
+            this.cliente.Apellido = response.Objetos[0].Apellido;
+            this.cliente.Telefono = response.Objetos[0].Telefono;
+            this.cliente.Direccion = response.Objetos[0].Direccion;
+            this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
+            this.cliente.Imagen=response.Objetos[0].Imagen;
         }
+        else{
+            var error = new Error();
+            error.Descripcion = "Ha ocurrido un error al cargar sus datos.";
+            this.mensajes.Errores.push(error);
+        }
+        this.loading= false;
+    }
+    getObternerClienteError(responseError:any){
+        Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+        this.loading= false;
+    }
+    getObtenerBarrios(){
+        this.dataService.getBarrioObtenerTodos()
+            .subscribe(
+            res => this.getBarrioObtenerTodosOk(res),
+            error => this.getBarrioObtenerTodosError(error),
+            () => Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado")
+        );
+    }
+    getBarrioObtenerTodosOk(response:any){
+        Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
+        if(response.Codigo ==  200){
+            this.barrios = response.Objetos;
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = "Ha ocurrido un error al cargar los barrios.";         
+            this.mensajes.Errores.push(error);
+        }
+    }
+    getBarrioObtenerTodosError(responseError:any){
+        Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }
+    cambiarEditarImagen(){
+        this.editarImagen=!this.editarImagen;
         Utilidades.log("[perfil-usuario.component.ts] - cambiarEditarImagen | this.editarImagen: " + JSON.stringify(this.editarImagen));
     }
-    
     actualizarCliente(){
+        this.loading = true;
         this.borrarMensajes();
         Utilidades.log("[perfil-usuario.component.ts] - registrarCliente | this.cliente: " + JSON.stringify(this.cliente));
         
@@ -60,8 +112,6 @@ export class PerfilUsuarioComponent{
             );
         }
     }
-
-
     putActualizarClienteOk(response:any){
         Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));
         this.borrarMensajes();
@@ -76,76 +126,13 @@ export class PerfilUsuarioComponent{
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     }
-
     putActualizarClienteError(responseError:any){
         Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     }
-
-    getObtenerBarrios(){
-        this.dataService.getBarrioObtenerTodos()
-            .subscribe(
-            res => this.getBarrioObtenerTodosOk(res),
-            error => this.getBarrioObtenerTodosError(error),
-            () => Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado")
-        );
-    }
-
-    getBarrioObtenerTodosOk(response:any){
-        Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodosOk | response: " + JSON.stringify(response));
-        this.barrios = response.Objetos;
-        if(response.Codigo ==  200){
-            
-        }
-        else{
-            var error = new Error();
-            error.Descripcion = response.Mensaje;           
-            this.mensajes.Errores.push(error);
-        }
-    }
-
-    getBarrioObtenerTodosError(responseError:any){
-        Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodosError | responseError: " + JSON.stringify(responseError));
-        var error = new Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(error);
-    }
-
-    getObternerCliente(){
-        this.dataService.getObtenerCliente(this.cliente.Id)
-            .subscribe(
-            res => this.getObternerClienteOk(res),
-            error => this.getObternerClienteError(error),
-            () => Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado")
-        );
-    }
-
-    getObternerClienteOk(response:any){
-        Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
-        if(response.Codigo ==  200){
-            //this.cliente=response.Objetos[0];
-            this.cliente.Nombre = response.Objetos[0].Nombre;
-            this.cliente.Apellido = response.Objetos[0].Apellido;
-            this.cliente.Telefono = response.Objetos[0].Telefono;
-            this.cliente.Direccion = response.Objetos[0].Direccion;
-            this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
-            this.cliente.Imagen=response.Objetos[0].Imagen;
-        }
-        else{
-            var error = new Error();
-            error.Descripcion = response.Mensaje;           
-            this.mensajes.Errores.push(error);
-        }
-    }
-
-    getObternerClienteError(responseError:any){
-        Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteError | responseError: " + JSON.stringify(responseError));
-        var error = new Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(error);
-    }
-    
 }
