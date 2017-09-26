@@ -42,7 +42,7 @@
                         <td *ngIf="publicacion.Imagenes[0]!=null && publicacion.Imagenes[0]!=''"><img src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
                         <td *ngIf="publicacion.Imagenes[0]==null || publicacion.Imagenes[0]==''"><img src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" class="figure-img img-fluid rounded" alt="{{publicacion.Imagenes[0]}}" height="50px" width="50px" ></td>
                         <td><a class="linkManual" [routerLink]="['/dashboard/ver-publicacion-solicitada/', publicacion.Id]">{{publicacion.Titulo}}</a></td>
-                        <th scope="row">{{publicacion.Servicio.Nombre}}</th>
+                        <td scope="row">{{publicacion.Servicio.Nombre}}</td>
                         <td *ngIf="publicacion.Finalizada" class="text-center">Finalizada</td>
                         <td *ngIf="!publicacion.Finalizada && publicacion.Activa" class="text-center">Activa</td>
                         <td *ngIf="!publicacion.Finalizada && !publicacion.Activa" class="text-center">Inactiva</td>

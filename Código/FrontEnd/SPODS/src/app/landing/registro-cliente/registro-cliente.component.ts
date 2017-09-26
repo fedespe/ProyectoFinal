@@ -24,6 +24,8 @@ export class RegistroClienteComponent {
     barrios:Barrio[] = [];
     contrasenaConfirmacion:string;
     step:number=1;
+    terminosAcpetados:boolean=false;
+    archivoTerminos:string = "files/TERMINOS_Y_CONDICIONES _SPODS.pdf";
     urlImagen:string= Settings.srcImg +"/Cliente/IngresarImagen";//?idCliente=3&contrasena=123456789";
     
 
@@ -38,13 +40,20 @@ export class RegistroClienteComponent {
     }
 
     registrarClientePaso1(){
-        this.borrarMensajes(),
-        Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
-        this.cliente.Habilitado = true;
-        this.mensajes.Errores = this.cliente.validarDatos1();
-        if(this.mensajes.Errores.length == 0){
-            this.step=2;
-        }       
+        this.borrarMensajes();
+        if(this.terminosAcpetados){
+            Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
+            this.cliente.Habilitado = true;
+            this.mensajes.Errores = this.cliente.validarDatos1();
+            if(this.mensajes.Errores.length == 0){
+                this.step=2;
+            }
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = "Debe aceptar los términos y condiciones.";
+            this.mensajes.Errores.push(error);
+        }  
     }
     registrarClientePaso2(){
         this.borrarMensajes(),

@@ -9,12 +9,12 @@ var ActualizarContrasena = (function () {
         utilidades_1.Utilidades.log("[cliente.ts] - validarCambioContrasena | this: " + JSON.stringify(this));
         var error;
         var errores = [];
-        if (this.Contrasena == null) {
+        if (this.Contrasena == null || this.Contrasena.trim() == "") {
             error = new error_1.Error();
             error.Descripcion = "Debe ingresar una contraseña.";
             errores.push(error);
         }
-        if (this.ContrasenaNueva == null) {
+        if (this.ContrasenaNueva == null || this.ContrasenaNueva.trim() == "") {
             error = new error_1.Error();
             error.Descripcion = "Debe ingresar una contraseña nueva.";
             errores.push(error);

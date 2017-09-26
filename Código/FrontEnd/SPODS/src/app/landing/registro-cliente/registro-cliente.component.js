@@ -25,6 +25,8 @@ var RegistroClienteComponent = (function () {
         this.cliente = new cliente_1.Cliente();
         this.barrios = [];
         this.step = 1;
+        this.terminosAcpetados = false;
+        this.archivoTerminos = "files/TERMINOS_Y_CONDICIONES _SPODS.pdf";
         this.urlImagen = settings_1.Settings.srcImg + "/Cliente/IngresarImagen"; //?idCliente=3&contrasena=123456789";
         this.cerrarSesion();
         this.obtenerBarrios();
@@ -34,12 +36,19 @@ var RegistroClienteComponent = (function () {
         this.mensajes.Exitos = [];
     };
     RegistroClienteComponent.prototype.registrarClientePaso1 = function () {
-        this.borrarMensajes(),
+        this.borrarMensajes();
+        if (this.terminosAcpetados) {
             utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
-        this.cliente.Habilitado = true;
-        this.mensajes.Errores = this.cliente.validarDatos1();
-        if (this.mensajes.Errores.length == 0) {
-            this.step = 2;
+            this.cliente.Habilitado = true;
+            this.mensajes.Errores = this.cliente.validarDatos1();
+            if (this.mensajes.Errores.length == 0) {
+                this.step = 2;
+            }
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = "Debe aceptar los términos y condiciones.";
+            this.mensajes.Errores.push(error);
         }
     };
     RegistroClienteComponent.prototype.registrarClientePaso2 = function () {

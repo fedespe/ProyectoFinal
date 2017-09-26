@@ -103,6 +103,9 @@ var PerfilUsuarioComponent = (function () {
             this.dataService.putActualizarCliente(this.cliente)
                 .subscribe(function (res) { return _this.putActualizarClienteOk(res); }, function (error) { return _this.putActualizarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postRegistrarCliente: Completado"); });
         }
+        else {
+            this.loading = false;
+        }
     };
     PerfilUsuarioComponent.prototype.putActualizarClienteOk = function (response) {
         utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));

@@ -111,6 +111,9 @@ export class PerfilUsuarioComponent{
                 () => Utilidades.log("[perfil-usuario.component.ts] - postRegistrarCliente: Completado")
             );
         }
+        else{
+            this.loading=false;
+        }
     }
     putActualizarClienteOk(response:any){
         Utilidades.log("[perfil-usuario.component.ts] - putActualizarClienteOk | response: " + JSON.stringify(response));

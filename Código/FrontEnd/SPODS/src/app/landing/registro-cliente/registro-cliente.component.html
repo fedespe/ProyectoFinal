@@ -46,6 +46,12 @@
                 <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
             </select>
 
+            <div class="float-right" id="contenedorTerminos">
+                <label for="inputTerminosAceptados" id="labelTerminosAceptados">Acepto los términos y condiciones</label>
+                <input type="checkbox" [(ngModel)]="terminosAcpetados" id="inputTerminosAceptados">
+                <a class="text-right" [href]="archivoTerminos" target="_blank" id="linkTerminos">Ver términos y condiciones.</a>
+            </div>
+
             <button class="btn btn-primary btn-block" (click)="registrarClientePaso1()">Siguiente</button>
         </div>
 

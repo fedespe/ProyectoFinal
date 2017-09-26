@@ -13,7 +13,6 @@ import { Settings } from "../../shared/settings";
 import { Contacto } from "../../shared/contacto"; 
 import { ComentarioPuntuacion } from "../../shared/comentarioPuntuacion"; 
 import { Cliente } from "../../shared/cliente";
-declare var $:JQueryStatic;
 
 @Component({
     selector: 'ver-publicacion-ofrecida',

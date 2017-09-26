@@ -14,13 +14,13 @@ export class ActualizarContrasena {
         var error : Error;
         var errores : Error[] = [];
 
-        if(this.Contrasena == null){
+        if(this.Contrasena == null || this.Contrasena.trim() == ""){
             error = new Error();
             error.Descripcion = "Debe ingresar una contraseña.";
             errores.push(error);
         }
 
-        if(this.ContrasenaNueva == null){
+        if(this.ContrasenaNueva == null || this.ContrasenaNueva.trim() == ""){
             error = new Error();
             error.Descripcion = "Debe ingresar una contraseña nueva.";
             errores.push(error);
