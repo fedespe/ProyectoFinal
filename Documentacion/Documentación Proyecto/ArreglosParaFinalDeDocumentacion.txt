@@ -1,34 +1,164 @@
-ANTEPROYECTO
-LISTO *Menciona dos tipops de servicios, simples y complejos. se realizaría un único sefvicio complejo (Mecánica).
-LISTO *Indicar cuales fueron las tareas cumplidas de la lista de necesidades planteada.
-LISTO *Indicar cuales fueron los objetivos concretados y cuales no. Cambios en los objetivos debido a los cambios producidos en el producto (las publicaciones son unicas, ni simpes ni complejas)
-LISTO *Actores involucrados. Cambiaron... el visitante no tendrá acceso a los servicios.
-LISTO *Detalle de los requerimientos no funcionales. 
-LISTO *Detalle de la alternativa utilizada (remarcar bien que se separo el frontend en dos partes administradores y clientes, que se usó angular para una y .NET para la otra)
-LISTO *Indicar como fué el manejo de riesgos (Ver que se dejaron de lado algunos requerimientos planteados FACEBOOK)
-LISTO *Plan de SQA. Verificar que las planillas con requerimientos en cada sprint contengan los datos detallados en el anteproyecto. Verificar planilla de riesgos, ver que los datos sean los mencionados en el anteproyecto.
-LISTO *Plan de testing, ver si indicamos que el testing del back (Nunit o como se llame) se genero al final de cada sprint y que el del front (planilla de excel) se genero al inicio.
 
-*Plan de capacitacion. Hacer manuales para administrador y cliente. Indicar como se van a presentar y si hay cambios en el formato de los mismos (imagenes o videos?)
-*Cronograma de trabajo y criticidad. GANTT ver los cambios por sprint. Arreglar Gantt que se vea todo lo que dice.
-*Menciona 3 tipos de grupos focos. Agregar encuestas online a la documentación.
-*UML capas BL, DAL, ET. Diagrama del visual con Proyecto administradores y Web api. Help page de la Web api. 
+*numeracion, imagenes, formato e indice
 
-PRODUCTO
-*Ingresar datos prolijos
-*Casos de uso
-*Contraseña MD5, escribir detalle donde se utiliza
-*Aceptar politicas de uso
+
+*Manual usuario cliente
 *Datos de prueba
-*Manuales
-*Testing
-*Mayor detalle de los requerimientos
-*Manejo de errores
-*Analisis y Diseño... al inicio de la documentacion del proyecto. 
-*Abstract
-*Resumen de horas en las conclusiones
-*Notificaciones
-*Manual de deploy
-*Forzar contraseña administrador, ver documentacion.
-*Formato de debug en angular (Estdar de documentacion, agregar)
-*Diseño de interfaz generica
+*Testing pruebas unitarias (ver documentacion)
+*Caso de uso
+
+
+
+Declaración de Autoría
+Agradecimientos
+Abstract
+Palabras Clave
+Indice
+1. Anteproyecto
+1.1. Introducción
+1.2. Presentación del Cliente
+1.3. Presentación del Problema
+1.4. Lista de Necesidades
+1.5. Actores Involucrados
+1.6. Objetivos
+1.7. Lista de Requerimientos
+1.8. Descripción del Entorno
+1.9. Alcances y Limitaciones
+1.10. Estudio de Alternativas
+1.10.1. Introducción
+1.10.2. Alternativa 1 (Sistema Web y Aplicación Mobile)
+1.10.2.1. Descripción
+1.10.2.2. Arquitectura
+1.10.2.3. Análisis de Factibilidad
+1.10.2.3.1. Operativa
+1.10.2.3.2. Técnica
+1.10.2.3.3. Legal
+1.10.2.3.4. Económica
+1.10.3. Alternativa 2 (Sistema Web Responsive)
+1.10.3.1. Descripción
+1.10.3.2. Arquitectura
+1.10.3.3. Análisis de Factibilidad
+1.10.4. Selección de la Alternativa
+1.11. Análisis de Riesgo
+1.12. Plan de Proyecto
+1.12.1. Definición del Proceso
+1.12.1.1. Metodología
+1.12.1.2. Ciclo de Vida
+1.12.1.3. Incrementos o Iteraciones Definidas
+1.12.1.4. Integrantes y Roles
+1.12.1.5. Descripción y Selección de Herramientas
+1.12.1.6. Plan de SQA
+1.12.1.6.1. Estándares Definidos y Convenciones
+1.12.1.6.2. Plan de Testing
+1.12.1.7. Plan de SCM
+1.12.1.8. Plan de Capacitación
+1.12.1.9. Cronograma de Trabajo y Criticidad
+1.13. Compromiso de Trabajo
+2. Proyecto
+2.1. Diseño
+2.2. Implementación
+2.2.1. Detalle por Sprint
+2.2.1.1. Análisis
+2.2.1.1.1. Requerimientos
+2.2.1.1.2. Objetivos
+2.2.1.1.3. Diseño
+2.2.1.2. Desarrollo
+2.2.1.3. Cambios en la Planificación del Sprint
+2.2.1.4. Desvíos en el Plan Original
+2.2.1.5. Cumplimiento de Objetivos
+2.2.1.6. Replanificación del siguiente Sprint
+2.2.1.7. Conclusiones
+2.2.2. Sprint 3
+2.2.2.1. Análisis
+2.2.2.1.1. Requerimientos
+2.2.2.1.2. Objetivos
+2.2.2.1.3. Diseño
+2.2.2.1.3.1. MER
+2.2.2.2. Desarrollo
+2.2.2.3. Cambios en la Planificación del Sprint
+2.2.2.4. Desvíos en el Plan Original
+2.2.2.5. Cumplimiento de Objetivos
+2.2.2.6. Replanificación del siguiente Sprint
+2.2.2.7. Conclusiones
+2.2.3. Sprint 4
+2.2.3.1. Análisis
+2.2.3.1.1. Requerimientos
+2.2.3.1.2. Objetivos
+2.2.3.1.3. Diseño
+2.2.3.1.3.1. MER
+2.2.3.2. Desarrollo
+2.2.3.3. Cambios en la Planificación del Sprint
+2.2.3.4. Desvíos en el Plan Original
+2.2.3.5. Cumplimiento de Objetivos
+2.2.3.6. Replanificación del siguiente Sprint
+2.2.3.7. Conclusiones
+2.2.4. Sprint 5
+2.2.4.1. Análisis
+2.2.4.1.1. Requerimientos
+2.2.4.1.2. Objetivos
+2.2.4.1.3. Diseño
+2.2.4.1.3.1. MER
+2.2.4.2. Desarrollo
+2.2.4.3. Cambios en la Planificación del Sprint
+2.2.4.4. Desvíos en el Plan Original
+2.2.4.5. Cumplimiento de Objetivos
+2.2.4.6. Replanificación del siguiente Sprint
+2.2.4.7. Conclusiones
+2.2.5. Sprint 6
+2.2.5.1. Análisis
+2.2.5.1.1. Requerimientos
+2.2.5.1.2. Objetivos
+2.2.5.1.3. Diseño
+2.2.5.1.3.1. MER
+2.2.5.2. Desarrollo
+2.2.5.3. Cambios en la Planificación del Sprint
+2.2.5.4. Desvíos en el Plan Original
+2.2.5.5. Cumplimiento de Objetivos
+2.2.5.6. Replanificación del siguiente Sprint
+2.2.5.7. Conclusiones
+2.2.6. Sprint 7
+2.2.6.1. Análisis
+2.2.6.1.1. Requerimientos
+2.2.6.1.2. Objetivos
+2.2.6.1.3. Diseño
+2.2.6.1.3.1. MER
+2.2.6.2. Desarrollo
+2.2.6.3. Cambios en la Planificación del Sprint
+2.2.6.4. Desvíos en el Plan Original
+2.2.6.5. Cumplimiento de Objetivos
+2.2.6.6. Replanificación del siguiente Sprint
+2.2.6.7. Conclusiones
+2.2.7. Sprint 8
+2.2.7.1. Análisis
+2.2.7.1.1. Requerimientos
+2.2.7.1.2. Objetivos
+2.2.7.1.3. Diseño
+2.2.7.1.3.1. MER
+2.2.7.2. Desarrollo
+2.2.7.3. Cambios en la Planificación del Sprint
+2.2.7.4. Desvíos en el Plan Original
+2.2.7.5. Cumplimiento de Objetivos
+2.2.6.7. Conclusiones
+2.3. Conclusiones del proyecto
+3. Glosario
+4. Referencias Bibliográficas
+5. Bibliografía
+6. Anexos
+6.1. MER
+6.2. UML
+6.3. Mapa de código 
+6.4. Manuales de Usuario
+6.4.1 Manual usuario administrador
+6.4.2 Manual usuario cliente
+6.5. Manual de Deployment
+6.6. Encuestas
+6.7. Términos y condiciones
+
+
+
+
+
+
+
+
+
