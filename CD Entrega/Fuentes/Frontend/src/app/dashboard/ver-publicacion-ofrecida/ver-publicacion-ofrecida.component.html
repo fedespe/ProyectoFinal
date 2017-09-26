@@ -1,0 +1,249 @@
+<div class="container">
+  <div class="row">
+    <h1 class="col-12 text-center">Servicio Ofrecido</h1>
+    <div class="col-sm-10 col-md-12">
+        <h2>{{publicacion.Servicio.Nombre}}</h2>
+        <div class="container">
+            <div class="row">              
+                <div class="col-md-8"> 
+                    <div class="card">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-5">   
+
+                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner" role="listbox" *ngIf="!sinImagenes">
+                                            <div [ngClass]="{ active: publicacion.Imagenes[0] == imagen }" class="carousel-item" *ngFor="let imagen of publicacion.Imagenes;">           
+                                                <img class="d-block" src="{{baseURL}}/Imagenes/Ofertas/{{imagen}}"  alt="First slide"  height="200" width="200">
+                                            </div>
+                                        </div>
+                                        <div class="carousel-inner" role="listbox" *ngIf="sinImagenes">
+                                            <div  class="carousel-item active">           
+                                                <img class="d-block" src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg"  alt="First slide"  height="200" width="200">
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                        
+                                    <!--<img class="card-img-top" src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" alt="{{publicacion.Imagenes[0]}}" height="100" width="100">
+                                    Galeria de imagenes  -->
+                                </div>
+                                <div class="col-xs-12 col-md-7">
+                                    <div class="card-block">             
+                                        <!--<small>{{publicacion.FechaAlta}}</small>              -->
+                                        <h4 class="card-title">{{publicacion.Titulo}} </h4>
+                                        <p class="card-text">{{publicacion.Descripcion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" *ngFor="let respuesta of publicacion.Respuestas;">
+                                <div>
+                                    <b>{{respuesta.Pregunta.UnaPregunta}}</b> 
+                                    <br>
+                                    <p>{{respuesta.UnaRespuesta}}</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <!--<div class="card-block">
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="col-md-4">                      
+                    <div class="card">
+                        <img class="card-img-top align-self-center" src="{{baseURL}}/Imagenes/Clientes/{{cliente.Imagen}}" alt="{{cliente.Imagen}}" height="100" width="100">
+                        <div class="card-block">
+                            <h4 class="card-title" style="text-align: center">{{cliente.NombreUsuario}}</h4>
+                            <div>Barrio: {{cliente.Barrio.Nombre}}</div>
+                            <div>Departamento: {{cliente.Barrio.Departamento.Nombre}}</div>
+                            <div class="card-text" >   
+
+                                <div *ngIf="promedioCliente==0">
+                                    Puntaje cliente: <span class="promedio">({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente<=1 && promedioCliente>0">
+                                    Puntaje cliente: <span class="promedio">★({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente<=2 && promedioCliente>1">
+                                    Puntaje cliente: <span class="promedio">★★({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente<=3 && promedioCliente>2">
+                                    Puntaje cliente: <span class="promedio">★★★({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente<=4 && promedioCliente>3">
+                                    Puntaje cliente: <span class="promedio">★★★★({{promedioCliente}})</span>
+                                </div>
+                                <div *ngIf="promedioCliente==5">
+                                    Puntaje cliente: <span class="promedio">★★★★★({{promedioCliente}})</span>
+                                </div>
+
+                                <div *ngIf="promedioPublicacion==0">
+                                    Puntaje publicación: <span class="promedio">({{promedioPublicacion}})</span>
+                                </div>
+                                <div *ngIf="promedioPublicacion<=1 && promedioPublicacion>0">
+                                    Puntaje publicación: <span class="promedio">★({{promedioPublicacion}})</span>
+                                </div>
+                                <div *ngIf="promedioPublicacion<=2 && promedioPublicacion>1">
+                                    Puntaje publicación: <span class="promedio">★★({{promedioPublicacion}})</span>
+                                </div>
+                                <div *ngIf="promedioPublicacion<=3 && promedioPublicacion>2">
+                                    Puntaje publicación: <span class="promedio">★★★({{promedioPublicacion}})</span>
+                                </div>
+                                <div *ngIf="promedioPublicacion<=4 && promedioPublicacion>3">
+                                    Puntaje publicación: <span class="promedio">★★★★({{promedioPublicacion}})</span>
+                                </div>
+                                <div *ngIf="promedioPublicacion==5">
+                                    Puntaje publicación: <span class="promedio">★★★★★({{promedioPublicacion}})</span>
+                                </div>
+                                                            
+                                <div *ngIf="promedioServicio==0">
+                                    Puntaje servicio: <span class="promedio">({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio<=1 && promedioServicio>0">
+                                    Puntaje servicio: <span class="promedio">★({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio<=2 && promedioServicio>1">
+                                    Puntaje servicio: <span class="promedio">★★({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio<=3 && promedioServicio>2">
+                                    Puntaje servicio: <span class="promedio">★★★({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio<=4 && promedioServicio>3">
+                                    Puntaje servicio: <span class="promedio">★★★★({{promedioServicio}})</span>
+                                </div>
+                                <div *ngIf="promedioServicio==5">
+                                    Puntaje servicio: <span class="promedio">★★★★★({{promedioServicio}})</span>
+                                </div>
+                            </div>
+                            <div class="container" *ngIf="publicacion.Cliente.Id != idUsuario">
+                                <div class="row justify-content-center">
+                                    <div class="align-self-center">
+                                        <button (click)="contactar()" class="btn btn-primary" style="margin-top: 10px;">Contactar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-top: 20px;">Comentarios:</h3>
+                    <div style="margin-left: 40px" *ngFor="let comentario of publicacion.ComentariosPuntuacion;" class="comentario">  
+                        <div>
+                            <i class="fa fa-user-o" aria-hidden="true"></i> {{comentario.Cliente.NombreUsuario}}
+                        </div>
+                        <div>
+                             <i class="fa fa-commenting-o" aria-hidden="true"></i> {{comentario.Comentario}}
+                        </div>     
+                        <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
+                            <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
+                        </div>
+                        <div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && idUsuario==publicacion.Cliente.Id" class="respuesta">
+                            <div class="linkManual" (click)="responderComentario(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
+                        </div>   
+                        <!--<div *ngIf="responder && (comentario.Respuesta==null || comentario.Respuesta=='')" class="respuesta">-->
+                        <div id="respuesta{{comentario.Id}}" hidden="hidden" class="respuesta"> 
+                            <label for="inputRespuesta" class="sr-only">Respuesta:</label>
+                            <textarea rows="5" class="form-control" id="txtRespuesta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                            <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuesta{{comentario.Id}}" (click)="guardarRespuesta(comentario.Id)">Responder</button>
+                        </div>                                    
+                        <div *ngIf="comentario.Puntuacion==0">
+                            Puntaje: ({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==1">
+                            Puntaje: ★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==2">
+                            Puntaje: ★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==3">
+                            Puntaje: ★★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==4">
+                            Puntaje: ★★★★({{comentario.Puntuacion}})
+                        </div>
+                        <div *ngIf="comentario.Puntuacion==5">
+                            Puntaje: ★★★★★({{comentario.Puntuacion}})
+                        </div>                           
+                    </div>
+                </div>
+
+                <!--MODAL-->
+                <div>
+                    <button type="button" class="btn btn-primary" id="btnModal" style="display: none" data-toggle="modal" data-target="#exampleModalLong">
+                        Comentar
+                    </button>
+
+                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Comentario y Puntuación</h5>
+                                    <button type="button" class="close" id="btnModalClose" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                    <label for="inputComentario" class="sr-only">Comentario</label>
+                                    <textarea maxlength="300" rows="5" class="form-control" [(ngModel)]="comentarioPuntuacion.Comentario" id="inputComentario" name="Comentario" placeholder="Comentario"></textarea>
+
+                                    <form>
+                                        <p class="clasificacion">
+                                            <input id="radio1" type="radio" name="estrellas" (click)="actualizarPuntaje(5)">
+                                            <label for="radio1">({{puntaje}})★</label>
+                                            <input id="radio2" type="radio" name="estrellas" (click)="actualizarPuntaje(4)">
+                                            <label for="radio2">★</label>
+                                            <input id="radio3" type="radio" name="estrellas" (click)="actualizarPuntaje(3)">
+                                            <label for="radio3">★</label>
+                                            <input id="radio4" type="radio" name="estrellas" (click)="actualizarPuntaje(2)">
+                                            <label for="radio4">★</label>
+                                            <input id="radio5" type="radio" name="estrellas" (click)="actualizarPuntaje(1)">
+                                            <label for="radio5">★</label>
+                                        </p>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary btn-block" id="btnGuardarComentario" (click)="guardarComentario()">Guardar</button>
+                                </div>
+                                <div *ngIf="mensajesComentario.Errores.length > 0" class="alert alert-danger errores">
+                                    <div *ngFor="let error of mensajesComentario.Errores;">
+                                        {{error.Descripcion}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--FIN MODAL-->
+
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+

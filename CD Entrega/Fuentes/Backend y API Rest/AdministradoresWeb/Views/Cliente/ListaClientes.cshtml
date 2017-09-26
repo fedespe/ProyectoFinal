@@ -1,0 +1,69 @@
+﻿@model List<ET.Cliente>
+@{
+    ViewBag.Title = "ListaClientes";
+}
+
+<div class="row">
+    @Html.Partial("_MenuPartial")
+    <div class="col-md-10">
+        @*<h2>
+            Lista Clientes
+            <button type="button" class="btn btn-success pull-right" OnClick="location.href = 'AltaAdmin'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar C
+            </button>
+        </h2>*@
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    @*<th>Imagen</th>*@
+                    <th class="hidden-sm hidden-xs">Nombre</th>
+                    <th class="hidden-sm hidden-xs">Apellido</th>
+                    <th>Nombre Usuario</th>
+                    <th class="hidden-sm hidden-xs">Correo</th>
+                    <th>Habilitado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        @*<td>
+                                <img src=@("/Imagenes/Clientes/" + c.Foto) height="50" width="50" />
+                            </td>*@
+                        <td class="hidden-sm hidden-xs">@c.Nombre</td>
+                        <td class="hidden-sm hidden-xs">@c.Apellido</td>
+                        <td>@c.NombreUsuario</td>
+                        <td class="hidden-sm hidden-xs">@c.CorreoElectronico</td>
+                        @if (c.Habilitado)
+                        {
+                            <td>Si</td>
+                        }
+                        else {
+                            <td>No</td>
+                        }
+                        <td>
+                            <a title="Ver" href="~/Cliente/Ver/@c.Id">Ver</a>
+
+                            <a title="Nueva Contraseña" href="~/Cliente/NuevoPass/@c.Id">Nueva Contraseña</a>
+
+                            @if (c.Habilitado)
+                            {
+                                <a title="Deshabilitar" onclick="return confirm('¿Esta seguro?');" href="~/Cliente/Deshabilitar/@c.Id">Inhabilitar</a>
+                            }
+                            else {
+                                <a title="Habilitar" onclick="return confirm('¿Esta seguro?');" href="~/Cliente/Habilitar/@c.Id">Habilitar</a>
+                            }
+
+
+
+                            @*<a title="Eliminar" onclick="return confirm('¿Esta seguro?');" href="~/Administrador/Eliminar/@c.Id">Eliminar</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

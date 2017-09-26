@@ -1,0 +1,60 @@
+﻿@model ET.Administrador
+@{
+    ViewBag.Title = "Ver";
+}
+
+
+<div class="row">
+    @Html.Partial("_MenuPartial")
+    <div class="col-md-10">
+        <br>       
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Nombre</div>
+            <div class="panel-body">
+                @Model.Nombre
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Apellido</div>
+            <div class="panel-body">
+                @Model.Apellido
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Nombre Usuario</div>
+            <div class="panel-body">
+                @Model.NombreUsuario
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Correo Electrónico</div>
+            <div class="panel-body">
+                @Model.CorreoElectronico
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Telefono</div>
+            <div class="panel-body">
+                @Model.Telefono
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Dirección</div>
+            <div class="panel-body">
+                @Model.Direccion
+            </div>
+        </div>
+    </div>
+</div>

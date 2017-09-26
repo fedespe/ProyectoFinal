@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+        <h1 class="col-12 text-center">Nueva Contraseña</h1>
+        <div *ngIf="loading">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+
+        <div *ngIf="!loading && cliente" class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <label for="inputContrasena">Contraseña</label>
+            <input type="password" class="form-control" [(ngModel)]="actualizarContrasena.Contrasena" id="inputContrasena" name="Contrasena" placeholder="Contraseña">
+
+            <label for="inputContrasenaNueva">Contraseña Nueva</label>
+            <input type="password" class="form-control" id="inputContrasenaNueva" [(ngModel)]="actualizarContrasena.ContrasenaNueva" name="ContrasenaNueva" placeholder="Contraseña Nueva">
+
+            <label for="inputConfirmacionContrasena">Repetir Contraseña</label>
+            <input type="password" class="form-control" id="inputConfirmacionContrasena" [(ngModel)]="actualizarContrasena.ConfirmacionContrasenaNueva" name="ConfirmacionContrasena" placeholder="Repetir Contraseña Nueva">
+            <small *ngIf="actualizarContrasena.ContrasenaNueva != actualizarContrasena.ConfirmacionContrasenaNueva" id="errorContrasenas">La nueva contraseña y la confirmación deben coincidir.</small>
+
+            <button class="btn btn-lg btn-primary btn-block" (click)="putActualizarContrasena()" id="botonGuardar">Guardar</button>
+
+            <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+                <div *ngFor="let error of mensajes.Errores;">
+                    {{error.Descripcion}}
+                </div>
+            </div>
+
+            <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+                <div *ngFor="let exito of mensajes.Exitos;">
+                    {{exito.Descripcion}}
+                </div>
+            </div>
+        </div>
+  </div>
+</div>

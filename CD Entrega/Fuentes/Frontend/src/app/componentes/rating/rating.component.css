@@ -1,0 +1,55 @@
+
+/***************************
+Lleva el contenedor de estrellas a la izquierda
+***************************/
+.rating {
+    float:left;
+}
+/***************************
+Oculta los RadioButtons
+***************************/
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+/***************************
+Estilo por defecto de las estrellas
+***************************/
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    line-height:1.2;
+    color:#ddd;
+}
+/***************************
+Añade la estrella a los labels
+***************************/
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+/***************************
+Color de las estrellas aplicadas
+***************************/
+.rating > input:checked ~ label {
+    color: #f70;
+}
+/***************************
+Color del Hover de las estrellas cuando se incrementa el rating
+***************************/
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+/***************************
+Color del Hover de las estrellas cuando se decrementa el rating
+***************************/
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+}

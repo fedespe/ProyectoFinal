@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    
+        <h1 class="col-12">Ofertas de Servicios</h1>
+
+        <!--<div class="card" style="width: 20rem;" *ngFor="let servicio of servicios;">
+            <img class="card-img-top" src="{{baseURL}}/Imagenes/Servicios/{{servicio.Imagen}}" alt="{{servicio.Nombre}}" height="100" width="100">
+            <div class="card-block">
+                <h4 class="card-title">{{servicio.Nombre}}</h4>-->
+                <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+                <!--<a routerLink="/dashboard/listado-servicios-ofrecidos/{{servicio.Id}}" class="btn btn-primary">Ver</a>
+            </div>
+        </div>-->
+        <figure class="figure linkManual" *ngFor="let servicio of servicios;" routerLink="/dashboard/listado-servicios-ofrecidos/{{servicio.Id}}">
+            <img src="{{baseURL}}/Imagenes/Servicios/{{servicio.Imagen}}" class="figure-img img-fluid rounded" alt="{{servicio.Nombre}}" height="100" width="100">
+            <figcaption class="figure-caption text-center linkManual">{{servicio.Nombre}}</figcaption>
+        </figure>
+
+        <div *ngIf="mensajes.Errores.length > 0" class="col-12 alert alert-danger errores">
+            <div *ngFor="let error of mensajes.Errores;">
+                {{error.Descripcion}}
+            </div>
+        </div>
+
+        <div *ngIf="mensajes.Exitos.length > 0" class="col-12 alert alert-success exitos">
+            <div *ngFor="let exito of mensajes.Exitos;">
+                {{exito.Descripcion}}
+            </div>
+        </div>
+  </div>
+</div>
+
+

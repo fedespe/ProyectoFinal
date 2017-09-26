@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServicioProyectoFinal" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:22672/ServicioProyectoFinal.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:22672/ServicioProyectoFinal.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:22672/ServicioProyectoFinal.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFProyectoFinal" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServicioProyectoFinal_getClientes_InputMessage">
+    <wsdl:part name="parameters" element="tns:getClientes" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_getClientes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getClientesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_altaCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:altaCliente" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_altaCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:altaClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_actualizarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_actualizarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_actualizarContrasenaCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarContrasenaCliente" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_actualizarContrasenaCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarContrasenaClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_habilitarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:habilitarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_habilitarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:habilitarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_deshabilitarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:deshabilitarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_deshabilitarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deshabilitarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_ingresarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:ingresarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_ingresarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ingresarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_altaAdministrador_InputMessage">
+    <wsdl:part name="parameters" element="tns:altaAdministrador" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_altaAdministrador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:altaAdministradorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_actualizarAdministrador_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarAdministrador" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_actualizarAdministrador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarAdministradorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_actualizarContrasenaAdministrador_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarContrasenaAdministrador" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_actualizarContrasenaAdministrador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarContrasenaAdministradorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_getAdministradores_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAdministradores" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_getAdministradores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getAdministradoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_habilitarAdminitrador_InputMessage">
+    <wsdl:part name="parameters" element="tns:habilitarAdminitrador" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_habilitarAdminitrador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:habilitarAdminitradorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_deshabilitarAdministrador_InputMessage">
+    <wsdl:part name="parameters" element="tns:deshabilitarAdministrador" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_deshabilitarAdministrador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deshabilitarAdministradorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_ingresarAdministrador_InputMessage">
+    <wsdl:part name="parameters" element="tns:ingresarAdministrador" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProyectoFinal_ingresarAdministrador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ingresarAdministradorResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServicioProyectoFinal">
+    <wsdl:operation name="getClientes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/getClientes" message="tns:IServicioProyectoFinal_getClientes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/getClientesResponse" message="tns:IServicioProyectoFinal_getClientes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="altaCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/altaCliente" message="tns:IServicioProyectoFinal_altaCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/altaClienteResponse" message="tns:IServicioProyectoFinal_altaCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/actualizarCliente" message="tns:IServicioProyectoFinal_actualizarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/actualizarClienteResponse" message="tns:IServicioProyectoFinal_actualizarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarContrasenaCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaCliente" message="tns:IServicioProyectoFinal_actualizarContrasenaCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaClienteResponse" message="tns:IServicioProyectoFinal_actualizarContrasenaCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="habilitarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/habilitarCliente" message="tns:IServicioProyectoFinal_habilitarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/habilitarClienteResponse" message="tns:IServicioProyectoFinal_habilitarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deshabilitarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/deshabilitarCliente" message="tns:IServicioProyectoFinal_deshabilitarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/deshabilitarClienteResponse" message="tns:IServicioProyectoFinal_deshabilitarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ingresarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/ingresarCliente" message="tns:IServicioProyectoFinal_ingresarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/ingresarClienteResponse" message="tns:IServicioProyectoFinal_ingresarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="altaAdministrador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/altaAdministrador" message="tns:IServicioProyectoFinal_altaAdministrador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/altaAdministradorResponse" message="tns:IServicioProyectoFinal_altaAdministrador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarAdministrador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/actualizarAdministrador" message="tns:IServicioProyectoFinal_actualizarAdministrador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/actualizarAdministradorResponse" message="tns:IServicioProyectoFinal_actualizarAdministrador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarContrasenaAdministrador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaAdministrador" message="tns:IServicioProyectoFinal_actualizarContrasenaAdministrador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaAdministradorResponse" message="tns:IServicioProyectoFinal_actualizarContrasenaAdministrador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getAdministradores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/getAdministradores" message="tns:IServicioProyectoFinal_getAdministradores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/getAdministradoresResponse" message="tns:IServicioProyectoFinal_getAdministradores_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="habilitarAdminitrador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitrador" message="tns:IServicioProyectoFinal_habilitarAdminitrador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitradorResponse" message="tns:IServicioProyectoFinal_habilitarAdminitrador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deshabilitarAdministrador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/deshabilitarAdministrador" message="tns:IServicioProyectoFinal_deshabilitarAdministrador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/deshabilitarAdministradorResponse" message="tns:IServicioProyectoFinal_deshabilitarAdministrador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ingresarAdministrador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProyectoFinal/ingresarAdministrador" message="tns:IServicioProyectoFinal_ingresarAdministrador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProyectoFinal/ingresarAdministradorResponse" message="tns:IServicioProyectoFinal_ingresarAdministrador_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IServicioProyectoFinal" type="tns:IServicioProyectoFinal">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getClientes">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/getClientes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="altaCliente">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/altaCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarCliente">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/actualizarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarContrasenaCliente">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="habilitarCliente">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/habilitarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deshabilitarCliente">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/deshabilitarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ingresarCliente">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/ingresarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="altaAdministrador">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/altaAdministrador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarAdministrador">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/actualizarAdministrador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarContrasenaAdministrador">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/actualizarContrasenaAdministrador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAdministradores">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/getAdministradores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="habilitarAdminitrador">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/habilitarAdminitrador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deshabilitarAdministrador">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/deshabilitarAdministrador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ingresarAdministrador">
+      <soap:operation soapAction="http://tempuri.org/IServicioProyectoFinal/ingresarAdministrador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioProyectoFinal">
+    <wsdl:port name="BasicHttpBinding_IServicioProyectoFinal" binding="tns:BasicHttpBinding_IServicioProyectoFinal">
+      <soap:address location="http://localhost:22672/ServicioProyectoFinal.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
