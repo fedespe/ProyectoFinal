@@ -40,7 +40,7 @@ var Publicacion = (function () {
             error.Descripcion = "Debe seleccionar un servicio.";
             errores.push(error);
         }
-        if (this.Descripcion == null) {
+        if (this.Descripcion == null || this.Descripcion.trim() == "") {
             this.Descripcion = "Sin descripción.";
         }
         return errores;
@@ -76,7 +76,7 @@ var Publicacion = (function () {
             error.Descripcion = "Debe seleccionar un servicio.";
             errores.push(error);
         }
-        if (this.Descripcion == null) {
+        if (this.Descripcion == null || this.Descripcion.trim() == "") {
             this.Descripcion = "Sin descripción.";
         }
         return errores;

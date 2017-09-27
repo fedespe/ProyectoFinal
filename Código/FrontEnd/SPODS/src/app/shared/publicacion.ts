@@ -54,7 +54,7 @@ export class Publicacion {
             error.Descripcion = "Debe seleccionar un servicio.";
             errores.push(error);
         }     
-        if(this.Descripcion == null){
+        if(this.Descripcion == null || this.Descripcion.trim() == ""){
             this.Descripcion="Sin descripción.";
         }      
         
@@ -95,7 +95,7 @@ public validarDatos() : Error[]{
             error.Descripcion = "Debe seleccionar un servicio.";
             errores.push(error);
         }     
-        if(this.Descripcion == null){
+        if(this.Descripcion == null || this.Descripcion.trim() == ""){
             this.Descripcion="Sin descripción.";
         }      
         

@@ -6,6 +6,6 @@ small{
   color: dimgrey;
 }
 
-input, select, .contenedorProgressBar, .btn-primary{
+input, select, textarea, .contenedorProgressBar, .btn-primary{
   margin-bottom: 20px;
 }

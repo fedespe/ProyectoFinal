@@ -122,10 +122,11 @@ export class EditarSolicitudClienteComponent implements OnInit{
         p.Titulo=this.publicacion.Titulo;
         p.Servicio=this.publicacion.Servicio;
         p.Descripcion=this.publicacion.Descripcion;
-        if(this.publicacion.Descripcion == null || this.publicacion.Descripcion.trim() == ""){
+        /*if(this.publicacion.Descripcion == null || this.publicacion.Descripcion.trim() == ""){
             this.publicacion.Descripcion = "Sin descripción.";
-        }
+        }*/
         this.mensajes.Errores = p.validarDatos1();
+        this.publicacion.Descripcion = p.Descripcion;
         //fin validacion
         if(this.mensajes.Errores.length == 0){
             this.step=2;
