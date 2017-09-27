@@ -1,0 +1,6 @@
+Ideas surgidas para la defensa:
+
+*Se agrego una pregunta "zona de trabajo", con esto solucionamos provisoriamente la ubicacion de las publicaciones.
+*Importante confirmación de email para registro.
+*Poner en 300 el titulo de la publicacion o poner en 50 la restriccion del input. Igual para telefono y direccion del usuario. Lo mismo para el nombre del servicio en administrador
+*En solicitar servicio aparece el nombre de usuario. Hay que sacarlo
