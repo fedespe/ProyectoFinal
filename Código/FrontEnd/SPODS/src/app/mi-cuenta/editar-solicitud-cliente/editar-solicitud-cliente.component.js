@@ -15,6 +15,7 @@ var data_service_1 = require("../../shared/services/data.service");
 var utilidades_1 = require("../../shared/utilidades");
 var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
+var exito_1 = require("../../shared/exito");
 var servicio_1 = require("../../shared/servicio");
 var settings_1 = require("../../shared/settings");
 var publicacion_1 = require("../../shared/publicacion");
@@ -26,6 +27,7 @@ var EditarSolicitudClienteComponent = (function () {
         this.router = router;
         this.route = route;
         this.mensajes = new mensaje_1.Mensaje();
+        this.loading = true;
         this.servicios = [];
         this.publicacion = new publicacion_1.Publicacion();
         this.servicioSeleccionado = new servicio_1.Servicio();
@@ -47,29 +49,6 @@ var EditarSolicitudClienteComponent = (function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     };
-    EditarSolicitudClienteComponent.prototype.editarServicioPaso1 = function () {
-        this.borrarMensajes();
-        //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
-        //Se crea una nueva publicacion para hacer la validacion
-        var p = new publicacion_1.Publicacion();
-        p.Titulo = this.publicacion.Titulo;
-        p.Servicio = this.publicacion.Servicio;
-        p.Descripcion = this.publicacion.Descripcion;
-        this.mensajes.Errores = p.validarDatos1();
-        //fin validacion
-        if (this.mensajes.Errores.length == 0) {
-            this.step = 2;
-        }
-    };
-    EditarSolicitudClienteComponent.prototype.editarServicioPaso2 = function () {
-        this.putActualizarPublicacion();
-    };
-    EditarSolicitudClienteComponent.prototype.editarServicioPaso3 = function () {
-        this.router.navigate(['dashboard/listado-solicitudes-cliente']);
-    };
-    EditarSolicitudClienteComponent.prototype.volverPaso1 = function () {
-        this.step = 1;
-    };
     EditarSolicitudClienteComponent.prototype.obtenerPublicacion = function () {
         var _this = this;
         utilidades_1.Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
@@ -88,6 +67,7 @@ var EditarSolicitudClienteComponent = (function () {
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
+            this.loading = false;
         }
     };
     EditarSolicitudClienteComponent.prototype.getPublicacionError = function (responseError) {
@@ -95,6 +75,7 @@ var EditarSolicitudClienteComponent = (function () {
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     };
     EditarSolicitudClienteComponent.prototype.obtenerServicio = function (id) {
         var _this = this;
@@ -111,6 +92,7 @@ var EditarSolicitudClienteComponent = (function () {
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
+            this.loading = false;
         }
     };
     EditarSolicitudClienteComponent.prototype.getObtenerServicioError = function (responseError) {
@@ -118,6 +100,7 @@ var EditarSolicitudClienteComponent = (function () {
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     };
     EditarSolicitudClienteComponent.prototype.responderPreguntas = function () {
         for (var i = 0; i < this.publicacion.Respuestas.length; i++) {
@@ -127,6 +110,36 @@ var EditarSolicitudClienteComponent = (function () {
                 }
             }
         }
+        this.loading = false;
+    };
+    EditarSolicitudClienteComponent.prototype.editarServicioPaso1 = function () {
+        this.borrarMensajes();
+        //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
+        //Se crea una nueva publicacion para hacer la validacion
+        var p = new publicacion_1.Publicacion();
+        p.Titulo = this.publicacion.Titulo;
+        p.Servicio = this.publicacion.Servicio;
+        p.Descripcion = this.publicacion.Descripcion;
+        if (this.publicacion.Descripcion == null || this.publicacion.Descripcion.trim() == "") {
+            this.publicacion.Descripcion = "Sin descripción.";
+        }
+        this.mensajes.Errores = p.validarDatos1();
+        //fin validacion
+        if (this.mensajes.Errores.length == 0) {
+            this.step = 2;
+        }
+    };
+    EditarSolicitudClienteComponent.prototype.editarServicioPaso2 = function () {
+        this.putActualizarPublicacion();
+    };
+    EditarSolicitudClienteComponent.prototype.volverPaso1 = function () {
+        this.step = 1;
+    };
+    EditarSolicitudClienteComponent.prototype.editarServicioPaso3 = function () {
+        var exito = new exito_1.Exito();
+        exito.Descripcion = "La publicación ha sido actualizada con éxito";
+        this.mensajes.Exitos.push(exito);
+        this.step = 1;
     };
     EditarSolicitudClienteComponent.prototype.putActualizarPublicacion = function () {
         var _this = this;

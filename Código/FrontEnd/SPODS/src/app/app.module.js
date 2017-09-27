@@ -40,7 +40,6 @@ var listado_solicitudes_component_1 = require("./dashboard/listado-solicitudes/l
 var listado_solicitudes_ofrecidas_component_1 = require("./dashboard/listado-solicitudes-ofrecidas/listado-solicitudes-ofrecidas.component");
 var ver_publicacion_solicitada_component_1 = require("./dashboard/ver-publicacion-solicitada/ver-publicacion-solicitada.component");
 var mi_cuenta_component_1 = require("./mi-cuenta/mi-cuenta.component");
-var rating_component_1 = require("./componentes/rating/rating.component");
 var ng2_rating_1 = require("ng2-rating");
 var appRoutes = [
     { path: '', component: landing_component_1.LandingComponent,
@@ -59,15 +58,13 @@ var appRoutes = [
             { path: 'overview', component: overview_component_1.OverviewComponent },
             { path: 'listado-servicios', component: listado_servicios_component_1.ListadoServiciosComponent },
             { path: 'ofrecer-servicio', component: ofrecer_servicio_component_1.OfrecerServicioComponent },
-            { path: 'editar-servicio-cliente/:id', component: editar_servicio_cliente_component_1.EditarServicioClienteComponent },
             { path: 'listado-servicios-ofrecidos/:id', component: listado_servicios_ofrecidos_component_1.ListadoServiciosOfrecidosComponent },
             { path: 'ver-perfil-usuario/:id', component: ver_perfil_usuario_component_1.VerPerfilUsuarioComponent },
             { path: 'ver-publicacion-ofrecida/:id', component: ver_publicacion_ofrecida_component_1.VerPublicacionOfrecidaComponent },
             { path: 'solicitar-servicio', component: solicitar_servicio_component_1.SolicitarServicioComponent },
-            { path: 'editar-solicitud-cliente/:id', component: editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent },
             { path: 'listado-solicitudes', component: listado_solicitudes_component_1.ListadoSolicitudesComponent },
             { path: 'listado-solicitudes-ofrecidas/:id', component: listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent },
-            { path: 'ver-publicacion-solicitada/:id', component: ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent },
+            { path: 'ver-publicacion-solicitada/:id', component: ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent }
         ]
     },
     { path: 'mi-cuenta', component: mi_cuenta_component_1.MiCuentaComponent,
@@ -78,7 +75,9 @@ var appRoutes = [
             { path: 'listado-ofertas-contratadas', component: listado_ofertas_contratadas_component_1.ListadoOfertasContratadasComponent },
             { path: 'listado-solicitudes-cliente', component: listado_solicitudes_cliente_component_1.ListadoSolicitudesClienteComponent },
             { path: 'listado-solicitudes-aceptadas', component: listado_solicitudes_aceptadas_component_1.ListadoSolicitudesAceptadasComponent },
-            { path: 'listado-ofertas-cliente', component: listado_ofertas_cliente_component_1.ListadoOfertasClienteComponent }
+            { path: 'listado-ofertas-cliente', component: listado_ofertas_cliente_component_1.ListadoOfertasClienteComponent },
+            { path: 'editar-servicio-cliente/:id', component: editar_servicio_cliente_component_1.EditarServicioClienteComponent },
+            { path: 'editar-solicitud-cliente/:id', component: editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent }
         ]
     },
     { path: '**', component: not_found_component_1.NotFoundComponent }
@@ -102,7 +101,7 @@ AppModule = __decorate([
             listado_ofertas_contratadas_component_1.ListadoOfertasContratadasComponent, solicitar_servicio_component_1.SolicitarServicioComponent,
             listado_solicitudes_cliente_component_1.ListadoSolicitudesClienteComponent, editar_solicitud_cliente_component_1.EditarSolicitudClienteComponent, listado_solicitudes_component_1.ListadoSolicitudesComponent,
             listado_solicitudes_ofrecidas_component_1.ListadoSolicitudesOfrecidasComponent, ver_publicacion_solicitada_component_1.VerPublicacionSolicitadaComponent, olvido_password_component_1.OlvidoPasswordComponent,
-            mi_cuenta_component_1.MiCuentaComponent, resumen_component_1.ResumenComponent, rating_component_1.RatingComponent, ver_perfil_usuario_component_1.VerPerfilUsuarioComponent, listado_solicitudes_aceptadas_component_1.ListadoSolicitudesAceptadasComponent,
+            mi_cuenta_component_1.MiCuentaComponent, resumen_component_1.ResumenComponent, ver_perfil_usuario_component_1.VerPerfilUsuarioComponent, listado_solicitudes_aceptadas_component_1.ListadoSolicitudesAceptadasComponent,
             manual_usuario_component_1.ManualUsuarioComponent
         ],
         bootstrap: [app_component_1.AppComponent]

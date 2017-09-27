@@ -5,7 +5,7 @@ small{
   color: dimgrey;
 }
 
-input, .contenedorProgressBar{
+input, textarea, .contenedorProgressBar{
   margin-bottom: 20px;
 }
 

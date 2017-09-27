@@ -20,19 +20,17 @@ import { ActivatedRoute } from '@angular/router';
 
 export class EditarSolicitudClienteComponent implements OnInit{
     mensajes: Mensaje = new Mensaje();
+    loading = true;
     servicios: Servicio[] = [];
     publicacion: Publicacion = new Publicacion();
     servicioSeleccionado: Servicio = new Servicio();
     respuestas: string[] = [];
     idPublicacion:number;
     step:number=1;
-   urlImagen:string=Settings.srcImg+"/Oferta/IngresarImagenes";
-
+    urlImagen:string=Settings.srcImg+"/Oferta/IngresarImagenes";
 
     constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
-        
     }
-
     ngOnInit() {
         // subscripción al observable params
         this.route.params
@@ -42,76 +40,49 @@ export class EditarSolicitudClienteComponent implements OnInit{
         });
         this.obtenerPublicacion();       
     }
-
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     }
-    editarServicioPaso1(){
-        this.borrarMensajes();
-        //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
-        //Se crea una nueva publicacion para hacer la validacion
-        var p = new Publicacion();
-        p.Titulo=this.publicacion.Titulo;
-        p.Servicio=this.publicacion.Servicio;
-        p.Descripcion=this.publicacion.Descripcion;
-        this.mensajes.Errores = p.validarDatos1();
-        //fin validacion
-        if(this.mensajes.Errores.length == 0){
-            this.step=2;
-        }    
-    }
-    editarServicioPaso2(){
-        this.putActualizarPublicacion();       
-    }
-    editarServicioPaso3(){
-        this.router.navigate(['dashboard/listado-solicitudes-cliente']);
-    }
-    volverPaso1(){
-        this.step=1;
-    }
-
     obtenerPublicacion(){
-         Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
-        this.dataService.getPublicacion(this.idPublicacion)
-            .subscribe(
-            res => this.getPublicacionOk(res),
-            error => this.getPublicacionError(error),
-            () => Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicios: Completado")
-        );
-    }
-
-    getPublicacionOk(response:any){
-        Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
-        if(response.Codigo ==  200){
-            this.publicacion = response.Objetos[0]; 
-            document.getElementById('inputIdPublicacion').setAttribute('value',this.publicacion.Id.toString());
-            document.getElementById('mostrarImagenes').click();         
-            this.obtenerServicio(this.publicacion.Servicio.Id);
-        }
-        else{
-            var error = new Error();
-            error.Descripcion = response.Mensaje;           
-            this.mensajes.Errores.push(error);
-        }
-    }
-
-    getPublicacionError(responseError:any){
-        Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
-        var error = new Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(error);
-    }
-
-    obtenerServicio(id:number){
-        this.dataService.getObtenerServicio(id)
-            .subscribe(
+        Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
+       this.dataService.getPublicacion(this.idPublicacion)
+           .subscribe(
+           res => this.getPublicacionOk(res),
+           error => this.getPublicacionError(error),
+           () => Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicios: Completado")
+       );
+   }
+   getPublicacionOk(response:any){
+       Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
+       if(response.Codigo ==  200){
+           this.publicacion = response.Objetos[0]; 
+           document.getElementById('inputIdPublicacion').setAttribute('value',this.publicacion.Id.toString());
+           document.getElementById('mostrarImagenes').click();         
+           this.obtenerServicio(this.publicacion.Servicio.Id);
+       }
+       else{
+           var error = new Error();
+           error.Descripcion = response.Mensaje;           
+           this.mensajes.Errores.push(error);
+           this.loading = false;
+       }
+   }
+   getPublicacionError(responseError:any){
+       Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+       var error = new Error();
+       error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+       this.mensajes.Errores.push(error);
+       this.loading = false;
+   }
+   obtenerServicio(id:number){
+    this.dataService.getObtenerServicio(id)
+        .subscribe(
             res => this.getObtenerServicioOk(res),
             error => this.getObtenerServicioError(error),
             () => Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicio: Completado")
         );
     }
-
     getObtenerServicioOk(response:any){
         
         Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
@@ -123,16 +94,16 @@ export class EditarSolicitudClienteComponent implements OnInit{
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
+            this.loading = false;
         }
     }
-
     getObtenerServicioError(responseError:any){
         Utilidades.log("[editar-solicitud-cliente.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     }
-
     responderPreguntas(){
         for (var i = 0; i < this.publicacion.Respuestas.length; i++) {
             for (var j = 0; j < this.publicacion.Servicio.Preguntas.length; j++) {
@@ -141,8 +112,37 @@ export class EditarSolicitudClienteComponent implements OnInit{
                 }         
             }                
         } 
+        this.loading = false;
     }
-
+    editarServicioPaso1(){
+        this.borrarMensajes();
+        //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
+        //Se crea una nueva publicacion para hacer la validacion
+        var p = new Publicacion();
+        p.Titulo=this.publicacion.Titulo;
+        p.Servicio=this.publicacion.Servicio;
+        p.Descripcion=this.publicacion.Descripcion;
+        if(this.publicacion.Descripcion == null || this.publicacion.Descripcion.trim() == ""){
+            this.publicacion.Descripcion = "Sin descripción.";
+        }
+        this.mensajes.Errores = p.validarDatos1();
+        //fin validacion
+        if(this.mensajes.Errores.length == 0){
+            this.step=2;
+        }    
+    }
+    editarServicioPaso2(){
+        this.putActualizarPublicacion();       
+    }
+    volverPaso1(){
+        this.step=1;
+    }
+    editarServicioPaso3(){
+        var exito = new Exito();
+        exito.Descripcion = "La publicación ha sido actualizada con éxito";           
+        this.mensajes.Exitos.push(exito);
+        this.step=1;
+    }
     putActualizarPublicacion(){
         Utilidades.log("[editar-solicitud-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.respuestas));
         this.borrarMensajes();
@@ -185,14 +185,10 @@ export class EditarSolicitudClienteComponent implements OnInit{
             this.mensajes.Errores.push(error);
         }
     }
-
     putActualizarPublicacionError(responseError:any){
         Utilidades.log("[editar-solicitud-cliente.component.ts] - putActualizarPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
-
-
-
 }

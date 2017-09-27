@@ -33,9 +33,6 @@ import { ListadoSolicitudesComponent } from "./dashboard/listado-solicitudes/lis
 import { ListadoSolicitudesOfrecidasComponent } from "./dashboard/listado-solicitudes-ofrecidas/listado-solicitudes-ofrecidas.component";
 import { VerPublicacionSolicitadaComponent } from "./dashboard/ver-publicacion-solicitada/ver-publicacion-solicitada.component";
 import { MiCuentaComponent } from "./mi-cuenta/mi-cuenta.component";
-
-import { RatingComponent } from "./componentes/rating/rating.component";
-
 import { RatingModule } from "ng2-rating";
 
 
@@ -56,15 +53,13 @@ const appRoutes: Routes = [
       { path: 'overview',component: OverviewComponent },
       { path: 'listado-servicios', component: ListadoServiciosComponent },
       { path: 'ofrecer-servicio', component: OfrecerServicioComponent },
-      { path: 'editar-servicio-cliente/:id', component: EditarServicioClienteComponent },
       { path: 'listado-servicios-ofrecidos/:id', component: ListadoServiciosOfrecidosComponent },
       { path: 'ver-perfil-usuario/:id', component: VerPerfilUsuarioComponent },
       { path: 'ver-publicacion-ofrecida/:id', component: VerPublicacionOfrecidaComponent },
       { path: 'solicitar-servicio', component: SolicitarServicioComponent },
-      { path: 'editar-solicitud-cliente/:id', component: EditarSolicitudClienteComponent },
       { path: 'listado-solicitudes', component: ListadoSolicitudesComponent },
       { path: 'listado-solicitudes-ofrecidas/:id', component: ListadoSolicitudesOfrecidasComponent },
-      { path: 'ver-publicacion-solicitada/:id', component: VerPublicacionSolicitadaComponent },
+      { path: 'ver-publicacion-solicitada/:id', component: VerPublicacionSolicitadaComponent }
     ]
   },
   { path: 'mi-cuenta', component: MiCuentaComponent,
@@ -75,7 +70,9 @@ const appRoutes: Routes = [
       { path: 'listado-ofertas-contratadas', component: ListadoOfertasContratadasComponent },
       { path: 'listado-solicitudes-cliente', component: ListadoSolicitudesClienteComponent },
       { path: 'listado-solicitudes-aceptadas', component: ListadoSolicitudesAceptadasComponent },
-      { path: 'listado-ofertas-cliente', component: ListadoOfertasClienteComponent }
+      { path: 'listado-ofertas-cliente', component: ListadoOfertasClienteComponent },
+      { path: 'editar-servicio-cliente/:id', component: EditarServicioClienteComponent },
+      { path: 'editar-solicitud-cliente/:id', component: EditarSolicitudClienteComponent }
     ]
   },
   {path: '**', component: NotFoundComponent }
@@ -94,7 +91,7 @@ const appRoutes: Routes = [
     ListadoOfertasContratadasComponent, SolicitarServicioComponent,
     ListadoSolicitudesClienteComponent, EditarSolicitudClienteComponent, ListadoSolicitudesComponent,
     ListadoSolicitudesOfrecidasComponent, VerPublicacionSolicitadaComponent, OlvidoPasswordComponent,
-    MiCuentaComponent, ResumenComponent, RatingComponent, VerPerfilUsuarioComponent, ListadoSolicitudesAceptadasComponent,
+    MiCuentaComponent, ResumenComponent, VerPerfilUsuarioComponent, ListadoSolicitudesAceptadasComponent,
     ManualUsuarioComponent
   ],
   bootstrap:    [ AppComponent ]

@@ -1,11 +1,12 @@
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <h1 class="col-12 text-center">Editar Solicitud</h1>
+        <div *ngIf="loading" style="text-align: center; width: 100%;">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+        <div [hidden]="loading || !publicacion" class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <h3 class="text-center">{{publicacion.Servicio.Nombre}}</h3>
 
-        <div class="col-md-6 col-lg-5 col-xl-4">
-            <h2>{{publicacion.Cliente.NombreUsuario}}</h2>
-
-            <h3>{{publicacion.Servicio.Nombre}}</h3>
             <div [hidden]="step != 1">
                  <div class="contenedorProgressBar">
                     <div class="container">
@@ -25,15 +26,14 @@
                         <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%"></div>
                     </div>
                 </div>
-
                 <label for="inputTitulo" class="sr-only">Título:</label>
                 <input type="text" class="form-control" [(ngModel)]="publicacion.Titulo" id="inputTitulo" name="Titulo" placeholder="Título">
-
                 <label for="inputDescripcion" class="sr-only">Descripción:</label>
-                <input type="text" class="form-control" [(ngModel)]="publicacion.Descripcion" id="inputDescripcion" name="Descripcion" placeholder="Descripción">
+                <textarea maxlength="300" rows="3" class="form-control" [(ngModel)]="publicacion.Descripcion" id="inputDescripcion" name="Descripcion" placeholder="Descripción"></textarea>
                 
                 <button class="btn btn-lg btn-primary btn-block" (click)="editarServicioPaso1()">Siguiente</button>
             </div>   
+
             <div [hidden]="step != 2">
                  <div class="contenedorProgressBar">
                     <div class="container">
@@ -94,15 +94,17 @@
             </div>
         </div>
 
-        <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
-            <div *ngFor="let error of mensajes.Errores;">
-                {{error.Descripcion}}
+        <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+                <div *ngFor="let error of mensajes.Errores;">
+                    {{error.Descripcion}}
+                </div>
             </div>
-        </div>
-
-        <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
-            <div *ngFor="let exito of mensajes.Exitos;">
-                {{exito.Descripcion}}
+    
+            <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+                <div *ngFor="let exito of mensajes.Exitos;">
+                    {{exito.Descripcion}}
+                </div>
             </div>
         </div>
     </div>
