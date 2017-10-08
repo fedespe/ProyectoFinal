@@ -5,3 +5,11 @@ Ideas surgidas para la defensa:
 *Poner en 300 el titulo de la publicacion o poner en 50 la restriccion del input. Igual para telefono y direccion del usuario. Lo mismo para el nombre del servicio en administrador
 *En solicitar servicio aparece el nombre de usuario. Hay que sacarlo
 *Una vez que borra los datos de local storage debe mandarte para afuera
+*Nombre del servicio desentrado en ver-publicacion-ofrecida
+*Solicitudes muestran foto del cliente y no de la solicitud. Esta bien?
+*En las propuestas si quiero ver la información del postulado el nombre de usuario esta escrito todo junto queda feo
+*la propuesta a la solicitud si es larga se va de la pantalla
+*no se puede responder el comentario de una solicitud aceptada
+*redireccion rota cuando se acepta presupuesto
+*gif loading cuando cambio la contraseña esta torcido
+Ver que la imagen de usuario se este cambiando bien
