@@ -1,11 +1,39 @@
+@media screen and (max-width: 991px) {
+  .contenedorDatos {
+    margin-top: 20px;
+  }
+}
+.titulo {
+  text-align: center;
+}
+.contenedorImagen {
+  text-align: center;
+}
+.contenedorPromedio {
+  text-align: center;
+}
+.card{
+  margin-bottom: 10px;
+  background-color: transparent !important;
+}
+.labelDatoUsuario{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.datoUsuario{
+  padding-top: 0;
+  padding-bottom: 0;
+}
 
-.comentario{
-  margin-bottom: 20px;
+.linkManual{
+  margin-right: 0;
+  margin-left: 0;
 }
-.respuesta{
-  margin-left: 40px;
+
+.nombreServicio{
+  font-size: 20px;
+  margin-bottom: 0;
 }
-.promedio{
-  font-size: 25px; 
-  color: orange;
+.respuesta {
+  padding-left: 10px;
 }

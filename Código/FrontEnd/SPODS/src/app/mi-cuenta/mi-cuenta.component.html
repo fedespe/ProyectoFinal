@@ -27,8 +27,11 @@
                 <a class="nav-link" [routerLinkActive]="['active']" routerLink="/mi-cuenta/listado-ofertas-contratadas">Ofertas Contratadas</a>
             </li>
             <li class="nav-item hidden-md-up">
-                    <a class="nav-link" [routerLinkActive]="['active']" routerLink="/mi-cuenta/listado-solicitudes-aceptadas">Presupuestos Aceptados</a>
-                </li>
+                <a class="nav-link" [routerLinkActive]="['active']" routerLink="/mi-cuenta/listado-solicitudes-aceptadas">Presupuestos Aceptados</a>
+            </li>
+            <li class="nav-item hidden-md-up">
+                <a class="nav-link" routerLink="/dashboard/ver-perfil-usuario/{{idUsuario}}">Mi Perfil</a>
+            </li> 
             <li class="nav-item hidden-md-up">
                 <a class="nav-link" [routerLinkActive]="['active']" routerLink="/mi-cuenta/perfil-usuario">Datos Personales</a>
             </li> 
@@ -79,8 +82,11 @@
                 </li>
             </ul>
             <hr>
-            <!-- Configuración -->
+            <!-- Perfil -->
             <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/dashboard/ver-perfil-usuario/{{idUsuario}}">Mi Perfil</a>
+                </li> 
                 <li class="nav-item">
                     <a class="nav-link" [routerLinkActive]="['active']" routerLink="/mi-cuenta/perfil-usuario">Datos Personales</a>
                 </li> 

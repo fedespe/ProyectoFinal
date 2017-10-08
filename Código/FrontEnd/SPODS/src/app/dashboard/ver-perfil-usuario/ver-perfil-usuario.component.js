@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var data_service_1 = require("../../shared/services/data.service");
 var utilidades_1 = require("../../shared/utilidades");
@@ -19,16 +20,18 @@ var cliente_1 = require("../../shared/cliente");
 var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
 var settings_1 = require("../../shared/settings");
 var VerPerfilUsuarioComponent = (function () {
-    function VerPerfilUsuarioComponent(dataService, router, route) {
+    function VerPerfilUsuarioComponent(dataService, router, route, location) {
         this.dataService = dataService;
         this.router = router;
         this.route = route;
+        this.location = location;
         this.mensajes = new mensaje_1.Mensaje();
-        this.cliente = new cliente_1.Cliente();
         this.loading = true;
+        this.cliente = new cliente_1.Cliente();
+        //serviciosOfertas: Servicio[] = [];
+        //serviciosSolicitudes: Servicio[] = [];
         this.comentariosPuntuacionOferta = [];
         this.comentariosPuntuacionSolicitud = [];
-        this.servicios = [];
         this.responderSolicitud = false;
         this.responderOferta = false;
         this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
@@ -45,12 +48,17 @@ var VerPerfilUsuarioComponent = (function () {
         });
         this.idUsuario = parseInt(localStorage.getItem('id-usuario'));
         this.getObternerCliente();
-        this.obtenerServicios();
         this.obetenerPromedioClienteOferta();
+        //this.obtenerServicios();
+        this.getComentariosOferta();
+        this.getComentariosSolicitud();
     };
     VerPerfilUsuarioComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+    };
+    VerPerfilUsuarioComponent.prototype.back = function () {
+        this.location.back();
     };
     VerPerfilUsuarioComponent.prototype.getObternerCliente = function () {
         var _this = this;
@@ -63,6 +71,7 @@ var VerPerfilUsuarioComponent = (function () {
             this.cliente.NombreUsuario = response.Objetos[0].NombreUsuario;
             this.cliente.Nombre = response.Objetos[0].Nombre;
             this.cliente.Apellido = response.Objetos[0].Apellido;
+            this.cliente.CorreoElectronico = response.Objetos[0].CorreoElectronico;
             this.cliente.Telefono = response.Objetos[0].Telefono;
             this.cliente.Direccion = response.Objetos[0].Direccion;
             this.cliente.Barrio.Id = response.Objetos[0].Barrio.Id;
@@ -84,17 +93,42 @@ var VerPerfilUsuarioComponent = (function () {
         this.mensajes.Errores.push(error);
         this.loading = false;
     };
-    VerPerfilUsuarioComponent.prototype.obtenerServicios = function () {
-        var _this = this;
+    /*obtenerServicios(){
         this.dataService.getServicioObtenerTodos()
-            .subscribe(function (res) { return _this.getServicioObtenerTodosOk(res); }, function (error) { return _this.getServicioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServicios: Completado"); });
-    };
-    VerPerfilUsuarioComponent.prototype.getServicioObtenerTodosOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
-        if (response.Codigo == 200) {
-            this.servicios = response.Objetos;
+            .subscribe(
+            res => this.getServicioObtenerTodosOk(res),
+            error => this.getServicioObtenerTodosError(error),
+            () => Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServicios: Completado")
+        );
+    }
+    getServicioObtenerTodosOk(response:any){
+        Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        if(response.Codigo ==  200){
+            this.serviciosOfertas = response.Objetos;
+            this.serviciosSolicitudes = response.Objetos;
             this.getComentariosOferta();
-            this.getComentariosSolicitud();
+        }
+        else{
+            var error = new Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+    }
+    getServicioObtenerTodosError(responseError:any){
+        Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        var error = new Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+    }*/
+    VerPerfilUsuarioComponent.prototype.obetenerPromedioClienteOferta = function () {
+        var _this = this;
+        this.dataService.getObetenerPromedioClienteOferta(this.cliente.Id)
+            .subscribe(function (res) { return _this.getObetenerPromedioClienteOfertaOk(res); }, function (error) { return _this.getObetenerPromedioClienteOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obetenerPromedioClienteOferta: Completado"); });
+    };
+    VerPerfilUsuarioComponent.prototype.getObetenerPromedioClienteOfertaOk = function (response) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
+        if (response.Codigo == 200) {
+            this.promedioCliente = response.Objetos[0];
         }
         else {
             var error = new error_1.Error();
@@ -102,8 +136,8 @@ var VerPerfilUsuarioComponent = (function () {
             this.mensajes.Errores.push(error);
         }
     };
-    VerPerfilUsuarioComponent.prototype.getServicioObtenerTodosError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+    VerPerfilUsuarioComponent.prototype.getObetenerPromedioClienteOfertaError = function (responseError) {
+        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -117,6 +151,8 @@ var VerPerfilUsuarioComponent = (function () {
         utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosOfertaOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.comentariosPuntuacionOferta = response.Objetos;
+            //this.eliminarServiciosOfertasNoUtilizados();
+            //this.getComentariosSolicitud();
         }
         else {
             var error = new error_1.Error();
@@ -139,6 +175,7 @@ var VerPerfilUsuarioComponent = (function () {
         utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosSolicitudOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.comentariosPuntuacionSolicitud = response.Objetos;
+            //this.eliminarServiciosSolicitudesNoUtilizados();
         }
         else {
             var error = new error_1.Error();
@@ -152,6 +189,34 @@ var VerPerfilUsuarioComponent = (function () {
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     };
+    /*eliminarServiciosOfertasNoUtilizados(){
+        for(let s of this.serviciosOfertas){
+            var enUso : boolean = false;
+            for(let cO of this.comentariosPuntuacionOferta){
+                if(s.Id == cO.Publicacion.Servicio.Id){
+                    enUso = true;
+                    break;
+                }
+            }
+            if(!enUso){
+                this.serviciosOfertas.splice(this.serviciosOfertas.indexOf(s),1);
+            }
+        }
+    }
+    eliminarServiciosSolicitudesNoUtilizados(){
+        for(let s of this.serviciosSolicitudes){
+            var enUso : boolean = false;
+            for(let cS of this.comentariosPuntuacionSolicitud){
+                if(s.Id == cS.Publicacion.Servicio.Id){
+                    enUso = true;
+                    break;
+                }
+            }
+            if(!enUso){
+                this.serviciosSolicitudes.splice(this.serviciosSolicitudes.indexOf(s),1);
+            }
+        }
+    }*/
     VerPerfilUsuarioComponent.prototype.responderComentarioSolicitud = function (input) {
         var s = 'respuestaSolicitud' + input;
         if (this.responderSolicitud == true) {
@@ -236,28 +301,6 @@ var VerPerfilUsuarioComponent = (function () {
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     };
-    VerPerfilUsuarioComponent.prototype.obetenerPromedioClienteOferta = function () {
-        var _this = this;
-        this.dataService.getObetenerPromedioClienteOferta(this.idUsuario)
-            .subscribe(function (res) { return _this.getObetenerPromedioClienteOfertaOk(res); }, function (error) { return _this.getObetenerPromedioClienteOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obetenerPromedioClienteOferta: Completado"); });
-    };
-    VerPerfilUsuarioComponent.prototype.getObetenerPromedioClienteOfertaOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
-        if (response.Codigo == 200) {
-            this.promedioCliente = response.Objetos[0];
-        }
-        else {
-            var error = new error_1.Error();
-            error.Descripcion = response.Mensaje;
-            this.mensajes.Errores.push(error);
-        }
-    };
-    VerPerfilUsuarioComponent.prototype.getObetenerPromedioClienteOfertaError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
-        var error = new error_1.Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(error);
-    };
     return VerPerfilUsuarioComponent;
 }());
 VerPerfilUsuarioComponent = __decorate([
@@ -266,7 +309,7 @@ VerPerfilUsuarioComponent = __decorate([
         templateUrl: 'app/dashboard/ver-perfil-usuario/ver-perfil-usuario.component.html',
         styleUrls: ['css/ver-perfil-usuario.css']
     }),
-    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router, router_1.ActivatedRoute, common_1.Location])
 ], VerPerfilUsuarioComponent);
 exports.VerPerfilUsuarioComponent = VerPerfilUsuarioComponent;
 //# sourceMappingURL=ver-perfil-usuario.component.js.map
