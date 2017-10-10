@@ -89,7 +89,7 @@ var ListadoSolicitudesClienteComponent = (function () {
     };
     ListadoSolicitudesClienteComponent.prototype.activarPublicacion = function (input) {
         var _this = this;
-        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - activarPublicacion | responseError: " + JSON.stringify(input));
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - activarPublicacion | response: " + JSON.stringify(input));
         this.dataService.getActivarPublicacion(input)
             .subscribe(function (res) { return _this.getActivarPublicacionOk(res); }, function (error) { return _this.getActivarPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getActivarPublicacion: Completado"); });
     };
@@ -113,10 +113,10 @@ var ListadoSolicitudesClienteComponent = (function () {
     ListadoSolicitudesClienteComponent.prototype.obtenerTodosContactosConComentariosPendientesSolicitud = function (id) {
         var _this = this;
         this.dataService.getobtenerTodosContactosConComentariosPendientesSolicitud(id)
-            .subscribe(function (res) { return _this.getobtenerTodosContactosConComentariosPendientesSolicitudOk(res); }, function (error) { return _this.getobtenerTodosContactosConComentariosPendientesSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - obtenerTodosContactosConComentariosPendientesSolicitud: Completado"); });
+            .subscribe(function (res) { return _this.getobtenerTodosContactosConComentariosPendientesSolicitudOk(res); }, function (error) { return _this.getobtenerTodosContactosConComentariosPendientesSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitud: Completado"); });
     };
     ListadoSolicitudesClienteComponent.prototype.getobtenerTodosContactosConComentariosPendientesSolicitudOk = function (response) {
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.contactos = response.Objetos;
             if (this.contactos.length == 0) {
@@ -130,7 +130,7 @@ var ListadoSolicitudesClienteComponent = (function () {
         }
     };
     ListadoSolicitudesClienteComponent.prototype.getobtenerTodosContactosConComentariosPendientesSolicitudError = function (responseError) {
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -144,34 +144,34 @@ var ListadoSolicitudesClienteComponent = (function () {
         this.comentarioPuntuacion.Cliente.Id = contacto.Cliente.Id; //al contrario de la oferta quien recibe el comentario es el que realiza el trabajo
         this.comentarioPuntuacion.Contacto = new contacto_1.Contacto();
         this.comentarioPuntuacion.Contacto.Id = contacto.Id;
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(contacto));
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - cargarModal | contacto: " + JSON.stringify(contacto));
     };
     ListadoSolicitudesClienteComponent.prototype.guardarComentario = function () {
         var _this = this;
         this.borrarMensajes();
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
         this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
         if (this.mensajesComentario.Errores.length == 0) {
             this.dataService.postIngresarComentario(this.comentarioPuntuacion)
-                .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado"); });
+                .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - postIngresarComentario: Completado"); });
         }
     };
     ListadoSolicitudesClienteComponent.prototype.postIngresarComentarioOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             document.getElementById('btnModalClose').click();
             this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
             this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
         }
         else {
-            utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajesComentario.Errores.push(error);
         }
     };
     ListadoSolicitudesClienteComponent.prototype.postIngresarComentarioError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

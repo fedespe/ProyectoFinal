@@ -43,7 +43,7 @@ var ListadoServiciosOfrecidosComponent = (function () {
     };
     ListadoServiciosOfrecidosComponent.prototype.obtenerPublicaciones = function () {
         var _this = this;
-        utilidades_1.Utilidades.log("[listado-servicios-ofrecidos.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idServicio));
+        utilidades_1.Utilidades.log("[listado-servicios-ofrecidos.component.ts] - obtenerPublicacion | idServicio: " + JSON.stringify(this.idServicio));
         this.dataService.getPublicacionesServicioOferta(this.idServicio)
             .subscribe(function (res) { return _this.getPublicacionesServicioOk(res); }, function (error) { return _this.getPublicacionesServicioError(error); }, function () { return utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicios: Completado"); });
     };

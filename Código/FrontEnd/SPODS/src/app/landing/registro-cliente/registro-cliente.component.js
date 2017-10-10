@@ -53,7 +53,7 @@ var RegistroClienteComponent = (function () {
     };
     RegistroClienteComponent.prototype.registrarClientePaso2 = function () {
         this.borrarMensajes(),
-            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso2 | this.cliente: " + JSON.stringify(this.cliente));
         this.cliente.Habilitado = true;
         this.mensajes.Errores = this.cliente.validarDatos2(this.contrasenaConfirmacion);
         if (this.mensajes.Errores.length == 0) {
@@ -141,22 +141,22 @@ var RegistroClienteComponent = (function () {
     RegistroClienteComponent.prototype.ingresarCliente = function () {
         var _this = this;
         this.borrarMensajes();
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
         //this.loading = true;
         if (this.mensajes.Errores.length == 0) {
             this.dataService.postAccessToken(this.cliente.NombreUsuario, this.cliente.Contrasena)
-                .subscribe(function (res) { return _this.postAccessTokenOk(res); }, function (error) { return _this.postAccessTokenError(error); }, function () { return utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessToken: Completado"); });
+                .subscribe(function (res) { return _this.postAccessTokenOk(res); }, function (error) { return _this.postAccessTokenError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postAccessToken: Completado"); });
         }
     };
     RegistroClienteComponent.prototype.postAccessTokenOk = function (response) {
         var _this = this;
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postAccessTokenOk | response: " + JSON.stringify(response));
         //if(response.Codigo ==  200){
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response.access_token: " + response.access_token);
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postAccessTokenOk | response.access_token: " + response.access_token);
         localStorage.setItem('access_token', response.access_token);
         this.dataService.ini();
         this.dataService.getObtenerClienteLogueado()
-            .subscribe(function (res) { return _this.getObtenerClienteLogueadoOk(res); }, function (error) { return _this.getObtenerClienteLogueadoError(error); }, function () { return utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueado: Completado"); });
+            .subscribe(function (res) { return _this.getObtenerClienteLogueadoOk(res); }, function (error) { return _this.getObtenerClienteLogueadoError(error); }, function () { return utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueado: Completado"); });
         /*}
         else{
             Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
@@ -167,27 +167,27 @@ var RegistroClienteComponent = (function () {
     };
     RegistroClienteComponent.prototype.postAccessTokenError = function (responseError) {
         //this.loading=false;
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     };
     RegistroClienteComponent.prototype.getObtenerClienteLogueadoOk = function (response) {
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
-            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response.Objetos[0]: " + JSON.stringify(response.Objetos[0]));
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | response.Objetos[0]: " + JSON.stringify(response.Objetos[0]));
             localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario);
             localStorage.setItem('id-usuario', response.Objetos[0].Id);
             //PARA EL SUBMIT DEL IFRAME        
             this.cliente.Id = response.Objetos[0].Id;
             document.getElementById('inputIdCliente').setAttribute('value', this.cliente.Id.toString());
             document.getElementById('mostrarImagenes').click();
-            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('nombre-usuario'): " + localStorage.getItem('nombre-usuario'));
-            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('id-usuario'): " + localStorage.getItem('id-usuario'));
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('nombre-usuario'): " + localStorage.getItem('nombre-usuario'));
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('id-usuario'): " + localStorage.getItem('id-usuario'));
             // this.router.navigate(['/dashboard']);
         }
         else {
-            utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
@@ -195,7 +195,7 @@ var RegistroClienteComponent = (function () {
     };
     RegistroClienteComponent.prototype.getObtenerClienteLogueadoError = function (responseError) {
         //this.loading=false;
-        utilidades_1.Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

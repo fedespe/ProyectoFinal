@@ -104,7 +104,7 @@ var ResumenComponent = (function () {
         }
     };
     ResumenComponent.prototype.getObetenerPromedioClienteOfertaError = function (responseError) {
-        utilidades_1.Utilidades.log("[resumen.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[resumen.component.ts] - getObetenerPromedioClienteOfertaError | responseError: " + JSON.stringify(responseError));
         this.borrarMensajes();
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
@@ -156,10 +156,10 @@ var ResumenComponent = (function () {
     ResumenComponent.prototype.obtenerSolicitudesCliente = function (id) {
         var _this = this;
         this.dataService.getObtenerPublicacionesClienteSolicitud(id)
-            .subscribe(function (res) { return _this.getObtenerPublicacionesClienteSolicitudOk(res); }, function (error) { return _this.getObtenerPublicacionesClienteSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteOferta: Completado"); });
+            .subscribe(function (res) { return _this.getObtenerPublicacionesClienteSolicitudOk(res); }, function (error) { return _this.getObtenerPublicacionesClienteSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteSolicitud: Completado"); });
     };
     ResumenComponent.prototype.getObtenerPublicacionesClienteSolicitudOk = function (response) {
-        utilidades_1.Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteOfertaOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteSolicitudOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicaciones = response.Objetos;
             this.calcularNumerosSolicitudesClienteLogueado();
@@ -172,7 +172,7 @@ var ResumenComponent = (function () {
         }
     };
     ResumenComponent.prototype.getObtenerPublicacionesClienteSolicitudError = function (responseError) {
-        utilidades_1.Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteOfertaError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteSolicitudError | responseError: " + JSON.stringify(responseError));
         this.borrarMensajes();
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";

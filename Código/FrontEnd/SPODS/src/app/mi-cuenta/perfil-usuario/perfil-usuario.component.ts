@@ -40,7 +40,7 @@ export class PerfilUsuarioComponent{
             .subscribe(
             res => this.getObternerClienteOk(res),
             error => this.getObternerClienteError(error),
-            () => Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado")
+            () => Utilidades.log("[perfil-usuario.component.ts] - getObtenerCliente: Completado")
         );
     }
     getObternerClienteOk(response:any){
@@ -108,7 +108,7 @@ export class PerfilUsuarioComponent{
             .subscribe(
                 res => this.putActualizarClienteOk(res),
                 error => this.putActualizarClienteError(error),
-                () => Utilidades.log("[perfil-usuario.component.ts] - postRegistrarCliente: Completado")
+                () => Utilidades.log("[perfil-usuario.component.ts] - putActualizarCliente: Completado")
             );
         }
         else{

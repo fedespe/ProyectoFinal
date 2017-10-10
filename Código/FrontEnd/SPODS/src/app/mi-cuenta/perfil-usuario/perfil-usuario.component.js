@@ -41,7 +41,7 @@ var PerfilUsuarioComponent = (function () {
     PerfilUsuarioComponent.prototype.getObternerCliente = function () {
         var _this = this;
         this.dataService.getObtenerCliente(this.cliente.Id)
-            .subscribe(function (res) { return _this.getObternerClienteOk(res); }, function (error) { return _this.getObternerClienteError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getBarrioObtenerTodos: Completado"); });
+            .subscribe(function (res) { return _this.getObternerClienteOk(res); }, function (error) { return _this.getObternerClienteError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getObtenerCliente: Completado"); });
     };
     PerfilUsuarioComponent.prototype.getObternerClienteOk = function (response) {
         utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getObternerClienteOk | response: " + JSON.stringify(response));
@@ -101,7 +101,7 @@ var PerfilUsuarioComponent = (function () {
         this.mensajes.Errores = this.cliente.validarActualizacionUsuario();
         if (this.mensajes.Errores.length == 0) {
             this.dataService.putActualizarCliente(this.cliente)
-                .subscribe(function (res) { return _this.putActualizarClienteOk(res); }, function (error) { return _this.putActualizarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postRegistrarCliente: Completado"); });
+                .subscribe(function (res) { return _this.putActualizarClienteOk(res); }, function (error) { return _this.putActualizarClienteError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - putActualizarCliente: Completado"); });
         }
         else {
             this.loading = false;

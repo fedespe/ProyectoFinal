@@ -36,7 +36,7 @@ export class EditarServicioClienteComponent implements OnInit{
         this.route.params
         .subscribe(params => {
             this.idPublicacion = parseInt(params['id']);
-            Utilidades.log("[[editar-servicio-cliente.component.ts] - ngOnInit | id: " + JSON.stringify(this.idPublicacion));   
+            Utilidades.log("[editar-servicio-cliente.component.ts] - ngOnInit | idPublicacion: " + JSON.stringify(this.idPublicacion));   
         });
         this.obtenerPublicacion();       
     }
@@ -45,16 +45,16 @@ export class EditarServicioClienteComponent implements OnInit{
         this.mensajes.Exitos = [];
     }
     obtenerPublicacion(){
-        Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
+        Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
        this.dataService.getPublicacion(this.idPublicacion)
            .subscribe(
            res => this.getPublicacionOk(res),
            error => this.getPublicacionError(error),
-           () => Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicios: Completado")
+           () => Utilidades.log("[editar-servicio-cliente.component.ts] - getPublicacion: Completado")
        );
    }
    getPublicacionOk(response:any){
-       Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
+       Utilidades.log("[editar-servicio-cliente.component.ts] - getPublicacionOk | response: " + JSON.stringify(response));       
        if(response.Codigo ==  200){
            this.publicacion = response.Objetos[0]; 
            document.getElementById('inputIdPublicacion').setAttribute('value',this.publicacion.Id.toString());
@@ -69,7 +69,7 @@ export class EditarServicioClienteComponent implements OnInit{
        }
    }
    getPublicacionError(responseError:any){
-       Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+       Utilidades.log("[editar-servicio-cliente.component.ts] - getPublicacionError | responseError: " + JSON.stringify(responseError));
        var error = new Error();
        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
        this.mensajes.Errores.push(error);
@@ -84,7 +84,7 @@ export class EditarServicioClienteComponent implements OnInit{
         );
     }
     getObtenerServicioOk(response:any){
-        Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if(response.Codigo ==  200){
             this.publicacion.Servicio = response.Objetos[0];
             this.responderPreguntas();//metodo que completa en alngular las respuestas a las preguntas
@@ -97,7 +97,7 @@ export class EditarServicioClienteComponent implements OnInit{
         }
     }
     getObtenerServicioError(responseError:any){
-        Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -144,7 +144,7 @@ export class EditarServicioClienteComponent implements OnInit{
         this.step=1;
     }
     putActualizarPublicacion(){
-        Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.respuestas));
+        Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | respuestas: " + JSON.stringify(this.respuestas));
         this.borrarMensajes();
         //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
         //Se crea una nueva publicacion para hacer la validacion
@@ -165,7 +165,7 @@ export class EditarServicioClienteComponent implements OnInit{
                     this.publicacion.Respuestas.push(r);
                 }              
             } 
-            Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.publicacion));
+            Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | publicacion: " + JSON.stringify(this.publicacion));
             this.dataService.putActualizarPublicacion(this.publicacion)
                 .subscribe(
                 res => this.putActualizarPublicacionOk(res),

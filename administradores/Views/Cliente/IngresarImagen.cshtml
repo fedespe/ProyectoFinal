@@ -1,0 +1,61 @@
+﻿@model AdministradoresWeb.ViewModel.ClienteViewModel.IngresarImagenViewModel
+@{
+    ViewBag.Title = "IngresarImagen";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="~/Scripts/cliente-imagen.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div>
+            @*<h2>IngresarImagen</h2>*@
+            @using (Html.BeginForm("IngresarImagen", "Cliente", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                //Seguridad
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.Contrasena)
+
+                //Lista de errores
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="col-xs-12">
+                    <div class="col-xs-6">
+                        <div class="thumbnail" style="cursor: pointer;">
+                            <img src=@("/Imagenes/Clientes/SinImagen.jpg") id="ImgArchivo" onclick="$('#Archivo').click()" style="width:140px; height:140px;" />
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">
+                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Guardar
+                        </button>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="alert alert-info" role="alert">Seleccione una imagen para su perfil. Guarde los cambios realizados antes de finalizar.</div>
+                    </div>
+
+                </div>
+
+                <input type="file" style="display:none;" name="Archivo" id="Archivo" onchange="$(mostrarImagen(this));">
+                
+            }
+        </div>
+    </div>
+    
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
+

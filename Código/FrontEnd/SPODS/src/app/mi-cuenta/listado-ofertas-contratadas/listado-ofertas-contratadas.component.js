@@ -43,10 +43,10 @@ var ListadoOfertasContratadasComponent = (function () {
     ListadoOfertasContratadasComponent.prototype.obtenerPublicacionesContratadasPorCliente = function (id) {
         var _this = this;
         this.dataService.getobtenerPublicacionesContratadasPorCliente(id)
-            .subscribe(function (res) { return _this.getobtenerPublicacionesContratadasPorClienteOk(res); }, function (error) { return _this.getobtenerPublicacionesContratadasPorClienteError(error); }, function () { return utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorCliente: Completado"); });
+            .subscribe(function (res) { return _this.getobtenerPublicacionesContratadasPorClienteOk(res); }, function (error) { return _this.getobtenerPublicacionesContratadasPorClienteError(error); }, function () { return utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerPublicacionesContratadasPorCliente: Completado"); });
     };
     ListadoOfertasContratadasComponent.prototype.getobtenerPublicacionesContratadasPorClienteOk = function (response) {
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicaciones = response.Objetos;
         }
@@ -58,7 +58,7 @@ var ListadoOfertasContratadasComponent = (function () {
         this.loading = false;
     };
     ListadoOfertasContratadasComponent.prototype.getobtenerPublicacionesContratadasPorClienteError = function (responseError) {
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -67,10 +67,10 @@ var ListadoOfertasContratadasComponent = (function () {
     ListadoOfertasContratadasComponent.prototype.obtenerTodosContactosConComentariosPendientesOferta = function (id) {
         var _this = this;
         this.dataService.getobtenerTodosContactosConComentariosPendientesOferta(id)
-            .subscribe(function (res) { return _this.getobtenerTodosContactosConComentariosPendientesOfertaOk(res); }, function (error) { return _this.getobtenerTodosContactosConComentariosPendientesOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOferta: Completado"); });
+            .subscribe(function (res) { return _this.getobtenerTodosContactosConComentariosPendientesOfertaOk(res); }, function (error) { return _this.getobtenerTodosContactosConComentariosPendientesOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOferta: Completado"); });
     };
     ListadoOfertasContratadasComponent.prototype.getobtenerTodosContactosConComentariosPendientesOfertaOk = function (response) {
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.contactos = response.Objetos;
             if (this.contactos.length == 0) {
@@ -84,7 +84,7 @@ var ListadoOfertasContratadasComponent = (function () {
         }
     };
     ListadoOfertasContratadasComponent.prototype.getobtenerTodosContactosConComentariosPendientesOfertaError = function (responseError) {
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -98,34 +98,34 @@ var ListadoOfertasContratadasComponent = (function () {
         this.comentarioPuntuacion.Cliente.Id = parseInt(localStorage.getItem("id-usuario"));
         this.comentarioPuntuacion.Contacto = new contacto_1.Contacto();
         this.comentarioPuntuacion.Contacto.Id = contacto.Id;
-        utilidades_1.Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(contacto));
+        utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - cargarModal | contacto: " + JSON.stringify(contacto));
     };
     ListadoOfertasContratadasComponent.prototype.guardarComentario = function () {
         var _this = this;
         this.borrarMensajes();
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
+        utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));
         this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
         if (this.mensajesComentario.Errores.length == 0) {
             this.dataService.postIngresarComentario(this.comentarioPuntuacion)
-                .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado"); });
+                .subscribe(function (res) { return _this.postIngresarComentarioOk(res); }, function (error) { return _this.postIngresarComentarioError(error); }, function () { return utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - postIngresarComentario: Completado"); });
         }
     };
     ListadoOfertasContratadasComponent.prototype.postIngresarComentarioOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             document.getElementById('btnModalClose').click();
             this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
             this.obtenerTodosContactosConComentariosPendientesOferta(parseInt(localStorage.getItem('id-usuario')));
         }
         else {
-            utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajesComentario.Errores.push(error);
         }
     };
     ListadoOfertasContratadasComponent.prototype.postIngresarComentarioError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[listado-ofertas-contratadas.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

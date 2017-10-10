@@ -114,7 +114,7 @@ export class ResumenComponent implements OnInit{
        }
     }
     getObetenerPromedioClienteOfertaError(responseError:any){
-        Utilidades.log("[resumen.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[resumen.component.ts] - getObetenerPromedioClienteOfertaError | responseError: " + JSON.stringify(responseError));
         this.borrarMensajes();
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
@@ -170,11 +170,11 @@ export class ResumenComponent implements OnInit{
             .subscribe(
             res => this.getObtenerPublicacionesClienteSolicitudOk(res),
             error => this.getObtenerPublicacionesClienteSolicitudError(error),
-            () => Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteOferta: Completado")
+            () => Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteSolicitud: Completado")
         );
     }
     getObtenerPublicacionesClienteSolicitudOk(response:any){
-        Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteOfertaOk | response: " + JSON.stringify(response));      
+        Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteSolicitudOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
             this.publicaciones = response.Objetos;
             this.calcularNumerosSolicitudesClienteLogueado();
@@ -187,7 +187,7 @@ export class ResumenComponent implements OnInit{
         }
     }
     getObtenerPublicacionesClienteSolicitudError(responseError:any){
-        Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteOfertaError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[resumen.component.ts] - getObtenerPublicacionesClienteSolicitudError | responseError: " + JSON.stringify(responseError));
         this.borrarMensajes();
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";

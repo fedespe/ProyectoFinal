@@ -34,10 +34,10 @@ var ListadoSolicitudesAceptadasComponent = (function () {
     ListadoSolicitudesAceptadasComponent.prototype.obtenerSolicitudesAceptadas = function (id) {
         var _this = this;
         this.dataService.getObtenerSolicitudesAceptadas(id)
-            .subscribe(function (res) { return _this.getObtenerSolicitudesAceptadasOk(res); }, function (error) { return _this.getObtenerSolicitudesAceptadasError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - obtenerSolicitudesAceptadas: Completado"); });
+            .subscribe(function (res) { return _this.getObtenerSolicitudesAceptadasOk(res); }, function (error) { return _this.getObtenerSolicitudesAceptadasError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-aceptadas.component.ts] - getObtenerSolicitudesAceptadas: Completado"); });
     };
     ListadoSolicitudesAceptadasComponent.prototype.getObtenerSolicitudesAceptadasOk = function (response) {
-        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[listado-solicitudes-aceptadas.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.solicitudesAceptadas = response.Objetos;
         }
@@ -49,7 +49,7 @@ var ListadoSolicitudesAceptadasComponent = (function () {
         this.loading = false;
     };
     ListadoSolicitudesAceptadasComponent.prototype.getObtenerSolicitudesAceptadasError = function (responseError) {
-        utilidades_1.Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[listado-solicitudes-aceptadas.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

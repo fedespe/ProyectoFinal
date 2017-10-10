@@ -38,7 +38,7 @@ export class ListadoSolicitudesComponent{
     }
 
     getServicioObtenerTodosOk(response:any){
-        Utilidades.log("[listado-solicitudes.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        Utilidades.log("[listado-solicitudes.component.ts] - getServicioObtenerTodosOk | response: " + JSON.stringify(response));
         this.servicios = response.Objetos;
         if(response.Codigo ==  200){
             
@@ -51,7 +51,7 @@ export class ListadoSolicitudesComponent{
     }
 
     getServicioObtenerTodosError(responseError:any){
-        Utilidades.log("[listado-solicitudes.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[listado-solicitudes.component.ts] - getServicioObtenerTodosError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

@@ -100,7 +100,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             .subscribe(
                 res => this.postIngresarPresupuestoOk(res),
                 error => this.postIngresarPresupuestoError(error),
-                () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarComentario: Completado")
+                () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarPresupuesto: Completado")
             );
         }
     }
@@ -185,12 +185,12 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             .subscribe(
             res => this.getPublicacionOk(res),
             error => this.getPublicacionError(error),
-            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServicios: Completado")
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - getPublicacion: Completado")
         );
     }
 
     getPublicacionOk(response:any){
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));       
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getPublicacionOk | response: " + JSON.stringify(response));       
         if(response.Codigo ==  200){
             this.publicacion = response.Objetos[0];
             if(this.publicacion.Imagenes==null || this.publicacion.Imagenes.length==0) {
@@ -211,7 +211,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     }
 
     getPublicacionError(responseError:any){
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -222,12 +222,12 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             .subscribe(
             res => this.getObtenerContactoPendienteOk(res),
             error => this.getObtenerContactoPendienteError(error),
-            () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerContactoPendiente: Completado")
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerContactoPendienteCliente: Completado")
         );
     }
     getObtenerContactoPendienteOk(response:any){
         
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerContactoPendienteOk | response: " + JSON.stringify(response.Objetos[0]));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerContactoPendienteOk | response: " + JSON.stringify(response.Objetos[0]));
         if(response.Codigo ==  200){
             this.contacto=response.Objetos[0];
         }
@@ -239,7 +239,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     }
 
     getObtenerContactoPendienteError(responseError:any){
-        Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerContactoPendienteError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerContactoPendienteError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -250,13 +250,13 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             .subscribe(
             res => this.getObtenerServicioOk(res),
             error => this.getObtenerServicioError(error),
-            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServicio: Completado")
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerServicio: Completado")
         );
     }
 
     getObtenerServicioOk(response:any){
         
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServicioOk | response: " + JSON.stringify(response.Objetos[0]));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerServicioOk | response: " + JSON.stringify(response.Objetos[0]));
         if(response.Codigo ==  200){
             this.publicacion.Servicio = response.Objetos[0];
             this.obtenerPreguntas();//metodo que completa en alngular las respuestas a las preguntas
@@ -271,7 +271,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     }
 
     getObtenerServicioError(responseError:any){
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -293,13 +293,13 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             .subscribe(
             res => this.getObtenerClienteOk(res),
             error => this.getObtenerClienteError(error),
-            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerCliente: Completado")
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerCliente: Completado")
         );
     }
 
     getObtenerClienteOk(response:any){
         
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteOk | response: " + JSON.stringify(response.Objetos[0]));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteOk | response: " + JSON.stringify(response.Objetos[0]));
         if(response.Codigo ==  200){
             this.publicacion.Cliente = response.Objetos[0];
             this.cliente= response.Objetos[0];
@@ -312,7 +312,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     }
 
     getObtenerClienteError(responseError:any){
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -388,7 +388,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             .subscribe(
             res => this.getObetenerPromedioPublicacionOk(res),
             error => this.getObetenerPromedioPublicacionError(error),
-            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - obetenerPromedioPublicacion: Completado")
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioPublicacion: Completado")
         );
     }
 
@@ -522,12 +522,12 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
 
     aceptarPresupuesto(input:Presupuesto){
         this.presupuestoAceptando = input;
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto | responseError: " + JSON.stringify(this.publicacion));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - aceptarPresupuesto | publicacion: " + JSON.stringify(this.publicacion));
         this.dataService.putAceptarPresupuesto(input)
             .subscribe(
             res => this.putAceptarPresupuestoOk(res),
             error => this.putAceptarPresupuestoError(error),
-            () => Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado")
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto: Completado")
         );
     }
 
@@ -553,7 +553,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     }
 
     verDatosUsuario(input:any){
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - verDatosUsuario | responseError: " + JSON.stringify(input));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - verDatosUsuario | response: " + JSON.stringify(input));
         this.obtenerClienteInfoModal(parseInt(input));
     }
 
@@ -562,7 +562,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             .subscribe(
             res => this.getObtenerClienteInfoModalOk(res),
             error => this.getObtenerClienteInfoModalError(error),
-            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteInfoModal: Completado")
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerCliente: Completado")
         );
     }
 
@@ -591,7 +591,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
             .subscribe(
             res => this.getObetenerPromedioClienteOfertaOk(res),
             error => this.getObetenerPromedioClienteOfertaError(error),
-            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - obetenerPromedioClienteOferta: Completado")
+            () => Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteOferta: Completado")
         );
     }
 
@@ -610,7 +610,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     }
 
     getObetenerPromedioClienteOfertaError(responseError:any){
-        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

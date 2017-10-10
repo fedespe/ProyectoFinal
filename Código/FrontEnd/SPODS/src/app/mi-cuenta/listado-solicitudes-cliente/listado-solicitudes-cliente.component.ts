@@ -95,7 +95,7 @@ export class ListadoSolicitudesClienteComponent{
         this.mensajes.Errores.push(error);
     }
     activarPublicacion(input:any){
-        Utilidades.log("[listado-solicitudes-cliente.component.ts] - activarPublicacion | responseError: " + JSON.stringify(input));
+        Utilidades.log("[listado-solicitudes-cliente.component.ts] - activarPublicacion | response: " + JSON.stringify(input));
         this.dataService.getActivarPublicacion(input)
             .subscribe(
             res => this.getActivarPublicacionOk(res),
@@ -125,11 +125,11 @@ export class ListadoSolicitudesClienteComponent{
             .subscribe(
             res => this.getobtenerTodosContactosConComentariosPendientesSolicitudOk(res),
             error => this.getobtenerTodosContactosConComentariosPendientesSolicitudError(error),
-            () => Utilidades.log("[listado-publicaciones-contratadas.component.ts] - obtenerTodosContactosConComentariosPendientesSolicitud: Completado")
+            () => Utilidades.log("[listado-solicitudes-cliente.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitud: Completado")
         );
     }
     getobtenerTodosContactosConComentariosPendientesSolicitudOk(response:any){
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudOk | response: " + JSON.stringify(response));      
+        Utilidades.log("[listado-solicitudes-cliente.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
             this.contactos = response.Objetos;
             if(this.contactos.length == 0){
@@ -143,7 +143,7 @@ export class ListadoSolicitudesClienteComponent{
         }
     }
     getobtenerTodosContactosConComentariosPendientesSolicitudError(responseError:any){
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[listado-solicitudes-cliente.component.ts] - getobtenerTodosContactosConComentariosPendientesSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -157,25 +157,25 @@ export class ListadoSolicitudesClienteComponent{
         this.comentarioPuntuacion.Cliente.Id=contacto.Cliente.Id;//al contrario de la oferta quien recibe el comentario es el que realiza el trabajo
         this.comentarioPuntuacion.Contacto=new Contacto();
         this.comentarioPuntuacion.Contacto.Id=contacto.Id;
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(contacto));
+        Utilidades.log("[listado-solicitudes-cliente.component.ts] - cargarModal | contacto: " + JSON.stringify(contacto));
 
     }
     guardarComentario(){
         this.borrarMensajes();
         
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
+        Utilidades.log("[listado-solicitudes-cliente.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
         this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
         if(this.mensajesComentario.Errores.length==0){
             this.dataService.postIngresarComentario(this.comentarioPuntuacion)
                 .subscribe(
                     res => this.postIngresarComentarioOk(res),
                     error => this.postIngresarComentarioError(error),
-                    () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+                    () => Utilidades.log("[listado-solicitudes-cliente.component.ts] - postIngresarComentario: Completado")
                 );
         }   
     }
     postIngresarComentarioOk(response:any){
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
+        Utilidades.log("[listado-solicitudes-cliente.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
 
         if(response.Codigo ==  200){
             document.getElementById('btnModalClose').click();
@@ -183,14 +183,14 @@ export class ListadoSolicitudesClienteComponent{
             this.obtenerTodosContactosConComentariosPendientesSolicitud(parseInt(localStorage.getItem('id-usuario')));
         }
         else{
-            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            Utilidades.log("[listado-solicitudes-cliente.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajesComentario.Errores.push(error);
         }
     }
     postIngresarComentarioError(responseError:any){
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[listado-solicitudes-cliente.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

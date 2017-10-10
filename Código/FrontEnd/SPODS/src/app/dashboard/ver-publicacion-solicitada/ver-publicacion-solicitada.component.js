@@ -94,7 +94,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         this.mensajesPostulacion.Errores = this.presupuesto.validarDatos();
         if (this.mensajesPostulacion.Errores.length == 0) {
             this.dataService.postIngresarPresupuesto(this.presupuesto)
-                .subscribe(function (res) { return _this.postIngresarPresupuestoOk(res); }, function (error) { return _this.postIngresarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarComentario: Completado"); });
+                .subscribe(function (res) { return _this.postIngresarPresupuestoOk(res); }, function (error) { return _this.postIngresarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - postIngresarPresupuesto: Completado"); });
         }
     };
     VerPublicacionSolicitadaComponent.prototype.postIngresarPresupuestoOk = function (response) {
@@ -165,10 +165,10 @@ var VerPublicacionSolicitadaComponent = (function () {
         var _this = this;
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
         this.dataService.getPublicacion(this.idPublicacion)
-            .subscribe(function (res) { return _this.getPublicacionOk(res); }, function (error) { return _this.getPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServicios: Completado"); });
+            .subscribe(function (res) { return _this.getPublicacionOk(res); }, function (error) { return _this.getPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getPublicacion: Completado"); });
     };
     VerPublicacionSolicitadaComponent.prototype.getPublicacionOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getPublicacionOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicacion = response.Objetos[0];
             if (this.publicacion.Imagenes == null || this.publicacion.Imagenes.length == 0) {
@@ -187,7 +187,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         }
     };
     VerPublicacionSolicitadaComponent.prototype.getPublicacionError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -195,10 +195,10 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.obtenerContactoPendiente = function () {
         var _this = this;
         this.dataService.getObtenerContactoPendienteCliente(this.idPublicacion, this.idUsuario)
-            .subscribe(function (res) { return _this.getObtenerContactoPendienteOk(res); }, function (error) { return _this.getObtenerContactoPendienteError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerContactoPendiente: Completado"); });
+            .subscribe(function (res) { return _this.getObtenerContactoPendienteOk(res); }, function (error) { return _this.getObtenerContactoPendienteError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerContactoPendienteCliente: Completado"); });
     };
     VerPublicacionSolicitadaComponent.prototype.getObtenerContactoPendienteOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObtenerContactoPendienteOk | response: " + JSON.stringify(response.Objetos[0]));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerContactoPendienteOk | response: " + JSON.stringify(response.Objetos[0]));
         if (response.Codigo == 200) {
             this.contacto = response.Objetos[0];
         }
@@ -209,7 +209,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         }
     };
     VerPublicacionSolicitadaComponent.prototype.getObtenerContactoPendienteError = function (responseError) {
-        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerContactoPendienteError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerContactoPendienteError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -217,10 +217,10 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.obtenerServicio = function (id) {
         var _this = this;
         this.dataService.getObtenerServicio(id)
-            .subscribe(function (res) { return _this.getObtenerServicioOk(res); }, function (error) { return _this.getObtenerServicioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServicio: Completado"); });
+            .subscribe(function (res) { return _this.getObtenerServicioOk(res); }, function (error) { return _this.getObtenerServicioError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerServicio: Completado"); });
     };
     VerPublicacionSolicitadaComponent.prototype.getObtenerServicioOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServicioOk | response: " + JSON.stringify(response.Objetos[0]));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerServicioOk | response: " + JSON.stringify(response.Objetos[0]));
         if (response.Codigo == 200) {
             this.publicacion.Servicio = response.Objetos[0];
             this.obtenerPreguntas(); //metodo que completa en alngular las respuestas a las preguntas
@@ -234,7 +234,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         }
     };
     VerPublicacionSolicitadaComponent.prototype.getObtenerServicioError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -251,10 +251,10 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.obtenerCliente = function (id) {
         var _this = this;
         this.dataService.getObtenerCliente(id)
-            .subscribe(function (res) { return _this.getObtenerClienteOk(res); }, function (error) { return _this.getObtenerClienteError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerCliente: Completado"); });
+            .subscribe(function (res) { return _this.getObtenerClienteOk(res); }, function (error) { return _this.getObtenerClienteError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerCliente: Completado"); });
     };
     VerPublicacionSolicitadaComponent.prototype.getObtenerClienteOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteOk | response: " + JSON.stringify(response.Objetos[0]));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteOk | response: " + JSON.stringify(response.Objetos[0]));
         if (response.Codigo == 200) {
             this.publicacion.Cliente = response.Objetos[0];
             this.cliente = response.Objetos[0];
@@ -266,7 +266,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         }
     };
     VerPublicacionSolicitadaComponent.prototype.getObtenerClienteError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -330,7 +330,7 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.obetenerPromedioPublicacion = function () {
         var _this = this;
         this.dataService.getObetenerPromedioPublicacion(this.publicacion.Id)
-            .subscribe(function (res) { return _this.getObetenerPromedioPublicacionOk(res); }, function (error) { return _this.getObetenerPromedioPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obetenerPromedioPublicacion: Completado"); });
+            .subscribe(function (res) { return _this.getObetenerPromedioPublicacionOk(res); }, function (error) { return _this.getObetenerPromedioPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioPublicacion: Completado"); });
     };
     VerPublicacionSolicitadaComponent.prototype.getObetenerPromedioPublicacionOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioPublicacionOk | response: " + JSON.stringify(response.Objetos[0]));
@@ -439,9 +439,9 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.aceptarPresupuesto = function (input) {
         var _this = this;
         this.presupuestoAceptando = input;
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto | responseError: " + JSON.stringify(this.publicacion));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - aceptarPresupuesto | publicacion: " + JSON.stringify(this.publicacion));
         this.dataService.putAceptarPresupuesto(input)
-            .subscribe(function (res) { return _this.putAceptarPresupuestoOk(res); }, function (error) { return _this.putAceptarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado"); });
+            .subscribe(function (res) { return _this.putAceptarPresupuestoOk(res); }, function (error) { return _this.putAceptarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto: Completado"); });
     };
     VerPublicacionSolicitadaComponent.prototype.putAceptarPresupuestoOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoOk | response: " + JSON.stringify(response));
@@ -463,13 +463,13 @@ var VerPublicacionSolicitadaComponent = (function () {
         this.presupuestoAceptando = new presupuesto_1.Presupuesto();
     };
     VerPublicacionSolicitadaComponent.prototype.verDatosUsuario = function (input) {
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - verDatosUsuario | responseError: " + JSON.stringify(input));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - verDatosUsuario | response: " + JSON.stringify(input));
         this.obtenerClienteInfoModal(parseInt(input));
     };
     VerPublicacionSolicitadaComponent.prototype.obtenerClienteInfoModal = function (id) {
         var _this = this;
         this.dataService.getObtenerCliente(id)
-            .subscribe(function (res) { return _this.getObtenerClienteInfoModalOk(res); }, function (error) { return _this.getObtenerClienteInfoModalError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obtenerClienteInfoModal: Completado"); });
+            .subscribe(function (res) { return _this.getObtenerClienteInfoModalOk(res); }, function (error) { return _this.getObtenerClienteInfoModalError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerCliente: Completado"); });
     };
     VerPublicacionSolicitadaComponent.prototype.getObtenerClienteInfoModalOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObtenerClienteInfoModalOk | response: " + JSON.stringify(response.Objetos[0]));
@@ -492,7 +492,7 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.obetenerPromedioClienteOferta = function (id) {
         var _this = this;
         this.dataService.getObetenerPromedioClienteOferta(id)
-            .subscribe(function (res) { return _this.getObetenerPromedioClienteOfertaOk(res); }, function (error) { return _this.getObetenerPromedioClienteOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - obetenerPromedioClienteOferta: Completado"); });
+            .subscribe(function (res) { return _this.getObetenerPromedioClienteOfertaOk(res); }, function (error) { return _this.getObetenerPromedioClienteOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteOferta: Completado"); });
     };
     VerPublicacionSolicitadaComponent.prototype.getObetenerPromedioClienteOfertaOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
@@ -507,7 +507,7 @@ var VerPublicacionSolicitadaComponent = (function () {
         }
     };
     VerPublicacionSolicitadaComponent.prototype.getObetenerPromedioClienteOfertaError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - getObetenerPromedioClienteOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

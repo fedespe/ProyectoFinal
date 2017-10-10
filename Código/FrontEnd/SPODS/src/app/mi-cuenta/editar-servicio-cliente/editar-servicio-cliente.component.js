@@ -41,7 +41,7 @@ var EditarServicioClienteComponent = (function () {
         this.route.params
             .subscribe(function (params) {
             _this.idPublicacion = parseInt(params['id']);
-            utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - ngOnInit | id: " + JSON.stringify(_this.idPublicacion));
+            utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - ngOnInit | idPublicacion: " + JSON.stringify(_this.idPublicacion));
         });
         this.obtenerPublicacion();
     };
@@ -51,12 +51,12 @@ var EditarServicioClienteComponent = (function () {
     };
     EditarServicioClienteComponent.prototype.obtenerPublicacion = function () {
         var _this = this;
-        utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idPublicacion));
         this.dataService.getPublicacion(this.idPublicacion)
-            .subscribe(function (res) { return _this.getPublicacionOk(res); }, function (error) { return _this.getPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicios: Completado"); });
+            .subscribe(function (res) { return _this.getPublicacionOk(res); }, function (error) { return _this.getPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getPublicacion: Completado"); });
     };
     EditarServicioClienteComponent.prototype.getPublicacionOk = function (response) {
-        utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getPublicacionOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.publicacion = response.Objetos[0];
             document.getElementById('inputIdPublicacion').setAttribute('value', this.publicacion.Id.toString());
@@ -71,7 +71,7 @@ var EditarServicioClienteComponent = (function () {
         }
     };
     EditarServicioClienteComponent.prototype.getPublicacionError = function (responseError) {
-        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -83,7 +83,7 @@ var EditarServicioClienteComponent = (function () {
             .subscribe(function (res) { return _this.getObtenerServicioOk(res); }, function (error) { return _this.getObtenerServicioError(error); }, function () { return utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicio: Completado"); });
     };
     EditarServicioClienteComponent.prototype.getObtenerServicioOk = function (response) {
-        utilidades_1.Utilidades.log("[[editar-servicio-cliente.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if (response.Codigo == 200) {
             this.publicacion.Servicio = response.Objetos[0];
             this.responderPreguntas(); //metodo que completa en alngular las respuestas a las preguntas
@@ -96,7 +96,7 @@ var EditarServicioClienteComponent = (function () {
         }
     };
     EditarServicioClienteComponent.prototype.getObtenerServicioError = function (responseError) {
-        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - getObtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -144,7 +144,7 @@ var EditarServicioClienteComponent = (function () {
     };
     EditarServicioClienteComponent.prototype.putActualizarPublicacion = function () {
         var _this = this;
-        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.respuestas));
+        utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | respuestas: " + JSON.stringify(this.respuestas));
         this.borrarMensajes();
         //Cuando se trae la publicacion por servcio no deja usar la funcion this.publicacion.validarDatos()
         //Se crea una nueva publicacion para hacer la validacion
@@ -165,7 +165,7 @@ var EditarServicioClienteComponent = (function () {
                     this.publicacion.Respuestas.push(r);
                 }
             }
-            utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | responseError: " + JSON.stringify(this.publicacion));
+            utilidades_1.Utilidades.log("[editar-servicio-cliente.component.ts] - putActualizarPublicacion | publicacion: " + JSON.stringify(this.publicacion));
             this.dataService.putActualizarPublicacion(this.publicacion)
                 .subscribe(function (res) { return _this.putActualizarPublicacionOk(res); }, function (error) { return _this.putActualizarPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado"); });
         }

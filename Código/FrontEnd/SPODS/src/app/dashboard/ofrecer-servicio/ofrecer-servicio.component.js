@@ -50,7 +50,7 @@ var OfrecerServicioComponent = (function () {
             .subscribe(function (res) { return _this.getServicioObtenerTodosOk(res); }, function (error) { return _this.getServicioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicios: Completado"); });
     };
     OfrecerServicioComponent.prototype.getServicioObtenerTodosOk = function (response) {
-        utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - getServicioObtenerTodosOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
             this.servicios = response.Objetos;
         }
@@ -62,7 +62,7 @@ var OfrecerServicioComponent = (function () {
         this.loading = false;
     };
     OfrecerServicioComponent.prototype.getServicioObtenerTodosError = function (responseError) {
-        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - getServicioObtenerTodosError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -106,7 +106,7 @@ var OfrecerServicioComponent = (function () {
             .subscribe(function (res) { return _this.getObtenerServicioOk(res); }, function (error) { return _this.getObtenerServicioError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicio: Completado"); });
     };
     OfrecerServicioComponent.prototype.getObtenerServicioOk = function (response) {
-        utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - getObtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if (response.Codigo == 200) {
             this.servicioSeleccionado = response.Objetos[0];
             this.publicacion.Servicio = this.servicioSeleccionado;
@@ -119,7 +119,7 @@ var OfrecerServicioComponent = (function () {
         this.loading = false;
     };
     OfrecerServicioComponent.prototype.getObtenerServicioError = function (responseError) {
-        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - getObtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -127,7 +127,7 @@ var OfrecerServicioComponent = (function () {
     };
     OfrecerServicioComponent.prototype.postAltaPublicacion = function () {
         var _this = this;
-        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.respuestas));
+        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | respuesta: " + JSON.stringify(this.respuestas));
         //this.mensajes.Errores = this.publicacion.validarDatos();
         //if(this.mensajes.Errores.length==0){
         for (var i = 0; i < this.servicioSeleccionado.Preguntas.length; i++) {
@@ -139,7 +139,7 @@ var OfrecerServicioComponent = (function () {
                 this.publicacion.Respuestas.push(r);
             }
         }
-        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.publicacion));
+        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | publicacion: " + JSON.stringify(this.publicacion));
         this.dataService.postAltaPublicacion(this.publicacion)
             .subscribe(function (res) { return _this.postAltaPublicacionOk(res); }, function (error) { return _this.postAltaPublicacionError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion: Completado"); });
         //}
@@ -164,11 +164,11 @@ var OfrecerServicioComponent = (function () {
         var _this = this;
         var idCli = parseInt(localStorage.getItem('id-usuario'));
         this.dataService.getUltimoIdPublicacionCliente(idCli)
-            .subscribe(function (res) { return _this.getUltimoIdPublicacionClienteOK(res); }, function (error) { return _this.getUltimoIdPublicacionClienteError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - getUltimoIdPublicacionCliente: Completado"); });
+            .subscribe(function (res) { return _this.getUltimoIdPublicacionClienteOK(res); }, function (error) { return _this.getUltimoIdPublicacionClienteError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerUtlimaPublicacioncliente: Completado"); });
     };
     OfrecerServicioComponent.prototype.getUltimoIdPublicacionClienteOK = function (response) {
         if (response.Codigo == 200) {
-            utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - getUltimoIdPublicacionClienteOK | responseError: " + JSON.stringify(response.Objetos[0]));
+            utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - getUltimoIdPublicacionClienteOK | response: " + JSON.stringify(response.Objetos[0]));
             this.publicacion.Id = parseInt(response.Objetos[0]);
             document.getElementById('inputIdPublicacion').setAttribute('value', this.publicacion.Id.toString());
             document.getElementById('mostrarImagenes').click();

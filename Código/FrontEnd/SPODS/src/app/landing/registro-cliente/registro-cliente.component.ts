@@ -57,7 +57,7 @@ export class RegistroClienteComponent {
     }
     registrarClientePaso2(){
         this.borrarMensajes(),
-        Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso1 | this.cliente: " + JSON.stringify(this.cliente));
+        Utilidades.log("[registro-cliente.component.ts] - registrarClientePaso2 | this.cliente: " + JSON.stringify(this.cliente));
         this.cliente.Habilitado = true;
         this.mensajes.Errores = this.cliente.validarDatos2(this.contrasenaConfirmacion);
         if(this.mensajes.Errores.length == 0){
@@ -157,7 +157,7 @@ export class RegistroClienteComponent {
 
     ingresarCliente() {
         this.borrarMensajes();
-        Utilidades.log("[inicio-sesion.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
+        Utilidades.log("[registro-cliente.component.ts] - ingresarCliente | this.cliente: " + JSON.stringify(this.cliente));
         //this.loading = true;
 
         if(this.mensajes.Errores.length == 0){
@@ -165,23 +165,23 @@ export class RegistroClienteComponent {
             .subscribe(
                 res => this.postAccessTokenOk(res),
                 error => this.postAccessTokenError(error),
-                () => Utilidades.log("[inicio-sesion.component.ts] - postAccessToken: Completado")
+                () => Utilidades.log("[registro-cliente.component.ts] - postAccessToken: Completado")
             );
         }
     }
 
     postAccessTokenOk(response:any){
-        Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response: " + JSON.stringify(response));
+        Utilidades.log("[registro-cliente.component.ts] - postAccessTokenOk | response: " + JSON.stringify(response));
 
         //if(response.Codigo ==  200){
-            Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenOk | response.access_token: " + response.access_token);
+            Utilidades.log("[registro-cliente.component.ts] - postAccessTokenOk | response.access_token: " + response.access_token);
             localStorage.setItem('access_token', response.access_token);
             this.dataService.ini();
             this.dataService.getObtenerClienteLogueado()
             .subscribe(
                 res => this.getObtenerClienteLogueadoOk(res),
                 error => this.getObtenerClienteLogueadoError(error),
-                () => Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueado: Completado")
+                () => Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueado: Completado")
             );
         /*}
         else{
@@ -194,17 +194,17 @@ export class RegistroClienteComponent {
 
     postAccessTokenError(responseError:any){
         //this.loading=false;
-        Utilidades.log("[inicio-sesion.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[registro-cliente.component.ts] - postAccessTokenError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
 
     getObtenerClienteLogueadoOk(response:any){
-        Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response: " + JSON.stringify(response));
+        Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | response: " + JSON.stringify(response));
 
         if(response.Codigo ==  200){
-            Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response.Objetos[0]: " + JSON.stringify(response.Objetos[0]));
+            Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | response.Objetos[0]: " + JSON.stringify(response.Objetos[0]));
             localStorage.setItem('nombre-usuario', response.Objetos[0].NombreUsuario);
             localStorage.setItem('id-usuario', response.Objetos[0].Id);
             
@@ -213,12 +213,12 @@ export class RegistroClienteComponent {
             document.getElementById('inputIdCliente').setAttribute('value',this.cliente.Id.toString());
             document.getElementById('mostrarImagenes').click();
 
-            Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('nombre-usuario'): " + localStorage.getItem('nombre-usuario'));
-            Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('id-usuario'): " + localStorage.getItem('id-usuario'));
+            Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('nombre-usuario'): " + localStorage.getItem('nombre-usuario'));
+            Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | localStorage.getItem('id-usuario'): " + localStorage.getItem('id-usuario'));
            // this.router.navigate(['/dashboard']);
         }
         else{
-            Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
@@ -227,7 +227,7 @@ export class RegistroClienteComponent {
 
     getObtenerClienteLogueadoError(responseError:any){
         //this.loading=false;
-        Utilidades.log("[inicio-sesion.component.ts] - getObtenerClienteLogueadoError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[registro-cliente.component.ts] - getObtenerClienteLogueadoError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

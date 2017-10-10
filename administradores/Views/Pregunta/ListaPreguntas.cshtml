@@ -1,0 +1,39 @@
+﻿@model List<ET.Pregunta>
+@{
+    ViewBag.Title = "ListaPreguntas";
+}
+
+<div class="row">
+    @Html.Partial("_MenuPartial")
+    <div class="col-md-10">
+        <h2>
+            Lista Preguntas
+            <button type="button" class="btn btn-success pull-right" OnClick="location.href = 'AltaPregunta'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Pregunta
+            </button>
+        </h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Pregunta</th>
+                    @*<th>Categoría</th>*@
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td>@c.UnaPregunta</td>
+                        @*<td>@c.Categoria.Categoria</td>*@                        
+                        <td>
+                            <a title="Ver" href="~/Pregunta/Editar/@c.Id">Editar</a>                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

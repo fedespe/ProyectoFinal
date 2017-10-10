@@ -44,7 +44,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         this.route.params
         .subscribe(params => {
             this.cliente.Id = parseInt(params['id']);
-            Utilidades.log("[ver-perfil-usuario.component.ts] - ngOnInit | id: " + JSON.stringify(this.cliente.Id));   
+            Utilidades.log("[ver-perfil-usuario.component.ts] - ngOnInit | idCliente: " + JSON.stringify(this.cliente.Id));   
         });
         this.idUsuario=parseInt(localStorage.getItem('id-usuario'));
         this.getObternerCliente();
@@ -129,12 +129,12 @@ export class VerPerfilUsuarioComponent implements OnInit{
            .subscribe(
            res => this.getObetenerPromedioClienteOfertaOk(res),
            error => this.getObetenerPromedioClienteOfertaError(error),
-           () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obetenerPromedioClienteOferta: Completado")
+           () => Utilidades.log("[ver-perfil-usuario.component.ts] - obetenerPromedioClienteOferta: Completado")
        );
    }
    getObetenerPromedioClienteOfertaOk(response:any){
        
-       Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
+       Utilidades.log("[ver-perfil-usuario.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
        if(response.Codigo ==  200){
           this.promedioCliente=response.Objetos[0];
        }
@@ -145,7 +145,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
        }
    }
    getObetenerPromedioClienteOfertaError(responseError:any){
-       Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+       Utilidades.log("[ver-perfil-usuario.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
        var error = new Error();
        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
        this.mensajes.Errores.push(error);
@@ -172,7 +172,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         }
     }
     getComentariosOfertaError(responseError:any){
-        Utilidades.log("[perfil-usuario.component.ts] - getComentariosOfertaError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -198,7 +198,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         }
     }
     getComentariosSolicitudError(responseError:any){
-        Utilidades.log("[perfil-usuario.component.ts] - getComentariosSolicitudError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -266,7 +266,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
                 .subscribe(
                 res => this.postAltaRespuestaComentarioOfertaOk(res,input),
                 error => this.postAltaRespuestaComentarioOfertaError(error),
-                () => Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado")
+                () => Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado")
             );
         }else{
             alert('Debe ingresar un comentario.');
@@ -274,7 +274,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         
     }
     postAltaRespuestaComentarioOfertaOk(response:any,idComentario:any){ 
-        Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
+        Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
         if(response.Codigo ==  200){
             document.getElementById('btnGuardarRespuestaOferta'+idComentario).hidden = true;
             document.getElementById('txtRespuestaOferta'+idComentario).setAttribute('disabled','disabled');
@@ -286,7 +286,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         }
     }
     postAltaRespuestaComentarioOfertaError(responseError:any){
-        Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -301,7 +301,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
                 .subscribe(
                 res => this.postAltaRespuestaComentarioSolicitudOk(res,input),
                 error => this.postAltaRespuestaComentarioSolicitudError(error),
-                () => Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado")
+                () => Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado")
             );
         }else{
             alert('Debe ingresar un comentario.');
@@ -309,7 +309,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         
     }
     postAltaRespuestaComentarioSolicitudOk(response:any,idComentario:any){ 
-        Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
+        Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentarioSolicitudOk | response: " + JSON.stringify(response.Objetos[0]));
         if(response.Codigo ==  200){
             document.getElementById('btnGuardarRespuestaSolicitud'+idComentario).hidden = true;
             document.getElementById('txtRespuestaSolicitud'+idComentario).setAttribute('disabled','disabled');
@@ -321,7 +321,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         }
     }
     postAltaRespuestaComentarioSolicitudError(responseError:any){
-        Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentarioSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

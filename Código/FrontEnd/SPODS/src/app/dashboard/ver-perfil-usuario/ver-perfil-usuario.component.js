@@ -44,7 +44,7 @@ var VerPerfilUsuarioComponent = (function () {
         this.route.params
             .subscribe(function (params) {
             _this.cliente.Id = parseInt(params['id']);
-            utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - ngOnInit | id: " + JSON.stringify(_this.cliente.Id));
+            utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - ngOnInit | idCliente: " + JSON.stringify(_this.cliente.Id));
         });
         this.idUsuario = parseInt(localStorage.getItem('id-usuario'));
         this.getObternerCliente();
@@ -123,10 +123,10 @@ var VerPerfilUsuarioComponent = (function () {
     VerPerfilUsuarioComponent.prototype.obetenerPromedioClienteOferta = function () {
         var _this = this;
         this.dataService.getObetenerPromedioClienteOferta(this.cliente.Id)
-            .subscribe(function (res) { return _this.getObetenerPromedioClienteOfertaOk(res); }, function (error) { return _this.getObetenerPromedioClienteOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - obetenerPromedioClienteOferta: Completado"); });
+            .subscribe(function (res) { return _this.getObetenerPromedioClienteOfertaOk(res); }, function (error) { return _this.getObetenerPromedioClienteOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - obetenerPromedioClienteOferta: Completado"); });
     };
     VerPerfilUsuarioComponent.prototype.getObetenerPromedioClienteOfertaOk = function (response) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getObetenerPromedioClienteOfertaOk | response: " + JSON.stringify(response.Objetos[0]));
         if (response.Codigo == 200) {
             this.promedioCliente = response.Objetos[0];
         }
@@ -137,7 +137,7 @@ var VerPerfilUsuarioComponent = (function () {
         }
     };
     VerPerfilUsuarioComponent.prototype.getObetenerPromedioClienteOfertaError = function (responseError) {
-        utilidades_1.Utilidades.log("[ver-publicacion-ofrecida.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getObetenerPromedioClienteServicioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -161,7 +161,7 @@ var VerPerfilUsuarioComponent = (function () {
         }
     };
     VerPerfilUsuarioComponent.prototype.getComentariosOfertaError = function (responseError) {
-        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getComentariosOfertaError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -184,7 +184,7 @@ var VerPerfilUsuarioComponent = (function () {
         }
     };
     VerPerfilUsuarioComponent.prototype.getComentariosSolicitudError = function (responseError) {
-        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - getComentariosSolicitudError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - getComentariosSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -246,14 +246,14 @@ var VerPerfilUsuarioComponent = (function () {
             this.comentarioPuntuacion.Id = parseInt(input);
             this.comentarioPuntuacion.Respuesta = respuesta.value;
             this.dataService.postAltaRespuestaComentario(this.comentarioPuntuacion)
-                .subscribe(function (res) { return _this.postAltaRespuestaComentarioOfertaOk(res, input); }, function (error) { return _this.postAltaRespuestaComentarioOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado"); });
+                .subscribe(function (res) { return _this.postAltaRespuestaComentarioOfertaOk(res, input); }, function (error) { return _this.postAltaRespuestaComentarioOfertaError(error); }, function () { return utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado"); });
         }
         else {
             alert('Debe ingresar un comentario.');
         }
     };
     VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioOfertaOk = function (response, idComentario) {
-        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
         if (response.Codigo == 200) {
             document.getElementById('btnGuardarRespuestaOferta' + idComentario).hidden = true;
             document.getElementById('txtRespuestaOferta' + idComentario).setAttribute('disabled', 'disabled');
@@ -265,7 +265,7 @@ var VerPerfilUsuarioComponent = (function () {
         }
     };
     VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioOfertaError = function (responseError) {
-        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -277,14 +277,14 @@ var VerPerfilUsuarioComponent = (function () {
             this.comentarioPuntuacion.Id = parseInt(input);
             this.comentarioPuntuacion.Respuesta = respuesta.value;
             this.dataService.postAltaRespuestaComentario(this.comentarioPuntuacion)
-                .subscribe(function (res) { return _this.postAltaRespuestaComentarioSolicitudOk(res, input); }, function (error) { return _this.postAltaRespuestaComentarioSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado"); });
+                .subscribe(function (res) { return _this.postAltaRespuestaComentarioSolicitudOk(res, input); }, function (error) { return _this.postAltaRespuestaComentarioSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentario: Completado"); });
         }
         else {
             alert('Debe ingresar un comentario.');
         }
     };
     VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioSolicitudOk = function (response, idComentario) {
-        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioOk | response: " + JSON.stringify(response.Objetos[0]));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentarioSolicitudOk | response: " + JSON.stringify(response.Objetos[0]));
         if (response.Codigo == 200) {
             document.getElementById('btnGuardarRespuestaSolicitud' + idComentario).hidden = true;
             document.getElementById('txtRespuestaSolicitud' + idComentario).setAttribute('disabled', 'disabled');
@@ -296,7 +296,7 @@ var VerPerfilUsuarioComponent = (function () {
         }
     };
     VerPerfilUsuarioComponent.prototype.postAltaRespuestaComentarioSolicitudError = function (responseError) {
-        utilidades_1.Utilidades.log("[perfil-usuario.component.ts] - postAltaRespuestaComentarioError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[ver-perfil-usuario.component.ts] - postAltaRespuestaComentarioSolicitudError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

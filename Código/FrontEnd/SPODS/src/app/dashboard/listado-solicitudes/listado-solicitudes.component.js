@@ -35,7 +35,7 @@ var ListadoSolicitudesComponent = (function () {
             .subscribe(function (res) { return _this.getServicioObtenerTodosOk(res); }, function (error) { return _this.getServicioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes.component.ts] - obtenerServicios: Completado"); });
     };
     ListadoSolicitudesComponent.prototype.getServicioObtenerTodosOk = function (response) {
-        utilidades_1.Utilidades.log("[listado-solicitudes.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        utilidades_1.Utilidades.log("[listado-solicitudes.component.ts] - getServicioObtenerTodosOk | response: " + JSON.stringify(response));
         this.servicios = response.Objetos;
         if (response.Codigo == 200) {
         }
@@ -46,7 +46,7 @@ var ListadoSolicitudesComponent = (function () {
         }
     };
     ListadoSolicitudesComponent.prototype.getServicioObtenerTodosError = function (responseError) {
-        utilidades_1.Utilidades.log("[listado-solicitudes.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        utilidades_1.Utilidades.log("[listado-solicitudes.component.ts] - getServicioObtenerTodosError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

@@ -35,7 +35,7 @@ export class ListadoSolicitudesOfrecidasComponent implements OnInit{
         this.route.params
         .subscribe(params => {
             this.idServicio = parseInt(params['id']);
-            Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - ngOnInit | id: " + JSON.stringify(this.idServicio));   
+            Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - ngOnInit | idServicio: " + JSON.stringify(this.idServicio));   
         });
         this.obtenerSolicitudesServicio();       
     }
@@ -46,7 +46,7 @@ export class ListadoSolicitudesOfrecidasComponent implements OnInit{
     }
 
     obtenerSolicitudesServicio(){
-         Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio | id: " + JSON.stringify(this.idServicio));
+         Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio | idServicio: " + JSON.stringify(this.idServicio));
         this.dataService.getPublicacionesServicioSolicitud(this.idServicio)
             .subscribe(
             res => this.getPublicacionesServicioSolicitudOk(res),

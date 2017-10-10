@@ -44,11 +44,11 @@ export class ListadoOfertasContratadasComponent{
             .subscribe(
             res => this.getobtenerPublicacionesContratadasPorClienteOk(res),
             error => this.getobtenerPublicacionesContratadasPorClienteError(error),
-            () => Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorCliente: Completado")
+            () => Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerPublicacionesContratadasPorCliente: Completado")
         );
     }
     getobtenerPublicacionesContratadasPorClienteOk(response:any){
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteOk | response: " + JSON.stringify(response));      
+        Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
             this.publicaciones = response.Objetos;
         }
@@ -60,7 +60,7 @@ export class ListadoOfertasContratadasComponent{
         this.loading = false;
     }
     getobtenerPublicacionesContratadasPorClienteError(responseError:any){
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerPublicacionesContratadasPorClienteError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -71,11 +71,11 @@ export class ListadoOfertasContratadasComponent{
             .subscribe(
             res => this.getobtenerTodosContactosConComentariosPendientesOfertaOk(res),
             error => this.getobtenerTodosContactosConComentariosPendientesOfertaError(error),
-            () => Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOferta: Completado")
+            () => Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOferta: Completado")
         );
     }
     getobtenerTodosContactosConComentariosPendientesOfertaOk(response:any){
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaOk | response: " + JSON.stringify(response));      
+        Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
             this.contactos = response.Objetos;
             if(this.contactos.length == 0){
@@ -89,7 +89,7 @@ export class ListadoOfertasContratadasComponent{
         }
     }
     getobtenerTodosContactosConComentariosPendientesOfertaError(responseError:any){
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[listado-ofertas-contratadas.component.ts] - getobtenerTodosContactosConComentariosPendientesOfertaError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -103,25 +103,25 @@ export class ListadoOfertasContratadasComponent{
         this.comentarioPuntuacion.Cliente.Id=parseInt(localStorage.getItem("id-usuario"));
         this.comentarioPuntuacion.Contacto=new Contacto();
         this.comentarioPuntuacion.Contacto.Id=contacto.Id;
-        Utilidades.log("[listado-publicaciones-contratadas.component.ts] - activarModal | contacto: " + JSON.stringify(contacto));
+        Utilidades.log("[listado-ofertas-contratadas.component.ts] - cargarModal | contacto: " + JSON.stringify(contacto));
     }
     guardarComentario(){
         this.borrarMensajes();
         
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
+        Utilidades.log("[listado-ofertas-contratadas.component.ts] - guardarComentario | comentarioPuntuacion: " + JSON.stringify(this.comentarioPuntuacion));   
         this.mensajesComentario.Errores = this.comentarioPuntuacion.validarDatos();
         if(this.mensajesComentario.Errores.length==0){
             this.dataService.postIngresarComentario(this.comentarioPuntuacion)
                 .subscribe(
                     res => this.postIngresarComentarioOk(res),
                     error => this.postIngresarComentarioError(error),
-                    () => Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentario: Completado")
+                    () => Utilidades.log("[listado-ofertas-contratadas.component.ts] - postIngresarComentario: Completado")
                 );
         }   
    
     }
     postIngresarComentarioOk(response:any){
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
+        Utilidades.log("[listado-ofertas-contratadas.component.ts] - postIngresarComentarioOk | response: " + JSON.stringify(response));
 
         if(response.Codigo ==  200){
             document.getElementById('btnModalClose').click();
@@ -129,14 +129,14 @@ export class ListadoOfertasContratadasComponent{
             this.obtenerTodosContactosConComentariosPendientesOferta(parseInt(localStorage.getItem('id-usuario')));
         }
         else{
-            Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
+            Utilidades.log("[listado-ofertas-contratadas.component.ts] - postIngresarComentarioOk | response.Mensaje: " + JSON.stringify(response.Mensaje));
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajesComentario.Errores.push(error);
         }
     }
     postIngresarComentarioError(responseError:any){
-        Utilidades.log("[ver-publicacion-ofrecida.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[listado-ofertas-contratadas.component.ts] - postIngresarComentarioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

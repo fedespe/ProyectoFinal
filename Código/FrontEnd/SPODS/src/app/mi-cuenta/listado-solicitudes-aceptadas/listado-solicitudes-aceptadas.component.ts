@@ -35,11 +35,11 @@ export class ListadoSolicitudesAceptadasComponent{
             .subscribe(
             res => this.getObtenerSolicitudesAceptadasOk(res),
             error => this.getObtenerSolicitudesAceptadasError(error),
-            () => Utilidades.log("[listado-solicitudes-cliente.component.ts] - obtenerSolicitudesAceptadas: Completado")
+            () => Utilidades.log("[listado-solicitudes-aceptadas.component.ts] - getObtenerSolicitudesAceptadas: Completado")
         );
     }
     getObtenerSolicitudesAceptadasOk(response:any){
-        Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));      
+        Utilidades.log("[listado-solicitudes-aceptadas.component.ts] - getObtenerSolicitudesAceptadasOk | response: " + JSON.stringify(response));      
         if(response.Codigo ==  200){
             this.solicitudesAceptadas = response.Objetos;
         }
@@ -51,7 +51,7 @@ export class ListadoSolicitudesAceptadasComponent{
         this.loading = false;
     }
     getObtenerSolicitudesAceptadasError(responseError:any){
-        Utilidades.log("[listado-solicitudes-cliente.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[listado-solicitudes-aceptadas.component.ts] - getObtenerSolicitudesAceptadasError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);

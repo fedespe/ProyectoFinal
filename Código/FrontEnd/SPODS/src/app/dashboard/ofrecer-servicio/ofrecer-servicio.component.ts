@@ -49,7 +49,7 @@ export class OfrecerServicioComponent{
         );
     }
     getServicioObtenerTodosOk(response:any){
-        Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        Utilidades.log("[ofrecer-servicio.component.ts] - getServicioObtenerTodosOk | response: " + JSON.stringify(response));
         if(response.Codigo ==  200){
             this.servicios = response.Objetos;
         }
@@ -61,7 +61,7 @@ export class OfrecerServicioComponent{
         this.loading = false;
     }
     getServicioObtenerTodosError(responseError:any){
-        Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ofrecer-servicio.component.ts] - getServicioObtenerTodosError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
@@ -107,7 +107,7 @@ export class OfrecerServicioComponent{
         );
     }
     getObtenerServicioOk(response:any){      
-        Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
+        Utilidades.log("[ofrecer-servicio.component.ts] - getObtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if(response.Codigo ==  200){
             this.servicioSeleccionado = response.Objetos[0];
             this.publicacion.Servicio = this.servicioSeleccionado;
@@ -120,14 +120,14 @@ export class OfrecerServicioComponent{
         this.loading = false;
     }
     getObtenerServicioError(responseError:any){
-        Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
+        Utilidades.log("[ofrecer-servicio.component.ts] - getObtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
         this.loading = false;
     }
     postAltaPublicacion(){
-        Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.respuestas));
+        Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | respuesta: " + JSON.stringify(this.respuestas));
         //this.mensajes.Errores = this.publicacion.validarDatos();
         //if(this.mensajes.Errores.length==0){
         for (var i = 0; i < this.servicioSeleccionado.Preguntas.length; i++) {
@@ -139,7 +139,7 @@ export class OfrecerServicioComponent{
                 this.publicacion.Respuestas.push(r);
             }              
         } 
-        Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.publicacion));
+        Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | publicacion: " + JSON.stringify(this.publicacion));
         this.dataService.postAltaPublicacion(this.publicacion)
             .subscribe(
             res => this.postAltaPublicacionOk(res),
@@ -170,12 +170,12 @@ export class OfrecerServicioComponent{
             .subscribe(
             res => this.getUltimoIdPublicacionClienteOK(res),
             error => this.getUltimoIdPublicacionClienteError(error),
-            () => Utilidades.log("[ofrecer-servicio.component.ts] - getUltimoIdPublicacionCliente: Completado")
+            () => Utilidades.log("[ofrecer-servicio.component.ts] - obtenerUtlimaPublicacioncliente: Completado")
         );
     }
     getUltimoIdPublicacionClienteOK(response:any){  
         if(response.Codigo ==  200){
-            Utilidades.log("[ofrecer-servicio.component.ts] - getUltimoIdPublicacionClienteOK | responseError: " + JSON.stringify(response.Objetos[0]));
+            Utilidades.log("[ofrecer-servicio.component.ts] - getUltimoIdPublicacionClienteOK | response: " + JSON.stringify(response.Objetos[0]));
             this.publicacion.Id = parseInt(response.Objetos[0]);
             document.getElementById('inputIdPublicacion').setAttribute('value',this.publicacion.Id.toString());
             document.getElementById('mostrarImagenes').click();

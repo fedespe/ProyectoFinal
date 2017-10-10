@@ -33,7 +33,7 @@ var ListadoSolicitudesOfrecidasComponent = (function () {
         this.route.params
             .subscribe(function (params) {
             _this.idServicio = parseInt(params['id']);
-            utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - ngOnInit | id: " + JSON.stringify(_this.idServicio));
+            utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - ngOnInit | idServicio: " + JSON.stringify(_this.idServicio));
         });
         this.obtenerSolicitudesServicio();
     };
@@ -43,7 +43,7 @@ var ListadoSolicitudesOfrecidasComponent = (function () {
     };
     ListadoSolicitudesOfrecidasComponent.prototype.obtenerSolicitudesServicio = function () {
         var _this = this;
-        utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio | id: " + JSON.stringify(this.idServicio));
+        utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio | idServicio: " + JSON.stringify(this.idServicio));
         this.dataService.getPublicacionesServicioSolicitud(this.idServicio)
             .subscribe(function (res) { return _this.getPublicacionesServicioSolicitudOk(res); }, function (error) { return _this.getPublicacionesServicioSolicitudError(error); }, function () { return utilidades_1.Utilidades.log("[listado-solicitudes-ofrecidas.component.ts] - obtenerSolicitudesServicio: Completado"); });
     };

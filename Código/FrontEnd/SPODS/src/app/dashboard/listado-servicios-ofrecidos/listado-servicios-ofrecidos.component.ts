@@ -47,7 +47,7 @@ export class ListadoServiciosOfrecidosComponent implements OnInit{
     }
 
     obtenerPublicaciones(){
-         Utilidades.log("[listado-servicios-ofrecidos.component.ts] - obtenerPublicacion | id: " + JSON.stringify(this.idServicio));
+         Utilidades.log("[listado-servicios-ofrecidos.component.ts] - obtenerPublicacion | idServicio: " + JSON.stringify(this.idServicio));
         this.dataService.getPublicacionesServicioOferta(this.idServicio)
             .subscribe(
             res => this.getPublicacionesServicioOk(res),
