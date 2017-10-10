@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../../shared/services/data.service';
 import { Utilidades } from "../../shared/utilidades";
@@ -41,7 +42,7 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
     cliente:Cliente=new Cliente();
     sinImagenes:boolean=false;
 
-    constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
+    constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute, private location: Location) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
     }
 
@@ -61,7 +62,9 @@ export class VerPublicacionOfrecidaComponent implements OnInit{
         this.mensajes.Exitos = [];
         this.mensajesComentario.Errores = [];
     }
-
+    volver() {
+        this.location.back();
+    }
     actualizarPuntaje(input:any){
         this.puntaje=input;
         Utilidades.log("[ver-publicacion-ofrecida.component.ts] - actualizarPuntaje | puntaje: " + JSON.stringify(this.puntaje));

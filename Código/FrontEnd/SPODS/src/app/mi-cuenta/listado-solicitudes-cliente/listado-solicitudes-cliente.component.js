@@ -176,6 +176,17 @@ var ListadoSolicitudesClienteComponent = (function () {
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     };
+    ListadoSolicitudesClienteComponent.prototype.visualizarContactoPresupuestoAceptado = function (solicitud) {
+        var idCliente = 0;
+        for (var _i = 0, _a = solicitud.Presupuestos; _i < _a.length; _i++) {
+            var presupuesto = _a[_i];
+            if (presupuesto.Aceptado) {
+                idCliente = presupuesto.Cliente.Id;
+                break;
+            }
+        }
+        this.router.navigate(['dashboard/ver-perfil-usuario/', idCliente]);
+    };
     return ListadoSolicitudesClienteComponent;
 }());
 ListadoSolicitudesClienteComponent = __decorate([

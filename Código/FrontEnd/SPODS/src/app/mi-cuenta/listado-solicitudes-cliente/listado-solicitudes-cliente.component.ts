@@ -195,4 +195,14 @@ export class ListadoSolicitudesClienteComponent{
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
+    visualizarContactoPresupuestoAceptado(solicitud:Solicitud){
+        let idCliente:number = 0;
+        for(let presupuesto of solicitud.Presupuestos){
+            if(presupuesto.Aceptado){
+                idCliente = presupuesto.Cliente.Id;
+                break;
+            }
+        }
+        this.router.navigate(['dashboard/ver-perfil-usuario/', idCliente]);
+    }
 }

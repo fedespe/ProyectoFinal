@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../../shared/services/data.service';
 import { Utilidades } from "../../shared/utilidades";
@@ -28,7 +29,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     publicacion: Publicacion = new Publicacion();
     idPublicacion:number;
     baseURL:string;
-
+    presupuestoAceptando = new Presupuesto();
     contacto:Contacto=new Contacto();
 
     puntaje:number=0;
@@ -47,7 +48,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     promedioClienteInfoModal:number=0;
     sinImagenes:boolean=false;
 
-    constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute) {
+    constructor(private dataService: DataService, private router: Router,private route: ActivatedRoute, private location: Location) {
         this.baseURL=Settings.srcImg;//ver que acá va la ruta del proyecto que contiene las imagenes
     }
 
@@ -67,7 +68,9 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
         this.mensajes.Exitos = [];
         this.mensajesPostulacion.Errores = [];
     }
-
+    volver() {
+        this.location.back();
+    }
     postularme(){
         if(!this.postulacion){
             this.postulacion=true;
@@ -517,7 +520,8 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     //     this.mensajes.Errores.push(error);
     // }
 
-    aceptarPresupuesto(input:any){
+    aceptarPresupuesto(input:Presupuesto){
+        this.presupuestoAceptando = input;
         Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto | responseError: " + JSON.stringify(this.publicacion));
         this.dataService.putAceptarPresupuesto(input)
             .subscribe(
@@ -530,13 +534,14 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
     putAceptarPresupuestoOk(response:any){       
         Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoOk | response: " + JSON.stringify(response));
         if(response.Codigo ==  200){
-           this.router.navigate(['dashboard/listado-solicitudes-cliente']);
+           this.router.navigate(['dashboard/ver-perfil-usuario/', this.presupuestoAceptando.Cliente.Id]);
         }
         else{
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+        this.presupuestoAceptando = new Presupuesto();
     }
 
     putAceptarPresupuestoError(responseError:any){
@@ -544,6 +549,7 @@ export class VerPublicacionSolicitadaComponent implements OnInit{
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.presupuestoAceptando = new Presupuesto();
     }
 
     verDatosUsuario(input:any){

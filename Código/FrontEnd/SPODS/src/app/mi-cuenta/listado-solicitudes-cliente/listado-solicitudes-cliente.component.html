@@ -52,7 +52,7 @@
                             <div *ngIf="!publicacion.Finalizada && !publicacion.Activa" class="linkManual float-left" (click)="activarPublicacion(publicacion.Id)"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
                             <div *ngIf="!publicacion.Finalizada && publicacion.Activa" class="linkManual float-left" (click)="desactivarPublicacion(publicacion.Id)"><i class="fa fa-times" aria-hidden="true"></i> Desactivar</div>
                             <div *ngIf="publicacion.Finalizada" class="linkManualDesactivado float-left"><i class="fa fa-check" aria-hidden="true"></i> Activar</div>
-                            <div *ngIf="publicacion.Finalizada && publicacion.Presupuestos.length>0" class="linkManual float-left" [routerLink]="['/dashboard/ver-perfil-usuario/', publicacion.Presupuestos[0].Cliente.Id]"><i class="fa fa-user" aria-hidden="true"></i> Contacto</div>
+                            <div *ngIf="publicacion.Finalizada && publicacion.Presupuestos.length>0" class="linkManual float-left" (click)="visualizarContactoPresupuestoAceptado(publicacion)"><i class="fa fa-user" aria-hidden="true"></i> Contacto</div>
                         </td>
                     </tr>
                 </tbody>

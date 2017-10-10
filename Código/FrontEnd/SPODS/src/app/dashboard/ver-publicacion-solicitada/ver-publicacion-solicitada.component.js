@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var data_service_1 = require("../../shared/services/data.service");
 var utilidades_1 = require("../../shared/utilidades");
@@ -23,14 +24,16 @@ var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
 var presupuesto_1 = require("../../shared/presupuesto");
 var cliente_1 = require("../../shared/cliente");
 var VerPublicacionSolicitadaComponent = (function () {
-    function VerPublicacionSolicitadaComponent(dataService, router, route) {
+    function VerPublicacionSolicitadaComponent(dataService, router, route, location) {
         this.dataService = dataService;
         this.router = router;
         this.route = route;
+        this.location = location;
         this.mensajes = new mensaje_1.Mensaje();
         this.mensajesPostulacion = new mensaje_1.Mensaje();
         this.servicios = [];
         this.publicacion = new publicacion_1.Publicacion();
+        this.presupuestoAceptando = new presupuesto_1.Presupuesto();
         this.contacto = new contacto_1.Contacto();
         this.puntaje = 0;
         this.comentarioPuntuacion = new comentarioPuntuacion_1.ComentarioPuntuacion();
@@ -59,6 +62,9 @@ var VerPublicacionSolicitadaComponent = (function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
         this.mensajesPostulacion.Errores = [];
+    };
+    VerPublicacionSolicitadaComponent.prototype.volver = function () {
+        this.location.back();
     };
     VerPublicacionSolicitadaComponent.prototype.postularme = function () {
         if (!this.postulacion) {
@@ -432,6 +438,7 @@ var VerPublicacionSolicitadaComponent = (function () {
     // }
     VerPublicacionSolicitadaComponent.prototype.aceptarPresupuesto = function (input) {
         var _this = this;
+        this.presupuestoAceptando = input;
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuesto | responseError: " + JSON.stringify(this.publicacion));
         this.dataService.putAceptarPresupuesto(input)
             .subscribe(function (res) { return _this.putAceptarPresupuestoOk(res); }, function (error) { return _this.putAceptarPresupuestoError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - putActualizarPublicacion: Completado"); });
@@ -439,19 +446,21 @@ var VerPublicacionSolicitadaComponent = (function () {
     VerPublicacionSolicitadaComponent.prototype.putAceptarPresupuestoOk = function (response) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoOk | response: " + JSON.stringify(response));
         if (response.Codigo == 200) {
-            this.router.navigate(['dashboard/listado-solicitudes-cliente']);
+            this.router.navigate(['dashboard/ver-perfil-usuario/', this.presupuestoAceptando.Cliente.Id]);
         }
         else {
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
+        this.presupuestoAceptando = new presupuesto_1.Presupuesto();
     };
     VerPublicacionSolicitadaComponent.prototype.putAceptarPresupuestoError = function (responseError) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - putAceptarPresupuestoError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.presupuestoAceptando = new presupuesto_1.Presupuesto();
     };
     VerPublicacionSolicitadaComponent.prototype.verDatosUsuario = function (input) {
         utilidades_1.Utilidades.log("[ver-publicacion-solicitada.component.ts] - verDatosUsuario | responseError: " + JSON.stringify(input));
@@ -511,7 +520,7 @@ VerPublicacionSolicitadaComponent = __decorate([
         templateUrl: 'app/dashboard/ver-publicacion-solicitada/ver-publicacion-solicitada.component.html',
         styleUrls: ['css/ver-publicacion-solicitada.css']
     }),
-    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router, router_2.ActivatedRoute])
+    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router, router_2.ActivatedRoute, common_1.Location])
 ], VerPublicacionSolicitadaComponent);
 exports.VerPublicacionSolicitadaComponent = VerPublicacionSolicitadaComponent;
 //# sourceMappingURL=ver-publicacion-solicitada.component.js.map

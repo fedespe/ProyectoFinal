@@ -1,5 +1,10 @@
 <div class="container">
-  <div class="row">
+    <div class="row">
+        <div class="col-12">
+                <a class="linkManual" (click)="volver()">
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+                </a>
+            </div>
     <h1 class="col-12 text-center">Servicio Ofrecido</h1>
     <div class="col-sm-10 col-md-12">
         <h2>{{publicacion.Servicio.Nombre}}</h2>
@@ -64,67 +69,32 @@
                         <img class="card-img-top align-self-center" src="{{baseURL}}/Imagenes/Clientes/{{cliente.Imagen}}" alt="{{cliente.Imagen}}" height="100" width="100">
                         <div class="card-block">
                             <h4 class="card-title" style="text-align: center">{{cliente.NombreUsuario}}</h4>
+                            <div>Nombre: {{cliente.Nombre}}</div>
+                            <div>Apellido: {{cliente.Apellido}}</div>
                             <div>Barrio: {{cliente.Barrio.Nombre}}</div>
                             <div>Departamento: {{cliente.Barrio.Departamento.Nombre}}</div>
-                            <div class="card-text" >   
-
-                                <div *ngIf="promedioCliente==0">
-                                    Puntaje cliente: <span class="promedio">({{promedioCliente}})</span>
-                                </div>
-                                <div *ngIf="promedioCliente<=1 && promedioCliente>0">
-                                    Puntaje cliente: <span class="promedio">★({{promedioCliente}})</span>
-                                </div>
-                                <div *ngIf="promedioCliente<=2 && promedioCliente>1">
-                                    Puntaje cliente: <span class="promedio">★★({{promedioCliente}})</span>
-                                </div>
-                                <div *ngIf="promedioCliente<=3 && promedioCliente>2">
-                                    Puntaje cliente: <span class="promedio">★★★({{promedioCliente}})</span>
-                                </div>
-                                <div *ngIf="promedioCliente<=4 && promedioCliente>3">
-                                    Puntaje cliente: <span class="promedio">★★★★({{promedioCliente}})</span>
-                                </div>
-                                <div *ngIf="promedioCliente==5">
-                                    Puntaje cliente: <span class="promedio">★★★★★({{promedioCliente}})</span>
-                                </div>
-
-                                <div *ngIf="promedioPublicacion==0">
-                                    Puntaje publicación: <span class="promedio">({{promedioPublicacion}})</span>
-                                </div>
-                                <div *ngIf="promedioPublicacion<=1 && promedioPublicacion>0">
-                                    Puntaje publicación: <span class="promedio">★({{promedioPublicacion}})</span>
-                                </div>
-                                <div *ngIf="promedioPublicacion<=2 && promedioPublicacion>1">
-                                    Puntaje publicación: <span class="promedio">★★({{promedioPublicacion}})</span>
-                                </div>
-                                <div *ngIf="promedioPublicacion<=3 && promedioPublicacion>2">
-                                    Puntaje publicación: <span class="promedio">★★★({{promedioPublicacion}})</span>
-                                </div>
-                                <div *ngIf="promedioPublicacion<=4 && promedioPublicacion>3">
-                                    Puntaje publicación: <span class="promedio">★★★★({{promedioPublicacion}})</span>
-                                </div>
-                                <div *ngIf="promedioPublicacion==5">
-                                    Puntaje publicación: <span class="promedio">★★★★★({{promedioPublicacion}})</span>
-                                </div>
-                                                            
-                                <div *ngIf="promedioServicio==0">
-                                    Puntaje servicio: <span class="promedio">({{promedioServicio}})</span>
-                                </div>
-                                <div *ngIf="promedioServicio<=1 && promedioServicio>0">
-                                    Puntaje servicio: <span class="promedio">★({{promedioServicio}})</span>
-                                </div>
-                                <div *ngIf="promedioServicio<=2 && promedioServicio>1">
-                                    Puntaje servicio: <span class="promedio">★★({{promedioServicio}})</span>
-                                </div>
-                                <div *ngIf="promedioServicio<=3 && promedioServicio>2">
-                                    Puntaje servicio: <span class="promedio">★★★({{promedioServicio}})</span>
-                                </div>
-                                <div *ngIf="promedioServicio<=4 && promedioServicio>3">
-                                    Puntaje servicio: <span class="promedio">★★★★({{promedioServicio}})</span>
-                                </div>
-                                <div *ngIf="promedioServicio==5">
-                                    Puntaje servicio: <span class="promedio">★★★★★({{promedioServicio}})</span>
-                                </div>
+                            <div>
+                                Puntaje Cliente:<br>
+                                <rating
+                                    [(ngModel)]="promedioCliente"
+                                    [readonly]="true">
+                                </rating>
                             </div>
+                            <div>
+                                Puntaje Publicación:<br>
+                                <rating
+                                    [(ngModel)]="promedioPublicacion"
+                                    [readonly]="true">
+                                </rating>
+                            </div>
+                            <div>
+                                Puntaje Servicio:<br>
+                                <rating
+                                    [(ngModel)]="promedioServicio"
+                                    [readonly]="true">
+                                </rating>
+                            </div>
+                            
                             <div class="container" *ngIf="publicacion.Cliente.Id != idUsuario">
                                 <div class="row justify-content-center">
                                     <div class="align-self-center">

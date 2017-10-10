@@ -1,14 +1,16 @@
 <div class="container">
     <div class="row">
-        <div class="col-12 linkManual" (click)="volver()">
-            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+        <div class="col-12">
+            <a class="linkManual" (click)="volver()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+            </a>
         </div>
         <h1 class="col-12 titulo">Perfil de Usuario</h1>
        
         <div *ngIf="loading" style="text-align: center; width: 100%;">
             <img src="../../img/loading.gif" class="loading"/>
         </div>
-
+        
         <div *ngIf="!loading && cliente" class="col-12">
             <div class="row">
                 <!-- Imagen y Promedio -->

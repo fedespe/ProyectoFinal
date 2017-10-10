@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var data_service_1 = require("../../shared/services/data.service");
 var utilidades_1 = require("../../shared/utilidades");
@@ -22,10 +23,11 @@ var contacto_1 = require("../../shared/contacto");
 var comentarioPuntuacion_1 = require("../../shared/comentarioPuntuacion");
 var cliente_1 = require("../../shared/cliente");
 var VerPublicacionOfrecidaComponent = (function () {
-    function VerPublicacionOfrecidaComponent(dataService, router, route) {
+    function VerPublicacionOfrecidaComponent(dataService, router, route, location) {
         this.dataService = dataService;
         this.router = router;
         this.route = route;
+        this.location = location;
         this.mensajes = new mensaje_1.Mensaje();
         this.mensajesComentario = new mensaje_1.Mensaje();
         this.servicios = [];
@@ -53,6 +55,9 @@ var VerPublicacionOfrecidaComponent = (function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
         this.mensajesComentario.Errores = [];
+    };
+    VerPublicacionOfrecidaComponent.prototype.volver = function () {
+        this.location.back();
     };
     VerPublicacionOfrecidaComponent.prototype.actualizarPuntaje = function (input) {
         this.puntaje = input;
@@ -385,7 +390,7 @@ VerPublicacionOfrecidaComponent = __decorate([
         templateUrl: 'app/dashboard/ver-publicacion-ofrecida/ver-publicacion-ofrecida.component.html',
         styleUrls: ['css/ver-publicacion-ofrecida.css']
     }),
-    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router, router_2.ActivatedRoute])
+    __metadata("design:paramtypes", [data_service_1.DataService, router_1.Router, router_2.ActivatedRoute, common_1.Location])
 ], VerPublicacionOfrecidaComponent);
 exports.VerPublicacionOfrecidaComponent = VerPublicacionOfrecidaComponent;
 //# sourceMappingURL=ver-publicacion-ofrecida.component.js.map

@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
         <h1 class="col-12 text-center">Nueva Contraseña</h1>
-        <div *ngIf="loading">
-            <img src="../../img/loading.gif" class="loading"/>
-        </div>
+        <div *ngIf="loading" style="text-align: center; width: 100%;">
+                <img src="../../img/loading.gif" class="loading"/>
+            </div>
 
         <div *ngIf="!loading && cliente" class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
             <label for="inputContrasena">Contraseña</label>
