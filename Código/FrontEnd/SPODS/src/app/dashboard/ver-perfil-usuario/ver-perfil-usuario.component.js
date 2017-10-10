@@ -57,7 +57,7 @@ var VerPerfilUsuarioComponent = (function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     };
-    VerPerfilUsuarioComponent.prototype.back = function () {
+    VerPerfilUsuarioComponent.prototype.volver = function () {
         this.location.back();
     };
     VerPerfilUsuarioComponent.prototype.getObternerCliente = function () {

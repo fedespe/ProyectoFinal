@@ -20,6 +20,7 @@ import { Respuesta } from "../../shared/respuesta";
 export class OfrecerServicioComponent{
     mensajes: Mensaje = new Mensaje();
     loading:boolean = true;
+    flujoFinalizado:boolean = false;
     servicios: Servicio[] = [];
     publicacion: Publicacion = new Publicacion();
     servicioSeleccionado: Servicio = new Servicio();
@@ -86,6 +87,7 @@ export class OfrecerServicioComponent{
         exito.Descripcion = "La publicación ha sido realizada con éxito.";
         this.mensajes.Exitos.push(exito);
         this.step=1;
+        this.finalizarFlujo();
     }
     seleccionServicio(){
         this.loading=true;
@@ -108,6 +110,7 @@ export class OfrecerServicioComponent{
         Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if(response.Codigo ==  200){
             this.servicioSeleccionado = response.Objetos[0];
+            this.publicacion.Servicio = this.servicioSeleccionado;
         }
         else{
             var error = new Error();
@@ -131,6 +134,7 @@ export class OfrecerServicioComponent{
             if(this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=null && this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=""){
                 var r = new Respuesta();
                 r.Pregunta.Id=this.servicioSeleccionado.Preguntas[i].Id;
+                r.Pregunta.UnaPregunta = this.servicioSeleccionado.Preguntas[i].UnaPregunta;
                 r.UnaRespuesta=this.servicioSeleccionado.Preguntas[i].UnaRespuesta;
                 this.publicacion.Respuestas.push(r);
             }              
@@ -188,5 +192,9 @@ export class OfrecerServicioComponent{
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
         this.loading = false;
+    }
+    finalizarFlujo(){
+        //this.loading = true;
+        this.flujoFinalizado = true;
     }
 }

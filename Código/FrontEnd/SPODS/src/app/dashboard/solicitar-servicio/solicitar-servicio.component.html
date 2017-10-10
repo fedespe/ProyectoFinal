@@ -1,9 +1,10 @@
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <h1 class="col-12 text-center">Solicitar Servicio</h1>
-
-        <div class="col-md-6 col-lg-8 col-xl-6">
-            <h2>{{publicacion.Cliente.NombreUsuario}}</h2>
+        <div *ngIf="loading" style="text-align: center; width: 100%;">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+        <div [hidden]="loading || !servicios || servicios.legth <= 0 || flujoFinalizado" class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
 
             <div [hidden]="step != 1">
                 <div class="contenedorProgressBar">
@@ -30,12 +31,10 @@
                     <option value="0" >Seleccione un Servicio</option>
                     <option *ngFor="let servicio of servicios;" [value]="servicio.Id">{{servicio.Nombre}}</option>
                 </select>
-
                 <label for="inputTitulo" class="sr-only">Título:</label>
                 <input type="text" class="form-control" [(ngModel)]="publicacion.Titulo" id="inputTitulo" name="Titulo" placeholder="Título">
-
                 <label for="inputDescripcion" class="sr-only">Descripción:</label>
-                <input type="text" class="form-control" [(ngModel)]="publicacion.Descripcion" id="inputDescripcion" name="Descripcion" placeholder="Descripción">
+                <textarea maxlength="300" rows="3" class="form-control" [(ngModel)]="publicacion.Descripcion" id="inputDescripcion" name="Descripcion" placeholder="Descripción"></textarea>
         
                 <button class="btn btn-lg btn-primary btn-block" (click)="ofrecerServicioPaso1()">Siguiente</button>
             </div> 
@@ -102,12 +101,56 @@
                     <input type="hidden" name="idCliente" value="3"/>
                     <input type="hidden" name="contrasena" value="123456789"/>
                 </form>
+
                 <iframe name="iframe" width=100% height=600 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
+
                 <button class="btn btn-lg btn-primary btn-block" (click)="ofrecerServicioPaso3()">Finalizar</button>
             </div>
         </div>
         
-        <div class="col-12">
+        <div [hidden]="!flujoFinalizado" class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header labelDatoPublicacion">
+                    Tipo
+                </div>
+                <div class="card-block datoPublicacion">
+                    {{publicacion.Servicio.Nombre}}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header labelDatoPublicacion">
+                    Título
+                </div>
+                <div class="card-block datoPublicacion">
+                    {{publicacion.Titulo}}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header labelDatoPublicacion">
+                    Descripción
+                </div>
+                <div class="card-block datoPublicacion">
+                    {{publicacion.Descripcion}}
+                </div>
+            </div>
+            <div *ngIf="publicacion.Respuestas.length > 0" class="card">
+                <div class="card-header labelDatoPublicacion">
+                    Preguntas
+                </div>
+                <div class="card-block datoPublicacion">
+                    <div *ngFor="let r of publicacion.Respuestas" class="card cardRespuesta">
+                        <div class="card-header labelDatoPublicacion">
+                            {{r.Pregunta.UnaPregunta}}
+                        </div>
+                        <div class="card-block datoPublicacion">
+                            {{r.UnaRespuesta}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
             <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
                 <div *ngFor="let error of mensajes.Errores;">
                     {{error.Descripcion}}

@@ -19,6 +19,8 @@ import { Respuesta } from "../../shared/respuesta";
 
 export class SolicitarServicioComponent{
     mensajes: Mensaje = new Mensaje();
+    loading:boolean = true;
+    flujoFinalizado:boolean = false;
     servicios: Servicio[] = [];
     publicacion: Publicacion = new Publicacion();
     servicioSeleccionado: Servicio = new Servicio();
@@ -27,38 +29,17 @@ export class SolicitarServicioComponent{
     urlImagen:string=Settings.srcImg+"/Oferta/IngresarImagenes";
 
     constructor(private dataService: DataService, private router: Router) {
+        this.obtenerServicios();
         this.publicacion.Cliente.Id=parseInt(localStorage.getItem('id-usuario'));
         this.publicacion.Cliente.NombreUsuario=localStorage.getItem('nombre-usuario');
         this.publicacion.Activa=true;
         this.publicacion.Tipo="SOLICITUD";
         this.publicacion.Servicio.Id=0;
-        this.obtenerServicios();
     }
-
     borrarMensajes(){
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     }
-
-    ofrecerServicioPaso1(){
-        this.borrarMensajes(),
-        this.mensajes.Errores = this.publicacion.validarDatos1();
-        if(this.mensajes.Errores.length == 0){
-            this.step=2;
-        }    
-    }
-    ofrecerServicioPaso2(){
-        this.postAltaPublicacion();
-        this.step=3;
-    }
-    ofrecerServicioPaso3(){
-       this.router.navigate(['mi-cuenta/listado-solicitudes-cliente']);
-    }
-    volverPaso1(){
-        this.step=1;
-    }
-
-
     obtenerServicios(){
         this.dataService.getServicioObtenerTodos()
             .subscribe(
@@ -67,36 +48,56 @@ export class SolicitarServicioComponent{
             () => Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicios: Completado")
         );
     }
-
     getServicioObtenerTodosOk(response:any){
         Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
-        this.servicios = response.Objetos;
         if(response.Codigo ==  200){
-            
+            this.servicios = response.Objetos;
         }
         else{
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     }
-
     getServicioObtenerTodosError(responseError:any){
         Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     }
-
-    seleccionServicio(){       
+    ofrecerServicioPaso1(){
+        this.borrarMensajes(),
+        this.mensajes.Errores = this.publicacion.validarDatos1();
+        if(this.mensajes.Errores.length == 0){
+            this.step=2;
+        }
+    }
+    ofrecerServicioPaso2(){
+        this.loading = true;
+        this.postAltaPublicacion();
+        this.step=3;
+    }
+    volverPaso1(){
+        this.step=1;
+    }
+    ofrecerServicioPaso3(){
+        var exito = new Exito();
+        exito.Descripcion = "La publicación ha sido realizada con éxito.";
+        this.mensajes.Exitos.push(exito);
+        this.step=1;
+        this.finalizarFlujo();
+    }
+    seleccionServicio(){
+        this.loading=true;
         if(this.publicacion.Servicio.Id!=0){
             this.respuestas=[]; 
             this.obtenerServicio(this.publicacion.Servicio.Id);
         }else{
             this.servicioSeleccionado=new Servicio();
-        }      
+        }
     }
-
     obtenerServicio(id:number){
         this.dataService.getObtenerServicio(id)
             .subscribe(
@@ -105,26 +106,26 @@ export class SolicitarServicioComponent{
             () => Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicio: Completado")
         );
     }
-
     getObtenerServicioOk(response:any){      
         Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if(response.Codigo ==  200){
             this.servicioSeleccionado = response.Objetos[0];
+            this.publicacion.Servicio = this.servicioSeleccionado;
         }
         else{
             var error = new Error();
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     }
-
     getObtenerServicioError(responseError:any){
         Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     }
-
     postAltaPublicacion(){
         Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion | responseError: " + JSON.stringify(this.respuestas));
         //this.mensajes.Errores = this.publicacion.validarDatos();
@@ -133,6 +134,7 @@ export class SolicitarServicioComponent{
             if(this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=null && this.servicioSeleccionado.Preguntas[i].UnaRespuesta!=""){
                 var r = new Respuesta();
                 r.Pregunta.Id=this.servicioSeleccionado.Preguntas[i].Id;
+                r.Pregunta.UnaPregunta = this.servicioSeleccionado.Preguntas[i].UnaPregunta;
                 r.UnaRespuesta=this.servicioSeleccionado.Preguntas[i].UnaRespuesta;
                 this.publicacion.Respuestas.push(r);
             }              
@@ -145,12 +147,10 @@ export class SolicitarServicioComponent{
             () => Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacion: Completado")
         );
         //}
-        
     }
-
     postAltaPublicacionOk(response:any){  
         if(response.Codigo ==  200){
-            this.obtenerUtlimaPublicacioncliente();          
+            this.obtenerUtlimaPublicacioncliente();
         }
         else{
             var error = new Error();
@@ -158,14 +158,12 @@ export class SolicitarServicioComponent{
             this.mensajes.Errores.push(error);
         }
     }
-
     postAltaPublicacionError(responseError:any){
         Utilidades.log("[ofrecer-servicio.component.ts] - postAltaPublicacionError | responseError: " + JSON.stringify(responseError));
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
     }
-
     obtenerUtlimaPublicacioncliente(){
         var idCli=parseInt(localStorage.getItem('id-usuario'));
         this.dataService.getUltimoIdPublicacionCliente(idCli)
@@ -187,13 +185,16 @@ export class SolicitarServicioComponent{
             error.Descripcion = response.Mensaje;           
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     }
-
     getUltimoIdPublicacionClienteError(responseError:any){
         var error = new Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     }
-
-
+    finalizarFlujo(){
+        //this.loading = true;
+        this.flujoFinalizado = true;
+    }
 }

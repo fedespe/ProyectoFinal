@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-12 linkManual" (click)="back()">
+        <div class="col-12 linkManual" (click)="volver()">
             <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
         </div>
         <h1 class="col-12 titulo">Perfil de Usuario</h1>
@@ -27,11 +27,11 @@
                         </div>
                         <div *ngIf="promedioCliente > 0">
                                 Puntuación Promedio: {{promedioCliente}} <span *ngIf="promedioCliente == 1">Estrellas</span><span *ngIf="promedioCliente > 1">Estrellas</span>
-                                <small style="display:block;">La calificación corresponde al promedio de los puntajes que han otorgado otros usuarios por los servicios prestados.</small>
+                                <small style="display:block;">La calificación corresponde al promedio de los puntajes que han otorgado otros usuarios por las ofertas realizadas.</small>
                         </div>
                         <div *ngIf="promedioCliente == 0">
                             <p>
-                                El usuario aún no ha sido calificado como trabajador.
+                                El usuario aún no ha sido calificado en ninguna oferta realizada.
                             </p>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             Nombre
                         </div>
                         <div class="card-block datoUsuario">
-                                {{cliente.Nombre}}
+                            {{cliente.Nombre}}
                         </div>
                     </div>
                     <div class="card">
@@ -51,7 +51,7 @@
                             Apellido
                         </div>
                         <div class="card-block datoUsuario">
-                                {{cliente.Apellido}}
+                            {{cliente.Apellido}}
                         </div>
                     </div>
                     <div class="card">
@@ -59,7 +59,7 @@
                             Correo Electrónico
                         </div>
                         <div class="card-block datoUsuario">
-                                {{cliente.CorreoElectronico}}
+                            {{cliente.CorreoElectronico}}
                         </div>
                     </div>
                     <div class="card">
@@ -67,7 +67,7 @@
                             Teléfono
                         </div>
                         <div class="card-block datoUsuario">
-                                {{cliente.Telefono}}
+                            {{cliente.Telefono}}
                         </div>
                     </div>
                     <div class="card">
@@ -75,7 +75,7 @@
                             Dirección
                         </div>
                         <div class="card-block datoUsuario">
-                                {{cliente.Direccion}}
+                            {{cliente.Direccion}}
                         </div>
                     </div>
                     <div class="card">
@@ -83,7 +83,7 @@
                             Barrio
                         </div>
                         <div class="card-block datoUsuario">
-                                {{cliente.Barrio.Nombre}}
+                            {{cliente.Barrio.Nombre}}
                         </div>
                     </div>
                     <div class="card">
@@ -91,7 +91,7 @@
                             Departamento
                         </div>
                         <div class="card-block datoUsuario">
-                                {{cliente.Barrio.Departamento.Nombre}}
+                            {{cliente.Barrio.Departamento.Nombre}}
                         </div>
                     </div>
                 </div>
@@ -108,6 +108,9 @@
                             <div id="collapseComentariosOfertas" class="collapse" role="tabpanel" aria-labelledby="tituloComentariosOfertas">
                                 <div class="card-block">
                                     <div class="row">
+                                        <div *ngIf="!comentariosPuntuacionOferta || comentariosPuntuacionOferta.length == 0">
+                                            No existen registros de calificaciones de este tipo para mostrar.
+                                        </div>
                                         <div class="col-lg-6" *ngFor="let comentario of comentariosPuntuacionOferta;">
                                             <div  class="card card-outline-primary mb-3">
                                                 <div class="card-block">
@@ -155,7 +158,9 @@
                             <div id="collapseComentariosSolicitudes" class="collapse" role="tabpanel" aria-labelledby="tituloComentariosSolicitudes">
                                 <div class="card-block">
                                     <div class="row">
-
+                                        <div *ngIf="!comentariosPuntuacionSolicitud || comentariosPuntuacionSolicitud.length == 0">
+                                            No existen registros de calificaciones de este tipo para mostrar.
+                                        </div>
                                         <div class="col-lg-6" *ngFor="let comentario of comentariosPuntuacionSolicitud;">
                                             <div  class="card card-outline-primary mb-3">
                                                 <div class="card-block">

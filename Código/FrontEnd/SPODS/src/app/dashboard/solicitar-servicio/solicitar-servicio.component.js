@@ -15,6 +15,7 @@ var data_service_1 = require("../../shared/services/data.service");
 var utilidades_1 = require("../../shared/utilidades");
 var mensaje_1 = require("../../shared/mensaje");
 var error_1 = require("../../shared/error");
+var exito_1 = require("../../shared/exito");
 var servicio_1 = require("../../shared/servicio");
 var settings_1 = require("../../shared/settings");
 var publicacion_1 = require("../../shared/publicacion");
@@ -24,22 +25,48 @@ var SolicitarServicioComponent = (function () {
         this.dataService = dataService;
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
+        this.loading = true;
+        this.flujoFinalizado = false;
         this.servicios = [];
         this.publicacion = new publicacion_1.Publicacion();
         this.servicioSeleccionado = new servicio_1.Servicio();
         this.respuestas = [];
         this.step = 1;
         this.urlImagen = settings_1.Settings.srcImg + "/Oferta/IngresarImagenes";
+        this.obtenerServicios();
         this.publicacion.Cliente.Id = parseInt(localStorage.getItem('id-usuario'));
         this.publicacion.Cliente.NombreUsuario = localStorage.getItem('nombre-usuario');
         this.publicacion.Activa = true;
         this.publicacion.Tipo = "SOLICITUD";
         this.publicacion.Servicio.Id = 0;
-        this.obtenerServicios();
     }
     SolicitarServicioComponent.prototype.borrarMensajes = function () {
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
+    };
+    SolicitarServicioComponent.prototype.obtenerServicios = function () {
+        var _this = this;
+        this.dataService.getServicioObtenerTodos()
+            .subscribe(function (res) { return _this.getServicioObtenerTodosOk(res); }, function (error) { return _this.getServicioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicios: Completado"); });
+    };
+    SolicitarServicioComponent.prototype.getServicioObtenerTodosOk = function (response) {
+        utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
+        if (response.Codigo == 200) {
+            this.servicios = response.Objetos;
+        }
+        else {
+            var error = new error_1.Error();
+            error.Descripcion = response.Mensaje;
+            this.mensajes.Errores.push(error);
+        }
+        this.loading = false;
+    };
+    SolicitarServicioComponent.prototype.getServicioObtenerTodosError = function (responseError) {
+        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
+        var error = new error_1.Error();
+        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
+        this.mensajes.Errores.push(error);
+        this.loading = false;
     };
     SolicitarServicioComponent.prototype.ofrecerServicioPaso1 = function () {
         this.borrarMensajes(),
@@ -49,38 +76,22 @@ var SolicitarServicioComponent = (function () {
         }
     };
     SolicitarServicioComponent.prototype.ofrecerServicioPaso2 = function () {
+        this.loading = true;
         this.postAltaPublicacion();
         this.step = 3;
-    };
-    SolicitarServicioComponent.prototype.ofrecerServicioPaso3 = function () {
-        this.router.navigate(['mi-cuenta/listado-solicitudes-cliente']);
     };
     SolicitarServicioComponent.prototype.volverPaso1 = function () {
         this.step = 1;
     };
-    SolicitarServicioComponent.prototype.obtenerServicios = function () {
-        var _this = this;
-        this.dataService.getServicioObtenerTodos()
-            .subscribe(function (res) { return _this.getServicioObtenerTodosOk(res); }, function (error) { return _this.getServicioObtenerTodosError(error); }, function () { return utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicios: Completado"); });
-    };
-    SolicitarServicioComponent.prototype.getServicioObtenerTodosOk = function (response) {
-        utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServiciosOk | response: " + JSON.stringify(response));
-        this.servicios = response.Objetos;
-        if (response.Codigo == 200) {
-        }
-        else {
-            var error = new error_1.Error();
-            error.Descripcion = response.Mensaje;
-            this.mensajes.Errores.push(error);
-        }
-    };
-    SolicitarServicioComponent.prototype.getServicioObtenerTodosError = function (responseError) {
-        utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServiciosError | responseError: " + JSON.stringify(responseError));
-        var error = new error_1.Error();
-        error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
-        this.mensajes.Errores.push(error);
+    SolicitarServicioComponent.prototype.ofrecerServicioPaso3 = function () {
+        var exito = new exito_1.Exito();
+        exito.Descripcion = "La publicación ha sido realizada con éxito.";
+        this.mensajes.Exitos.push(exito);
+        this.step = 1;
+        this.finalizarFlujo();
     };
     SolicitarServicioComponent.prototype.seleccionServicio = function () {
+        this.loading = true;
         if (this.publicacion.Servicio.Id != 0) {
             this.respuestas = [];
             this.obtenerServicio(this.publicacion.Servicio.Id);
@@ -98,18 +109,21 @@ var SolicitarServicioComponent = (function () {
         utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if (response.Codigo == 200) {
             this.servicioSeleccionado = response.Objetos[0];
+            this.publicacion.Servicio = this.servicioSeleccionado;
         }
         else {
             var error = new error_1.Error();
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     };
     SolicitarServicioComponent.prototype.getObtenerServicioError = function (responseError) {
         utilidades_1.Utilidades.log("[ofrecer-servicio.component.ts] - obtenerServicioError | responseError: " + JSON.stringify(responseError));
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
     };
     SolicitarServicioComponent.prototype.postAltaPublicacion = function () {
         var _this = this;
@@ -120,6 +134,7 @@ var SolicitarServicioComponent = (function () {
             if (this.servicioSeleccionado.Preguntas[i].UnaRespuesta != null && this.servicioSeleccionado.Preguntas[i].UnaRespuesta != "") {
                 var r = new respuesta_1.Respuesta();
                 r.Pregunta.Id = this.servicioSeleccionado.Preguntas[i].Id;
+                r.Pregunta.UnaPregunta = this.servicioSeleccionado.Preguntas[i].UnaPregunta;
                 r.UnaRespuesta = this.servicioSeleccionado.Preguntas[i].UnaRespuesta;
                 this.publicacion.Respuestas.push(r);
             }
@@ -163,11 +178,17 @@ var SolicitarServicioComponent = (function () {
             error.Descripcion = response.Mensaje;
             this.mensajes.Errores.push(error);
         }
+        this.loading = false;
     };
     SolicitarServicioComponent.prototype.getUltimoIdPublicacionClienteError = function (responseError) {
         var error = new error_1.Error();
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
+        this.loading = false;
+    };
+    SolicitarServicioComponent.prototype.finalizarFlujo = function () {
+        //this.loading = true;
+        this.flujoFinalizado = true;
     };
     return SolicitarServicioComponent;
 }());

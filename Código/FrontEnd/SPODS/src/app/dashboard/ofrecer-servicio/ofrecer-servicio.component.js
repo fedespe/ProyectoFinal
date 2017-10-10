@@ -26,6 +26,7 @@ var OfrecerServicioComponent = (function () {
         this.router = router;
         this.mensajes = new mensaje_1.Mensaje();
         this.loading = true;
+        this.flujoFinalizado = false;
         this.servicios = [];
         this.publicacion = new publicacion_1.Publicacion();
         this.servicioSeleccionado = new servicio_1.Servicio();
@@ -87,6 +88,7 @@ var OfrecerServicioComponent = (function () {
         exito.Descripcion = "La publicación ha sido realizada con éxito.";
         this.mensajes.Exitos.push(exito);
         this.step = 1;
+        this.finalizarFlujo();
     };
     OfrecerServicioComponent.prototype.seleccionServicio = function () {
         this.loading = true;
@@ -107,6 +109,7 @@ var OfrecerServicioComponent = (function () {
         utilidades_1.Utilidades.log("[[ofrecer-servicio.component.ts] - obtenerServicioOk | response: " + JSON.stringify(this.servicioSeleccionado));
         if (response.Codigo == 200) {
             this.servicioSeleccionado = response.Objetos[0];
+            this.publicacion.Servicio = this.servicioSeleccionado;
         }
         else {
             var error = new error_1.Error();
@@ -131,6 +134,7 @@ var OfrecerServicioComponent = (function () {
             if (this.servicioSeleccionado.Preguntas[i].UnaRespuesta != null && this.servicioSeleccionado.Preguntas[i].UnaRespuesta != "") {
                 var r = new respuesta_1.Respuesta();
                 r.Pregunta.Id = this.servicioSeleccionado.Preguntas[i].Id;
+                r.Pregunta.UnaPregunta = this.servicioSeleccionado.Preguntas[i].UnaPregunta;
                 r.UnaRespuesta = this.servicioSeleccionado.Preguntas[i].UnaRespuesta;
                 this.publicacion.Respuestas.push(r);
             }
@@ -181,6 +185,10 @@ var OfrecerServicioComponent = (function () {
         error.Descripcion = "Ha ocurrido un error inesperado. Contacte al administrador.";
         this.mensajes.Errores.push(error);
         this.loading = false;
+    };
+    OfrecerServicioComponent.prototype.finalizarFlujo = function () {
+        //this.loading = true;
+        this.flujoFinalizado = true;
     };
     return OfrecerServicioComponent;
 }());

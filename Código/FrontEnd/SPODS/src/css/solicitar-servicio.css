@@ -6,6 +6,25 @@ small{
   color: dimgrey;
 }
 
-input, select, .contenedorProgressBar, .btn-primary{
+input, select, textarea, .contenedorProgressBar, .btn-primary{
   margin-bottom: 20px;
+}
+
+.card{
+  margin-bottom: 10px;
+  background-color: transparent !important;
+}
+.labelDatoPublicacion{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.datoPublicacion {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.cardRespuesta{
+  margin-top: 10px;
+}
+.cardRespuesta+.cardRespuesta{
+  margin-top: 0;
 }

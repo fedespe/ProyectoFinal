@@ -58,7 +58,7 @@ export class VerPerfilUsuarioComponent implements OnInit{
         this.mensajes.Errores = [];
         this.mensajes.Exitos = [];
     }
-    back() {
+    volver() {
         this.location.back();
     }
     getObternerCliente(){
