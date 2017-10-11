@@ -24,4 +24,6 @@ export class ManualUsuarioComponent{
         this.mensajes.Exitos = [];
     }
     
+
+    
 }
