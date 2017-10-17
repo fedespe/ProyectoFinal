@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <h1 class="col-12 text-center">Ofertas de Servicios</h1>
+    <h2 class="col-12 text-center">{{nombreServicio}}</h2>
+
+    <div class="container">
+        <div *ngFor="let publicacion of publicaciones;" class="publicacion">
+                <div class="row">
+                    <div class="col-md-2">
+                        <!--<figure class="figure">-->
+                        <a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]">
+                            <img *ngIf="publicacion.Imagenes.length > 0 && publicacion.Imagenes[0] != ''" src="{{baseURL}}/Imagenes/Ofertas/{{publicacion.Imagenes[0]}}" alt="{{publicacion.Titulo}} - Img. 1" class="img-thumbnail">
+                            <img *ngIf="publicacion.Imagenes.length == 0 || publicacion.Imagenes[0] == ''" src="{{baseURL}}/Imagenes/Ofertas/SinImagen.jpg" alt="{{publicacion.Titulo}} - Sin Imagen" class="img-thumbnail">
+                        </a>
+                            <!--<figcaption class="figure-caption">A caption for the above image.</figcaption>-->
+                        <!--</figure>-->
+                    </div>
+                    <div class="col-md-10">
+                        <a [routerLink]="['/dashboard/ver-publicacion-ofrecida/', publicacion.Id]">
+                            <h3>{{publicacion.Titulo}}</h3>
+                        </a>
+                        <!--<p>{{publicacion.Descripcion}}</p>-->
+                        <p>{{publicacion.Cliente.Barrio.Departamento.Nombre}}</p>
+                        <small>{{publicacion.FechaAlta | date :  "dd/MM/yyyy"}}</small>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+        <div *ngFor="let error of mensajes.Errores;">
+            {{error.Descripcion}}
+        </div>
+    </div>
+
+    <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+        <div *ngFor="let exito of mensajes.Exitos;">
+            {{exito.Descripcion}}
+        </div>
+    </div>
+  </div>
+</div>

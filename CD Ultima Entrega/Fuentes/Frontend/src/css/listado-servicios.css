@@ -1,0 +1,6 @@
+.linkManual:focus,.linkManual:hover{
+    cursor: pointer;
+}
+.linkManual{
+    margin: 4px;
+}

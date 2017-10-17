@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+        <h1 class="text-center col-12">Datos Personales</h1>
+        <div *ngIf="loading" style="text-align: center; width: 100%;">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+
+        <div *ngIf="!loading && cliente" class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">      
+            <div *ngIf="!editarImagen">
+                <div class="text-center contenedorImagen">
+                    <img src="{{baseURL}}/Imagenes/Clientes/{{cliente.Imagen}}" alt="{{cliente.Imagen}}" class="img-rounded" width="150" height="150">
+                    <div class="linkManual" onclick="document.getElementById('moodleform').submit();" (click)="cambiarEditarImagen()"><i class="fa fa-pencil" aria-hidden="true"></i> Editar imagen</div>
+                </div>
+
+                <label for="inputNombre">Nombre:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Nombre" id="inputNombre" name="Nombre" placeholder="Nombre">
+
+                <label for="inputApellido">Apellido:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Apellido" id="inputApellido" name="Apellido" placeholder="Apellido">
+                
+                <label for="inputTelefono">Teléfono:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Telefono" id="inputTelefono" name="Telefono" placeholder="Teléfono">
+                
+                <label for="inputDireccion">Dirección:</label>
+                <input type="text" class="form-control" [(ngModel)]="cliente.Direccion" id="inputDireccion" name="Direccion" placeholder="Dirección">
+
+                <!--Combo desplegable para barrio-->
+                <label for="selectBarrio">Barrio:</label>
+                <select id="selectBarrio" class="form-control" [(ngModel)]="cliente.Barrio.Id" name="Barrio">
+                    <option value="0">Seleccione un Barrio</option>
+                    <option *ngFor="let barrio of barrios;" [value]="barrio.Id">{{barrio.Nombre}}</option>
+                </select>
+
+                <div style="margin-bottom: 20px">
+                    <a routerLink="/mi-cuenta/cambiar-contrasena-usuario"><i class="fa fa-lock" aria-hidden="true"></i> Cambiar contraseña</a>
+                </div>
+                
+                <button class="btn btn-lg btn-primary btn-block" (click)="actualizarCliente()">Guardar</button> 
+            </div>
+
+            <div [hidden]="!editarImagen">
+                <div class="alert alert-info">
+                    <strong>Selección de imagen.</strong> La carga de selección de la imagen puede demorar unos segundos.
+                </div>
+                <form id="moodleform" target="iframe" method="get" action="{{urlImagen}}">
+                <!--NO SE POR QUE EN LA CONTRASE;A ANDA BIEN ANGULAR PERO EN EL IDCLIENTE NO... LO SETEE A MANO DESDE TYPESCRIPT-->
+                <!--VER QUE NO SE CONTROLA EL CLIENTE -->
+                <input type="hidden" name="idCliente" id="inputIdCliente" value="{{cliente.Id}}" />
+                <input type="hidden" name="contrasena" value="11111111"/>
+                </form>
+                <iframe name="iframe" width=100% height=350 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
+                <button class="btn btn-lg btn-danger btn-block" (click)="cambiarEditarImagen()">Cancelar</button>
+            </div>
+        </div>
+
+        <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+                <div *ngFor="let error of mensajes.Errores;">
+                    {{error.Descripcion}}
+                </div>
+            </div>
+
+            <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+                <div *ngFor="let exito of mensajes.Exitos;">
+                    {{exito.Descripcion}}
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,126 @@
+﻿@model AdministradoresWeb.ViewModel.OfertaViewModel.IngresarImagenesViewModel
+@{
+    ViewBag.Title = "IngresarImagenes";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/oferta-imagenes.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div>
+            @*<h2>IngresarImagen</h2>*@
+            @using (Html.BeginForm("IngresarImagenes", "Oferta", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                //Seguridad
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(x => x.IdPublicacion)
+                @Html.HiddenFor(x => x.IdCliente)
+                @Html.HiddenFor(x => x.Contrasena)
+                @Html.HiddenFor(x => x.Titulo)
+
+                //Lista de errores
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                //************************************************************************
+                //MANEJO DE IMAGENES
+                //************************************************************************
+                @Html.HiddenFor(x => x.Img1Anterior)
+                @Html.HiddenFor(x => x.Img2Anterior)
+                @Html.HiddenFor(x => x.Img3Anterior)
+                @Html.HiddenFor(x => x.Img4Anterior)
+                @Html.HiddenFor(x => x.Img5Anterior)
+                     
+                <div class="col-xs-12">
+                @{
+                    var contador = 1;
+                    @*<h3>Selección de imágenes</h3>*@
+                    foreach (var i in Model.publicacion.Imagenes)
+                    {
+                    var s = "Archivo" + contador;
+                    var s1 = "ImgArchivo" + contador;
+                    var s3 = "EliminarArchivo" + contador;
+                    <div class="col-xs-4 col-md-2" style="padding:10px;">
+                        <div class="thumbnail" style="cursor: pointer; ">
+                            <img src=@("/Imagenes/Ofertas/" + i) id="@s1" onclick="$(@s).click()" style="width:125px; height:125px;" />
+                            <div class="caption">
+                                <label class="checkbox-inline">
+                                    <input class="check-box" data-val="true" data-val-required="El campo EliminarArchivo1 es obligatorio." id="@s3" name="@s3" type="checkbox" value="true" />
+                                    Eliminar
+                                </label>
+                                <input name="@s3" type="hidden" value="false" />
+                            </div>
+                        </div>
+                    </div>
+                    contador++;
+                    }
+                    for (var i = Model.publicacion.Imagenes.Count + 1; i <= 5; i++)
+                    {
+                    var s = "Archivo" + @i;
+                    var s1 = "ImgArchivo" + @i;
+                    var s3 = "EliminarArchivo" + @i;
+                    <div class="col-xs-4 col-md-2" style="padding:10px;">
+                        <div class="thumbnail" style="cursor: pointer;">
+                            <img src=@("/Imagenes/Ofertas/SinImagen.jpg") id="@s1" onclick="$(@s).click()" style="width:125px; height:125px;" />
+                            <div class="caption">
+                                <label class="checkbox-inline">
+                                    <input class="check-box" data-val="true" data-val-required="El campo EliminarArchivo1 es obligatorio." id="@s3" name="@s3" type="checkbox" value="true" />
+                                    Eliminar
+                                </label>
+                                <input name="@s3" type="hidden" value="false" />
+                            </div>
+                        </div>
+                    </div>
+                        }
+                    }
+                </div>
+                    
+                <input type="file" style="display:none;" name="Archivo1" id="Archivo1" onchange="$(mostrarImagen(this));">
+                <input type="file" style="display:none;" name="Archivo2" id="Archivo2" onchange="$(mostrarImagen(this));">
+                <input type="file" style="display:none;" name="Archivo3" id="Archivo3" onchange="$(mostrarImagen(this));">
+                <input type="file" style="display:none;" name="Archivo4" id="Archivo4" onchange="$(mostrarImagen(this));">
+                <input type="file" style="display:none;" name="Archivo5" id="Archivo5" onchange="$(mostrarImagen(this));">
+
+                <div class="clearfix"></div>
+                //************************************************************************
+                //FIN MANEJO DE IMAGENES
+                //************************************************************************
+
+
+
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <div class="alert alert-info" role="alert">Seleccione las imagenes para la publicación. Guarde los cambios realizados antes de finalizar.</div>
+                    </div>
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-primary" style="width:100%;">
+                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Guardar
+                        </button>
+                    </div>
+                </div>
+
+                }
+            </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
+
+
+

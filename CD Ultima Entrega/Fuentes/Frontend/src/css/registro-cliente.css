@@ -1,0 +1,58 @@
+.paddingMenu{
+    padding-top:45px;
+ 
+    /*background-color: #eee;
+    background-image: url("./img/back-registro-cliente.jpg");
+    background-size: cover;
+    display: table;
+    width: 99.99%;
+    height: 96%;
+    min-height: 96%;*/
+}
+
+h1{
+  text-align: center;
+  text-shadow: -1px -1px 1px #FFF, 1px 1px 1px #FFF, -1px 1px 1px #FFF, 1px -1px 1px #FFF;
+}
+
+b{
+  color: #0275d8;
+}
+
+small{
+  color: dimgrey;
+}
+
+input, select, .contenedorProgressBar, .btn-primary{
+  margin-bottom: 20px;
+}
+
+input, button, select, .alert{
+  border-radius: 0px;
+}
+
+h1 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 30px "Lato", sans-serif;
+  color: #111;
+}
+
+
+#contenedorTerminos{
+  margin-bottom: 20px;
+}
+
+#labelTerminosAceptados{
+  margin-bottom: 0;
+}
+
+#inputTerminosAceptados{
+  margin-bottom: 0;
+}
+
+#linkTerminos{
+  display:block;
+  margin: 0;
+  padding: 0;
+}

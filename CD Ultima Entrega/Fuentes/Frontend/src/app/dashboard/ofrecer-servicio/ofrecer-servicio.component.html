@@ -1,0 +1,129 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <h1 class="col-12 text-center">Ofrecer Servicio</h1>
+
+        <div class="col-md-6 col-lg-8 col-xl-6">
+            <h2>{{publicacion.Cliente.NombreUsuario}}</h2>
+
+            <div [hidden]="step != 1">
+                <div class="contenedorProgressBar">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                <b><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Paso 1</b>
+                            </div>
+                            <div class="col" style="text-align: center">
+                                <small>Paso 2</small>
+                            </div>
+                            <div class="col" style="text-align: center">
+                                <small>Paso 3</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%"></div>
+                    </div>
+                </div>
+                <!--Combo desplegable para barrio-->
+                <label for="selectServicio" class="sr-only">Servicio:</label>
+                <select id="selectServicio" class="form-control" [(ngModel)]="publicacion.Servicio.Id" name="Servicio" (ngModelChange)="seleccionServicio()">
+                    <option value="0" >Seleccione un Servicio</option>
+                    <option *ngFor="let servicio of servicios;" [value]="servicio.Id">{{servicio.Nombre}}</option>
+                </select>
+
+                <label for="inputTitulo" class="sr-only">Título:</label>
+                <input type="text" class="form-control" [(ngModel)]="publicacion.Titulo" id="inputTitulo" name="Titulo" placeholder="Título">
+
+                <label for="inputDescripcion" class="sr-only">Descripción:</label>
+                <input type="text" class="form-control" [(ngModel)]="publicacion.Descripcion" id="inputDescripcion" name="Descripcion" placeholder="Descripción">
+        
+                <button class="btn btn-lg btn-primary btn-block" (click)="ofrecerServicioPaso1()">Siguiente</button>
+            </div> 
+            
+            <div [hidden]="step != 2">
+                <div class="contenedorProgressBar">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                            <small> Paso 1</small>
+                            </div>
+                            <div class="col" style="text-align: center">
+                                <b><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Paso 2</b>
+                            </div>
+                            <div class="col" style="text-align: center">
+                                <small>Paso 3</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%"></div>
+                    </div>
+                </div>  
+                <div class="alert alert-info">
+                    <strong>Las respuestas no son obligatorias.</strong> Las preguntas no contestadas no se tomaran en cuenta en la publicación.
+                </div>
+
+                <div *ngIf="servicioSeleccionado.Preguntas.length > 0">
+                    <div *ngFor="let pregunta of servicioSeleccionado.Preguntas;">           
+                        <label for="input{{pregunta.Id}}">{{pregunta.UnaPregunta}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="pregunta.UnaRespuesta" id="input{{pregunta.Id}}" name="Respuestainput{{pregunta.Id}}" placeholder="Respuesta...">   
+                    </div>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" (click)="ofrecerServicioPaso2()">Siguiente</button>
+                <button class="btn btn-lg btn-secondary btn-block" (click)="volverPaso1()" >Anterior</button>
+                <button onclick="document.getElementById('moodleform').submit();" id="mostrarImagenes" style="display: none"></button>
+            </div>
+
+            <div [hidden]="step != 3">
+                <div class="contenedorProgressBar">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                <small>Paso 1</small>
+                            </div>
+                            <div class="col" style="text-align: center">
+                                <small>Paso 2</small>
+                            </div>
+                            <div class="col" style="text-align: center">
+                                <b><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Paso 3</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="alert alert-info">
+                    <strong>Selección de imágenes.</strong> La carga de selección de imágenes puede demorar unos segundos.
+                </div>
+                <!--<button class="btn btn-lg btn-primary " id="btnFrame" onclick="document.getElementById('moodleform').submit();">Prueba</button>-->
+                <form id="moodleform" target="iframe" method="get" action="{{urlImagen}}">
+                    <input type="hidden" name="idPublicacion" id="inputIdPublicacion"/>
+                    <input type="hidden" name="idCliente" value="3"/>
+                    <input type="hidden" name="contrasena" value="123456789"/>
+                </form>
+                
+                <iframe name="iframe" width=100% height=600 scrolling="no" marginwidth=0 marginheight=0 frameborder=0></iframe>
+                
+                <button class="btn btn-lg btn-primary btn-block" (click)="ofrecerServicioPaso3()">Finalizar</button>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+                <div *ngFor="let error of mensajes.Errores;">
+                    {{error.Descripcion}}
+                </div>
+            </div>
+
+            <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+                <div *ngFor="let exito of mensajes.Exitos;">
+                    {{exito.Descripcion}}
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+
+
+

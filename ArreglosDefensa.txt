@@ -1,0 +1,30 @@
+Requerimientos con prioridad e impacto
+Redacción en los sprints. Está la información pero desordenada.
+	Contraste entre reunion de planing y realidad
+Requerimientos no funcionales
+	Seguridad y alguna otra cosa. Solo hay referentes al proyecto.
+	Responsivo.
+	Usabilidad, es intuitivo.
+Conclusiones en capítulo propio.
+	Lecciones aprendidas
+	Oportunidades de mejora
+Los riesgos solo se identifican al principio
+	No están los que no se presentaron.
+Inconcistencias en la documentación
+	Al final se habla de que no dio tiempo para app mobi pero parecia estar descartada.
+Las encuestas podrían tener más peso.
+	Encuestas en el anexo pero gráficas o similares al comienzo para poner de donde salieron los requerimientos.
+Más rigurosos en contar qué ya existe.
+	Mercadolibre, freelancer o similares.
+	buenosprofesionales.com
+	Alguna tabla con qué quiere y cuales lo tienen.
+Investigar el negocio. Cómo se va a hacer plata con esto?
+	Pasarela de pagos
+En inglés va en italica, despues de dos puntos va minuscula.
+	Formato 302, nos lo va a pasar ¨Shirley¨
+En conclusiones, poener alguna otra gráfica.
+
+
+
+
+Se cambia la documentación sin importar?

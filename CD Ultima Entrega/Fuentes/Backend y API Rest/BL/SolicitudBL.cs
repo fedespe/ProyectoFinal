@@ -1,0 +1,84 @@
+﻿using DAL;
+using ET;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BL
+{
+    public class SolicitudBL
+    {
+        private SolicitudDAL solicitudDAL = new SolicitudDAL();
+
+        //Alta solicitud es realizada por altaPublicacion en PublicacionBL.
+        //Actualizar solicitud es realizada por actualizarPublicacion en PublicacionBL
+
+        
+        public List<Solicitud> obtenerSolicitudesCliente(int idCliente)
+        {
+            return solicitudDAL.obtenerSolicitudesCliente(idCliente);
+        }
+        public List<Solicitud> obtenerSolicitudesAceptadas(int idClienteAceptado)
+        {
+            return solicitudDAL.obtenerSolicitudesAceptadas(idClienteAceptado);
+        }
+        
+
+
+        //VER VALIDACIONES
+        private void validarSolicitud(Solicitud solicitud)
+        {
+            if (solicitud.Titulo.Length < 3)
+            {
+                throw new ProyectoException("Error: Título debe contener al menos 3 caracteres");
+            }
+            if (solicitud.Imagenes == null)
+            {
+                throw new ProyectoException("Error: La publicación debe tener al menos una imagen");
+            }
+        }
+
+        //PRESUPUESTO
+        public void altaPresupuesto(Presupuesto presupuesto)
+        {
+            validarPresupuesto(presupuesto);
+            solicitudDAL.altaPresupuesto(presupuesto);
+        }
+        public List<Presupuesto> obtenerPresupuestos(int idPublicacion)
+        {
+            return solicitudDAL.obtenerPresupuestos(idPublicacion);
+        }
+        //Acepta presupuesto, da por terminada la publicacion!
+        public void aceptarPresupuesto(Presupuesto presupuesto)
+        {
+            validarAceptarPresupuesto(presupuesto);
+            solicitudDAL.aceptarPresupuesto(presupuesto);
+        }
+        private void validarPresupuesto(Presupuesto presupuesto)
+        {
+            if (presupuesto.Cliente==null || presupuesto.Cliente.Id==0)
+            {
+               throw new ProyectoException("Error: Cliente");
+            }
+            if (presupuesto.Solicitud==null || presupuesto.Solicitud.Id == 0)
+            {
+                throw new ProyectoException("Error: Solicitud");
+            }
+        }
+        private void validarAceptarPresupuesto(Presupuesto presupuesto)
+        {
+            if (presupuesto == null || presupuesto.Id == 0)
+            {
+                throw new ProyectoException("Error: Presupuesto");
+            }
+            if (presupuesto.Solicitud == null || presupuesto.Solicitud.Id == 0)
+            {
+                throw new ProyectoException("Error: Solicitud");
+            }
+        }
+
+
+    }
+}
