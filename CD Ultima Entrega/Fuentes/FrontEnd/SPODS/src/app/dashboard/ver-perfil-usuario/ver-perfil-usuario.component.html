@@ -1,0 +1,221 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <a class="linkManual" (click)="volver()">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+            </a>
+        </div>
+        <h1 class="col-12 titulo">Perfil de Usuario</h1>
+       
+        <div *ngIf="loading" style="text-align: center; width: 100%;">
+            <img src="../../img/loading.gif" class="loading"/>
+        </div>
+        
+        <div *ngIf="!loading && cliente" class="col-12">
+            <div class="row">
+                <!-- Imagen y Promedio -->
+                <div class="col-lg-4">
+                    <!-- Imagen Cliente -->
+                    <div class="contenedorImagen">
+                        <img src="{{baseURL}}/Imagenes/Clientes/{{cliente.Imagen}}" alt="{{cliente.Imagen}}" class="img-rounded" width="150" height="150">
+                    </div>
+                    <!-- Promedio Cliente -->
+                    <div *ngIf="promedioCliente != undefined" class="contenedorPromedio">
+                        <div>
+                            <rating
+                                [(ngModel)]="promedioCliente"
+                                [readonly]="true">
+                            </rating>
+                        </div>
+                        <div *ngIf="promedioCliente > 0">
+                                Puntuación Promedio: {{promedioCliente}} <span *ngIf="promedioCliente == 1">Estrellas</span><span *ngIf="promedioCliente > 1">Estrellas</span>
+                                <small style="display:block;">La calificación corresponde al promedio de los puntajes que han otorgado otros usuarios por las ofertas realizadas.</small>
+                        </div>
+                        <div *ngIf="promedioCliente == 0">
+                            <p>
+                                El usuario aún no ha sido calificado en ninguna oferta realizada.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Datos Personales -->
+                <div class="contenedorDatos col-lg-8">
+                    <div class="card">
+                        <div class="card-header labelDatoUsuario">
+                            Nombre
+                        </div>
+                        <div class="card-block datoUsuario">
+                            {{cliente.Nombre}}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header labelDatoUsuario">
+                            Apellido
+                        </div>
+                        <div class="card-block datoUsuario">
+                            {{cliente.Apellido}}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header labelDatoUsuario">
+                            Correo Electrónico
+                        </div>
+                        <div class="card-block datoUsuario">
+                            {{cliente.CorreoElectronico}}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header labelDatoUsuario">
+                            Teléfono
+                        </div>
+                        <div class="card-block datoUsuario">
+                            {{cliente.Telefono}}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header labelDatoUsuario">
+                            Dirección
+                        </div>
+                        <div class="card-block datoUsuario">
+                            {{cliente.Direccion}}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header labelDatoUsuario">
+                            Barrio
+                        </div>
+                        <div class="card-block datoUsuario">
+                            {{cliente.Barrio.Nombre}}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header labelDatoUsuario">
+                            Departamento
+                        </div>
+                        <div class="card-block datoUsuario">
+                            {{cliente.Barrio.Departamento.Nombre}}
+                        </div>
+                    </div>
+                </div>
+                <!-- Comentarios -->
+                <div class="col-12">
+                    <!-- Ofertas -->
+                    <div id="accordionComentariosOfertas" role="tablist" aria-multiselectable="true">
+                        <div class="card">
+                            <div class="card-header linkManual" role="tab" id="tituloComentariosOfertas" data-toggle="collapse" data-parent="#accordionComentariosOfertas" href="#collapseComentariosOfertas" aria-expanded="true" aria-controls="collapseComentariosOfertas">
+                                <h5 class="mb-0">
+                                    Puntuación individual por oferta
+                                </h5>
+                            </div>
+                            <div id="collapseComentariosOfertas" class="collapse" role="tabpanel" aria-labelledby="tituloComentariosOfertas">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div *ngIf="!comentariosPuntuacionOferta || comentariosPuntuacionOferta.length == 0">
+                                            No existen registros de calificaciones de este tipo para mostrar.
+                                        </div>
+                                        <div class="col-lg-6" *ngFor="let comentario of comentariosPuntuacionOferta;">
+                                            <div  class="card card-outline-primary mb-3">
+                                                <div class="card-block">
+                                                    <blockquote class="card-blockquote">
+                                                        <p class="nombreServicio">
+                                                            Servicio: {{comentario.Publicacion.Servicio.Nombre}}
+                                                        </p>
+                                                        <div>Puntuación: 
+                                                            <rating
+                                                                [(ngModel)]="comentario.Puntuacion"
+                                                                [readonly]="true">
+                                                            </rating>
+                                                        </div>
+                                                        <div>
+                                                            <i class="fa fa-commenting-o" aria-hidden="true"></i> {{comentario.Comentario}}
+                                                        </div>
+                                                        <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
+                                                            <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
+                                                        </div>
+                                                        <div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && cliente.Id==idUsuario" class="respuesta">
+                                                            <div class="linkManual" (click)="responderComentarioOferta(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
+                                                        </div>   
+                                                        <div id="respuestaOferta{{comentario.Id}}" hidden="hidden" class="respuesta"> 
+                                                            <label for="inputRespuesta" class="sr-only">Respuesta:</label>
+                                                            <textarea maxlength="300" rows="5" class="form-control" id="txtRespuestaOferta{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                                                            <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuestaOferta{{comentario.Id}}" (click)="guardarRespuestaOferta(comentario.Id)">Responder</button>
+                                                        </div>                                     
+                                                    </blockquote>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Solicitudes -->
+                    <div id="accordionComentariosSolicitudes" role="tablist" aria-multiselectable="true">
+                        <div class="card">
+                            <div class="card-header linkManual" role="tab" id="tituloComentariosSolicitudes" data-toggle="collapse" data-parent="#accordionComentariosSolicitudes" href="#collapseComentariosSolicitudes" aria-expanded="true" aria-controls="collapseComentariosSolicitudes">
+                                <h5 class="mb-0">
+                                    Puntuación individual por solicitud
+                                </h5>
+                            </div>
+                            <div id="collapseComentariosSolicitudes" class="collapse" role="tabpanel" aria-labelledby="tituloComentariosSolicitudes">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div *ngIf="!comentariosPuntuacionSolicitud || comentariosPuntuacionSolicitud.length == 0">
+                                            No existen registros de calificaciones de este tipo para mostrar.
+                                        </div>
+                                        <div class="col-lg-6" *ngFor="let comentario of comentariosPuntuacionSolicitud;">
+                                            <div  class="card card-outline-primary mb-3">
+                                                <div class="card-block">
+                                                    <blockquote class="card-blockquote">
+                                                        <p class="nombreServicio">
+                                                            Servicio: {{comentario.Publicacion.Servicio.Nombre}}
+                                                        </p>
+                                                        <div>Puntuación: 
+                                                            <rating
+                                                                [(ngModel)]="comentario.Puntuacion"
+                                                                [readonly]="true">
+                                                            </rating>
+                                                        </div>
+                                                        <div>
+                                                            <i class="fa fa-commenting-o" aria-hidden="true"></i> {{comentario.Comentario}}
+                                                        </div>
+                                                        <div *ngIf="comentario.Respuesta!=null && comentario.Respuesta!=''" class="respuesta">
+                                                            <i class="fa fa-commenting" aria-hidden="true"></i> {{comentario.Respuesta}} 
+                                                        </div>
+                                                        <div *ngIf="(comentario.Respuesta==null || comentario.Respuesta=='') && cliente.Id==idUsuario" class="respuesta">
+                                                            <div class="linkManual" (click)="responderComentarioSolicitud(comentario.Id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Responder</div> 
+                                                        </div>
+                                                        <div id="respuestaSolicitud{{comentario.Id}}" hidden="hidden" class="respuesta"> 
+                                                            <label for="inputRespuesta" class="sr-only">Respuesta:</label>
+                                                            <textarea maxlength="300" rows="5" class="form-control" id="txtRespuestaSolicitud{{comentario.Id}}" name="Respuesta" placeholder="Respuesta..."></textarea>
+                                                            <button type="button" class="btn btn-primary btn-block" id="btnGuardarRespuestaSolicitud{{comentario.Id}}" (click)="guardarRespuestaSolicitud(comentario.Id)">Responder</button>
+                                                        </div>
+                                                    </blockquote>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <div *ngIf="mensajes.Errores.length > 0" class="alert alert-danger errores">
+                <div *ngFor="let error of mensajes.Errores;">
+                    {{error.Descripcion}}
+                </div>
+            </div>
+
+            <div *ngIf="mensajes.Exitos.length > 0" class="alert alert-success exitos">
+                <div *ngFor="let exito of mensajes.Exitos;">
+                    {{exito.Descripcion}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

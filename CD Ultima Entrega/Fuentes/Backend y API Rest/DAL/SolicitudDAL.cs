@@ -194,7 +194,7 @@ namespace DAL
         public List<Solicitud> obtenerSolicitudesCliente(int idCliente)
         {
             List<Solicitud> solicitudes = new List<Solicitud>();
-            string cadenaSelectSolicitudesAceptadas = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Id as IdClienteContacto, u.NombreUsuario as NombreClienteContacto, p.ClienteId as ClienteIdPublicacion,* from PUBLICACION p left join PRESUPUESTO pr on p.Id=pr.PublicacionId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=pr.ClienteId left join SERVICIO s on s.Id=p.ServicioId Where p.ClienteId= @idCliente AND p.Tipo='SOLICITUD' ORDER BY p.Id desc;";
+            string cadenaSelectSolicitudesAceptadas = "Select p.Id as IdPublicacion, i.Imagen as Imagen, s.Nombre as ServicioNombre, u.Id as IdClienteContacto, u.NombreUsuario as NombreClienteContacto, p.ClienteId as ClienteIdPublicacion,* from PUBLICACION p left join PRESUPUESTO pr on p.Id=pr.PublicacionId left join PUBLICACIONIMAGEN i on i.PublicacionId=p.Id left join USUARIO u on u.Id=pr.ClienteId left join SERVICIO s on s.Id=p.ServicioId Where p.ClienteId= @idCliente AND p.Tipo='SOLICITUD' ORDER BY p.Id desc, pr.Aceptado desc;";
             try
             {
                 using (SqlConnection con = new SqlConnection(Utilidades.conn))

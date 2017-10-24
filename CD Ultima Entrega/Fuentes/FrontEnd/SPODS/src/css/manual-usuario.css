@@ -1,0 +1,11 @@
+.titulo {
+text-align: center;
+}
+.card{
+
+background-color: transparent !important;
+}
+.linkManual{
+margin-right: 0;
+margin-left: 0;
+}

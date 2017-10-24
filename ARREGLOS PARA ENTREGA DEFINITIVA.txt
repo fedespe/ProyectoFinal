@@ -1,10 +1,13 @@
 ARREGLOS OBLIGATORIOS
+*Cambiar las fuentes (por que se realizaron cambios antes de la defensa)
+ HECHO. MIRAR POR LAS DUDAS.
 
 *Arreglar indice
 
 *Atender a comentarios de formato del 302
 
 *Comentar y fundamentar con graficas en el anteproyecto parte de encuestas
+ HECHO
 
 *Agregar anexo o capitulo sobre otras plataformas similares 
  HECHO. VER SI COMENTAMOS ALGO MAS.
@@ -14,6 +17,8 @@ ARREGLOS OBLIGATORIOS
 
 *Agregar requerimientos no funcionales de producto
  SE AGREGARON ALGUNOS AL ANTEPROYECTO, FALTA VER SI HAY MAS Y AGREGAR TODOS A LAS CONLUSIONES
+
+*Verificar que todos los ver anexo (numero) esten bien, ya que se cambió la numeración del indice.
 
 ACOTACIONES DE LA DEFENSA
 
